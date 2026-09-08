@@ -1,0 +1,534 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800;900&family=Zain:wght@200;300;400;700;800;900&display=swap');
+
+:root {
+  /* ==========================================================================
+     THEME 1: شروق الصحراء الدافئ (Desert Sunrise - Terracotta & Warm Sand)
+     ========================================================================== */
+  --primary: #9C3D32;
+  --primary-light: #B84E42;
+  --primary-dark: #73281F;
+  --secondary: #D29571;
+  --secondary-soft: #E5B498;
+  --accent: #9C3D32;
+  --accent-gold: #D29571;
+  --bg-color: #F3E9DD;
+  --card-bg: #FFFDFB;
+  --card-border: rgba(156, 61, 50, 0.15);
+  --text-main: #2A1612;
+  --text-muted: #755953;
+  --surface-trans: rgba(156, 61, 50, 0.08);
+  --surface-trans-active: rgba(156, 61, 50, 0.16);
+  --glass-bg: rgba(243, 233, 221, 0.92);
+  --glass-border: rgba(156, 61, 50, 0.18);
+  --shadow-sm: 0 4px 14px rgba(42, 22, 18, 0.06);
+  --shadow-md: 0 10px 25px rgba(42, 22, 18, 0.10);
+  --shadow-lg: 0 20px 40px rgba(42, 22, 18, 0.16);
+  --radio-card-gradient: linear-gradient(135deg, #2b120e 0%, #240E0A 55%, #361712 100%);
+  --radio-card-border: rgba(210, 149, 113, 0.45);
+  --radio-card-shadow: 0 14px 35px rgba(36, 14, 10, 0.35);
+  --player-bg: rgba(42, 22, 18, 0.97);
+  --player-text: #ffffff;
+  --theme-name: 'desert_sunrise';
+
+  /* Typography Dynamic Variables */
+  --app-font-family: 'Zain', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --app-base-font-size: 16px;
+}
+
+[data-theme='desert_sunrise'] {
+  --primary: #9C3D32;
+  --primary-light: #B84E42;
+  --primary-dark: #73281F;
+  --secondary: #D29571;
+  --secondary-soft: #E5B498;
+  --accent: #9C3D32;
+  --accent-gold: #D29571;
+  --bg-color: #F3E9DD;
+  --card-bg: #FFFDFB;
+  --card-border: rgba(156, 61, 50, 0.15);
+  --text-main: #2A1612;
+  --text-muted: #755953;
+  --surface-trans: rgba(156, 61, 50, 0.08);
+  --surface-trans-active: rgba(156, 61, 50, 0.16);
+  --glass-bg: rgba(243, 233, 221, 0.92);
+  --glass-border: rgba(156, 61, 50, 0.18);
+  --shadow-sm: 0 4px 14px rgba(42, 22, 18, 0.06);
+  --shadow-md: 0 10px 25px rgba(42, 22, 18, 0.10);
+  --shadow-lg: 0 20px 40px rgba(42, 22, 18, 0.16);
+  --radio-card-border: rgba(210, 149, 113, 0.45);
+  --radio-card-shadow: 0 14px 35px rgba(36, 14, 10, 0.35);
+  --player-bg: rgba(42, 22, 18, 0.97);
+  --player-text: #ffffff;
+  --theme-name: 'desert_sunrise';
+}
+
+[data-theme='sage_copper'] {
+  /* ==========================================================================
+     THEME 2: واحة المرمية والنحاس (Sage & Copper Oasis)
+     ========================================================================== */
+  --primary: #2B5A3C;
+  --primary-light: #3E7854;
+  --primary-dark: #1A3C26;
+  --secondary: #C7885D;
+  --secondary-soft: #DCAC88;
+  --accent: #2B5A3C;
+  --accent-gold: #C7885D;
+  --bg-color: #DEEAE0;
+  --card-bg: #FFFFFF;
+  --card-border: rgba(43, 90, 60, 0.15);
+  --text-main: #132619;
+  --text-muted: #4F6755;
+  --surface-trans: rgba(43, 90, 60, 0.08);
+  --surface-trans-active: rgba(43, 90, 60, 0.16);
+  --glass-bg: rgba(222, 234, 224, 0.92);
+  --glass-border: rgba(43, 90, 60, 0.18);
+  --shadow-sm: 0 4px 14px rgba(19, 38, 25, 0.06);
+  --shadow-md: 0 10px 25px rgba(19, 38, 25, 0.10);
+  --shadow-lg: 0 20px 40px rgba(19, 38, 25, 0.16);
+  --radio-card-gradient: linear-gradient(135deg, #132E1E 0%, #0A1C12 55%, #050E09 100%);
+  --radio-card-border: rgba(199, 136, 93, 0.45);
+  --radio-card-shadow: 0 14px 35px rgba(10, 28, 18, 0.35);
+  --player-bg: rgba(19, 38, 25, 0.97);
+  --player-text: #ffffff;
+  --theme-name: 'sage_copper';
+}
+
+[data-theme='deep_ocean'] {
+  /* ==========================================================================
+     THEME 3: أعماق المحيط الفيروزي (Deep Ocean & Cyan)
+     ========================================================================== */
+  --primary: #0C4A6E;
+  --primary-light: #0369A1;
+  --primary-dark: #082F49;
+  --secondary: #0EA5E9;
+  --secondary-soft: #7DD3FC;
+  --accent: #0C4A6E;
+  --accent-gold: #38BDF8;
+  --bg-color: #D5E5F0;
+  --card-bg: #FFFFFF;
+  --card-border: rgba(12, 74, 110, 0.15);
+  --text-main: #082333;
+  --text-muted: #476B82;
+  --surface-trans: rgba(12, 74, 110, 0.08);
+  --surface-trans-active: rgba(12, 74, 110, 0.16);
+  --glass-bg: rgba(213, 229, 240, 0.92);
+  --glass-border: rgba(12, 74, 110, 0.18);
+  --shadow-sm: 0 4px 14px rgba(8, 35, 51, 0.06);
+  --shadow-md: 0 10px 25px rgba(8, 35, 51, 0.10);
+  --shadow-lg: 0 20px 40px rgba(8, 35, 51, 0.16);
+  --radio-card-gradient: linear-gradient(135deg, #09263A 0%, #051825 55%, #020C13 100%);
+  --radio-card-border: rgba(14, 165, 233, 0.45);
+  --radio-card-shadow: 0 14px 35px rgba(5, 24, 37, 0.35);
+  --player-bg: rgba(8, 35, 51, 0.97);
+  --player-text: #ffffff;
+  --theme-name: 'deep_ocean';
+}
+
+[data-theme='midnight_calm'] {
+  /* ==========================================================================
+     THEME 4: السحر الليلي الهادئ (Midnight Calm - High-End Dark Mode)
+     ========================================================================== */
+  --primary: #F59E0B;
+  --primary-light: #FBBF24;
+  --primary-dark: #D97706;
+  --secondary: #38BDF8;
+  --secondary-soft: #7DD3FC;
+  --accent: #F59E0B;
+  --accent-gold: #FCD34D;
+  --bg-color: #0C1017;
+  --card-bg: #151C28;
+  --card-border: rgba(245, 158, 11, 0.18);
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --surface-trans: rgba(245, 158, 11, 0.10);
+  --surface-trans-active: rgba(245, 158, 11, 0.20);
+  --glass-bg: rgba(12, 16, 23, 0.92);
+  --glass-border: rgba(245, 158, 11, 0.22);
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 24px 50px rgba(0, 0, 0, 0.85);
+  --radio-card-gradient: linear-gradient(135deg, #182234 0%, #0F1622 55%, #070B12 100%);
+  --radio-card-border: rgba(245, 158, 11, 0.45);
+  --radio-card-shadow: 0 14px 35px rgba(0, 0, 0, 0.6);
+  --player-bg: rgba(15, 22, 34, 0.98);
+  --player-text: #ffffff;
+  --theme-name: 'midnight_calm';
+}
+
+/* Font Families Modifiers */
+[data-font='zain'] {
+  --app-font-family: 'Zain', sans-serif;
+}
+[data-font='cairo'] {
+  --app-font-family: 'Cairo', sans-serif;
+}
+[data-font='amiri'] {
+  --app-font-family: 'Amiri', serif;
+}
+
+/* Font Sizes Modifiers */
+[data-font-size='small'] {
+  --app-base-font-size: 14.5px;
+}
+[data-font-size='medium'] {
+  --app-base-font-size: 16px;
+}
+[data-font-size='large'] {
+  --app-base-font-size: 17.5px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* PREVENT DRAGGING & DOWNLOADING OF ANY IMAGE OR ICON */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto;
+}
+
+body {
+  font-family: var(--app-font-family);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  direction: rtl;
+  overflow-x: hidden;
+  min-height: 100vh;
+  transition: background-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.35s ease;
+  line-height: 1.5;
+  font-size: var(--app-base-font-size);
+  padding-bottom: 175px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 10px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--app-font-family);
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.quran-text {
+  font-family: 'Amiri', serif;
+  line-height: 2.2;
+}
+
+/* =========================================================
+   ULTRA-RICH TOP NAVIGATION BAR (GLASSMORPHISM & CUSTOM ICONS)
+   ========================================================= */
+.premium-top-bar {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 18px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.top-bar-main-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.greeting-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-avatar img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.greeting-text-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-title {
+  font-size: 21px;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.2;
+}
+
+.leaf-decor-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  animation: leafFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes leafFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-3px) rotate(8deg); }
+}
+
+.welcome-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.sub-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #2ed573;
+  box-shadow: 0 0 6px #2ed573;
+}
+
+.top-bar-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Custom Icon Button in Top Bar */
+.top-custom-icon-btn {
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 8px;
+  position: relative;
+}
+
+.top-custom-icon-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.top-custom-icon-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.top-custom-icon-btn:hover img {
+  transform: scale(1.15);
+}
+
+.top-custom-icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* Top Bar Dynamic Spiritual Banner Strip */
+.top-bar-spiritual-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: rgba(214, 173, 96, 0.12);
+  border: 2px dashed rgba(214, 173, 96, 0.35);
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.spiritual-strip-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.spiritual-strip-left img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.spiritual-strip-time {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+/* =========================================================
+   FLOATING GLASS BOTTOM NAVIGATION BAR WITH CUSTOM ICONS
+   ========================================================= */
+.bottom-nav {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 480px;
+  height: 70px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 2px solid var(--glass-border);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 8px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.226);
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 900;
+  transition: all 0.25s ease;
+  position: relative;
+  flex: 1;
+  padding: 7px 0;
+}
+
+.nav-custom-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  margin-bottom: 2px;
+  transition: transform 0.25s ease, filter 0.25s ease;
+  opacity: 0.9;
+}
+
+.nav-item.active .nav-custom-icon {
+  opacity: 1;
+  transform: translateY(-2px) scale(1.25);
+}
+
+.nav-item.active {
+  color: var(--primary);
+}
+
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  width: 50px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 5px;
+}
+
+/* Center Create Plus Button */
+.nav-center-create-btn {
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.30s ease, box-shadow 0.50s ease;
+}
+
+.nav-center-create-btn img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.nav-center-create-btn:hover {
+  transform: scale(1.1);
+}
+
+.nav-center-create-btn:active {
+  transform: scale(0.92);
+}
+
+/* Toast Container */
+#toastContainer {
+  position: fixed;
+  top: 85px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--primary);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toastIn 0.3s ease;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.toast img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

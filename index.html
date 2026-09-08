@@ -1,0 +1,3390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="desert_sunrise" data-font="zain" data-font-size="medium">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>وذكر | Wzker - مشغل القرآن والابتهالات</title>
+    <link rel="icon" href="images/icon/wzker.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3D4A3E">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- App Stylesheets (Modular High-Performance Architecture) -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/player.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/views.css">
+    <link rel="stylesheet" href="css/sheikh.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/library.css">
+    <link rel="stylesheet" href="css/radio.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/lyrics.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/quran.css">
+    <link rel="stylesheet" href="css/adhkar.css">
+</head>
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toastContainer"></div>
+
+    <div id="viewsContainer">
+        
+        <!-- 1. HOME VIEW -->
+        <div id="homeView" class="view-section active">
+            
+            <!-- ULTRA-RICH TOP NAVIGATION BAR WITH CUSTOM ICONS -->
+            <header class="premium-top-bar">
+                <div class="top-bar-main-row">
+                    <div class="greeting-box">
+                        <div class="brand-avatar">
+                            <img src="images/icon/wzker.png" alt="Wzker">
+                        </div>
+                        <div class="greeting-text-area">
+                            <div class="welcome-title-row">
+                                <h1 class="welcome-title">مرحباً بك في وذكر</h1>
+                            </div>
+                            <p class="welcome-subtitle">
+                                <span class="sub-status-dot"></span>
+                                <span id="dynamicTimeGreeting">صباح السكينة والذكر</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="top-bar-actions">
+                        <!-- Theme Toggle Button (Hidden on Mobile <600px, Visible on Desktop >=600px) -->
+                        <button class="top-custom-icon-btn top-theme-action-btn" id="headerThemeBtn" onclick="window.toggleAppTheme()" title="تغيير المظهر والألوان">
+                            <img src="images/icons/paint.png" alt="Theme">
+                        </button>
+                        <!-- Notifications Bell Button with Dynamic Badge Counter (1..9, +9) -->
+                        <button class="top-custom-icon-btn top-notif-action-btn" id="headerNotifBtn" onclick="window.wzkerNotif.toggleDrawer()" title="صندوق النفحات والتنبيهات">
+                            <img src="images/icons/notification.png" alt="Notifications">
+                            <span class="notif-badge-counter" id="notifBadgeCounter" style="display: none;">0</span>
+                        </button>
+                        <button class="top-custom-icon-btn" onclick="switchTab('searchView', document.querySelectorAll('.nav-item')[3])" title="البحث">
+                            <img src="images/icons/search.png" alt="Search">
+                        </button>
+                        <button class="top-custom-icon-btn" onclick="openLibPage('settingsPage')" title="الإعدادات">
+                            <img src="images/icons/settings.png" alt="Settings">
+                        </button>
+                        <!-- Main Sidebar Menu Button -->
+                        <button class="top-custom-icon-btn top-menu-btn" id="headerSidebarBtn" onclick="window.wzkerSidebar.open()" title="القائمة الرئيسية">
+                            <img src="images/icons/Sidemenu1.png" alt="Menu">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Spiritual Dynamic Banner Strip -->
+                <div class="top-bar-spiritual-strip">
+                    <div class="spiritual-strip-left">
+                        <img src="images/icons/leaf-2.png" alt="Deco">
+                        <span id="dailySpiritualQuote">« أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ »</span>
+                    </div>
+                    <span class="spiritual-strip-time" id="hijriDateDisplay">ربيع الأول ١٤٤٨ هـ</span>
+                </div>
+            </header>
+
+            <!-- ROYAL MIDNIGHT INDIGO & GOLD LIVE RADIO CARD -->
+            <div class="section" style="margin-top: 14px;">
+                <div class="ultra-live-card" onclick="openRadioPlayer()">
+                    
+
+
+                    <!-- Card Center Body -->
+                    <div class="radio-card-body">
+                        <div class="radio-artwork-thumb">
+                            <img src="images/radio/radio-live.png" alt="Radio Cairo">
+                        </div>
+                        
+                        <div class="radio-info">
+                            <h3>إذاعة القرآن الكريم</h3>
+                            <p>بث مباشر نقي ومستمر على مدار الساعة</p>
+                            <span class="radio-meta-pill">
+                                <img src="images/icons/leaf-1.png" alt="Leaf">
+                                <span>تلاوات • برامج دينية نادرة</span>
+                            </span>
+                        </div>
+                        
+                        <div class="audio-waves" id="homeRadioWaves">
+                            <span class="wave w1"></span>
+                            <span class="wave w2"></span>
+                            <span class="wave w3"></span>
+                            <span class="wave w4"></span>
+                            <span class="wave w5"></span>
+                        </div>
+
+                        <div class="radio-play-btn" id="homeRadioPlayBtn" onclick="event.stopPropagation(); toggleRadioPlay()">
+                            <img src="images/icons/play.png" alt="Play">
+                        </div>
+                    </div>
+
+                    <!-- Card Bottom Details Strip -->
+                    <div class="radio-card-footer-strip">
+                        <div class="rc-foot-item">
+                            <img src="images/icons/leaf-2.png" alt="Deco">
+                            <span>صوت القاهرة الخالد</span>
+                        </div>
+                        <div class="rc-foot-item">
+                            <i class="fa-solid fa-headphones-simple" style="color: var(--accent); font-size: 16px; margin: 3px;"></i>
+                            <span>يعمل في الخلفية وشاشة القفل</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 1. QURAN RECITERS SECTION (9 GRAND RECITERS WITH FULL 114 SURAHS) -->
+            <div class="section premium-reciters-section">
+                <div class="section-header-pro">
+                    <div class="title-box">
+                        <div class="title-icon-badge">
+                            <img src="images/icons/leaf-3.png" alt="Quran">
+                        </div>
+                        <h2 class="section-title-pro">المصاحف وكبار القراء (٩)</h2>
+                    </div>
+                    <button class="see-all-btn" onclick="openAllRecitersPage()">
+                        <span>عرض الكل</span>
+                        <img src="images/icons/arrow-left.png" alt="All">
+                    </button>
+                </div>
+
+                <div class="reciters-scroll-pro" id="homeRecitersContainer"></div>
+                <div class="carousel-dots-indicator" id="recitersDots"></div>
+            </div>
+
+            <!-- 2. IBTIHALAT SECTION (3 MASTER MOBTAHILEEN) -->
+            <div class="section premium-ibtehalat-section">
+                <div class="section-header-pro">
+                    <div class="title-box">
+                        <div class="title-icon-badge">
+                            <img src="images/icons/leaf-4.png" alt="Ibtihalat">
+                        </div>
+                        <h2 class="section-title-pro">أئمة الابتهال والمدائح (٣)</h2>
+                    </div>
+                    <button class="see-all-btn" onclick="openAllMobtahileenPage()">
+                        <span>عرض الكل</span>
+                        <img src="images/icons/arrow-left.png" alt="All">
+                    </button>
+                </div>
+
+                <div class="reciters-scroll-pro" id="homeMobtahileenContainer"></div>
+                <div class="carousel-dots-indicator" id="mobtahilDots"></div>
+            </div>
+
+            <!-- 3. SMART SUGGESTED RECITATIONS SECTION -->
+            <div class="section premium-selected-section" style="margin-bottom: 35px;">
+                <div class="section-header-pro">
+                    <div class="title-box">
+                        <div class="title-icon-badge">
+                            <img src="images/icons/leaf-5.png" alt="Recitations">
+                        </div>
+                        <div>
+                            <h2 class="section-title-pro">تلاوات مختارة لك</h2>
+                            <span class="section-subtitle-hint">اقتراحات ذكية متجددة تلائم ذوقك الروحي</span>
+                        </div>
+                    </div>
+                    <button class="smart-refresh-btn" onclick="refreshSmartRecommendations(true)" title="تحديث الاقتراحات">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <span>تحديث</span>
+                    </button>
+                </div>
+
+                <!-- Smart Category Filter Pills Strip -->
+                <div class="smart-filters-scroll" id="smartFilterPills">
+                    <button class="smart-pill active" onclick="filterSmartTracks('for_you', this)">
+                        <img src="images/icons/leaf-1.png" alt="Star">
+                        <span>مخصص لك</span>
+                    </button>
+                    <button class="smart-pill" onclick="filterSmartTracks('minshawi_top', this)">
+                        <img src="images/sheikh/minshawi.jpg" class="pill-avatar" alt="Minshawi">
+                        <span>روائع المنشاوي (Top 3)</span>
+                    </button>
+                    <button class="smart-pill" onclick="filterSmartTracks('fajr_ibtihalat', this)">
+                        <img src="images/icons/leaf-4.png" alt="Ibtihal">
+                        <span>نفحات الأسحار</span>
+                    </button>
+                    <button class="smart-pill" onclick="filterSmartTracks('haram_reciters', this)">
+                        <img src="images/sheikh/dossari.jpg" class="pill-avatar" alt="Haram">
+                        <span>أئمة الحرم</span>
+                    </button>
+                    <button class="smart-pill" onclick="filterSmartTracks('peace_calm', this)">
+                        <img src="images/sheikh/islam-sobhi.jpg" class="pill-avatar" alt="Calm">
+                        <span>سكينة وهدوء</span>
+                    </button>
+                </div>
+
+                <!-- Smart Spotlight Hero Featured Card -->
+                <div id="smartSpotlightCard" class="smart-spotlight-container"></div>
+
+                <!-- Smart Recitations Grid -->
+                <div id="mainTrackList" class="smart-tracks-grid"></div>
+            </div>
+
+        </div>
+
+        <!-- 2. SEARCH VIEW (ADVANCED EXPLORER & SEARCH ENGINE) -->
+        <div id="searchView" class="view-section">
+            
+            <!-- Clean Modern Sticky Header for Search View -->
+            <header class="search-prime-navbar">
+                <div class="search-navbar-main">
+                    <h1 class="search-nav-title">البحث</h1>
+                </div>
+            </header>
+
+            <div class="search-content-body">
+                <!-- Advanced Search Box -->
+                <div class="advanced-search-container">
+                    <div class="search-input-box-pro">
+                        <i class="fa-solid fa-magnifying-glass search-lead-icon"></i>
+                        <input type="text" id="mainSearchInput" class="pro-search-input" placeholder="ابحث عن قارئ، سورة، أو ابتهال..." autocomplete="off">
+                        <button type="button" id="clearSearchBtn" class="search-clear-action-btn" onclick="clearMainSearchInput()" title="مسح النص" style="display: none;">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+
+                    <!-- Category Filter Tabs -->
+                    <div class="search-filter-pills-bar">
+                        <button class="search-category-pill active" onclick="setSearchCategory('all', this)">
+                            <span>الكل</span>
+                        </button>
+                        <button class="search-category-pill" onclick="setSearchCategory('reciters', this)">
+                            <span>القراء (٩)</span>
+                        </button>
+                        <button class="search-category-pill" onclick="setSearchCategory('surahs', this)">
+                            <span>السور (١١٤)</span>
+                        </button>
+                        <button class="search-category-pill" onclick="setSearchCategory('ibtehal', this)">
+                            <span>الابتهالات (٣)</span>
+                        </button>
+                        <button class="search-category-pill" onclick="setSearchCategory('radio', this)">
+                            <span>الإذاعة المباشرة</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Searches History -->
+                <div class="search-history-panel" id="searchHistoryPanel">
+                    <div class="sh-panel-header">
+                        <div class="sh-header-title">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>عمليات البحث الأخيرة</span>
+                        </div>
+                        <button type="button" class="sh-clear-all-btn" onclick="clearAllSearchHistory()">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>مسح السجل</span>
+                        </button>
+                    </div>
+                    <div class="sh-tags-strip" id="searchHistoryTags"></div>
+                </div>
+
+                <!-- Quick Explore Suggestions -->
+                <div class="search-trending-panel" id="searchTrendingPanel">
+                    <div class="trending-header">
+                        <div class="trending-title">
+                            <i class="fa-solid fa-compass"></i>
+                            <span>اقتراحات الاستماع السريع</span>
+                        </div>
+                    </div>
+                    <div class="trending-chips-grid">
+                        <div class="trending-chip" onclick="applySearchQuery('سورة الكهف')">
+                            <span>سورة الكهف</span>
+                            <span class="chip-badge">تلاوة مباركة</span>
+                        </div>
+                        <div class="trending-chip" onclick="applySearchQuery('المنشاوي')">
+                            <span>الشيخ محمد صديق المنشاوي</span>
+                            <span class="chip-badge">المصحف المرتل</span>
+                        </div>
+                        <div class="trending-chip" onclick="applySearchQuery('عبدالباسط')">
+                            <span>الشيخ عبدالباسط عبدالصمد</span>
+                            <span class="chip-badge">تلاوة خاشعة</span>
+                        </div>
+                        <div class="trending-chip" onclick="applySearchQuery('جل المنادي')">
+                            <span>نصر الدين طوبار</span>
+                            <span class="chip-badge">روائع الابتهالات</span>
+                        </div>
+                        <div class="trending-chip" onclick="applySearchQuery('سورة يس')">
+                            <span>سورة يس</span>
+                            <span class="chip-badge">مشاري العفاسي</span>
+                        </div>
+                        <div class="trending-chip" onclick="applySearchQuery('إذاعة القرآن الكريم')">
+                            <span>إذاعة القرآن من القاهرة</span>
+                            <span class="chip-badge">بث مباشر</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Search Results Container -->
+                <div class="search-results-section" id="searchResultsSection">
+                    <div id="searchResultsContainer"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 3. LIBRARY VIEW (SPIRITUAL HUB & ANALYTICS) -->
+        <div id="libraryView" class="view-section">
+            
+            <!-- Luxury Sticky Top Navbar for Library -->
+            <header class="library-prime-navbar">
+                <div class="lib-navbar-main">
+                    <div class="lib-nav-badge">
+                        <img src="images/icons/spiritual-lib.png" alt="Library">
+                    </div>
+                    <div class="lib-nav-meta">
+                        <h1 class="lib-nav-title">مكتبتي الروحانية</h1>
+                        <span class="lib-nav-subtitle">مستودعك الخاص للمفضلات، السور المحملة، وقوائمك</span>
+                    </div>
+                </div>
+                <button class="lib-create-quick-btn" onclick="openCustomModal()" title="إنشاء قائمة جديدة">
+                    <img src="images/icons/plus.png" alt="Create">
+                    <span>قائمة جديدة</span>
+                </button>
+            </header>
+            
+            <div class="library-content-body">
+                
+                <!-- 4 ULTRA 3D HUB CARDS WITH DUAL-ICON PHYSICS -->
+                <div class="library-cards-grid">
+                    <!-- 1. Favorites Card -->
+                    <div class="lib-card-prime fav-theme" onclick="openLibPage('favoritesPage')">
+                        <img src="images/icons/fav-active.png" class="lib-card-watermark" alt="Fav BG">
+                        <div class="lib-card-top">
+                            <div class="lib-card-icon-badge fav-badge">
+                                <img src="images/icons/fav-active.png" alt="Favorites">
+                            </div>
+                            <span class="lib-counter-badge" id="libFavCount">٠ تلاوة</span>
+                        </div>
+                        <div class="lib-card-details">
+                            <h3 class="lib-card-name">المفضلة</h3>
+                            <p class="lib-card-desc">تلاواتك ومصاحفك المحببة</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Downloads Card -->
+                    <div class="lib-card-prime down-theme" onclick="openLibPage('downloadsPage')">
+                        <img src="images/icons/download.png" class="lib-card-watermark" alt="Download BG">
+                        <div class="lib-card-top">
+                            <div class="lib-card-icon-badge down-badge">
+                                <img src="images/icons/download-active.png" alt="Downloads">
+                            </div>
+                            <span class="lib-counter-badge" id="libDownCount">٠ ملف</span>
+                        </div>
+                        <div class="lib-card-details">
+                            <h3 class="lib-card-name">التحميلات</h3>
+                            <p class="lib-card-desc">متاحة بدون إنترنت</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Playlists Card -->
+                    <div class="lib-card-prime play-theme" onclick="openLibPage('playlistsPage')">
+                        <img src="images/icons/playlist-active.png" class="lib-card-watermark" alt="Playlists BG">
+                        <div class="lib-card-top">
+                            <div class="lib-card-icon-badge play-badge">
+                                <img src="images/icons/playlist.png" alt="Playlists">
+                            </div>
+                            <span class="lib-counter-badge" id="libPlaylistsCount">٠ قائمة</span>
+                        </div>
+                        <div class="lib-card-details">
+                            <h3 class="lib-card-name">قوائم التشغيل</h3>
+                            <p class="lib-card-desc">مجموعاتك ومصاحفك الخاصة</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. History Card -->
+                    <div class="lib-card-prime hist-theme" onclick="openLibPage('historyPage')">
+                        <img src="images/icons/history-active.png" class="lib-card-watermark" alt="History BG">
+                        <div class="lib-card-top">
+                            <div class="lib-card-icon-badge hist-badge">
+                                <img src="images/icons/history.png" alt="History">
+                            </div>
+                            <span class="lib-counter-badge" id="libHistoryCount">٠ سجل</span>
+                        </div>
+                        <div class="lib-card-details">
+                            <h3 class="lib-card-name">سجل الاستماع</h3>
+                            <p class="lib-card-desc">آخر النفحات والتلاوات</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHATMAH PROGRESS & MILESTONE WIDGET -->
+                <div class="lib-khatmah-widget">
+                    <div class="khatmah-widget-header">
+                        <div class="khatmah-title-row">
+                            <div class="khatmah-icon-wrap">
+                                <img src="images/icons/leaf-3.png" alt="Khatmah">
+                            </div>
+                            <div>
+                                <h3 class="khatmah-title">مؤشر تقدم ختمة القرآن</h3>
+                                <span class="khatmah-subtitle">سيرك نحو الاستماع لكامل الـ ١١٤ سورة</span>
+                            </div>
+                        </div>
+                        <span class="khatmah-percent-pill" id="khatmahPercent">٠٪</span>
+                    </div>
+                    <div class="khatmah-progress-track">
+                        <div class="khatmah-progress-fill" id="khatmahProgressFill" style="width: 0%;"></div>
+                    </div>
+                    <div class="khatmah-footer-stats">
+                        <span id="khatmahSurahsListened">٠ من ١١٤ سورة مستمعة</span>
+                        <span id="khatmahRemainingSurahs">باقي ١١٤ سورة للختم</span>
+                    </div>
+                </div>
+
+                <!-- SPIRITUAL LISTENING ANALYTICS & STATS DASHBOARD -->
+                <div class="lib-analytics-dashboard">
+                    <div class="lib-analytics-header">
+                        <div class="la-title">
+                            <img src="images/icons/leaf-5.png" alt="Analytics">
+                            <span>إحصائيات إنجازك الروحاني</span>
+                        </div>
+                        <span class="la-badge">تحديث حي</span>
+                    </div>
+                    <div class="lib-metrics-grid">
+                        <div class="lib-metric-box">
+                            <span class="metric-num" id="statTotalHours">٠.٠ س</span>
+                            <span class="metric-label">إجمالي الاستماع</span>
+                        </div>
+                        <div class="lib-metric-box">
+                            <span class="metric-num" id="statTopSheikh">المنشاوي</span>
+                            <span class="metric-label">أكثر قارئ استمعت له</span>
+                        </div>
+                        <div class="lib-metric-box">
+                            <span class="metric-num" id="statSavedStorage">٠ ك.ب</span>
+                            <span class="metric-label">المساحة المحفوظة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPIRITUAL REFLECTIONS VAULT -->
+                <div class="lib-reflections-card">
+                    <div class="reflections-header">
+                        <img src="images/icons/leaf-2.png" alt="Reflections">
+                        <span>خزينة الخواطر والآيات اليومية</span>
+                    </div>
+                    <blockquote class="reflections-quote" id="dailySpiritualQuote">
+                        «الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ ۗ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ»
+                    </blockquote>
+                    <span class="quote-surah-tag">سورة الرعد • آية ٢٨</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SUB-PAGES -->
+    
+    <!-- 1. ULTRA LUXURY SHEIKH & MOBTAHIL SHOWCASE PAGE -->
+    <div id="sheikhProfilePage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('sheikhProfilePage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <h2 class="navbar-title">بروفايل القارئ</h2>
+            <button class="nav-btn" onclick="window.shareApp()"><img src="images/icons/share.png" style="width: 18px; height: 18px;" alt="Share"></button>
+        </div>
+
+        <div class="sheikh-profile-hero">
+            <!-- 3D Hero Artwork Banner -->
+            <div class="sheikh-hero-artwork-banner" id="profileHeroBanner"></div>
+
+            <!-- Action Buttons Matrix (Shuffle All, Follow, Download All & Share) -->
+            <div class="profile-actions-matrix" id="profileActionsRow"></div>
+
+            <!-- Live Analytics Dashboard & Rhythm Infographic -->
+            <div class="sheikh-analytics-dashboard" id="profileAnalyticsBox"></div>
+
+            <!-- Bio Card -->
+            <div class="profile-bio-card" id="profileSheikhBio">السيرة العطرة</div>
+
+            <!-- Categorized Filter Chips (All 114, Makki, Madani, Short Surahs) -->
+            <div class="sheikh-surah-filter-chips" id="sheikhSurahFilterChips"></div>
+
+            <!-- Search Inside Sheikh's Quran -->
+            <div class="search-input-box-pro" style="margin-bottom: 15px;">
+                <i class="fa-solid fa-magnifying-glass search-lead-icon"></i>
+                <input type="text" id="profileSurahSearch" class="pro-search-input" placeholder="ابحث في سور الشيخ (بالاسم أو الرقم)...">
+            </div>
+
+            <!-- Full Surahs List Container -->
+            <div class="track-list" id="profileSurahList"></div>
+        </div>
+    </div>
+
+    <!-- 2. ALL RECITERS PAGE -->
+    <div id="allRecitersPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('allRecitersPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <h2 class="navbar-title">جميع القراء (٩)</h2>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="section" style="padding-top: 20px;">
+            <div class="reciters-scroll-pro" id="allRecitersGrid" style="flex-wrap: wrap; overflow: visible; justify-content: center; gap: 14px;"></div>
+        </div>
+    </div>
+
+    <!-- 3. ALL MOBTAHILEEN PAGE -->
+    <div id="allMobtahileenPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('allMobtahileenPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <h2 class="navbar-title">جميع المبتهلين (٣)</h2>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="section" style="padding-top: 20px;">
+            <div class="reciters-scroll-pro" id="allMobtahileenGrid" style="flex-wrap: wrap; overflow: visible; justify-content: center; gap: 14px;"></div>
+        </div>
+    </div>
+
+    <!-- 4. FAVORITES PAGE (ALBUMS & SURAHS WITH PINNING & SELECTION) -->
+    <div id="favoritesPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('favoritesPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 7px;">
+                <img src="images/icons/fav-active.png" style="width: 20px; height: 20px;" alt="Fav">
+                <h2 class="navbar-title">المفضلة</h2>
+            </div>
+            <div style="display: flex; gap: 6px;">
+                <button class="nav-btn" id="favSelectModeBtn" onclick="toggleSelectionMode('fav')" title="تحديد عناصر"><i class="fa-solid fa-check-double"></i></button>
+                <button class="nav-btn" onclick="clearFavoritesWithConfirm()" title="تفريغ المفضلة"><img src="images/icons/Delete.png" style="width: 16px; height: 16px;" alt="Clear"></button>
+            </div>
+        </div>
+
+        <div class="sub-page-body">
+            <!-- Search & Actions Strip inside Favorites -->
+            <div class="sub-action-toolbar" id="favToolbar">
+                <div class="search-input-box-pro" style="margin-bottom: 0; flex: 1;">
+                    <i class="fa-solid fa-magnifying-glass search-lead-icon"></i>
+                    <input type="text" id="favSearchInput" class="pro-search-input" placeholder="ابحث في مفضلاتك..." oninput="filterFavorites(this.value)">
+                </div>
+            </div>
+
+            <!-- Batch Selection Action Bar (Appears in Select Mode) -->
+            <div class="batch-actions-bar" id="favBatchBar" style="display: none;">
+                <span id="favSelectedCountText">٠ عناصر محددة</span>
+                <button class="batch-del-btn" onclick="deleteSelectedFavorites()">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>حذف المحدد</span>
+                </button>
+            </div>
+
+            <!-- Sheikh Folders / Full Albums Section -->
+            <div id="favSheikhFoldersSection" style="display: none; margin-bottom: 20px;">
+                <div class="sub-section-header">
+                    <div class="sub-sec-title">
+                        <img src="images/icons/verified-sheikh.png" alt="Sheikh">
+                        <span>المصاحف والمجلدات الكاملة المفضلة</span>
+                    </div>
+                </div>
+                <div class="fav-folders-grid" id="favSheikhFoldersContainer"></div>
+            </div>
+
+            <!-- Individual Surahs List -->
+            <div class="sub-section-header" id="favSurahsHeader">
+                <div class="sub-sec-title">
+                    <img src="images/icons/leaf-1.png" alt="Surahs">
+                    <span>التلاوات والإبتهالات الدينية</span>
+                </div>
+                <span class="sub-sec-count" id="favSurahsCountBadge">٠</span>
+            </div>
+            <div class="track-list" id="favoritesList"></div>
+        </div>
+    </div>
+
+    <!-- 5. DOWNLOADS PAGE (REAL OFFLINE AUDIO DOWNLOADS) -->
+    <div id="downloadsPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('downloadsPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 7px;">
+                <img src="images/icons/download.png" style="width: 20px; height: 20px;" alt="Downloads">
+                <h2 class="navbar-title">التحميلات والأوفلاين</h2>
+            </div>
+            <div style="display: flex; gap: 6px;">
+                <button class="nav-btn" id="downSelectModeBtn" onclick="toggleSelectionMode('down')" title="تحديد عناصر"><i class="fa-solid fa-check-double"></i></button>
+                <button class="nav-btn" onclick="clearDownloadsWithConfirm()" title="تفريغ التحميلات"><img src="images/icons/Delete.png" style="width: 16px; height: 16px;" alt="Clear"></button>
+            </div>
+        </div>
+
+        <div class="sub-page-body">
+            <!-- Storage Health & Offline Capacity Meter -->
+            <div class="downloads-storage-card">
+                <div class="storage-card-header">
+                    <div class="storage-title">
+                        <i class="fa-solid fa-hard-drive" style="color: var(--accent);"></i>
+                        <span>الذاكرة المحفوظة أوفلاين</span>
+                    </div>
+                    <span class="storage-val" id="storageUsageVal">٠.٠ ك.ب</span>
+                </div>
+                <div class="storage-bar-track">
+                    <div class="storage-bar-fill" id="storageBarFill" style="width: 5%;"></div>
+                </div>
+                <div class="storage-status-note">
+                    <i class="fa-solid fa-circle-check" style="color: #2ed573;"></i>
+                    <span>جميع المقاطع هنا تعمل بدون إنترنت وبأعلى نقاوة صوت</span>
+                </div>
+            </div>
+
+            <!-- Batch Selection Action Bar -->
+            <div class="batch-actions-bar" id="downBatchBar" style="display: none;">
+                <span id="downSelectedCountText">٠ عناصر محددة</span>
+                <button class="batch-del-btn" onclick="deleteSelectedDownloads()">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>حذف المحدد</span>
+                </button>
+            </div>
+
+            <!-- Downloaded Tracks List -->
+            <div class="track-list" id="downloadsContainer"></div>
+        </div>
+    </div>
+
+    <!-- 6. PLAYLISTS PAGE (REAL USER-CREATED PLAYLISTS & FOLDERS) -->
+    <div id="playlistsPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('playlistsPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 7px;">
+                <img src="images/icons/playlist.png" style="width: 20px; height: 20px;" alt="Playlists">
+                <h2 class="navbar-title">قوائم التشغيل</h2>
+            </div>
+            <button class="nav-btn" onclick="openCustomModal()" title="إنشاء قائمة جديدة"><img src="images/icons/plus.png" style="width: 18px; height: 18px;" alt="Plus"></button>
+        </div>
+
+        <div class="sub-page-body">
+            <!-- Playlist Filter Tabs -->
+            <div class="playlist-filter-bar">
+                <button class="pl-filter-chip active" onclick="filterPlaylistsTab('all', this)">الكل</button>
+                <button class="pl-filter-chip" onclick="filterPlaylistsTab('user', this)">من إنشائك</button>
+                <button class="pl-filter-chip" onclick="filterPlaylistsTab('wzker', this)">من وذكر</button>
+            </div>
+
+            <!-- Playlists Grid / Cards -->
+            <div id="playlistsGrid"></div>
+        </div>
+    </div>
+
+    <!-- 7. DEDICATED SINGLE PLAYLIST VIEWER PAGE -->
+    <div id="singlePlaylistPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('singlePlaylistPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <h2 class="navbar-title" id="singlePlNavTitle">تفاصيل القائمة</h2>
+            <button class="nav-btn" onclick="openSinglePlOptionsMenu()"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+        </div>
+
+        <div class="sub-page-body">
+            <!-- Playlist Hero Header Banner -->
+            <div class="single-pl-hero-card">
+                <div class="single-pl-artwork" id="singlePlCover">
+                    <img src="images/icons/playlist-active.png" alt="Cover">
+                </div>
+                <div class="single-pl-meta">
+                    <h2 class="single-pl-name" id="singlePlName">اسم القائمة</h2>
+                    <span class="single-pl-count" id="singlePlCountBadge">٠ تلاوة</span>
+                </div>
+                <div class="single-pl-actions-row">
+                    <button class="single-pl-play-all-btn" onclick="playAllCurrentPlaylist(false)">
+                        <i class="fa-solid fa-play"></i>
+                        <span>تشغيل الكل</span>
+                    </button>
+                    <button class="single-pl-shuffle-btn" onclick="playAllCurrentPlaylist(true)" title="تشغيل عشوائي">
+                        <img src="images/icons/shuffle.png" alt="Shuffle">
+                    </button>
+                    <button class="single-pl-rename-btn" onclick="renameCurrentPlaylistPrompt()" title="تعديل الاسم">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="single-pl-delete-btn" onclick="deleteCurrentPlaylistConfirm()" title="حذف القائمة">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tracks inside playlist -->
+            <div class="sub-section-header">
+                <div class="sub-sec-title">
+                    <img src="images/icons/leaf-3.png" alt="Tracks">
+                    <span>التلاوات المحفوظة بالقائمة</span>
+                </div>
+            </div>
+            <div class="track-list" id="singlePlTracksContainer"></div>
+        </div>
+    </div>
+
+    <!-- 8. HISTORY PAGE (TIME-GROUPED WITH MULTI-SELECT DELETION) -->
+    <div id="historyPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('historyPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 7px;">
+                <img src="images/icons/history.png" style="width: 20px; height: 20px;" alt="History">
+                <h2 class="navbar-title">سجل الاستماع</h2>
+            </div>
+            <div style="display: flex; gap: 6px;">
+                <button class="nav-btn" id="histSelectModeBtn" onclick="toggleSelectionMode('hist')" title="تحديد عناصر"><i class="fa-solid fa-check-double"></i></button>
+                <button class="nav-btn" onclick="clearHistoryWithConfirm()" title="مسح السجل"><img src="images/icons/Delete.png" style="width: 16px; height: 16px;" alt="Clear"></button>
+            </div>
+        </div>
+
+        <div class="sub-page-body">
+            <!-- Batch Selection Action Bar -->
+            <div class="batch-actions-bar" id="histBatchBar" style="display: none;">
+                <span id="histSelectedCountText">٠ عناصر محددة</span>
+                <button class="batch-del-btn" onclick="deleteSelectedHistory()">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>حذف المحدد</span>
+                </button>
+            </div>
+
+            <!-- Time Grouped History Container -->
+            <div id="historyGroupedContainer"></div>
+        </div>
+    </div>
+
+    <!-- 8. ADVANCED ULTRA SETTINGS PAGE -->
+    <div id="settingsPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('settingsPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/settings.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Settings">
+                <h2 class="navbar-title">الإعدادات الشاملة</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        
+        <div style="padding-top: 10px;">
+            
+            <!-- SECTION 1: THEMES -->
+            <div class="settings-section-title">
+                <img src="images/icons/paint.png" alt="Theme">
+                <span>المظهر والثيمات الروحانية</span>
+            </div>
+            <div class="settings-group">
+                <div class="themes-grid-selector">
+                    <div class="theme-pill-card active" data-theme-val="desert_sunrise" onclick="setTheme('desert_sunrise')">
+                        <div class="theme-palette-dots">
+                            <span class="t-dot" style="background: #9C3D32;"></span>
+                            <span class="t-dot" style="background: #D29571;"></span>
+                            <span class="t-dot" style="background: #F3E9DD;"></span>
+                        </div>
+                        <span>شروق الصحراء</span>
+                    </div>
+
+                    <div class="theme-pill-card" data-theme-val="sage_copper" onclick="setTheme('sage_copper')">
+                        <div class="theme-palette-dots">
+                            <span class="t-dot" style="background: #2B5A3C;"></span>
+                            <span class="t-dot" style="background: #C7885D;"></span>
+                            <span class="t-dot" style="background: #DEEAE0;"></span>
+                        </div>
+                        <span>واحة المرمية</span>
+                    </div>
+
+                    <div class="theme-pill-card" data-theme-val="deep_ocean" onclick="setTheme('deep_ocean')">
+                        <div class="theme-palette-dots">
+                            <span class="t-dot" style="background: #0C4A6E;"></span>
+                            <span class="t-dot" style="background: #0EA5E9;"></span>
+                            <span class="t-dot" style="background: #D5E5F0;"></span>
+                        </div>
+                        <span>أعماق المحيط</span>
+                    </div>
+
+                    <div class="theme-pill-card" data-theme-val="midnight_calm" onclick="setTheme('midnight_calm')">
+                        <div class="theme-palette-dots">
+                            <span class="t-dot" style="background: #0C1017; border: 1px solid rgba(245,158,11,0.5);"></span>
+                            <span class="t-dot" style="background: #F59E0B;"></span>
+                            <span class="t-dot" style="background: #151C28;"></span>
+                        </div>
+                        <span>السحر الليلي</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: FONTS & TYPOGRAPHY -->
+            <div class="settings-section-title">
+                <img src="images/icons/leaf-3.png" alt="Font">
+                <span>تخصيص نوع وحجم الخط</span>
+            </div>
+            <div class="settings-group">
+                <div class="font-family-selector-grid">
+                    <div class="font-choice-card active" data-font-val="zain" onclick="setFontFamily('zain')">
+                        <span class="font-sample-letter" style="font-family: 'Zain', sans-serif;">أ ب ت</span>
+                        <span class="font-name-label">خط زين (عصري)</span>
+                    </div>
+                    <div class="font-choice-card" data-font-val="cairo" onclick="setFontFamily('cairo')">
+                        <span class="font-sample-letter" style="font-family: 'Cairo', sans-serif;">أ ب ت</span>
+                        <span class="font-name-label">خط كايرو (واضح)</span>
+                    </div>
+                    <div class="font-choice-card" data-font-val="amiri" onclick="setFontFamily('amiri')">
+                        <span class="font-sample-letter" style="font-family: 'Amiri', serif;">أ ب ت</span>
+                        <span class="font-name-label">خط أميري (قرآني)</span>
+                    </div>
+                </div>
+
+                <div class="font-size-pills-row">
+                    <button class="font-size-btn" data-size-val="small" onclick="setFontSize('small')">صغير</button>
+                    <button class="font-size-btn active" data-size-val="medium" onclick="setFontSize('medium')">وسط (قياسي)</button>
+                    <button class="font-size-btn" data-size-val="large" onclick="setFontSize('large')">كبير</button>
+                </div>
+            </div>
+
+            <!-- SECTION 3: STORAGE & MEMORY MANAGEMENT -->
+            <div class="settings-section-title">
+                <img src="images/icons/download.png" alt="Storage">
+                <span>إدارة التخزين والذاكرة المحلية</span>
+            </div>
+            <div class="settings-group">
+                <div class="storage-dashboard-box">
+                    <div class="storage-stat-pill">
+                        <span class="st-num" id="storageUsageVal">٠ ك.ب</span>
+                        <span class="st-lbl">المساحة الإجمالية</span>
+                    </div>
+                    <div class="storage-stat-pill">
+                        <span class="st-num" id="storageFavCnt">0</span>
+                        <span class="st-lbl">سورة مفضلة</span>
+                    </div>
+                    <div class="storage-stat-pill">
+                        <span class="st-num" id="storageHistCnt">0</span>
+                        <span class="st-lbl">سجل الاستماع</span>
+                    </div>
+                </div>
+
+                <div class="settings-item" onclick="window.wzkerLib.clearAllAppData(); window.updateSettingsStorageInfo();">
+                    <div class="settings-item-left">
+                        <div class="settings-icon" style="background: rgba(255, 71, 87, 0.12);">
+                            <img src="images/icons/delete.png" alt="Delete">
+                        </div>
+                        <div class="settings-text">
+                            <span class="st-title" style="color: #ff4757;">مسح الكاش وسجل الاستماع</span>
+                            <span class="st-subtitle">إعادة تعيين الذاكرة المؤقتة بالكامل</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left" style="color: var(--text-muted);"></i>
+                </div>
+            </div>
+
+            <!-- SECTION 4: ADVANCED NOTIFICATIONS & SPIRITUAL REMINDER HUB -->
+            <div class="settings-section-title">
+                <img src="images/icons/notification.png" alt="Notifications">
+                <span>الإشعارات والنفحات الروحانية</span>
+            </div>
+
+            <!-- Master Switch Banner (Toggles All Sub-Options Smoothly) -->
+            <div class="notif-master-banner" id="notifMasterBanner">
+                <div class="notif-master-info">
+                    <div class="notif-master-icon">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <div class="notif-master-text">
+                        <h4>تفعيل منظومة الإشعارات والنفحات</h4>
+                        <p>التذكير الدوري بذكر الله والصلاة على النبي ومشغل شاشة القفل</p>
+                    </div>
+                </div>
+                <label class="notif-master-switch">
+                    <input type="checkbox" id="notifMasterSwitchInput" checked onchange="window.wzkerNotif.toggleMaster(this.checked)">
+                    <span class="notif-master-slider"></span>
+                </label>
+            </div>
+
+            <!-- Collapsible Sub-Settings Container -->
+            <div class="notif-sub-settings-collapse" id="notifSubSettingsCollapse">
+                <div class="settings-group">
+                    <!-- 1. Dhikr Reminders -->
+                    <div class="settings-item" onclick="document.getElementById('switchDhikrAlert').click()">
+                        <div class="settings-item-left">
+                            <div class="settings-icon" style="background: rgba(16, 185, 129, 0.12);">
+                                <i class="fa-solid fa-moon" style="color: #10b981;"></i>
+                            </div>
+                            <div class="settings-text">
+                                <span class="st-title">تذكير الأذكار والصلاة على النبي ﷺ</span>
+                                <span class="st-subtitle">نفحات وأدعية قرآنية مأثورة على فترات دورية</span>
+                            </div>
+                        </div>
+                        <label class="switch-toggle" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="switchDhikrAlert" checked onchange="window.wzkerNotif.toggleSub('dhikr', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- 2. Lock Screen / System Media Player -->
+                    <div class="settings-item" onclick="document.getElementById('switchSysNotif').click()">
+                        <div class="settings-item-left">
+                            <div class="settings-icon" style="background: rgba(59, 130, 246, 0.12);">
+                                <i class="fa-solid fa-compact-disc" style="color: #3b82f6;"></i>
+                            </div>
+                            <div class="settings-text">
+                                <span class="st-title">مشغل شاشة القفل وإشعارات النظام</span>
+                                <span class="st-subtitle">التحكم في التلاوة والإذاعة من خارج التطبيق</span>
+                            </div>
+                        </div>
+                        <label class="switch-toggle" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="switchSysNotif" checked onchange="window.wzkerNotif.toggleSub('lockscreen', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- 3. Download Progress Notifications -->
+                    <div class="settings-item" onclick="document.getElementById('switchDownloadsNotif').click()">
+                        <div class="settings-item-left">
+                            <div class="settings-icon" style="background: rgba(56, 189, 248, 0.12);">
+                                <i class="fa-solid fa-download" style="color: #38bdf8;"></i>
+                            </div>
+                            <div class="settings-text">
+                                <span class="st-title">تنبيهات اكتمال التنزيلات</span>
+                                <span class="st-subtitle">إشعار فوري عند اكتمال حفظ السور للاستماع أوفلاين</span>
+                            </div>
+                        </div>
+                        <label class="switch-toggle" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="switchDownloadsNotif" checked onchange="window.wzkerNotif.toggleSub('downloads', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- 4. Spiritual Chime Tone -->
+                    <div class="settings-item" onclick="document.getElementById('switchChimeNotif').click()">
+                        <div class="settings-item-left">
+                            <div class="settings-icon" style="background: rgba(214, 173, 96, 0.15);">
+                                <i class="fa-solid fa-music" style="color: #d6ad60;"></i>
+                            </div>
+                            <div class="settings-text">
+                                <span class="st-title">رنّة السكينة الصوتية (Harmonic Chime)</span>
+                                <span class="st-subtitle">نغمة بلورية هادئة جداً ومريحة للأعصاب</span>
+                            </div>
+                        </div>
+                        <label class="switch-toggle" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="switchChimeNotif" checked onchange="window.wzkerNotif.toggleSub('chime', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- 5. Haptic Feedback -->
+                    <div class="settings-item" onclick="document.getElementById('switchHaptic').click()">
+                        <div class="settings-item-left">
+                            <div class="settings-icon" style="background: rgba(46, 213, 115, 0.12);">
+                                <i class="fa-solid fa-mobile-screen-button" style="color: #2ed573;"></i>
+                            </div>
+                            <div class="settings-text">
+                                <span class="st-title">الاهتزاز اللمسي (Haptic Feedback)</span>
+                                <span class="st-subtitle">نبضة خفيفة بالهاتف عند وصول النفحة الروحانية</span>
+                            </div>
+                        </div>
+                        <label class="switch-toggle" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="switchHaptic" checked onchange="window.wzkerNotif.toggleSub('haptic', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- 6. Quiet Hours -->
+                    <div class="settings-item" onclick="document.getElementById('switchQuietHours').click()">
+                        <div class="settings-item-left">
+                            <div class="settings-icon" style="background: rgba(148, 163, 184, 0.15);">
+                                <i class="fa-solid fa-bed" style="color: #94a3b8;"></i>
+                            </div>
+                            <div class="settings-text">
+                                <span class="st-title">ساعات السكون الليلي</span>
+                                <span class="st-subtitle">إيقاف التنبيهات تلقائياً من 11:00م حتى 5:00ص للنوم</span>
+                            </div>
+                        </div>
+                        <label class="switch-toggle" onclick="event.stopPropagation()">
+                            <input type="checkbox" id="switchQuietHours" checked onchange="window.wzkerNotif.toggleSub('quietHours', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Interval Selector Box -->
+                <div class="notif-interval-box">
+                    <div class="notif-interval-header">
+                        <div class="notif-interval-header-title">
+                            <i class="fa-regular fa-clock"></i>
+                            <span>تكرار التذكير بالذكر (كل كم دقيقة)</span>
+                        </div>
+                        <span class="notif-interval-current-badge" id="notifCurrentIntervalBadge">كل 15 د</span>
+                    </div>
+
+                    <!-- Quick Interval Pills -->
+                    <div class="notif-interval-pills">
+                        <button class="notif-pill-btn" data-mins="5" onclick="window.wzkerNotif.setInterval(5)">5 دقائق</button>
+                        <button class="notif-pill-btn" data-mins="10" onclick="window.wzkerNotif.setInterval(10)">10 دقائق</button>
+                        <button class="notif-pill-btn active" data-mins="15" onclick="window.wzkerNotif.setInterval(15)">15 دقيقة</button>
+                        <button class="notif-pill-btn" data-mins="30" onclick="window.wzkerNotif.setInterval(30)">30 دقيقة</button>
+                        <button class="notif-pill-btn" data-mins="60" onclick="window.wzkerNotif.setInterval(60)">ساعة</button>
+                    </div>
+
+                    <!-- Custom Minutes Row -->
+                    <div class="notif-custom-row">
+                        <span class="notif-custom-label">أو وقت مخصص:</span>
+                        <div class="notif-custom-input-wrap">
+                            <input type="number" id="notifCustomMinutesInput" class="notif-custom-input" min="1" max="1440" placeholder="مثلاً: 20 دقيقة" value="15">
+                        </div>
+                        <button class="notif-custom-save-btn" onclick="window.wzkerNotif.setCustomIntervalFromInput()">حفظ ⏱️</button>
+                    </div>
+                </div>
+
+                <!-- Test Chime Strip -->
+                <div class="notif-test-chime-strip">
+                    <div class="notif-test-chime-info">
+                        <i class="fa-solid fa-volume-high" style="color: #d6ad60;"></i>
+                        <span>استمع لتجربة نغمة السكينة الروحانية</span>
+                    </div>
+                    <button class="notif-test-chime-btn" onclick="window.wzkerNotif.testChime()">
+                        <span>تجربة الرنّة</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SECTION 5: LUXURY ABOUT APP HERO -->
+            <div class="about-app-hero-card">
+                <div class="about-logo-box">
+                    <img src="images/icon/wzker.png" alt="Wzker Logo">
+                </div>
+                <h3 class="about-app-name">تطبيق وذكر | Wzker</h3>
+                <p class="about-app-version">الإصدار 3.5 Pro • نسخة الأيقونات والتصميم الفاخر</p>
+                
+                <p class="about-app-desc">
+                    مشروع إسلامي روحي متكامل للاستماع إلى تلاوات القرآن الكريم بأصوات نخبة كبار القراء، ونفحات الابتهالات النادرة، مع البث المباشر لإذاعة القرآن الكريم من القاهرة.
+                </p>
+
+                <div class="about-badges-row">
+                    <span class="about-badge">١١٤ سورة كاملة</span>
+                    <span class="about-badge">بث مباشر نقي</span>
+                    <span class="about-badge">صدقة جارية</span>
+                </div>
+
+                <div class="about-actions-grid">
+                    <button class="about-btn" onclick="shareApp()">
+                        <img src="images/icons/share.png" alt="Share">
+                        <span>مشاركة التطبيق</span>
+                    </button>
+                    <button class="about-btn" onclick="window.showToast('جزاكم الله خيراً على طيب دعائكم')">
+                        <img src="images/icons/fav.png" alt="Fav">
+                        <span>دعوة بظهر الغيب</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- =========================================================
+         NEW SUB-PAGES (PREPARED FOR STEP-BY-STEP DEVELOPMENT)
+         ========================================================= -->
+
+    <!-- 1. ADHKAR PAGE (صفحة أذكار المسلم اليومية الفاخرة - PRO EDITION) -->
+    <div id="adhkarPage" class="sub-lib-page">
+        <!-- Floating Contoured Prime Navbar -->
+        <div class="adhkar-prime-navbar">
+            <div class="adhkar-nav-left">
+                <button class="adhkar-nav-btn" onclick="closeLibPage('adhkarPage')" title="الرجوع">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="adhkar-nav-title-box">
+                    <img src="images/icons/prayer1.png" alt="Adhkar">
+                    <h2 class="adhkar-nav-title">الأذكار اليومية</h2>
+                </div>
+            </div>
+            <div class="adhkar-nav-actions">
+
+                <button class="adhkar-zen-toggle-btn" onclick="window.wzkerAdhkar.openZenMode()" title="وضع التركيز التام">
+                    <img src="images/icons/Focus1.png" alt="Focus">
+                    <span>تركيز</span>
+                </button>
+                <button class="adhkar-drawer-trigger-btn" onclick="window.wzkerAdhkar.openDrawer()" title="فهرس وفضائل الأذكار">
+                    <img src="images/icons/Sidemenu1.png" alt="Index">
+                    <span>الفهرس</span>
+                </button>
+
+
+            </div>
+        </div>
+
+        <div class="sub-page-body" id="adhkarScrollBody" style="overflow-y: auto;">
+            <div class="adhkar-page-content">
+                <!-- Smart Time-Aware Hero Card with 3D Ambient Watermark -->
+                <div class="adhkar-hero-card" id="adhkarHeroCard">
+                    <div class="adhkar-hero-watermark" id="adhkarHeroWatermark">
+                        <img id="adhkarHeroWatermarkImg" src="images/icons/sunrise2.png" alt="Watermark">
+                    </div>
+                    <div class="adhkar-hero-left">
+                        <span class="adhkar-hero-badge" id="adhkarHeroBadge">الورد المستحب الآن</span>
+                        <h3 class="adhkar-hero-title" id="adhkarHeroTitle">أذكار الصباح المباركة</h3>
+                        <p class="adhkar-hero-desc" id="adhkarHeroDesc">ابدأ يومك بانشراح الصدر ونيل معية الله وحفظه ورعايته التامة.</p>
+                        <div class="adhkar-hero-actions">
+                            <button class="adhkar-hero-btn" id="adhkarHeroBtn">
+                                <span>قراءة أذكار الصباح</span>
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="adhkar-hero-right">
+                        <div class="adhkar-hero-artwork">
+                            <img id="adhkarHeroImg" class="main-art" src="images/icons/sunrise.png" alt="Hero Adhkar">
+                            <img id="adhkarHeroSubArt" class="sub-art" src="images/icons/sunrise2.png" alt="Hero Sub Art">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horizontal Category Capsules with Gentle Auto Drift -->
+                <div class="adhkar-capsules-wrap">
+                    <div class="adhkar-capsules-scroll" id="adhkarCapsulesScroll">
+                        <!-- Populated dynamically by js/adhkar.js -->
+                    </div>
+                </div>
+
+                <!-- Smart Search Bar -->
+                <div class="adhkar-search-bar">
+                    <div class="adhkar-search-icon-wrap">
+                        <img src="images/icons/search.png" alt="Search">
+                    </div>
+                    <input type="text" id="adhkarSearchInput" class="adhkar-search-input" placeholder="ابحث في نصوص الأذكار أو فضائلها أو رواتها...">
+                    <button id="adhkarClearSearchBtn" class="adhkar-clear-search" title="مسح البحث">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Adhkar Cards Grid / List -->
+                <div class="adhkar-cards-container" id="adhkarCardsContainer">
+                    <!-- Populated dynamically by js/adhkar.js -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEDICATED ADHKAR SLIDE-OUT DRAWER (فهرس وفضائل الأذكار) -->
+    <div id="adhkarDrawerOverlay" class="adhkar-drawer-overlay" onclick="if(event.target === this) window.wzkerAdhkar.closeDrawer()">
+        <div class="adhkar-drawer-panel" onclick="event.stopPropagation()">
+            <div class="adhkar-drawer-header">
+                <div class="adhkar-drawer-brand">
+                    <img src="images/icons/prayer1.png" alt="Wzker">
+                    <h3>فهرس الأذكار</h3>
+                </div>
+                <div class="adhkar-progress-badge" id="adhkarNavProgressBadge" title="إنجاز الأذكار اليوم">
+                    <img src="images/icons/streak.png" alt="Streak">
+                    <span>0 / 49</span>
+                </div>
+                <button class="adhkar-drawer-close-btn" onclick="window.wzkerAdhkar.closeDrawer()" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="adhkar-drawer-body">
+                <!-- Section 1: Categories Index -->
+                <div>
+                    
+                    <div class="adhkar-drawer-section-title">
+                        <img src="images/icons/leaf-1.png" alt="Leaf">
+                        <span>أقسام الأوراد النبوية</span>
+                    </div>
+                    
+                    <div class="adhkar-drawer-menu-list" id="adhkarDrawerCategoriesList">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Section 2: Virtues & Merits of Dhikr -->
+                <div>
+                    <div class="adhkar-drawer-section-title">
+                        <img src="images/icons/certificate1.png" alt="Virtue">
+                        <span>من فضائل وثمرات الذكر</span>
+                    </div>
+                    <div id="adhkarDrawerVirtuesList">
+                        <!-- Populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADHKAR ZEN FOCUS FULL-SCREEN OVERLAY -->
+    <div id="adhkarZenOverlay" class="adhkar-zen-overlay">
+        <div class="adhkar-zen-header">
+            <span class="adhkar-zen-progress-indicator" id="adhkarZenIndicator">ذكر 1 من 10</span>
+            <button class="adhkar-zen-close-btn" onclick="window.wzkerAdhkar.closeZenMode()" title="خروج من وضع التركيز">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="adhkar-zen-body">
+            <div class="adhkar-zen-category-tag" id="adhkarZenCategoryTag">
+                <img src="images/icons/sunrise.png" alt="Category">
+                <span>أذكار الصباح</span>
+            </div>
+            <div class="adhkar-zen-text-wrap">
+                <p class="adhkar-zen-text" id="adhkarZenText"></p>
+            </div>
+            <div class="adhkar-zen-counter-huge" id="adhkarZenCounterBtn" onclick="window.wzkerAdhkar.handleZenTap()">
+                <span class="num" id="adhkarZenCounterNum">3</span>
+                <span class="label" id="adhkarZenCounterLabel">الهدف: 3</span>
+            </div>
+        </div>
+
+        <div class="adhkar-zen-footer">
+            <button class="adhkar-zen-nav-btn" onclick="window.wzkerAdhkar.prevZenDhikr()">
+                <i class="fa-solid fa-chevron-right"></i>
+                <span>السابق</span>
+            </button>
+            <button class="adhkar-zen-nav-btn" onclick="window.wzkerAdhkar.nextZenDhikr()">
+                <span>التالي</span>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PINTEREST-STYLE SOCIAL STORY CARD MODAL -->
+    <div id="adhkarGiftModal" class="adhkar-gift-modal-overlay" onclick="if(event.target === this) window.wzkerAdhkar.closeShareModal()">
+        <div class="adhkar-gift-card-box" onclick="event.stopPropagation()">
+            <!-- The Pinterest Art Card -->
+            <div class="adhkar-pinterest-card" id="adhkarPinterestCard">
+                <div class="adhkar-pinterest-header">
+                    <span id="adhkarGiftCategory">أذكار الصباح</span>
+                </div>
+                <blockquote class="adhkar-pinterest-text" id="adhkarGiftText"></blockquote>
+                <div class="adhkar-pinterest-source" id="adhkarGiftSource">المصدر: صحيح البخاري</div>
+                <div class="adhkar-pinterest-fadl" id="adhkarGiftFadl"></div>
+                <div class="adhkar-pinterest-footer">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <img src="images/icon/wzker.png" alt="Wzker">
+                        <span style="font-weight: 800;">تطبيق وذكر | Wzker</span>
+                    </div>
+                    <span id="adhkarGiftCountBadge" style="font-size: 0.78rem; font-weight: 800;">تكرار: مرة واحدة</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="adhkar-gift-actions">
+                <button class="adhkar-gift-btn download" onclick="window.wzkerAdhkar.downloadCardImage()">
+                    <img src="images/icons/download.png" alt="Download">
+                    <span>تحميل كصورة</span>
+                </button>
+                <button class="adhkar-gift-btn primary" onclick="window.wzkerAdhkar.shareGiftCardNow()">
+                    <img src="images/icons/share-picture1.png" alt="Share">
+                    <span>مشاركة البطاقة</span>
+                </button>
+                <button class="adhkar-gift-btn secondary" onclick="window.wzkerAdhkar.copyFormattedDhikrFromModal()">
+                    <img src="images/icons/copy1.png" alt="Copy">
+                    <span>نسخ منسق</span>
+                </button>
+                <button class="adhkar-gift-btn close" onclick="window.wzkerAdhkar.closeShareModal()" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Canvas for PNG Image Export -->
+    <canvas id="adhkarShareCanvas" width="1080" height="1350" style="display: none;"></canvas>
+
+    <!-- 2. HISN AL-MUSLIM PAGE -->
+    <div id="hisnMuslimPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('hisnMuslimPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/book1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Hisn">
+                <h2 class="navbar-title">حصن المسلم</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/book1.png" alt="Hisn">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-book-open"></i> أدعية الكتاب والسنة</span>
+                <h3 class="placeholder-page-title">حصن المسلم من أذكار الكتاب والسنة</h3>
+                <p class="placeholder-page-desc">تم تجهيز هذه الصفحة كشاشة مستقلة جاهزة للبناء الكامل وإضافة كافة الأدعية والأذكار المأثورة بتصميم فاخر.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('hisnMuslimPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. HADITH ENCYCLOPEDIA PAGE -->
+    <div id="hadithPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('hadithPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/book2.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Hadith">
+                <h2 class="navbar-title">موسوعة الأحاديث</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/book2.png" alt="Hadith">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-scroll"></i> السنة النبوية الشريفة</span>
+                <h3 class="placeholder-page-title">موسوعة الأحاديث النبوية الصحيحة</h3>
+                <p class="placeholder-page-desc">صفحة مهيأة بالكامل لعرض الأحاديث الصحيحة مصنفة حسب الأبواب مع معانيها وشروحها الميسرة.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('hadithPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. LOGIN & ACCOUNT PAGE -->
+    <div id="loginPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('loginPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/Login1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Login">
+                <h2 class="navbar-title">تسجيل الدخول</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/Login1.png" alt="Login">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-user-shield"></i> الحساب السحابي</span>
+                <h3 class="placeholder-page-title">حساب وذكر السحابي</h3>
+                <p class="placeholder-page-desc">صفحة تسجيل الدخول جاهزة للربط مع نظام المصادقة لحفظ التفضيلات وقوائم التشغيل والتنزيلات سحابياً.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('loginPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. FEEDBACK PAGE -->
+    <div id="feedbackPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('feedbackPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/ideas1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Feedback">
+                <h2 class="navbar-title">شاركنا ملاحظاتك</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/ideas1.png" alt="Feedback">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-lightbulb"></i> صوتك يهمنا</span>
+                <h3 class="placeholder-page-title">شاركنا اقتراحاتك لتطوير وذكر</h3>
+                <p class="placeholder-page-desc">صفحة الملاحظات مهيأة لاستقبال أفكارك وتقييماتك للميزات الجديدة لمساعدتنا في جعل وذكر أفضل تطبيق إسلامي.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('feedbackPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. ABOUT APP PAGE -->
+    <div id="aboutPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('aboutPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/About1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="About">
+                <h2 class="navbar-title">عن التطبيق</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/About1.png" alt="About">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-circle-info"></i> رسالة وذكر</span>
+                <h3 class="placeholder-page-title">تطبيق وذكر | Wzker</h3>
+                <p class="placeholder-page-desc">مشروع إسلامي تقني متكامل، مصمم بأعلى معايير الجمال والسرعة ليكون رفيقك اليومي في تلاوة وسماع القرآن والأذكار المباركة.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('aboutPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. PRIVACY POLICY PAGE -->
+    <div id="privacyPolicyPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('privacyPolicyPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/note2.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Privacy">
+                <h2 class="navbar-title">سياسة الخصوصية</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/note2.png" alt="Privacy">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-shield-halved"></i> أمان وخصوصية تامة</span>
+                <h3 class="placeholder-page-title">سياسة الخصوصية وحماية البيانات</h3>
+                <p class="placeholder-page-desc">نلتزم في وذكر بحماية خصوصية مستخدمينا بنسبة 100%. لا نجمع أي بيانات شخصية حساسة وجميع تفضيلاتك وسجلاتك محفوظة محلياً على جهازك بأعلى درجات الأمان.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('privacyPolicyPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. QURAN PAGE (المصحف الشريف) -->
+    <div id="quranPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('quranPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/quran1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Quran">
+                <h2 class="navbar-title">القرآن الكريم</h2>
+            </div>
+            <div class="quran-nav-actions">
+                <button class="top-custom-icon-btn" id="quranThemeToggleMainBtn" onclick="window.wzkerQuran.toggleTheme()" title="تغيير المظهر (نمط المصحف / النمط الليلي)">
+                    <i class="fa-solid fa-circle-half-stroke" style="color: #d97706; font-size: 15px;"></i>
+                </button>
+                <button class="top-custom-icon-btn" id="quranNavBookmarkBtn" onclick="window.wzkerQuran.goToLastBookmark()" title="الانتقال للعلامة المحفوظة">
+                    <i class="fa-solid fa-bookmark" style="color: #d97706; font-size: 15px;"></i>
+                </button>
+                <button class="top-custom-icon-btn" onclick="window.wzkerQuran.openKhatmaPlanner()" title="نظام الختمة والورد اليومي">
+                    <i class="fa-solid fa-star-and-crescent" style="color: #d97706; font-size: 15px;"></i>
+                </button>
+                <button class="top-custom-icon-btn" onclick="window.wzkerQuran.openQuickIndex()" title="فهرس المصحف الشريف">
+                    <i class="fa-solid fa-book-quran" style="color: var(--primary); font-size: 15px;"></i>
+                </button>
+            </div>
+        </div>
+        <div class="sub-page-body">
+            <!-- 1. KHATMA & READING TRACKER HERO CARD -->
+            <div class="quran-hero-card" onclick="window.wzkerQuran.openKhatmaPlanner()">
+                <div class="quran-hero-top">
+                    <span class="quran-hero-badge"><i class="fa-solid fa-star-and-crescent"></i> نظام الختمة والورد الذكي</span>
+                    <span class="quran-khatma-pct" id="khatmaPctVal">0.0%</span>
+                </div>
+                <div class="quran-hero-main">
+                    <div class="quran-hero-icon-box">
+                        <img src="images/icons/quran1.png" alt="Quran">
+                    </div>
+                    <div class="quran-hero-texts">
+                        <h3 class="quran-hero-title" id="khatmaCurrentSurahTitle">سورة الفاتحة</h3>
+                        <p class="quran-hero-pos" id="khatmaCurrentPosText">الآية 1 • صفحة 1 • الجزء 1</p>
+                    </div>
+                </div>
+                <div class="quran-progress-track">
+                    <div class="quran-progress-fill" id="khatmaProgressFill" style="width: 2%;"></div>
+                </div>
+                <div class="quran-hero-actions" onclick="event.stopPropagation()">
+                    <button class="quran-resume-btn" onclick="window.wzkerQuran.resumeReading()">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                        <span>متابعة القراءة</span>
+                    </button>
+                    <button class="quran-config-khatma-btn" onclick="window.wzkerQuran.openKhatmaPlanner()" title="تخطيط الختمة والورد">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span>تخطيط الورد</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. SEARCH BAR -->
+            <div class="quran-search-container">
+                <div class="quran-search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" class="quran-search-input" id="quranSearchInput" placeholder="ابحث باسم السورة أو الآية" oninput="window.wzkerQuran.handleSearch(this.value)">
+                    <button class="quran-search-clear-btn" id="quranSearchClearBtn" style="display:none;" onclick="window.wzkerQuran.clearSearch()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <!-- Dynamic Verse Results Panel -->
+                <div class="quran-verse-search-results" id="quranVerseSearchResults" style="display: none;"></div>
+            </div>
+
+            <!-- 3. NAVIGATION TABS -->
+            <div class="quran-tabs-bar">
+                <button class="quran-tab-btn active" data-tab="surahs" onclick="window.wzkerQuran.switchTab('surahs')">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <span>الفهرس</span>
+                    <span class="quran-tab-pill">114</span>
+                </button>
+                <button class="quran-tab-btn" data-tab="juz" onclick="window.wzkerQuran.switchTab('juz')">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>الأجزاء</span>
+                    <span class="quran-tab-pill">30</span>
+                </button>
+                <button class="quran-tab-btn" data-tab="bookmarks" onclick="window.wzkerQuran.switchTab('bookmarks')">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span>العلامة</span>
+                    <span class="quran-tab-pill" id="quranBookmarksCount">0</span>
+                </button>
+            </div>
+
+            <!-- Quick Revelation Filter Chips (Active on Surahs Tab) -->
+            <div class="quran-filter-chips" id="quranFilterChips">
+                <button class="quran-filter-chip active" onclick="window.wzkerQuran.setFilter('all', this)">الكل (١١٤)</button>
+                <button class="quran-filter-chip" onclick="window.wzkerQuran.setFilter('makkiyah', this)">مكية (٨٦)</button>
+                <button class="quran-filter-chip" onclick="window.wzkerQuran.setFilter('madaniyah', this)">مدنية (٢٨)</button>
+            </div>
+
+            <!-- TAB 1: SURAHS GRID VIEW -->
+            <div id="quranSurahsView">
+                <div class="quran-surahs-grid" id="quranSurahsGrid"></div>
+            </div>
+
+            <!-- TAB 2: JUZ VIEW -->
+            <div id="quranJuzView" style="display: none;">
+                <div class="juz-cards-list" id="quranJuzList"></div>
+            </div>
+
+            <!-- TAB 3: BOOKMARKS VIEW -->
+            <div id="quranBookmarksView" style="display: none;">
+                <div class="bookmarks-empty-box" id="quranBookmarksEmpty">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <h4 style="font-size: 16px; font-weight: 800; color: var(--text-main); margin: 0;">لا توجد فواصل مرجعية محفوظة بعد</h4>
+                    <p style="font-size: 13px; color: var(--text-muted); margin: 0;">أثناء تصفح المصحف، انقر على أي آية أو استخدم زر «حفظ علامة» لوضع فاصلة مرجعية والعودة إليها بنقرة واحدة.</p>
+                </div>
+                <div class="bookmarks-list" id="quranBookmarksList" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         HOLY QURAN READER OVERLAY (قارئ المصحف الشريف الفاخر)
+         ========================================================= -->
+    <div id="quranReaderOverlay" class="quran-reader-overlay">
+        <!-- Reader Navbar -->
+        <div class="reader-navbar">
+            <div class="reader-nav-left">
+                <button class="nav-btn" onclick="window.wzkerQuran.closeReader()" title="إغلاق والعودة للفهرس">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="reader-surah-title-box">
+                    <h3 id="readerNavSurahTitle">سورة الفاتحة</h3>
+                    <p id="readerNavSurahMeta">مكية • 7 آيات • الجزء الأول</p>
+                </div>
+            </div>
+            <div class="reader-nav-actions">
+                <button class="reader-ctrl-btn" onclick="window.wzkerQuran.decreaseFont()" title="تصغير الخط">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <button class="reader-ctrl-btn" onclick="window.wzkerQuran.increaseFont()" title="تكبير الخط">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+                <button class="reader-ctrl-btn" onclick="window.wzkerQuran.toggleTheme()" title="تغيير المظهر">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </button>
+                <button class="reader-ctrl-btn" onclick="window.wzkerQuran.openQuickIndex()" title="فهرس المصحف والأجزاء">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Reader Verses & Sheet Container -->
+        <div class="reader-verses-body" id="readerVersesScrollBody">
+            <!-- Surah Frame & Interactive Action Banner -->
+            <div class="surah-banner-frame">
+                <h2 class="surah-banner-ornament" id="readerBannerSurahName">سورة الفاتحة</h2>
+                <div class="surah-banner-details" id="readerBannerDetails">
+                    <span>ترتيبها: 1</span> • <span>آياتها: 7</span> • <span class="surah-juz-badge" id="readerBannerJuzText">الجزء الأول</span>
+                </div>
+                
+                <!-- Quick In-Reader Actions Grid -->
+                <div class="reader-banner-actions">
+                    <button class="reader-action-pill-btn" id="readerSetBookmarkBtn" onclick="window.wzkerQuran.toggleBookmarkCurrent()">
+                        <i class="fa-solid fa-bookmark"></i>
+                        <span>حفظ علامة</span>
+                    </button>
+                    <button class="reader-action-pill-btn" id="readerGoBookmarkBtn" onclick="window.wzkerQuran.goToLastBookmark()" style="display: none;">
+                        <i class="fa-solid fa-location-arrow"></i>
+                        <span>إنتقل للعلامة</span>
+                    </button>
+                    <button class="reader-action-pill-btn" onclick="window.wzkerQuran.openQuickIndex()">
+                        <i class="fa-solid fa-list-ul"></i>
+                        <span>الفهرس</span>
+                    </button>
+                    <button class="reader-action-pill-btn" onclick="window.wzkerQuran.openQuickIndex('juz')">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>الأجزاء</span>
+                    </button>
+                    <button class="reader-action-pill-btn" onclick="window.wzkerQuran.openShareModal()">
+                        <i class="fa-solid fa-share-nodes"></i>
+                        <span>مشاركة</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Real Mushaf Paper Sheet Layout -->
+            <div class="mushaf-paper-wrapper">
+                <div class="mushaf-page-sheet" id="mushafPageSheet">
+                    <!-- Ribbon Bookmark on the Mushaf Paper Card Directly -->
+                    <div class="reader-ribbon-bookmark" id="readerRibbonBookmark" onclick="window.wzkerQuran.toggleBookmarkCurrent()" title="فاصلة المصحف الشريف">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </div>
+
+                    <!-- Sheet Top Bar (Juz & Hizb & Surah) -->
+                    <div class="mushaf-sheet-top-bar">
+                        <span class="mushaf-sheet-juz" id="sheetJuzTitle">الجزء الأول</span>
+                        <span class="mushaf-sheet-surah" id="sheetSurahTitle">سورة الفاتحة</span>
+                    </div>
+
+                    <!-- Sheet Page Verses Content (Holds Surah header, Basmalah, and Verses for this page) -->
+                    <div class="reader-mushaf-page-content" id="readerMushafContainer"></div>
+
+                    <!-- Sheet Bottom Bar (Mushaf Page Number) -->
+                    <div class="mushaf-sheet-bottom-bar">
+                        <span class="mushaf-sheet-page-num" id="sheetPageNumText">- ١ -</span>
+                    </div>
+                </div>
+
+                <!-- Dedicated Non-Overlapping Page Navigation Bar -->
+                <div class="mushaf-page-nav-bar">
+                    <button class="mushaf-nav-page-btn prev" onclick="window.wzkerQuran.prevPage()" title="الصفحة السابقة">
+                        <i class="fa-solid fa-arrow-right"></i>
+                        <span>السابق</span>
+                    </button>
+                    <div class="mushaf-nav-page-info">
+                        <span id="mushafPageIndicator">صفحة ١ من ٦٠٤</span>
+                        <small id="mushafJuzHizbIndicator">الجزء الأول</small>
+                    </div>
+                    <button class="mushaf-nav-page-btn next" onclick="window.wzkerQuran.nextPage()" title="الصفحة التالية">
+                        <span>التالي</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reader Bottom Floating Surah Navigation -->
+        <div class="reader-bottom-bar">
+            <button class="reader-nav-surah-btn" id="readerPrevSurahBtn" onclick="window.wzkerQuran.prevSurah()">
+                <i class="fa-solid fa-arrow-right"></i>
+                <span>السورة السابقة</span>
+            </button>
+            <div class="reader-bottom-pos-info" id="readerBottomPosInfo">
+                <span>صفحة <strong id="readerBottomPageNum">1</strong></span>
+            </div>
+            <button class="reader-nav-surah-btn" id="readerNextSurahBtn" onclick="window.wzkerQuran.nextSurah()">
+                <span>السورة التالية</span>
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         INTERACTIVE KHATMA & DAILY WIRD PLANNER MODAL
+         ========================================================= -->
+    <div id="khatmaPlannerModal" class="khatma-planner-modal-overlay" onclick="if(event.target === this) window.wzkerQuran.closeKhatmaPlanner()">
+        <div class="khatma-planner-card" onclick="event.stopPropagation()">
+            <div class="khatma-planner-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="khatma-planner-icon"><i class="fa-solid fa-star-and-crescent"></i></div>
+                    <div>
+                        <h3 style="margin: 0; font-size: 18px; font-weight: 900; color: var(--text-main);">نظام الختمة والورد اليومي</h3>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-muted);">خطة ذكية وميسرة لختم كتاب الله بانتظام</p>
+                    </div>
+                </div>
+                <button class="reader-ctrl-btn" onclick="window.wzkerQuran.closeKhatmaPlanner()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="khatma-planner-body">
+                <!-- 1. Plan Duration Selector -->
+                <div class="khatma-section-box">
+                    <label class="khatma-section-label"><i class="fa-solid fa-calendar-days"></i> مدة الختمة المرغوبة:</label>
+                    <div class="khatma-duration-chips">
+                        <button class="khatma-chip active" data-days="30" onclick="window.wzkerQuran.setPlanDuration(30, this)">شهر (٣٠ يوم)</button>
+                        <button class="khatma-chip" data-days="29" onclick="window.wzkerQuran.setPlanDuration(29, this)">شهر هجري (٢٩ يوم)</button>
+                        <button class="khatma-chip" data-days="15" onclick="window.wzkerQuran.setPlanDuration(15, this)">١٥ يوماً (نصف شهر)</button>
+                        <button class="khatma-chip" data-days="60" onclick="window.wzkerQuran.setPlanDuration(60, this)">شهرين (٦٠ يوم)</button>
+                        <button class="khatma-chip" data-days="custom" onclick="window.wzkerQuran.showCustomDaysPrompt(this)">مخصص...</button>
+                    </div>
+                </div>
+
+                <!-- 2. Calculation Summary -->
+                <div class="khatma-summary-card">
+                    <div class="khatma-sum-item">
+                        <span class="sum-title">الهدف اليومي</span>
+                        <span class="sum-value" id="khatmaDailyPagesTarget">20 صفحة</span>
+                        <span class="sum-sub" id="khatmaDailyJuzTarget">(1 جزء يومياً)</span>
+                    </div>
+                    <div class="khatma-sum-divider"></div>
+                    <div class="khatma-sum-item">
+                        <span class="sum-title">الصفحات المتبقية</span>
+                        <span class="sum-value" id="khatmaRemainingPages">603 صفحة</span>
+                        <span class="sum-sub" id="khatmaRemainingDays">30 يوماً</span>
+                    </div>
+                    <div class="khatma-sum-divider"></div>
+                    <div class="khatma-sum-item">
+                        <span class="sum-title">تقييم الالتزام</span>
+                        <span class="sum-value" id="khatmaCommitmentBadge">ممتاز ومكتمل</span>
+                        <span class="sum-sub">مستواك الحالي</span>
+                    </div>
+                </div>
+
+                <!-- 3. Five Prayers Distribution Guide -->
+                <div class="khatma-section-box">
+                    <label class="khatma-section-label"><i class="fa-solid fa-mosque"></i> تقسيم الورد مع الصلوات الخمس المفروضة:</label>
+                    <div class="khatma-prayers-grid">
+                        <div class="prayer-dist-card">
+                            <span class="prayer-name">الفجر</span>
+                            <strong class="prayer-pages" id="khatmaFajrPages">4 صفحات</strong>
+                            <small class="prayer-leaves">(ورقتان)</small>
+                        </div>
+                        <div class="prayer-dist-card">
+                            <span class="prayer-name">الظهر</span>
+                            <strong class="prayer-pages" id="khatmaDhuhrPages">4 صفحات</strong>
+                            <small class="prayer-leaves">(ورقتان)</small>
+                        </div>
+                        <div class="prayer-dist-card">
+                            <span class="prayer-name">العصر</span>
+                            <strong class="prayer-pages" id="khatmaAsrPages">4 صفحات</strong>
+                            <small class="prayer-leaves">(ورقتان)</small>
+                        </div>
+                        <div class="prayer-dist-card">
+                            <span class="prayer-name">المغرب</span>
+                            <strong class="prayer-pages" id="khatmaMaghribPages">4 صفحات</strong>
+                            <small class="prayer-leaves">(ورقتان)</small>
+                        </div>
+                        <div class="prayer-dist-card">
+                            <span class="prayer-name">العشاء</span>
+                            <strong class="prayer-pages" id="khatmaIshaPages">4 صفحات</strong>
+                            <small class="prayer-leaves">(ورقتان)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Today & Yesterday Progress Tracker -->
+                <div class="khatma-section-box">
+                    <label class="khatma-section-label"><i class="fa-solid fa-chart-line"></i> سجل صفحات اليوم وأمس:</label>
+                    <div class="khatma-tracker-row">
+                        <div class="tracker-day-box">
+                            <span class="tracker-day-title">صفحات اليوم:</span>
+                            <div class="tracker-counter">
+                                <button class="tracker-btn" onclick="window.wzkerQuran.adjustTodayPages(-1)"><i class="fa-solid fa-minus"></i></button>
+                                <span class="tracker-num" id="khatmaTodayPagesCount">0</span>
+                                <button class="tracker-btn" onclick="window.wzkerQuran.adjustTodayPages(1)"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="tracker-day-box">
+                            <span class="tracker-day-title">صفحات أمس:</span>
+                            <span class="tracker-yesterday-val" id="khatmaYesterdayPagesCount">0 صفحة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="khatma-planner-footer">
+                <button class="khatma-primary-action-btn" onclick="window.wzkerQuran.resumeReading(); window.wzkerQuran.closeKhatmaPlanner();">
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    <span>متابعة قراءة الورد الآن</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         QUICK INDEX & JUZ MODAL (الفهرس الشامل والأجزاء)
+         ========================================================= -->
+    <div id="quranQuickIndexModal" class="quick-index-modal-overlay" onclick="if(event.target === this) window.wzkerQuran.closeQuickIndex()">
+        <div class="quick-index-card" onclick="event.stopPropagation()">
+            <div class="quick-index-header">
+                <div class="quick-index-tabs">
+                    <button class="quick-idx-tab active" id="idxTabSurahs" onclick="window.wzkerQuran.switchQuickIndexTab('surahs')">
+                        <i class="fa-solid fa-list-ul"></i>
+                        <span>فهرس السور (١١٤)</span>
+                    </button>
+                    <button class="quick-idx-tab" id="idxTabJuz" onclick="window.wzkerQuran.switchQuickIndexTab('juz')">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>الأجزاء (٣٠)</span>
+                    </button>
+                </div>
+                <button class="reader-ctrl-btn" onclick="window.wzkerQuran.closeQuickIndex()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="quick-index-body" id="quickIndexBody"></div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SHARE MODAL (مشاركة الصفحة أو السورة كاملة)
+         ========================================================= -->
+    <div id="quranShareModal" class="quran-share-modal-overlay" onclick="if(event.target === this) window.wzkerQuran.closeShareModal()">
+        <div class="quran-share-card" onclick="event.stopPropagation()">
+            <div class="ayah-action-header">
+                <h4 style="margin: 0; font-size: 16px; font-weight: 800; color: var(--text-main);"><i class="fa-solid fa-share-nodes" style="color: #d97706; margin-left: 6px;"></i> مشاركة القرآن الكريم</h4>
+                <button class="reader-ctrl-btn" onclick="window.wzkerQuran.closeShareModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin: 6px 0 16px;">اختر صيغة المشاركة التي تفضلها لنشر النور والبركة:</p>
+            <div class="quran-share-options">
+                <div class="quran-share-opt-card" onclick="window.wzkerQuran.shareCurrentPage()">
+                    <div class="share-opt-icon"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="share-opt-texts">
+                        <h5>مشاركة الصفحة الحالية</h5>
+                        <p id="shareCurrentPageDesc">مشاركة صفحة المصحف الحالية مع رقم الجزء والسور</p>
+                    </div>
+                </div>
+                <div class="quran-share-opt-card" onclick="window.wzkerQuran.shareCurrentSurah()">
+                    <div class="share-opt-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+                    <div class="share-opt-texts">
+                        <h5>مشاركة السورة كاملة</h5>
+                        <p id="shareCurrentSurahDesc">مشاركة نص ومعلومات السورة عبر وسائل التواصل</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         AYAH STORY / SOCIAL CARD MODAL (بطاقة ستوري إسلامية فخمة)
+         ========================================================= -->
+    <div id="ayahStoryModal" class="ayah-story-modal-overlay" onclick="if(event.target === this) window.wzkerQuran.closeStoryModal()">
+        <div class="ayah-story-container" onclick="event.stopPropagation()">
+            <div class="ayah-story-card" id="ayahStoryCardPreview">
+                <div class="story-card-inner">
+                    <div class="story-header-ornament">
+                        <span>۞</span>
+                        <span id="storyCardSurahBadge">سورة الفاتحة • الآية ١</span>
+                        <span>۞</span>
+                    </div>
+                    <div class="story-verse-body">
+                        <blockquote class="story-verse-text" id="storyCardVerseText"></blockquote>
+                    </div>
+                    <div class="story-footer-brand">
+                        <div class="story-brand-logo">
+                            <img src="images/icon/wzker.png" alt="Wzker">
+                            <span>تطبيق وذكر • Wzker</span>
+                        </div>
+                        <span class="story-ayah-end-num" id="storyCardAyahNum">﴿١﴾</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ayah-story-actions">
+                <button class="story-action-btn primary" onclick="window.wzkerQuran.shareStoryNow()">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span>مشاركة ستوري</span>
+                </button>
+                <button class="story-action-btn secondary" onclick="window.wzkerQuran.copyStoryText()">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>نسخ النص</span>
+                </button>
+                <button class="story-action-btn close" onclick="window.wzkerQuran.closeStoryModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         AYAH ACTION BOTTOM SHEET (خيارات وتفسير الآية الشريفة)
+         ========================================================= -->
+    <div id="ayahActionModal" class="ayah-action-modal-overlay" onclick="if(event.target === this) window.wzkerQuran.closeAyahAction()">
+        <div class="ayah-action-card" onclick="event.stopPropagation()">
+            <div class="ayah-action-drag-handle"></div>
+            <div class="ayah-action-header">
+                <div class="ayah-action-header-badge" id="ayahActionBadge">
+                    <i class="fa-solid fa-book-quran"></i>
+                    <span>سورة الفاتحة • الآية ١</span>
+                </div>
+                <button class="ayah-action-close-btn" onclick="window.wzkerQuran.closeAyahAction()" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Verse Frame & Text Quote -->
+            <div class="ayah-action-verse-container">
+                <blockquote class="ayah-action-quote" id="ayahActionQuote"></blockquote>
+            </div>
+
+            <!-- Luxury Action Tiles Grid -->
+            <div class="ayah-action-grid">
+                <button class="ayah-act-tile" id="ayahTafsirTileBtn" onclick="window.wzkerQuran.viewTafsir()">
+                    <div class="ayah-act-icon-wrap tafsir">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="ayah-act-tile-texts">
+                        <span class="ayah-act-title">التفسير الميسر</span>
+                        <small class="ayah-act-desc">بيان معاني الآية</small>
+                    </div>
+                </button>
+
+                <button class="ayah-act-tile" id="ayahBookmarkTileBtn" onclick="window.wzkerQuran.toggleBookmarkFromAction()">
+                    <div class="ayah-act-icon-wrap bookmark">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </div>
+                    <div class="ayah-act-tile-texts">
+                        <span class="ayah-act-title" id="ayahBookmarkTileText">حفظ فاصلة</span>
+                        <small class="ayah-act-desc" id="ayahBookmarkTileDesc">تثبيت موضع القراءة</small>
+                    </div>
+                </button>
+
+                <button class="ayah-act-tile" onclick="window.wzkerQuran.openStoryModal()">
+                    <div class="ayah-act-icon-wrap story">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div class="ayah-act-tile-texts">
+                        <span class="ayah-act-title">بطاقة ستوري</span>
+                        <small class="ayah-act-desc">مشاركة تصميم فاخر</small>
+                    </div>
+                </button>
+
+                <button class="ayah-act-tile" onclick="window.wzkerQuran.copyCurrentAyah()">
+                    <div class="ayah-act-icon-wrap copy">
+                        <i class="fa-solid fa-copy"></i>
+                    </div>
+                    <div class="ayah-act-tile-texts">
+                        <span class="ayah-act-title">نسخ الآية</span>
+                        <small class="ayah-act-desc">نسخ النص والشاهد</small>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Tafsir Content Area -->
+            <div class="ayah-tafsir-box" id="ayahTafsirBox"></div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         BOOKMARK TRANSFER CONFIRMATION MODAL (تأكيد نقل الفاصلة)
+         ========================================================= -->
+    <div id="bookmarkConfirmModal" class="ayah-action-modal-overlay" onclick="if(event.target === this) window.wzkerQuran.cancelBookmarkMove()">
+        <div class="bookmark-confirm-card" onclick="event.stopPropagation()">
+            <div class="bookmark-confirm-icon">
+                <i class="fa-solid fa-bookmark"></i>
+            </div>
+            <h3 class="bookmark-confirm-title">فاصلة المصحف الشريف</h3>
+            <p class="bookmark-confirm-desc" id="bookmarkConfirmMsg">
+                هل تريد وضع علامة عند هذه الصفحة؟
+            </p>
+            <div class="bookmark-confirm-actions">
+                <button class="bookmark-btn-confirm" onclick="window.wzkerQuran.confirmBookmarkMove()">
+                    <span>نعم</span>
+                </button>
+                <button class="bookmark-btn-cancel" onclick="window.wzkerQuran.cancelBookmarkMove()">
+                    <span>لا</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. TASBEEH PAGE (السبحة الإلكترونية) -->
+    <div id="tasbeehPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('tasbeehPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/sabha1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Tasbeeh">
+                <h2 class="navbar-title">السبحة الإلكترونية</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/sabha1.png" alt="Tasbeeh">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-fingerprint"></i> عداد التسبيح الذكي</span>
+                <h3 class="placeholder-page-title">السبحة والمسبحة الإلكترونية</h3>
+                <p class="placeholder-page-desc">شاشة السبحة مجهزة للربط مع العداد التفاعلي، ونظام الاهتزاز الذكي، وقائمة الأذكار والأهداف اليومية للتسبيح.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('tasbeehPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. PRAYER TIMES PAGE (مواقيت الصلاة والقبلة) -->
+    <div id="prayerTimesPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('prayerTimesPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/prayers1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Prayers">
+                <h2 class="navbar-title">مواقيت الصلاة والقبلة</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/prayers1.png" alt="Prayers">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-kaaba"></i> الصلاة عماد الدين</span>
+                <h3 class="placeholder-page-title">مواقيت الصلاة والعد التنازلي والقبلة</h3>
+                <p class="placeholder-page-desc">شاشة مواقيت الصلاة جاهزة لحساب مواقيت الصلوات الخمس حسب موقعك الجغرافي وبوصلة دقيقة لاتجاه القبلة.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('prayerTimesPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 11. RUQYAH PAGE (الرقية الشرعية) -->
+    <div id="ruqyahPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('ruqyahPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/Ruqayyah1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Ruqyah">
+                <h2 class="navbar-title">الرقية الشرعية</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/Ruqayyah1.png" alt="Ruqyah">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-hand-holding-heart"></i> شفاء وسكينة</span>
+                <h3 class="placeholder-page-title">الرقية الشرعية من الكتاب والسنة</h3>
+                <p class="placeholder-page-desc">شاشة الرقية الشرعية مهيأة بالكامل لعرض الآيات والأدعية النبوية للتحصين والشفاء، مع خيار الاستماع الصوتي الخاشع.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('ruqyahPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. ALLAH NAMES PAGE (أسماء الله الحسنى) -->
+    <div id="allahNamesPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('allahNamesPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/leaf-1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Names">
+                <h2 class="navbar-title">أسماء الله الحسنى</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/leaf-1.png" alt="Names">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-star-and-crescent"></i> ولله الأسماء الحسنى فادعوه بها</span>
+                <h3 class="placeholder-page-title">أسماء الله الحسنى الـ ٩٩</h3>
+                <p class="placeholder-page-desc">شاشة أسماء الله الحسنى جاهزة لعرض بطاقات تفاعلية أنيقة لجميع الأسماء الحسنى مع معانيها وأدعية التضرع بها.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('allahNamesPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 13. QIBLA COMPASS PAGE (اتجاه القبلة وبوصلة الكعبة) -->
+    <div id="qiblaPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('qiblaPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/Qibla1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Qibla">
+                <h2 class="navbar-title">اتجاه القبلة</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/Qibla1.png" alt="Qibla">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-kaaba"></i> بوصلة الكعبة المشرفة</span>
+                <h3 class="placeholder-page-title">بوصلة القبلة التفاعلية الذكية</h3>
+                <p class="placeholder-page-desc">شاشة اتجاه القبلة مهيأة للربط المباشر مع مستشعر الهاتف الفلكي ثلاثي الأبعاد والـ GPS لتحديد زاوية الكعبة الشريفة بدقة متناهية مع الاهتزاز والتوهج الحسي عند التطابق.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('qiblaPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 14. ARBA'EEN NAWAWIYYAH PAGE (الأربعون النووية) -->
+    <div id="nawawiPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('nawawiPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/book3.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Nawawi">
+                <h2 class="navbar-title">الأربعون النووية</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/book3.png" alt="Nawawi">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-book-quran"></i> قواعد وجوامع الإسلام</span>
+                <h3 class="placeholder-page-title">الأربعون النووية وشروحها الميسرة</h3>
+                <p class="placeholder-page-desc">موسوعة أحاديث الإمام النووي الـ ٤٢ كاملة بالتشكيل، مع الشرح الميسر، والفوائد التربوية والعملية، والتلاوة الصوتية لكل حديث للمساعدة على الحفظ والترديد.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('nawawiPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 15. QURAN STORIES PAGE (قصص القرآن) -->
+    <div id="quranStoriesPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('quranStoriesPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/story1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Stories">
+                <h2 class="navbar-title">قصص القرآن</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/story1.png" alt="Stories">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-feather-pointed"></i> عبر وتأملات قرآنية</span>
+                <h3 class="placeholder-page-title">موسوعة قصص القرآن الكريم</h3>
+                <p class="placeholder-page-desc">موسوعة تفاعلية كبرى تضم ٤ سلاسل رئيسية: قصص الأنبياء، قصص الإنسان والأمم، قصص النساء، وقصص الحيوان والطير في القرآن، مع الربط المباشر بآيات المصحف الشريف.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('quranStoriesPage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 16. ISLAMIC ETIQUETTE PAGE (الآداب والسنن الإسلامية) -->
+    <div id="etiquettePage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('etiquettePage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/Etiquette1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Etiquette">
+                <h2 class="navbar-title">الآداب والسنن الإسلامية</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+        <div class="sub-page-body">
+            <div class="placeholder-page-hero">
+                <div class="placeholder-artwork-wrap">
+                    <img src="images/icons/Etiquette1.png" alt="Etiquette">
+                </div>
+                <span class="placeholder-page-badge"><i class="fa-solid fa-hand-holding-heart"></i> هدي وسنن الحبيب ﷺ</span>
+                <h3 class="placeholder-page-title">آداب وسنن المسلم اليومية</h3>
+                <p class="placeholder-page-desc">دليل عملي وتفاعلي لآداب وسنن المسلم على مدار ٢٤ ساعة في كافة شؤون الحياة، مع بطاقة يومية متجددة لإحياء السنن المهجورة بالأحاديث الصحيحة.</p>
+                <button class="placeholder-back-btn" onclick="closeLibPage('etiquettePage')">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <span>العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING MINI PLAYER (LUXURY GLASS ISLAND WITH LIVE AUDIO VISUALIZER) -->
+    <div class="bottom-player" id="miniPlayer" onclick="openFullPlayer()">
+        <!-- Ambient Aura Glow -->
+        <div class="mini-player-aura"></div>
+
+        <div class="player-info">
+            <div class="player-img-wrap">
+                <div class="player-img" id="playerIcon">
+                    <img src="images/icon/wzker.png" alt="Cover">
+                </div>
+
+            </div>
+            <div class="player-text">
+                <div class="player-title-row">
+                    <h4 id="playerTitle">تطبيق وذكر المبارك</h4>
+                    <span class="mini-mode-tag" id="miniModeBadge">تلاوة</span>
+                </div>
+                <p id="playerArtist">اختر سورة أو ابتهالاً للبدء</p>
+            </div>
+        </div>
+
+        <div class="player-controls" onclick="event.stopPropagation()">
+            <!-- Quick Favorite -->
+            <button class="mini-ctrl-btn mini-fav-btn" id="miniFavBtn" onclick="toggleFavorite()" title="إضافة للمفضلة">
+                <img src="images/icons/no-fav.png" id="miniFavIconImg" alt="Fav">
+            </button>
+            <!-- Previous Track -->
+            <button class="mini-ctrl-btn track-nav-btn" onclick="prevTrack()" title="التلاوة السابقة">
+                <img src="images/icons/previous1.png" alt="Prev">
+            </button>
+            <!-- Central Play / Pause Jewel -->
+            <button class="mini-play-jewel" onclick="togglePlayPause()" title="تشغيل / إيقاف">
+                <img src="images/icons/play5.png" id="miniPlayIconImg" alt="Play">
+                <i class="fa-solid fa-play" id="mainPlayBtn" style="display: none;"></i>
+            </button>
+            <!-- Next Track -->
+            <button class="mini-ctrl-btn track-nav-btn" onclick="nextTrack()" title="التلاوة التالية">
+                <img src="images/icons/next1.png" alt="Next">
+            </button>
+        </div>
+
+        <div class="player-progress" id="progressBar">
+            <div class="progress-current" id="progressCurrent"></div>
+        </div>
+    </div>
+
+    <!-- FLOATING GLASS BOTTOM NAVIGATION WITH CUSTOM ICONS -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="switchTab('homeView', this)">
+            <img src="images/icons/home.png" class="nav-custom-icon" alt="Home">
+            <span>الرئيسية</span>
+        </a>
+        <a href="#" class="nav-item" onclick="openRadioPlayer()">
+            <img src="images/icons/radio.png" class="nav-custom-icon" alt="Radio">
+            <span>الراديو</span>
+        </a>
+        <a href="#" class="nav-item" onclick="openCustomModal()">
+            <div class="nav-center-create-btn">
+                <img src="images/icons/plus.png" style="filter: brightness(0) invert(1);" alt="Create">
+            </div>
+            <span style="font-weight: 800; color: var(--primary);"></span>
+        </a>
+        <a href="#" class="nav-item" onclick="switchTab('searchView', this)">
+            <img src="images/icons/search.png" class="nav-custom-icon" alt="Search">
+            <span>البحث</span>
+        </a>
+        <a href="#" class="nav-item" onclick="switchTab('libraryView', this)">
+            <img src="images/icons/library.png" class="nav-custom-icon" alt="Library">
+            <span>مكتبتي</span>
+        </a>
+    </div>
+
+    <!-- FULL SCREEN PLAYER OVERLAY (NAVIGATE TO SHEIKH BY CLICKING ARTIST) -->
+    <!-- FULL SCREEN PLAYER OVERLAY -->
+    <div class="full-player-overlay" id="fullPlayer">
+        <!-- Ambient Backlight Glow -->
+        <div class="fp-ambient-glow" id="fpAmbientGlow"></div>
+        
+        <!-- 1. TOP NAVBAR -->
+        <div class="fp-top-navbar">
+            <button class="fp-nav-action-btn" onclick="closeFullPlayer()" title="إخفاء المشغل">
+                <img src="images/icons/arrow-down.png" alt="Close">
+            </button>
+            <div class="fp-nav-title-box">
+                <span class="fp-nav-pill-badge" id="fpTopPlaylistName">المصحف المرتل</span>
+                <span class="fp-nav-brand-text">مشغل وذكر المبارك</span> 
+            </div>
+            <button class="fp-nav-action-btn" onclick="window.wzkerLib.openTrackContextMenu(window.wzkerAudio.currentTrack)" title="خيارات التلاوة">
+                <img src="images/icons/More.png" alt="Options">
+            </button>
+        </div>
+
+        <!-- 2. LARGE BALANCED ARTWORK -->
+        <div class="fp-artwork-wrapper">
+            <div class="fp-cover-card" id="fpCoverIcon" onclick="window.openCurrentSheikhProfile()" title="انقر لفتح بروفايل القارئ">
+                <img src="images/icon/wzker.png" alt="Cover">
+            </div>
+        </div>
+
+        <!-- SPOTIFY-STYLE LIVE EMBEDDED AYAH & LYRICS CARD (تحت الصورة) -->
+        <div class="fp-spotify-lyrics-card" id="fpSpotifyLyricsCard">
+            <div class="fp-lyrics-card-header">
+                <div class="fp-lyrics-card-title-wrap">
+                    <img src="images/icons/leaf-1.png" style="width: 20px;" alt="Icon">
+                    <span class="fp-lyrics-card-badge" id="fpLyricsCardBadge">الآيات</span>
+                </div>
+                <div class="fp-lyrics-card-actions">
+                    <button class="fp-lyrics-action-pill" onclick="window.openAyahLyricsSheet()" title="عرض الآيات بالكامل">
+                        <span>عرض كامل</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </button>
+                    <button class="fp-lyrics-toggle-btn" id="fpLyricsToggleBtn" onclick="window.wzkerQuranSync.toggleCardCollapse()" title="إخفاء / إظهار">
+                        <i class="fa-solid fa-chevron-up" id="fpLyricsToggleIcon"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="fp-lyrics-card-content" onclick="window.openAyahLyricsSheet()" title="انقر لفتح شاشة الآيات الكاملة">
+                <div class="fp-live-verse-active" id="fpLiveVerseActive">
+                    <span class="fp-live-verse-text" id="fpLiveVerseText">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</span>
+                    <span class="fp-live-verse-num" id="fpLiveVerseNum">
+                        <span class="ayah-end-ornament" data-digits="1">
+                            <svg class="ayah-end-svg" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5" stroke="#d6ad60" stroke-width="1.2" fill="none"/><circle cx="18" cy="18" r="12.5" stroke="#d6ad60" stroke-width="0.8" opacity="0.4" fill="none"/><circle cx="18" cy="2.5" r="1.2" fill="#d6ad60"/><circle cx="18" cy="33.5" r="1.2" fill="#d6ad60"/><circle cx="2.5" cy="18" r="1.2" fill="#d6ad60"/><circle cx="33.5" cy="18" r="1.2" fill="#d6ad60"/></svg><span class="ayah-end-digit">١</span>
+                        </span>
+                    </span>
+                </div>
+                <div class="fp-live-verse-next" id="fpLiveVerseNext">
+                    <span id="fpLiveVerseNextText">ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ <span class="ayah-end-ornament" data-digits="1"><svg class="ayah-end-svg" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15.5" stroke="#d6ad60" stroke-width="1.2" fill="none"/><circle cx="18" cy="18" r="12.5" stroke="#d6ad60" stroke-width="0.8" opacity="0.4" fill="none"/><circle cx="18" cy="2.5" r="1.2" fill="#d6ad60"/><circle cx="18" cy="33.5" r="1.2" fill="#d6ad60"/><circle cx="2.5" cy="18" r="1.2" fill="#d6ad60"/><circle cx="33.5" cy="18" r="1.2" fill="#d6ad60"/></svg><span class="ayah-end-digit">٢</span></span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. TRACK INFO & ACTIONS ROW (SLEEP TIMER + SPEED + FAV + PLAYLIST) -->
+        <div class="fp-track-meta-row">
+            <div class="fp-track-titles-wrap" onclick="window.openCurrentSheikhProfile()">
+                <h2 id="fpBigTitle">اسم السورة</h2>
+                <div class="fp-sheikh-badge-row">
+                    <span id="fpBigArtist">اسم القارئ</span>
+                    <img src="images/icons/verified-sheikh.png" class="fp-verified-mark" id="fpVerifiedBadge" alt="Verified">
+                </div>
+            </div>
+            
+            <div class="fp-actions-cluster">
+                <span id="liveSleepTimer" class="fp-mini-chip" style="display: none;" onclick="openSheet('timerSheet')" title="مؤقت النوم">
+                    <img src="images/icons/stopwatch.png" alt="Timer">
+                    <span id="timerCountdown">00:00</span>
+                </span>
+                <span id="liveSpeedBadge" class="fp-mini-chip" style="display: none;" onclick="openSheet('speedSheet')" title="سرعة القراءة">
+                    <img src="images/icons/leaf-2.png" alt="Speed">
+                    <span id="speedIndicator">1.0x</span>
+                </span>
+                <button class="fp-action-circle-btn" id="fpFavBtn" onclick="toggleFavorite()">
+                    <img src="images/icons/no-fav.png" id="fpFavIconImg" alt="Favorite">
+                </button>
+                <button class="fp-action-circle-btn" id="fpAddPlaylistBtn" onclick="openSheet('playlistSheet')">
+                    <img src="images/icons/Add-to-playlist.png" alt="Add to playlist">
+                </button>
+            </div>
+        </div>
+
+        <!-- 4. TIMELINE (SEEK BAR 00:00) -->
+        <div class="fp-timeline-box">
+            <div class="fp-progress-container">
+                <div class="fp-progress-bar" id="fpProgressBar">
+                    <div class="fp-progress-current" id="fpProgressCurrent">
+                        <div class="fp-progress-handle"></div>
+                    </div>
+                </div>
+                <div class="fp-time-row">
+                    <span id="fpCurrentTime">00:00</span>
+                    <span id="fpTotalTime">00:00</span>
+                </div>
+            </div>
+
+            <!-- Live Radio Status Banner (Visible only in Radio Mode) -->
+            <div class="fp-live-radio-badge-box" id="fpLiveRadioBar">
+                <div class="live-tag">
+                    <span class="live-dot"></span>
+                    <span>بث إذاعي مباشر 24/7</span>
+                </div>
+                <span class="session-time" id="fpRadioSessionTimer">مدة الاستماع: 00:00</span>
+            </div>
+        </div>
+
+        <!-- 5. FIVE PLAYBACK CONTROLS (LTR DIRECTION: SHUFFLE, PREV, PLAY, NEXT, REPEAT) -->
+        <div class="fp-controls-row">
+            <button class="fp-media-btn track-only-btn" id="fpShuffleBtn" onclick="window.wzkerAudio.toggleShuffle()">
+                <img src="images/icons/shuffle.png" alt="Shuffle">
+            </button>
+            <button class="fp-media-btn track-only-btn" onclick="prevTrack()">
+                <img src="images/icons/previous1.png" alt="Previous">
+            </button>
+            <button class="fp-play-btn" onclick="togglePlayPause()">
+                <img src="images/icons/play+.png" id="fpMainPlayImg" alt="Play">
+            </button>
+            <button class="fp-media-btn track-only-btn" onclick="nextTrack()">
+                <img src="images/icons/next1.png" alt="Next">
+            </button>
+            <button class="fp-media-btn track-only-btn" id="fpRepeatBtn" onclick="window.wzkerAudio.toggleRepeat()">
+                <img src="images/icons/Repeat.png" alt="Repeat">
+            </button>
+        </div>
+
+        <!-- 6. AUXILIARY DOCK (BOTTOM QUICK ACCESS) -->
+        <div class="fp-aux-dock">
+            <div class="fp-dock-btn track-only-action" id="fpAyahLyricsDockBtn" onclick="window.openAyahLyricsSheet()" title="عرض الآيات والكلمات المتزامنة">
+                <img src="images/icons/spiritual-lib.png" alt="Ayah">
+                <span id="fpAyahDockLabel">الآيات</span>
+            </div>
+            <div class="fp-dock-btn" onclick="openSheet('timerSheet')" title="مؤقت النوم">
+                <img src="images/icons/stopwatch.png" alt="Timer">
+                <span>المؤقت</span>
+            </div>
+            <div class="fp-dock-btn" onclick="openSheet('speedSheet')" title="سرعة القراءة">
+                <img src="images/icons/leaf-2.png" alt="Speed">
+                <span>السرعة</span>
+            </div>
+            <div class="fp-dock-btn" onclick="window.openCurrentSheikhProfile()" title="المصحف كاملاً">
+                <img src="images/icons/leaf-5.png" alt="Quran">
+                <span>المصحف</span>
+            </div>
+            <div class="fp-dock-btn" onclick="window.handleContextShare()" title="مشاركة التلاوة">
+                <img src="images/icons/share.png" alt="Share">
+                <span>مشاركة</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- =========================================================
+         ROYAL MIDNIGHT INDIGO INTERNAL LIVE RADIO PAGE
+         ========================================================= -->
+    <div class="radio-overlay-page" id="radioPlayerOverlay">
+        
+        <!-- Top Navbar -->
+        <div class="radio-navbar-pro">
+            <button class="radio-nav-icon-btn" onclick="closeRadioUI()"><i class="fa-solid fa-chevron-down"></i></button>
+            <div class="radio-header-info">
+                <span class="radio-header-title">البث الإذاعي المباشر</span>
+                <span class="radio-header-sub">
+                    <span class="live-dot" style="width: 5px; height: 5px;"></span>
+                    إذاعة القرآن الكريم
+                </span>
+            </div>
+            <button class="radio-nav-icon-btn" onclick="openSheet('timerSheet')" title="مؤقت النوم">
+                <img src="images/icons/stopwatch.png" style="width: 20px; height: 20px; filter: brightness(0) invert(1);" alt="Timer">
+            </button>
+        </div>
+
+        <!-- 86vw Large Hero Artwork Card -->
+        <div class="radio-artwork-container-pro">
+            <div class="radio-pro-cover-card">
+                <img src="images/radio/radio-live.png" alt="Radio Cairo Artwork">
+
+            </div>
+        </div>
+
+        <!-- Live Station Details & Spectrum -->
+        <div class="radio-details-section">
+            <h2 class="radio-main-heading">إذاعة القرآن الكريم من القاهرة</h2>
+            <p class="radio-sub-heading">جمهورية مصر العربية • تلاوات وبرامج دينية مستمرة</p>
+
+            <!-- Stream Health & Telemetry Grid -->
+            <div class="radio-telemetry-grid">
+                <div class="telemetry-card">
+                    <span class="t-val" id="telemetryStatusVal" style="color: #4ade80;">متصل الآن</span>
+                    <span class="t-lbl">حالة البث</span>
+                </div>
+                <div class="telemetry-card">
+                    <span class="t-val">HD 128K</span>
+                    <span class="t-lbl">نقاوة الصوت</span>
+                </div>
+                <div class="telemetry-card">
+                    <span class="t-val">&lt; 0.8 ث</span>
+                    <span class="t-lbl">زمن التأخير</span>
+                </div>
+            </div>
+
+            <!-- Live Equalizer Spectrum Visualizer (Radio Only) -->
+            <div class="radio-live-spectrum-bar" id="radioInternalSpectrum">
+                <span class="spec-wave sp1"></span>
+                <span class="spec-wave sp2"></span>
+                <span class="spec-wave sp3"></span>
+                <span class="spec-wave sp4"></span>
+                <span class="spec-wave sp5"></span>
+                <span class="spec-wave sp6"></span>
+            </div>
+
+            <!-- Live Device Volume Controller -->
+            <div class="radio-volume-container">
+                <i class="fa-solid fa-volume-high" id="radioVolIcon" onclick="toggleRadioMute()" title="كتم/تشغيل الصوت"></i>
+                <input type="range" class="volume-slider" id="radioVolumeSlider" min="0" max="100" value="90" oninput="setRadioVolume(this.value)">
+                <span class="vol-percent-badge" id="radioVolPercent">90%</span>
+            </div>
+        </div>
+
+        <!-- Pro Controls Matrix -->
+        <div class="radio-pro-controls-matrix">
+            <div class="radio-secondary-btn" onclick="openSheet('timerSheet')" title="مؤقت النوم">
+                <img src="images/icons/stopwatch.png" alt="Sleep Timer">
+            </div>
+
+            <div class="radio-secondary-btn" onclick="refreshRadioStream()" title="تحديث وإعادة ضبط البث">
+                <i class="fa-solid fa-arrows-rotate" style="color: var(--accent); font-size: 18px;"></i>
+            </div>
+
+            <div class="radio-giant-play-btn" id="radioMainToggle" onclick="toggleRadioPlay()">
+                <img src="images/icons/play.png" alt="Play/Pause">
+            </div>
+
+            <div class="radio-secondary-btn" onclick="toggleRadioMute()" title="كتم الصوت">
+                <i class="fa-solid fa-volume-xmark" style="color: #ffffff; font-size: 18px;"></i>
+            </div>
+
+            <div class="radio-secondary-btn" onclick="shareApp()" title="مشاركة البث">
+                <img src="images/icons/share.png" alt="Share">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CONTEXT MENU BOTTOM SHEET (3-DOTS) -->
+    <div class="bottom-sheet-overlay" id="trackOptionsSheet" onclick="closeSheet('trackOptionsSheet')">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            
+            <div class="sheet-header-box">
+                <div class="sheet-header-artwork">
+                    <img src="images/icon/wzker.png" class="sheet-header-img" id="sheetTrackCover" alt="Cover">
+                </div>
+                <div class="sheet-header-info">
+                    <span class="sheet-header-badge">خيارات التلاوة المباركة</span>
+                    <h3 id="sheetTrackTitle">اسم المقطع</h3>
+                    <p id="sheetTrackArtist">اسم القارئ</p>
+                </div>
+                <button class="sheet-close-btn" onclick="closeSheet('trackOptionsSheet')" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="sheet-action-list">
+                <div class="sheet-action-item" onclick="handleContextPlay()">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap play-tint">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title">تشغيل التلاوة فوراً</span>
+                            <span class="sheet-action-sub">بدء الاستماع في المشغل الرئيسي</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+
+                <div class="sheet-action-item" onclick="handleContextTogglePin()">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap pin-tint">
+                            <i class="fa-solid fa-thumbtack" id="sheetPinIcon"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title" id="sheetTrackPinLabel">تثبيت في الأعلى</span>
+                            <span class="sheet-action-sub" id="sheetTrackPinSub">تثبيت حتى ٣ تلاوات مفضلة في القمة</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+
+                <div class="sheet-action-item" onclick="handleContextToggleFav()">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap fav-tint">
+                            <i class="fa-solid fa-heart" id="sheetFavIcon"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title" id="sheetTrackFavLabel">إضافة إلى المفضلة</span>
+                            <span class="sheet-action-sub" id="sheetTrackFavSub">حفظ في قائمة تلاواتك المفضلة</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+
+                <div class="sheet-action-item" onclick="handleContextAddToPlaylist()">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap pl-tint">
+                            <i class="fa-solid fa-list-ul"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title">إضافة إلى قائمة تشغيل</span>
+                            <span class="sheet-action-sub">تنظيم التلاوة في مجموعاتك الخاصة</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+
+                <div class="sheet-action-item" onclick="handleContextDownload()">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap down-tint">
+                            <img src="images/icons/download.png" id="sheetDownIcon" alt="تحميل">
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title" id="sheetTrackDownLabel">حفظ في التحميلات</span>
+                            <span class="sheet-action-sub" id="sheetTrackDownSub">استماع بجودة عالية وبدون إنترنت</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+
+                <div class="sheet-action-item" onclick="handleContextSleepTimer()">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap timer-tint">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title">ضبط مؤقت النوم</span>
+                            <span class="sheet-action-sub">إيقاف التلاوة تلقائياً بعد فترة زمنية</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+
+                <div class="sheet-action-item" onclick="handleContextShare()">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap share-tint">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title">مشاركة التلاوة المباركة</span>
+                            <span class="sheet-action-sub">نسخ الرابط ونشر الخير والأجر</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SINGLE PLAYLIST OPTIONS BOTTOM SHEET -->
+    <div class="bottom-sheet-overlay" id="singlePlOptionsSheet" onclick="closeSheet('singlePlOptionsSheet')">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            <div class="sheet-header-box">
+                <div class="sheet-header-artwork" style="background: rgba(214, 173, 96, 0.12); display: flex; align-items: center; justify-content: center; border-radius: 15px; border: 1.5px solid rgba(214, 173, 96, 0.3);">
+                    <img src="images/icons/playlist-active.png" id="singlePlOptionsImg" style="width: 28px; height: 28px; object-fit: contain;" alt="Cover">
+                </div>
+                <div class="sheet-header-info">
+                    <span class="sheet-header-badge" id="singlePlOptionsBadge">قائمة تشغيل</span>
+                    <h3 id="singlePlOptionsTitle">خيارات القائمة</h3>
+                    <p id="singlePlOptionsSub">إدارة وتعديل قائمة التشغيل</p>
+                </div>
+                <button class="sheet-close-btn" onclick="closeSheet('singlePlOptionsSheet')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="sheet-actions-list">
+                <div class="sheet-action-item" onclick="closeSheet('singlePlOptionsSheet'); window.openRenamePlaylistModal();" id="singlePlRenameOption">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap" style="background: rgba(212, 175, 55, 0.15); color: var(--accent);">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title">تعديل اسم القائمة</span>
+                            <span class="sheet-action-sub">إعادة تسمية قائمة التشغيل المخصصة</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+
+                <div class="sheet-action-item" onclick="closeSheet('singlePlOptionsSheet'); window.playAllCurrentPlaylist(true);">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap" style="background: rgba(16, 185, 129, 0.15); color: var(--primary);">
+                            <i class="fa-solid fa-shuffle"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title">تشغيل عشوائي</span>
+                            <span class="sheet-action-sub">تشغيل مقاطع القائمة بترتيب عشوائي</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+
+                <div class="sheet-action-item" onclick="closeSheet('singlePlOptionsSheet'); window.deleteCurrentPlaylistConfirm();" id="singlePlDeleteOption" style="border-top: 1px solid var(--card-border); margin-top: 6px; padding-top: 12px;">
+                    <div class="sheet-action-left">
+                        <div class="sheet-action-icon-wrap" style="background: rgba(255, 71, 87, 0.15); color: #ff4757;">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </div>
+                        <div class="sheet-action-text-wrap">
+                            <span class="sheet-action-title" style="color: #ff4757;">حذف القائمة بالكامل</span>
+                            <span class="sheet-action-sub">حذف قائمة التشغيل وتفريغ محتواها</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-left sheet-chevron"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLAYLIST SELECTOR BOTTOM SHEET -->
+    <div class="bottom-sheet-overlay" id="playlistSheet" onclick="closeSheet('playlistSheet')">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 16px; color: var(--primary); text-align: center;">إضافة إلى قائمة تشغيل</h3>
+            
+            <div class="sheet-action-item" onclick="closeSheet('playlistSheet'); openCustomModal();" style="border: 1.5px dashed var(--accent); margin-bottom: 12px;">
+                <img src="images/icons/plus.png" style="width: 20px; height: 20px;" alt="Plus">
+                <span>+ إنشاء قائمة جديدة</span>
+            </div>
+
+            <div id="playlistSheetList" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+    </div>
+
+    <!-- SPEED SELECTOR BOTTOM SHEET -->
+    <div class="bottom-sheet-overlay" id="speedSheet" onclick="closeSheet('speedSheet')">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            <div class="sheet-header-box" style="margin-bottom: 16px;">
+                <div class="sheet-header-artwork" style="background: rgba(16, 185, 129, 0.12); display: flex; align-items: center; justify-content: center; border-radius: 15px; border: 1.5px solid rgba(16, 185, 129, 0.3);">
+                    <img src="images/icons/leaf-2.png" style="width: 24px; height: 24px; object-fit: contain;" alt="Speed">
+                </div>
+                <div class="sheet-header-info">
+                    <span class="sheet-header-badge" style="color: var(--primary); background: rgba(16, 185, 129, 0.12);">إيقاع الصوت</span>
+                    <h3>سرعة التلاوة</h3>
+                    <p>اختر سرعة الاستماع المناسبة لك</p>
+                </div>
+                <button class="sheet-close-btn" onclick="closeSheet('speedSheet')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="speed-grid">
+                <button class="speed-pill-btn" onclick="setPlaybackSpeed(0.75, this)"><span>0.75x</span><small>هادئ</small></button>
+                <button class="speed-pill-btn active" onclick="setPlaybackSpeed(1.0, this)"><span>1.0x</span><small>طبيعي</small></button>
+                <button class="speed-pill-btn" onclick="setPlaybackSpeed(1.25, this)"><span>1.25x</span><small>سريع قليلاً</small></button>
+                <button class="speed-pill-btn" onclick="setPlaybackSpeed(1.5, this)"><span>1.5x</span><small>متوسط السرعة</small></button>
+                <button class="speed-pill-btn" onclick="setPlaybackSpeed(1.75, this)"><span>1.75x</span><small>سريع</small></button>
+                <button class="speed-pill-btn" onclick="setPlaybackSpeed(2.0, this)"><span>2.0x</span><small>مضاعف</small></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLEEP TIMER BOTTOM SHEET -->
+    <div class="bottom-sheet-overlay" id="timerSheet" onclick="closeSheet('timerSheet')">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 16px; color: var(--primary); text-align: center;">مؤقت إيقاف التشغيل للنوم</h3>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div class="sheet-action-item" onclick="setSleepTimer(15)"><span>بعد 15 دقيقة</span></div>
+                <div class="sheet-action-item" onclick="setSleepTimer(30)"><span>بعد 30 دقيقة</span></div>
+                <div class="sheet-action-item" onclick="setSleepTimer(45)"><span>بعد 45 دقيقة</span></div>
+                <div class="sheet-action-item" onclick="setSleepTimer(60)"><span>بعد 60 دقيقة (ساعة)</span></div>
+                <div class="sheet-action-item" onclick="setSleepTimer(0)"><span style="color: #ff4757;">إيقاف المؤقت</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATE PLAYLIST MODAL -->
+    <div class="bottom-sheet-overlay" id="createPlaylistModal" onclick="closeCustomModal()">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            <div class="modal-header-box" style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                <img src="images/icons/playlist.png" style="width: 24px; height: 24px; object-fit: contain;" alt="Playlist">
+                <h3 style="font-size: 18px; font-weight: 900; color: var(--primary);">إنشاء قائمة تشغيل جديدة</h3>
+            </div>
+            
+            <div class="search-input-box-pro" style="margin-bottom: 18px;">
+                <i class="fa-solid fa-folder-plus search-lead-icon"></i>
+                <input type="text" id="newPlaylistInput" class="pro-search-input" placeholder="اسم القائمة (مثال: تلاوات الفجر والسكينة)" autofocus>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-modal-cancel" onclick="closeCustomModal()" style="flex: 1; padding: 13px; background: var(--surface-trans); color: var(--text-muted); border: 1.5px solid var(--card-border); border-radius: 16px; font-size: 14px; font-weight: 800; cursor: pointer;">إلغاء</button>
+                <button class="btn-modal-submit" onclick="confirmCreatePlaylist()" style="flex: 2; padding: 13px; background: var(--primary); color: #fff; border: none; border-radius: 16px; font-size: 14px; font-weight: 900; cursor: pointer; box-shadow: var(--shadow-sm);">إنشاء وحفظ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RENAME PLAYLIST MODAL -->
+    <div class="bottom-sheet-overlay" id="renamePlaylistModal" onclick="closeSheet('renamePlaylistModal')">
+        <div class="bottom-sheet-content" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            <div class="modal-header-box" style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+                <div style="width: 38px; height: 38px; border-radius: 12px; background: rgba(214, 173, 96, 0.15); display: flex; align-items: center; justify-content: center; color: var(--accent);">
+                    <i class="fa-solid fa-pen-to-square" style="font-size: 18px;"></i>
+                </div>
+                <div>
+                    <h3 style="font-size: 18px; font-weight: 900; color: var(--primary); margin: 0;">تعديل اسم القائمة</h3>
+                    <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0;">أدخل اسماً جديداً لقائمة التشغيل</p>
+                </div>
+            </div>
+            
+            <div class="search-input-box-pro" style="margin-bottom: 18px;">
+                <i class="fa-solid fa-pen search-lead-icon"></i>
+                <input type="text" id="renamePlaylistInput" class="pro-search-input" placeholder="اسم القائمة الجديد" autofocus>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-modal-cancel" onclick="closeSheet('renamePlaylistModal')" style="flex: 1; padding: 13px; background: var(--surface-trans); color: var(--text-muted); border: 1.5px solid var(--card-border); border-radius: 16px; font-size: 14px; font-weight: 800; cursor: pointer;">إلغاء</button>
+                <button class="btn-modal-submit" onclick="window.confirmRenamePlaylist()" style="flex: 2; padding: 13px; background: var(--accent); color: #1a1a1a; border: none; border-radius: 16px; font-size: 14px; font-weight: 900; cursor: pointer; box-shadow: var(--shadow-sm);">حفظ التعديل</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UNIVERSAL CUSTOM CONFIRMATION DIALOG MODAL -->
+    <div class="bottom-sheet-overlay" id="customConfirmModal" onclick="closeCustomConfirmModal()">
+        <div class="bottom-sheet-content confirm-dialog-box" onclick="event.stopPropagation()">
+            <div class="bottom-sheet-handle"></div>
+            
+            <div class="confirm-icon-wrap" id="confirmModalIconWrap">
+                <i class="fa-solid fa-triangle-exclamation" id="confirmModalIcon"></i>
+            </div>
+
+            <h3 class="confirm-modal-title" id="confirmModalTitle">تأكيد الإجراء</h3>
+            <p class="confirm-modal-message" id="confirmModalMessage">هل أنت متأكد من تنفيذ هذا الإجراء؟ لا يمكن التراجع عنه.</p>
+
+            <div class="confirm-modal-buttons">
+                <button class="btn-confirm-cancel" onclick="closeCustomConfirmModal()">تراجع / إلغاء</button>
+                <button class="btn-confirm-action" id="confirmModalActionBtn" onclick="executeCustomConfirm()">نعم، احذف</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         WZKER ROYAL SIDEBAR DRAWER (القائمة الجانبية الفاخرة)
+         ========================================================= -->
+    <div id="appSidebarDrawer" class="sidebar-drawer-overlay">
+        <div class="sidebar-panel">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <div class="sidebar-brand-box">
+                    <div class="sidebar-logo-wrap">
+                        <img src="images/icon/wzker.png" alt="Wzker">
+                    </div>
+                    <div class="sidebar-brand-text">
+                        <h2 class="sidebar-brand-title">
+                            <span>وذكر</span>
+                            <span class="sidebar-version-badge">PRO</span>
+                        </h2>
+                        <p class="sidebar-brand-slogan">رفيقك اليومي إلى الجنة</p>
+                    </div>
+                </div>
+                <button class="sidebar-close-btn" onclick="window.wzkerSidebar.close()" title="إغلاق القائمة">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="sidebar-scroll-body">
+
+                <!-- Quick Login / Profile Banner -->
+                <div class="sidebar-account-card" onclick="window.wzkerSidebar.navigate('loginPage')">
+                    <div class="sidebar-account-info">
+                        <div class="sidebar-account-avatar">
+                            <img src="images/icons/Login1.png" alt="User">
+                        </div>
+                        <div class="sidebar-account-texts">
+                            <h3 class="sidebar-account-title">تسجيل الدخول</h3>
+                            <p class="sidebar-account-sub">لحفظ تفضيلاتك وتلاواتك سحابياً</p>
+                        </div>
+                    </div>
+                    <div class="sidebar-account-arrow">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                </div>
+
+                <!-- SECTION 1: الواحة الإيمانية والعبادات -->
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">
+                        <img src="images/icons/leaf-1.png" alt="Leaf">
+                        <span>الواحة الروحانية والعبادات</span>
+                    </div>
+                    <div class="sidebar-menu-list">
+                        <!-- 1. القرآن الكريم -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('quranPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/quran1.png" alt="القرآن الكريم">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">القرآن الكريم</h4>
+                                    <p class="sidebar-item-sub">المصحف الشريف وتدبر الآيات المباركة</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 2. الأذكار -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('adhkarPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/prayer1.png" alt="الأذكار">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">الأذكار اليومية</h4>
+                                    <p class="sidebar-item-sub">أذكار الصباح والمساء واليوم والليلة</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 3. السبحة الإلكترونية -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('tasbeehPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/sabha1.png" alt="السبحة الإلكترونية">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">السبحة الإلكترونية</h4>
+                                    <p class="sidebar-item-sub">عداد تسبيح ذكي مع أذكار وأهداف يومية</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 4. مواقيت الصلاة والأذان -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('prayerTimesPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/prayers1.png" alt="مواقيت الصلاة">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">مواقيت الصلاة والأذان</h4>
+                                    <p class="sidebar-item-sub">أوقات الصلوات الخمس والعد التنازلي للأذان</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 5. اتجاه القبلة -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('qiblaPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/Qibla1.png" alt="اتجاه القبلة">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">اتجاه القبلة</h4>
+                                    <p class="sidebar-item-sub">بوصلة الكعبة المشرفة وحساب زاوية الصلاة</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 6. حصن المسلم -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('hisnMuslimPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/book1.png" alt="حصن المسلم">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">حصن المسلم</h4>
+                                    <p class="sidebar-item-sub">أدعية مأثورة وتعاويذ من الكتاب والسنة</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 7. الأربعون النووية -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('nawawiPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/book3.png" alt="الأربعون النووية">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">الأربعون النووية</h4>
+                                    <p class="sidebar-item-sub">أحاديث الإمام النووي الجامعة وشروحها</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 8. قصص القرآن -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('quranStoriesPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/story1.png" alt="قصص القرآن">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">قصص القرآن</h4>
+                                    <p class="sidebar-item-sub">الأنبياء، الإنسان، النساء، والحيوان</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 9. الآداب الإسلامية -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('etiquettePage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/Etiquette1.png" alt="الآداب الإسلامية">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">الآداب والسنن الإسلامية</h4>
+                                    <p class="sidebar-item-sub">سنن اليوم والليلة وسنة اليوم المهجورة</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 10. الرقية الشرعية -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('ruqyahPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/Ruqayyah1.png" alt="الرقية الشرعية">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">الرقية الشرعية</h4>
+                                    <p class="sidebar-item-sub">رقية كاملة مكتوبة ومسموعة للحفظ والشفاء</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 11. أسماء الله الحسنى -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('allahNamesPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/leaf-1.png" alt="أسماء الله الحسنى">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">أسماء الله الحسنى</h4>
+                                    <p class="sidebar-item-sub">٩٩ اسماً مباركاً مع المعاني والشروح</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 12. موسوعة الأحاديث -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('hadithPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/book2.png" alt="الأحاديث">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">موسوعة الأحاديث</h4>
+                                    <p class="sidebar-item-sub">أحاديث نبوية صحيحة بشروحها الميسرة</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: التفاعل والمشاركة -->
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">
+                        <img src="images/icons/leaf-2.png" alt="Leaf">
+                        <span>المشاركة والدعم</span>
+                    </div>
+                    <div class="sidebar-menu-list">
+                        <!-- 4. شاركنا ملاحظاتك -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('feedbackPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/ideas1.png" alt="ملاحظات">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">شاركنا ملاحظاتك</h4>
+                                    <p class="sidebar-item-sub">أفكارك واقتراحاتك تهمنا لتطوير التطبيق</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 5. مشاركة التطبيق -->
+                        <div class="sidebar-menu-item highlight-share" onclick="window.wzkerSidebar.shareApp()">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/share.png" alt="مشاركة">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title" style="color: var(--primary);">مشاركة التطبيق</h4>
+                                    <p class="sidebar-item-sub">الدال على الخير كفاعله • انشر ولك الأجر</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-share-nodes sidebar-item-chevron" style="color: var(--primary);"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: المعلومات والأمان -->
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">
+                        <img src="images/icons/leaf-1.png" alt="Leaf">
+                        <span>معلومات وذكر</span>
+                    </div>
+                    <div class="sidebar-menu-list">
+                        <!-- 6. عن التطبيق -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('aboutPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/About1.png" alt="عن التطبيق">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">عن التطبيق</h4>
+                                    <p class="sidebar-item-sub">الرسالة، الرؤية، وفريق العمل</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+
+                        <!-- 7. سياسة الخصوصية -->
+                        <div class="sidebar-menu-item" onclick="window.wzkerSidebar.navigate('privacyPolicyPage')">
+                            <div class="sidebar-item-left">
+                                <div class="sidebar-item-icon-wrap">
+                                    <img src="images/icons/note2.png" alt="الخصوصية">
+                                </div>
+                                <div class="sidebar-item-text">
+                                    <h4 class="sidebar-item-title">سياسة الخصوصية</h4>
+                                    <p class="sidebar-item-sub">حماية بياناتك وحقوق الاستخدام</p>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-left sidebar-item-chevron"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <p class="sidebar-footer-waqf">
+                    <i class="fa-solid fa-heart" style="color: var(--primary); font-size: 11px;"></i>
+                    <span>وقف لله تعالى • صدقة جارية</span>
+                </p>
+                <p class="sidebar-footer-copy">تطبيق وذكر © 2026 • إصدار 1.0 Pro</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         IN-APP NOTIFICATION & SPIRITUAL DRAWER (صندوق النفحات والتنبيهات)
+         ========================================================= -->
+    <div id="notificationDrawer" class="notif-drawer-overlay" onclick="if(event.target === this) window.wzkerNotif.closeDrawer()">
+        <div class="notif-drawer-panel" onclick="event.stopPropagation()">
+            <!-- Drawer Header -->
+            <div class="notif-drawer-header">
+                <div class="notif-header-title-box">
+                    <img src="images/icons/notification.png" alt="Bell">
+                    <h3>صندوق النفحات</h3>
+                    <span class="notif-count-pill" id="notifHeaderCount">0</span>
+                </div>
+                <div class="notif-drawer-actions">
+                    <button class="notif-clear-btn" onclick="window.wzkerNotif.clearAll()" title="مسح الإشعارات غير المثبتة">مسح الكل</button>
+                    <button class="notif-close-btn" onclick="window.wzkerNotif.closeDrawer()" title="إغلاق">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Status Strip -->
+            <div class="notif-drawer-quick-strip">
+                <div class="notif-quick-state">
+                    <span class="notif-quick-dot" id="notifQuickStateDot"></span>
+                    <span id="notifQuickIntervalDisplay">كل 15 دقيقة</span>
+                </div>
+                <span class="notif-quick-config-link" onclick="window.wzkerNotif.closeDrawer(); openLibPage('settingsPage');">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>تخصيص الوقت</span>
+                </span>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div style="display: flex; align-items: center; gap: 6px; padding: 10px 16px 4px; overflow-x: auto; white-space: nowrap;">
+                <button class="notif-action-chip active" onclick="this.parentElement.querySelectorAll('.notif-action-chip').forEach(b=>b.classList.remove('active')); this.classList.add('active'); window.wzkerNotif.setFilter('all');">الكل</button>
+                <button class="notif-action-chip" onclick="this.parentElement.querySelectorAll('.notif-action-chip').forEach(b=>b.classList.remove('active')); this.classList.add('active'); window.wzkerNotif.setFilter('dhikr');">الصلاة على النبي والذكر</button>
+                <button class="notif-action-chip" onclick="this.parentElement.querySelectorAll('.notif-action-chip').forEach(b=>b.classList.remove('active')); this.classList.add('active'); window.wzkerNotif.setFilter('download');">التحميلات أوفلاين</button>
+            </div>
+
+            <!-- Scrollable Notification Cards List -->
+            <div class="notif-drawer-list" id="notifDrawerList"></div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         REAL OFFLINE STREAMING & DEVICE DOWNLOAD MODAL
+         ========================================================= -->
+    <div id="realDownloadModal" class="real-dl-modal-overlay" onclick="if(event.target === this) window.wzkerStorage.minimizeDownloadModal()">
+        <div class="real-dl-modal-card" onclick="event.stopPropagation()">
+            <!-- Modal Header -->
+            <div class="real-dl-card-header">
+                <div class="real-dl-badge">
+                    <span class="real-dl-pulse-dot"></span>
+                    <span id="realDlBadgeText">تنزيل متدفق وحفظ في جهازك</span>
+                </div>
+                <button class="real-dl-close-x" onclick="window.wzkerStorage.minimizeDownloadModal()" title="المتابعة في الخلفية">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Active Downloading Body -->
+            <div id="realDlActiveBody">
+                <div class="real-dl-track-hero">
+                    <div class="real-dl-cover-wrap">
+                        <img id="realDlCoverImg" src="images/icon/wzker.png" alt="Cover">
+                        <div class="real-dl-spinner"></div>
+                    </div>
+                    <div class="real-dl-track-details">
+                        <h3 id="realDlTrackTitle">اسم السورة</h3>
+                        <p id="realDlTrackArtist">اسم القارئ</p>
+                        <div class="real-dl-meta-chips-row">
+                            <span class="real-dl-meta-chip">
+                                <i class="fa-solid fa-book-quran"></i>
+                                <span id="realDlTypePill">المصحف المرتل</span>
+                            </span>
+                            <span class="real-dl-meta-chip">
+                                <i class="fa-solid fa-volume-high"></i>
+                                <span>MP3 • 128K</span>
+                            </span>
+                            <span class="real-dl-meta-chip highlight" id="realDlSizePill">
+                                <i class="fa-solid fa-hard-drive"></i>
+                                <span>جاري حساب الحجم...</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Track Section -->
+                <div class="real-dl-progress-section" style="margin-top: 14px;">
+                    <div class="real-dl-progress-track">
+                        <div class="real-dl-progress-bar" id="realDlProgressBar" style="width: 0%;">
+                            <div class="real-dl-shimmer"></div>
+                        </div>
+                    </div>
+                    <div class="real-dl-meta-stats">
+                        <span id="realDlBytesDisplay" class="real-dl-bytes-tag">0.0 / 0.0 م.ب</span>
+                        <span class="real-dl-stream-status">
+                            <span class="real-dl-live-beacon"></span>
+                            <span>تدفق حي مباشر</span>
+                        </span>
+                        <span id="realDlPctDisplay" class="real-dl-pct-pill">0%</span>
+                    </div>
+                </div>
+
+                <!-- Informative Device Save Destination Note -->
+                <div class="real-dl-save-destination-note">
+                    <i class="fa-solid fa-circle-down"></i>
+                    <span>سيتم تنزيل الملف الفعلي (MP3) إلى <b>مجلد التنزيلات بجهازك</b> وتثبيته في التطبيق للتشغيل أوفلاين.</span>
+                </div>
+
+                <div class="real-dl-actions-row">
+                    <button class="real-dl-btn btn-cancel" id="realDlCancelBtn" onclick="window.wzkerStorage.cancelCurrentDownload()">
+                        <i class="fa-solid fa-ban"></i>
+                        <span>إلغاء التحميل</span>
+                    </button>
+                    <button class="real-dl-btn btn-minimize" onclick="window.wzkerStorage.minimizeDownloadModal()">
+                        <i class="fa-solid fa-arrow-down-to-bracket"></i>
+                        <span>متابعة في الخلفية</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Success State Body -->
+            <div id="realDlSuccessBody" class="real-dl-success-section" style="display: none;">
+                <div class="real-dl-success-icon-wrap">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h4>اكتمل التنزيل بنجاح</h4>
+                <p>تم حفظ ملف التلاوة (MP3) في مجلد التنزيلات بجهازك، كما تم تثبيتها في ذاكرة التطبيق للاستماع أوفلاين بدون إنترنت.</p>
+                <div class="real-dl-success-details-pill" id="realDlSuccessDetailsPill">
+                    <i class="fa-solid fa-file-audio"></i>
+                    <span id="realDlSuccessFileName">سورة الفاتحة - وذكر.mp3</span>
+                    <span class="real-dl-size-tag" id="realDlSuccessSizeTag">18.4 م.ب</span>
+                </div>
+                <div class="real-dl-actions-row" style="width: 100%; margin-top: 8px;">
+                    <button class="real-dl-btn btn-play-now" id="realDlPlayBtn" onclick="window.wzkerStorage.playCurrentDownloadedTrack()">
+                        <i class="fa-solid fa-play"></i>
+                        <span>تشغيل الآن</span>
+                    </button>
+                    <button class="real-dl-btn btn-done" onclick="window.wzkerStorage.closeDownloadModal()">
+                        <span>تم</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         ALREADY DOWNLOADED NOTICE MODAL (السورة محملة بالفعل)
+         ========================================================= -->
+    <div id="alreadyDownloadedModal" class="real-dl-modal-overlay" onclick="if(event.target === this) window.wzkerStorage.closeAlreadyDownloadedModal()">
+        <div class="real-dl-modal-card already-dl-card" onclick="event.stopPropagation()">
+            <!-- Card Header -->
+            <div class="real-dl-card-header">
+                <div class="real-dl-badge" style="color: #10b981; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.25);">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>السورة محملة بالفعل</span>
+                </div>
+                <button class="real-dl-close-x" onclick="window.wzkerStorage.closeAlreadyDownloadedModal()" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Visual Track Showcase -->
+            <div class="real-dl-track-hero">
+                <div class="real-dl-cover-wrap">
+                    <img id="alreadyDlCover" src="images/icon/wzker.png" alt="Cover">
+                </div>
+                <div class="real-dl-track-details">
+                    <h3 id="alreadyDlTitle">اسم السورة</h3>
+                    <p id="alreadyDlArtist">اسم القارئ</p>
+                    <div class="real-dl-meta-chips-row">
+                        <span class="real-dl-meta-chip" style="color: #10b981; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.25);">
+                            <i class="fa-solid fa-circle-check" style="color: #10b981;"></i>
+                            <span>جاهزة للاستماع أوفلاين 100%</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informational Message Box -->
+            <div class="already-dl-message-box">
+                <p>هذه السورة تم تنزيلها مسبقاً ومحفوظة في جهازك، وتعمل بدون اتصال بالإنترنت في أي وقت. لا حاجة لإعادة التحميل أو استهلاك باقة الإنترنت مجدداً.</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="real-dl-actions-row" style="width: 100%; margin-top: 8px;">
+                <button class="real-dl-btn btn-play-now" onclick="window.wzkerStorage.playCurrentDownloadedTrack()">
+                    <i class="fa-solid fa-play"></i>
+                    <span>تشغيل الآن</span>
+                </button>
+                <button class="real-dl-btn btn-view-downloads" onclick="window.wzkerStorage.goToDownloadsPage()">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>عرض</span>
+                </button>
+                <button class="real-dl-btn btn-done" onclick="window.wzkerStorage.closeAlreadyDownloadedModal()">
+                    <span>إغلاق</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         AYAH & LYRICS SYNC BOTTOM SHEET (المرحلة الرابعة)
+         ========================================================= -->
+    <div class="ayah-lyrics-overlay" id="ayahLyricsSheet" onclick="window.closeAyahLyricsSheet()">
+        <div class="ayah-lyrics-container" onclick="event.stopPropagation()">
+            
+            <!-- Sheet Header -->
+            <div class="ayah-lyrics-header">
+                <div class="ayah-sheet-handle-bar" onclick="window.closeAyahLyricsSheet()" title="سحب للإغلاق"></div>
+                
+                <div class="ayah-header-main-row">
+                    <div class="ayah-track-meta">
+                        <div class="ayah-track-avatar">
+                            <img src="images/icon/wzker.png" id="ayahTrackAvatarImg" alt="Cover">
+                        </div>
+                        <div class="ayah-track-text-box">
+                            <span class="ayah-type-badge" id="ayahTypeBadge">المصحف المرتل</span>
+                            <h3 class="ayah-header-title" id="ayahHeaderTitle">اسم السورة</h3>
+                            <p class="ayah-header-subtitle" id="ayahHeaderSubtitle">اسم القارئ</p>
+                        </div>
+                    </div>
+
+                    <div class="ayah-header-actions">
+                        <!-- Font Size Scaler Cluster -->
+                        <div class="font-scaler-cluster" title="التحكم بحجم خط الآيات">
+                            <button class="font-scaler-btn" onclick="window.adjustAyahFontSize(-2)" title="تصغير الخط">A-</button>
+                            <span class="font-size-val-display" id="ayahFontSizeVal">22</span>
+                            <button class="font-scaler-btn" onclick="window.adjustAyahFontSize(2)" title="تكبير الخط">A+</button>
+                        </div>
+
+                        <!-- Close Button -->
+                        <button class="ayah-circle-icon-btn" onclick="window.closeAyahLyricsSheet()" title="إغلاق">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ayah-status-sub-bar">
+                    <div class="ayah-sync-mode-indicator">
+                        <span class="sync-pulse-dot"></span>
+                        <span id="ayahSyncStatusText">مزامنة حية مع التلاوة</span>
+                    </div>
+
+                    <!-- Timing Offset Calibration Cluster -->
+                    <div class="ayah-timing-tuner-cluster" id="ayahTimingTunerCluster" title="معايرة توقيت انتقال الآيات للقارئ الحالي (انقر على القيمة لاستعادة الضبط الافتراضي)">
+                        <span class="timing-tuner-label"><i class="fa-regular fa-clock"></i> تزامن:</span>
+                        <button class="timing-tuner-btn" onclick="window.wzkerQuranSync.adjustCurrentOffset(-0.2)" title="تقديم انتقال النص (-0.2ث)">-</button>
+                        <span class="timing-tuner-val" id="timingTunerVal" onclick="window.wzkerQuranSync.resetCurrentOffset()" title="انقر لاستعادة الضبط الافتراضي">+1.6s</span>
+                        <button class="timing-tuner-btn" onclick="window.wzkerQuranSync.adjustCurrentOffset(0.2)" title="تأخير انتقال النص (+0.2ث)">+</button>
+                    </div>
+
+                    <span class="ayah-hint-text" style="font-size: 10px; color: rgba(214, 173, 96, 0.85); font-weight: 700;">انقر على أي آية للقفز إليها</span>
+                </div>
+            </div>
+
+            <!-- Scrollable Ayah & Lyrics Body -->
+            <div class="ayah-lyrics-scroll-body" id="ayahLyricsScrollBody"></div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/storage-db.js"></script>
+    <script src="js/library.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/quran-sync.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/quran.js"></script>
+    <script src="js/adhkar-data.js"></script>
+    <script src="js/adhkar.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Dynamic Spiritual Time Greeting Script -->
+    <script>
+        (function updateSpiritualHeader() {
+            const hour = new Date().getHours();
+            const greetingEl = document.getElementById('dynamicTimeGreeting');
+            if (greetingEl) {
+                if (hour >= 4 && hour < 12) {
+                    greetingEl.textContent = 'صباح الخير, لا تنسى ذكر الله';
+                } else if (hour >= 12 && hour < 17) {
+                    greetingEl.textContent = 'طابت أوقاتكم بالقرآن';
+                } else if (hour >= 17 && hour < 21) {
+                    greetingEl.textContent = 'مساء الطمأنينة والهدوء';
+                } else {
+                    greetingEl.textContent = 'ليلة عامرة بالقرآن والسكينة';
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

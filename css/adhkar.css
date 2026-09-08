@@ -1,0 +1,1411 @@
+/**
+ * ══════════════════════════════════════════════════════════════════
+ * WZKER ROYAL ADHKAR STYLESHEET (css/adhkar.css) - PRO EDITION
+ * State-of-the-Art Luxury Design System for Islamic Supplications.
+ * Perfectly synced with global data-theme, data-font & data-font-size.
+ * Includes Adhkar Drawer, Pinterest Story Card, Color Accents,
+ * Centered Ring Checkmark, Real Audio Waves & Number Badges.
+ * ZERO EMOJIS - STRICT ADHERENCE
+ * ══════════════════════════════════════════════════════════════════
+ */
+
+/* ── Container & Layout ──────────────────────────────────────── */
+.adhkar-page-content {
+  padding: 16px 16px 110px;
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ── Floating Prime Navbar with Contoured Edges ──────────────── */
+.adhkar-prime-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--glass-bg, var(--card-bg));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.adhkar-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adhkar-nav-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+}
+
+.adhkar-nav-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.adhkar-nav-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.adhkar-nav-title-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adhkar-nav-title-box img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.adhkar-nav-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+}
+
+.adhkar-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adhkar-drawer-trigger-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.adhkar-drawer-trigger-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.adhkar-drawer-trigger-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+}
+
+.adhkar-zen-toggle-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.adhkar-zen-toggle-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.adhkar-zen-toggle-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.adhkar-progress-badge {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--accent);
+  padding: 5px 10px;
+  border-radius: 14px;
+  font-size: 0.82rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.adhkar-progress-badge img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* ── Dedicated Adhkar Slide-Out Drawer ───────────────────────── */
+.adhkar-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10005;
+  display: none;
+  justify-content: flex-end;
+  animation: fadeIn 0.25s ease;
+}
+
+.adhkar-drawer-overlay.active {
+  display: flex;
+}
+
+.adhkar-drawer-panel {
+  width: 360px;
+  max-width: 90vw;
+  height: 100%;
+  background: var(--card-bg);
+  border-left: 1px solid var(--card-border);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+
+.adhkar-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--card-border);
+  background: var(--surface-trans);
+}
+
+.adhkar-drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adhkar-drawer-brand img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.adhkar-drawer-brand h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.adhkar-drawer-close-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.adhkar-drawer-body {
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.adhkar-drawer-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--card-border);
+  padding-bottom: 6px;
+}
+
+.adhkar-drawer-section-title img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.adhkar-drawer-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.adhkar-drawer-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.adhkar-drawer-menu-item:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateX(-3px);
+}
+
+.adhkar-drawer-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adhkar-drawer-item-left img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.adhkar-drawer-item-title {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.adhkar-drawer-item-count {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+/* Virtues Section inside Drawer */
+.adhkar-virtue-card-mini {
+  background: var(--surface-trans);
+  border-right: 3px solid var(--accent);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.adhkar-virtue-mini-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0;
+}
+
+.adhkar-virtue-mini-verse {
+  font-family: var(--app-font-family);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.adhkar-virtue-mini-hadith {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Smart Time-Aware Hero Card ───────────────────────────────── */
+.adhkar-hero-card {
+  position: relative;
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--surface-trans) 100%);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Ambient 3D Watermark Icon Background */
+.adhkar-hero-watermark {
+  position: absolute;
+  bottom: -25px;
+  left: -15px;
+  width: 150px;
+  height: 150px;
+  pointer-events: none;
+}
+
+.adhkar-hero-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.adhkar-hero-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2;
+}
+
+.adhkar-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-trans);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  width: fit-content;
+  border: 1px solid var(--card-border);
+}
+
+.adhkar-hero-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.adhkar-hero-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.adhkar-hero-actions {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adhkar-hero-btn {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 16px;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  transition: all 0.25s ease;
+}
+
+.adhkar-hero-btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.adhkar-hero-btn:hover {
+  background: var(--primary-light, var(--primary));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.adhkar-hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  position: relative;
+}
+
+.adhkar-hero-artwork {
+  width: 90px;
+  height: 90px;
+  background: var(--surface-trans);
+  border: 1.5px solid var(--card-border);
+  border-radius: 24px;
+  top: -50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  padding: 12px;
+  position: relative;
+}
+
+.adhkar-hero-artwork img.main-art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+}
+
+.adhkar-hero-artwork img.sub-art {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* ── Horizontal Category Capsules with Gentle Auto Drift ────── */
+.adhkar-capsules-wrap {
+  position: relative;
+  margin: 0 -4px;
+}
+
+.adhkar-capsules-scroll {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 6px 4px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.adhkar-capsules-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.adhkar-capsule-item {
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: all 0.25s ease;
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.adhkar-capsule-item img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.adhkar-capsule-item .capsule-badge {
+  background: var(--surface-trans);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.adhkar-capsule-item:hover {
+  background: var(--surface-trans);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.adhkar-capsule-item:hover img {
+  transform: scale(1.15);
+}
+
+.adhkar-capsule-item.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+}
+
+.adhkar-capsule-item.active .capsule-badge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+/* ── Smart Search & Quick Filter Bar ─────────────────────────── */
+.adhkar-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 10px 16px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.adhkar-search-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--surface-trans-active);
+}
+
+.adhkar-search-icon-wrap {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adhkar-search-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.adhkar-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.adhkar-search-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.75;
+}
+
+.adhkar-clear-search {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: none;
+  font-size: 0.9rem;
+}
+
+.adhkar-clear-search.visible {
+  display: block;
+}
+
+/* ── Adhkar Cards Grid / List ────────────────────────────────── */
+.adhkar-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Subtle category accents applied only to cards without altering global theme */
+.adhkar-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 4px solid var(--card-cat-accent, var(--card-border));
+  background-image: linear-gradient(180deg, var(--card-cat-bg, transparent) 0%, var(--card-bg) 68px, var(--card-bg) 100%);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.adhkar-card:hover {
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--card-cat-accent, var(--card-border));
+  border-color: var(--card-cat-accent, var(--card-border));
+}
+
+.adhkar-card.is-completed {
+  border-color: rgba(52, 168, 83, 0.4);
+  border-top-color: #34A853;
+  background-image: linear-gradient(180deg, rgba(52, 168, 83, 0.08) 0%, var(--card-bg) 68px, var(--card-bg) 100%);
+}
+
+/* Card Header */
+.adhkar-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.adhkar-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adhkar-meta-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-cat-bg, var(--surface-trans));
+  border: 1.5px solid var(--card-cat-accent, var(--card-border));
+  color: var(--card-cat-accent, var(--text-main));
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 0.82rem;
+  font-weight: 900;
+  box-shadow: 0 2px 6px -1px var(--card-cat-bg, transparent);
+}
+
+.adhkar-meta-category img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Repetition Number Badge with Number Icon */
+.adhkar-meta-number-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-cat-bg, var(--surface-trans));
+  border: 1px solid var(--card-cat-accent, var(--card-border));
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--card-cat-accent, var(--accent));
+}
+
+.adhkar-meta-number-badge img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Card Header Action Icons */
+.adhkar-card-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adhkar-action-icon-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.adhkar-action-icon-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.adhkar-action-icon-btn:hover {
+  background: var(--card-cat-bg, var(--surface-trans-active));
+  border-color: var(--card-cat-accent, var(--accent));
+  color: var(--card-cat-accent, var(--accent));
+  transform: translateY(-1px);
+}
+
+.adhkar-action-icon-btn:hover img {
+  transform: scale(1.12);
+}
+
+.adhkar-action-icon-btn.is-playing {
+  background: var(--card-cat-accent, var(--primary));
+  border-color: var(--card-cat-accent, var(--primary));
+  animation: pulseAudio 1.2s infinite;
+}
+
+.adhkar-action-icon-btn.is-playing img {
+  filter: brightness(0) invert(1);
+}
+
+/* Inner Text Frame for Quranic / Hadith Typography */
+.adhkar-text-frame {
+  background: linear-gradient(to left, var(--card-cat-bg, rgba(255, 255, 255, 0.03)) 0%, var(--surface-trans) 40px);
+  border: 1px solid var(--card-border);
+  border-right: 4px solid var(--card-cat-accent, var(--accent));
+  border-radius: 18px;
+  padding: 16px 18px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: all 0.25s ease;
+}
+
+.adhkar-text-frame:hover {
+  background: linear-gradient(to left, var(--card-cat-bg, rgba(255, 255, 255, 0.06)) 0%, var(--surface-trans-active) 50px);
+  border-color: var(--card-border);
+  border-right-color: var(--card-cat-accent, var(--accent));
+}
+
+.adhkar-card-text {
+  font-family: var(--app-font-family);
+  font-size: 1.22rem;
+  line-height: 2.05;
+  color: var(--text-main);
+  text-align: justify;
+  margin: 0;
+  letter-spacing: 0.2px;
+  white-space: pre-line;
+}
+
+/* Permanent Verified Hadith Source Line Below Text */
+.adhkar-source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--card-border);
+  width: 100%;
+}
+
+.adhkar-source-badge img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+/* Hidden Accordion for Virtue Only */
+.adhkar-virtue-drawer {
+  background: var(--card-cat-bg, var(--surface-trans));
+  border-right: 4px solid var(--card-cat-accent, var(--accent));
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.88rem;
+  animation: fadeInDown 0.25s ease;
+}
+
+.adhkar-virtue-drawer.open {
+  display: flex;
+}
+
+.adhkar-virtue-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 900;
+  color: var(--card-cat-accent, var(--accent));
+}
+
+.adhkar-virtue-head img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.adhkar-virtue-content {
+  color: var(--text-main);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Interactive Tap Zone & Centered Circle ──────────────────── */
+.adhkar-tap-zone {
+  background: linear-gradient(180deg, var(--surface-trans) 0%, var(--card-cat-bg, transparent) 100%);
+  border: 1.5px dashed var(--card-cat-accent, var(--card-border));
+  border-radius: 18px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.25s ease;
+}
+
+.adhkar-tap-zone:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--card-cat-accent, var(--accent));
+  box-shadow: 0 4px 14px -3px var(--card-cat-bg, rgba(0, 0, 0, 0.1));
+}
+
+.adhkar-tap-zone:active {
+  transform: scale(0.985);
+}
+
+.adhkar-tap-zone-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.adhkar-tap-instruction {
+  display: flex;
+  flex-direction: column;
+}
+
+.adhkar-tap-instruction-main {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.adhkar-tap-instruction-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* The Fixed Circular Progress & Centered Checkmark */
+.adhkar-counter-ring-wrap {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adhkar-svg-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  position: absolute;
+  inset: 0;
+}
+
+.adhkar-ring-bg {
+  fill: none;
+  stroke: var(--surface-trans-active);
+  stroke-width: 2;
+}
+
+.adhkar-ring-progress {
+  fill: none;
+  stroke: var(--card-cat-accent, var(--accent));
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 125.6;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.25s ease, stroke 0.25s ease;
+}
+
+/* Center Number */
+.adhkar-counter-number {
+  position: relative;
+  z-index: 2;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--card-cat-accent, var(--text-main));
+  line-height: 1;
+  transition: color 0.25s ease;
+}
+
+/* Center Checkmark replacing the number inside the ring */
+.adhkar-done-icon {
+  position: relative;
+  z-index: 2;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+  display: none;
+  margin: 0 auto;
+}
+
+.adhkar-card.is-completed .adhkar-counter-number {
+  display: none !important;
+}
+
+.adhkar-card.is-completed .adhkar-done-icon {
+  display: block !important;
+}
+
+.adhkar-card.is-completed .adhkar-ring-progress {
+  stroke: #34A853 !important;
+  stroke-dashoffset: 0 !important;
+}
+
+.adhkar-card.is-completed .adhkar-tap-zone {
+  background: rgba(52, 168, 83, 0.08);
+  border-style: solid;
+  border-color: rgba(52, 168, 83, 0.4);
+}
+
+/* Reset Button */
+.adhkar-reset-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.adhkar-reset-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.adhkar-reset-btn:hover {
+  background: var(--surface-trans);
+}
+
+/* ── Pinterest-Style Social Media Story Card Modal ───────────── */
+.adhkar-gift-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10010;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.adhkar-gift-modal-overlay.active {
+  display: flex;
+}
+
+.adhkar-gift-card-box {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 28px;
+  max-width: 500px;
+  width: 100%;
+  padding: 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: zoomIn 0.28s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Pinterest Art Card Frame */
+.adhkar-pinterest-card {
+  background: linear-gradient(145deg, var(--card-bg) 0%, var(--surface-trans) 100%);
+  border: 2px solid var(--accent);
+  border-radius: 22px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.adhkar-pinterest-card::before {
+  content: '۞';
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1.2rem;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.adhkar-pinterest-card::after {
+  content: '۞';
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  font-size: 1.2rem;
+  color: var(--accent);
+  opacity: 0.6;
+}
+
+.adhkar-pinterest-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.adhkar-pinterest-text {
+  font-family: var(--app-font-family);
+  font-size: 1.22rem;
+  line-height: 2.1;
+  color: var(--text-main);
+  margin: 0;
+  padding: 6px 0;
+}
+
+.adhkar-pinterest-source {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.adhkar-pinterest-fadl {
+  font-size: 0.8rem;
+  color: var(--accent);
+  background: var(--surface-trans);
+  padding: 6px 12px;
+  border-radius: 12px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.adhkar-pinterest-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed var(--card-border);
+  padding-top: 12px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.adhkar-pinterest-footer img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.adhkar-gift-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.adhkar-gift-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 11px 16px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.adhkar-gift-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.adhkar-gift-btn.primary {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.adhkar-gift-btn.download {
+  background: var(--card-cat-accent, var(--accent));
+  color: #ffffff;
+}
+
+.adhkar-gift-btn.secondary {
+  background: var(--surface-trans);
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+}
+
+.adhkar-gift-btn.close {
+  background: transparent;
+  color: var(--text-muted);
+  width: 44px;
+  flex: 0 0 44px;
+  min-width: 44px;
+}
+
+/* Hidden canvas for image export */
+#adhkarShareCanvas {
+  display: none;
+}
+
+/* ── Zen Focus Mode ───────────────────────────────────────────── */
+.adhkar-zen-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-color);
+  z-index: 10020;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  animation: fadeIn 0.3s ease;
+}
+
+.adhkar-zen-overlay.active {
+  display: flex;
+}
+
+.adhkar-zen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.adhkar-zen-progress-indicator {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--accent);
+  background: var(--surface-trans);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+}
+
+.adhkar-zen-close-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.15rem;
+  transition: all 0.2s ease;
+}
+
+.adhkar-zen-close-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+}
+
+.adhkar-zen-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  text-align: center;
+  gap: 24px;
+}
+
+.adhkar-zen-category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-trans);
+  padding: 6px 18px;
+  border-radius: 16px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.adhkar-zen-category-tag img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.adhkar-zen-text-wrap {
+  max-width: 800px;
+  padding: 0 16px;
+}
+
+.adhkar-zen-text {
+  font-family: var(--app-font-family);
+  font-size: 1.55rem;
+  line-height: 2.15;
+  color: var(--text-main);
+  margin: 0;
+  user-select: none;
+}
+
+.adhkar-zen-counter-huge {
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 4px solid var(--accent);
+  box-shadow: 0 10px 35px var(--surface-trans-active);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.adhkar-zen-counter-huge:active {
+  transform: scale(0.92);
+}
+
+.adhkar-zen-counter-huge .num {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.adhkar-zen-counter-huge .label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.adhkar-zen-counter-huge.completed {
+  border-color: #34A853;
+  background: rgba(52, 168, 83, 0.1);
+}
+
+.adhkar-zen-counter-huge.completed .num {
+  color: #34A853;
+}
+
+.adhkar-zen-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.adhkar-zen-nav-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 10px 20px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.adhkar-zen-nav-btn:hover {
+  background: var(--surface-trans);
+  border-color: var(--accent);
+}
+
+/* ── Keyframes ────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseAudio {
+  0% { box-shadow: 0 0 0 0 rgba(156, 61, 50, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(156, 61, 50, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(156, 61, 50, 0); }
+}
+
+/* ── Responsiveness ───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .adhkar-page-content {
+    padding: 12px 12px 90px;
+    gap: 14px;
+  }
+  .adhkar-hero-card {
+    padding: 16px;
+  }
+  .adhkar-hero-artwork {
+    width: 68px;
+    height: 68px;
+  }
+  .adhkar-card-text {
+    font-size: 1.12rem;
+    line-height: 1.9;
+  }
+  .adhkar-zen-text {
+    font-size: 1.25rem;
+    line-height: 1.95;
+  }
+}

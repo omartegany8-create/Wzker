@@ -1,0 +1,551 @@
+/* ══════════════════════════════════════════════════════════════════
+   WZKER ROYAL SIDEBAR DRAWER (القائمة الجانبية الفاخرة)
+   Design: Luxury Modern Islamic Aesthetics, Glassmorphism, Smooth Micro-animations
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. SIDEBAR OVERLAY & CONTAINER ── */
+.sidebar-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 10, 8, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+}
+
+.sidebar-drawer-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sidebar-panel {
+  position: absolute;
+  top: 0;
+  right: 0; /* Arabic RTL start side */
+  bottom: 0;
+  width: 88vw;
+  max-width: 380px;
+  height: 100%;
+  border-radius: 30px 0 0 30px;
+  background: var(--card-bg);
+  border-left: 1.5px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  z-index: 10001;
+}
+
+.sidebar-drawer-overlay.active .sidebar-panel {
+  transform: translateX(0);
+}
+
+/* ── 2. SIDEBAR HEADER ── */
+.sidebar-header {
+  padding: 20px 20px 16px 20px;
+  background: linear-gradient(180deg, var(--surface-trans) 0%, transparent 100%);
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.sidebar-brand-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-logo-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-brand-title {
+  font-size: 19px;
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.sidebar-version-badge {
+  font-size: 10px;
+  font-weight: 800;
+  background: var(--surface-trans-active);
+  color: var(--primary);
+  padding: 2px 7px;
+  border-radius: 99px;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-brand-slogan {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.sidebar-close-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.sidebar-close-btn:hover {
+  background: var(--surface-trans-active);
+  color: var(--primary);
+  transform: rotate(90deg) scale(1.05);
+}
+
+/* ── 3. SCROLLABLE SIDEBAR BODY ── */
+.sidebar-scroll-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 18px 24px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--card-border) transparent;
+}
+
+.sidebar-scroll-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll-body::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 10px;
+}
+
+/* ── 4. QUICK LOGIN / ACCOUNT CARD ── */
+.sidebar-account-card {
+  background: linear-gradient(135deg, var(--surface-trans) 0%, rgba(210, 149, 113, 0.14) 100%);
+  border: 1.5px solid var(--card-border);
+  border-radius: 20px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  min-height: 72px;
+}
+
+.sidebar-account-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(210, 149, 113, 0.12) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sidebar-account-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.sidebar-account-card:hover::after {
+  opacity: 1;
+}
+
+.sidebar-account-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-account-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-account-avatar img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.sidebar-account-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-account-title {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.sidebar-account-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin: 0;
+}
+
+.sidebar-account-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 13px;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.sidebar-account-card:hover .sidebar-account-arrow {
+  transform: translateX(-3px);
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* ── 5. CATEGORY SECTIONS ── */
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.sidebar-section-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-muted);
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.2px;
+}
+
+.sidebar-section-title img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  opacity: 0.8;
+}
+
+.sidebar-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── 6. MENU ITEMS ── */
+.sidebar-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.sidebar-menu-item:hover {
+  background: var(--surface-trans);
+  border-color: var(--primary-light);
+  transform: translateX(-4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-item-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.sidebar-item-icon-wrap img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.sidebar-menu-item:hover .sidebar-item-icon-wrap {
+  background: var(--surface-trans-active);
+  border-color: var(--accent-gold);
+}
+
+.sidebar-menu-item:hover .sidebar-item-icon-wrap img {
+  transform: scale(1.1);
+}
+
+.sidebar-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-item-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.sidebar-item-sub {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sidebar-item-chevron {
+  color: var(--text-muted);
+  font-size: 12px;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.sidebar-menu-item:hover .sidebar-item-chevron {
+  color: var(--primary);
+  transform: translateX(-3px);
+}
+
+/* Highlighted Share Item */
+.sidebar-menu-item.highlight-share {
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(210, 149, 113, 0.08) 100%);
+  border-color: rgba(210, 149, 113, 0.3);
+}
+
+.sidebar-menu-item.highlight-share .sidebar-item-icon-wrap {
+  background: rgba(210, 149, 113, 0.15);
+  border-color: rgba(210, 149, 113, 0.35);
+}
+
+/* ── 7. SIDEBAR FOOTER ── */
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--card-border);
+  background: var(--surface-trans);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.sidebar-footer-waqf {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.sidebar-footer-copy {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ── 8. SUB-PAGES PREPARATION PLACEHOLDER STYLING ── */
+.placeholder-page-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  gap: 16px;
+  margin: 20px auto;
+  max-width: 480px;
+}
+
+.placeholder-artwork-wrap {
+  width: 90px;
+  height: 90px;
+  border-radius: 28px;
+  background: var(--surface-trans);
+  border: 2px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.placeholder-artwork-wrap img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.placeholder-page-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--primary);
+  margin: 0;
+}
+
+.placeholder-page-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent-gold);
+}
+
+.placeholder-page-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin: 0;
+}
+
+.placeholder-back-btn {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+}
+
+.placeholder-back-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── 9. RESPONSIVE REFINEMENTS FOR TOP BAR WITH MENU BUTTON ── */
+@media (max-width: 460px) {
+  .top-bar-actions {
+    gap: 5px;
+  }
+
+  .top-custom-icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    padding: 7px;
+  }
+
+  .top-custom-icon-btn img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .welcome-title {
+    font-size: 18px;
+  }
+
+  .brand-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .brand-avatar img {
+    width: 28px;
+    height: 28px;
+  }
+}
+
