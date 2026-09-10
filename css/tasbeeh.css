@@ -1,0 +1,1047 @@
+/* ══════════════════════════════════════════════════════════════════
+   WZKER ROYAL DIGITAL TASBEEH & ZEN MASBAHA (css/tasbeeh.css)
+   Design: Luxury Royal Islamic Glassmorphism, Interactive Beads Simulation,
+   Harmonic Particle Pulsing, Habit Tracking & Dhikr Distribution Analytics.
+   STRICT ZERO EMOJIS ADHERENCE
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. MAIN CONTAINER & VIEWPORT LAYOUT ── */
+#tasbeehPage {
+  background: var(--bg-main, #140d0b);
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 850;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#tasbeehPage.active {
+  display: flex;
+}
+
+/* ── 2. PRIME CONTOURED TOP NAVBAR ── */
+.tasbeeh-prime-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: linear-gradient(180deg, var(--surface-trans, rgba(30, 20, 18, 0.85)) 0%, transparent 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--card-border, rgba(210, 149, 113, 0.15));
+  z-index: 100;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.tasbeeh-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tasbeeh-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  color: var(--text-main, #f8ede3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 15px;
+}
+
+.tasbeeh-nav-btn:hover {
+  background: var(--surface-trans-active, rgba(210, 149, 113, 0.15));
+  color: var(--primary, #D29571);
+  transform: translateX(-2px);
+}
+
+.tasbeeh-nav-title-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tasbeeh-nav-title-box img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.tasbeeh-nav-title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main, #f8ede3);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.tasbeeh-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tasbeeh-header-pill-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  color: var(--text-main, #f8ede3);
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tasbeeh-header-pill-btn img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.tasbeeh-header-pill-btn:hover {
+  background: var(--surface-trans-active, rgba(210, 149, 113, 0.2));
+  color: var(--primary, #D29571);
+  border-color: var(--primary, #D29571);
+}
+
+/* ── 3. SCROLLABLE PAGE BODY ── */
+.tasbeeh-scroll-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 20px 100px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--card-border, rgba(210, 149, 113, 0.2)) transparent;
+}
+
+.tasbeeh-scroll-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.tasbeeh-scroll-body::-webkit-scrollbar-thumb {
+  background: var(--card-border, rgba(210, 149, 113, 0.25));
+  border-radius: 10px;
+}
+
+/* ── 4. STREAK & HABIT BANNER ── */
+.tasbeeh-streak-card {
+  background: linear-gradient(135deg, rgba(210, 149, 113, 0.12) 0%, rgba(30, 20, 18, 0.6) 100%);
+  border: 1.5px solid var(--card-border, rgba(210, 149, 113, 0.25));
+  border-radius: 20px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.tasbeeh-streak-card:hover {
+  border-color: var(--primary, #D29571);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(210, 149, 113, 0.15);
+}
+
+.tasbeeh-streak-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tasbeeh-streak-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(210, 149, 113, 0.15);
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.3));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tasbeeh-streak-icon-box img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.tasbeeh-streak-info h4 {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 900;
+  color: var(--text-main, #f8ede3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tasbeeh-streak-info p {
+  margin: 3px 0 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted, #a89f91);
+  font-weight: 700;
+}
+
+.tasbeeh-week-calendar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tasbeeh-week-day-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted, #a89f91);
+  transition: all 0.25s ease;
+}
+
+.tasbeeh-week-day-dot.active {
+  background: linear-gradient(135deg, var(--primary, #D29571) 0%, #a66a48 100%);
+  color: #fff;
+  border-color: #ffd8bf;
+  box-shadow: 0 0 10px rgba(210, 149, 113, 0.5);
+}
+
+.tasbeeh-week-day-dot.today {
+  border: 1.5px solid var(--primary, #D29571);
+}
+
+/* ── 5. NIYYAH & MODE SWITCH CLUSTER ── */
+.tasbeeh-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tasbeeh-niyyah-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 99px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.06));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.25));
+  color: var(--primary, #D29571);
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tasbeeh-niyyah-badge img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.tasbeeh-niyyah-badge:hover {
+  background: var(--surface-trans-active, rgba(210, 149, 113, 0.15));
+  border-color: var(--primary, #D29571);
+}
+
+.tasbeeh-mode-selector {
+  display: flex;
+  align-items: center;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  border-radius: 12px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.tasbeeh-mode-btn {
+  padding: 6px 12px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted, #a89f91);
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tasbeeh-mode-btn.active {
+  background: var(--primary, #D29571);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(210, 149, 113, 0.35);
+}
+
+/* ── 6. SEQUENTIAL CHAIN BANNER (VISIBLE ONLY IN CHAIN MODE) ── */
+.tasbeeh-chain-card {
+  background: linear-gradient(135deg, rgba(30, 20, 18, 0.85) 0%, rgba(20, 12, 10, 0.95) 100%);
+  border: 1.5px solid var(--card-border, rgba(210, 149, 113, 0.3));
+  border-radius: 18px;
+  padding: 14px 18px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.tasbeeh-chain-card.active {
+  display: flex;
+}
+
+.tasbeeh-chain-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tasbeeh-chain-name-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tasbeeh-chain-name-box img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.tasbeeh-chain-title {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--primary, #D29571);
+  margin: 0;
+}
+
+.tasbeeh-chain-steps-track {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tasbeeh-chain-step-pill {
+  padding: 4px 9px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  color: var(--text-muted, #a89f91);
+}
+
+.tasbeeh-chain-step-pill.completed {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.tasbeeh-chain-step-pill.current {
+  background: rgba(210, 149, 113, 0.25);
+  border-color: var(--primary, #D29571);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(210, 149, 113, 0.4);
+}
+
+/* ── 7. DHIKR CAPSULES HORIZONTAL DRIFT (IN SINGLE MODE) ── */
+.tasbeeh-capsules-wrap {
+  position: relative;
+  overflow: hidden;
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+
+.tasbeeh-capsules-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+}
+
+.tasbeeh-capsules-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tasbeeh-capsule-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 15px;
+  border-radius: 14px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  color: var(--text-muted, #a89f91);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tasbeeh-capsule-item img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.tasbeeh-capsule-item:hover {
+  background: var(--surface-trans-active, rgba(210, 149, 113, 0.15));
+  color: var(--text-main, #f8ede3);
+  border-color: var(--primary, #D29571);
+}
+
+.tasbeeh-capsule-item.active {
+  background: linear-gradient(135deg, rgba(210, 149, 113, 0.25) 0%, rgba(30, 20, 18, 0.8) 100%);
+  border-color: var(--primary, #D29571);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(210, 149, 113, 0.25);
+}
+
+/* ── 8. CENTRAL PHYSICAL BEADS RING & COUNTER STAGE ── */
+.tasbeeh-stage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0 20px 0;
+  position: relative;
+  width: 100%;
+}
+
+.tasbeeh-beads-arena {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  max-width: 90vw;
+  max-height: 90vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background Bead Ring SVG */
+.tasbeeh-beads-svg-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: rotate(-90deg);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tap Target Center Glass Orb */
+.tasbeeh-center-orb {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(45, 30, 26, 0.95) 0%, rgba(18, 11, 9, 0.98) 75%);
+  border: 2px solid var(--primary, #D29571);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(210, 149, 113, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+}
+
+.tasbeeh-center-orb:active {
+  transform: scale(0.96);
+  box-shadow: 0 6px 20px rgba(210, 149, 113, 0.3), inset 0 0 25px rgba(210, 149, 113, 0.3);
+}
+
+/* Animated Tap Wave Ripple */
+.tasbeeh-tap-ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(210, 149, 113, 0.6) 0%, transparent 75%);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1);
+  animation: beadRippleAnim 0.55s ease-out forwards;
+}
+
+@keyframes beadRippleAnim {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(15);
+    opacity: 0;
+  }
+}
+
+.tasbeeh-orb-dhikr-preview {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--primary, #D29571);
+  max-width: 80%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.tasbeeh-orb-huge-counter {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  font-family: 'Zain', 'Outfit', sans-serif;
+  text-shadow: 0 2px 14px rgba(210, 149, 113, 0.4);
+  transition: transform 0.12s ease;
+}
+
+.tasbeeh-orb-target-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--text-muted, #a89f91);
+}
+
+.tasbeeh-orb-lap-badge {
+  background: rgba(210, 149, 113, 0.15);
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.25));
+  color: var(--primary, #D29571);
+  padding: 2px 7px;
+  border-radius: 99px;
+  font-size: 0.72rem;
+}
+
+/* Current Active Dhikr Display Card */
+.tasbeeh-dhikr-display-card {
+  width: 100%;
+  background: linear-gradient(135deg, var(--surface-trans, rgba(30, 20, 18, 0.7)) 0%, rgba(20, 12, 10, 0.85) 100%);
+  border: 1.5px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  border-radius: 20px;
+  padding: 16px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.tasbeeh-dhikr-main-text {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--text-main, #f8ede3);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.tasbeeh-dhikr-fadl-text {
+  font-size: 0.85rem;
+  color: var(--text-muted, #a89f91);
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.tasbeeh-dhikr-source-tag {
+  align-self: center;
+  font-size: 0.75rem;
+  color: var(--primary, #D29571);
+  font-weight: 800;
+  background: rgba(210, 149, 113, 0.12);
+  padding: 2px 10px;
+  border-radius: 99px;
+}
+
+/* ── 9. TIMED SESSION CLUSTER (VISIBLE IN TIMED MODE) ── */
+.tasbeeh-timed-bar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-trans, rgba(30, 20, 18, 0.7));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  border-radius: 14px;
+  padding: 10px 16px;
+  width: 100%;
+}
+
+.tasbeeh-timed-bar.active {
+  display: flex;
+}
+
+.tasbeeh-timer-countdown {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--primary, #D29571);
+  font-family: monospace;
+}
+
+/* ── 10. PRIMARY ACTION TOOLBAR DOCK ── */
+.tasbeeh-bottom-dock {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: linear-gradient(180deg, transparent 0%, rgba(20, 12, 10, 0.95) 25%, #140d0b 100%);
+  padding: 14px 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-top: 1px solid var(--card-border, rgba(210, 149, 113, 0.15));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.tasbeeh-dock-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted, #a89f91);
+  font-size: 0.74rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 55px;
+}
+
+.tasbeeh-dock-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.tasbeeh-dock-icon-wrap img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.tasbeeh-dock-icon-wrap i {
+  font-size: 16px;
+}
+
+.tasbeeh-dock-action-btn:hover .tasbeeh-dock-icon-wrap {
+  background: var(--surface-trans-active, rgba(210, 149, 113, 0.2));
+  border-color: var(--primary, #D29571);
+  color: var(--primary, #D29571);
+  transform: translateY(-2px);
+}
+
+.tasbeeh-dock-action-btn:hover {
+  color: var(--primary, #D29571);
+}
+
+/* ── 11. STILLNESS BREAK (استراحة السكون) OVERLAY ── */
+.tasbeeh-stillness-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #1b120f 0%, #0c0706 100%);
+  z-index: 10005;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 24px;
+  text-align: center;
+  animation: stillnessFadeIn 0.5s ease-out;
+}
+
+.tasbeeh-stillness-overlay.active {
+  display: flex;
+}
+
+@keyframes stillnessFadeIn {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.tasbeeh-stillness-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary, #D29571);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.tasbeeh-stillness-header img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.tasbeeh-stillness-body {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+.tasbeeh-stillness-verse {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.6;
+  text-shadow: 0 4px 18px rgba(210, 149, 113, 0.35);
+}
+
+.tasbeeh-stillness-reflection {
+  font-size: 1rem;
+  color: var(--text-muted, #a89f91);
+  line-height: 1.7;
+  font-weight: 700;
+}
+
+.tasbeeh-stillness-resume-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 99px;
+  background: linear-gradient(135deg, var(--primary, #D29571) 0%, #a66a48 100%);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(210, 149, 113, 0.4);
+  transition: all 0.25s ease;
+}
+
+.tasbeeh-stillness-resume-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(210, 149, 113, 0.6);
+}
+
+/* ── 12. FULL SCREEN ZEN FOCUS MODE ── */
+.tasbeeh-zen-screen {
+  position: fixed;
+  inset: 0;
+  background: #080403;
+  z-index: 10006;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 20px;
+  user-select: none;
+}
+
+.tasbeeh-zen-screen.active {
+  display: flex;
+}
+
+.tasbeeh-zen-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tasbeeh-zen-close-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.tasbeeh-zen-center-tap-area {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.tasbeeh-zen-big-number {
+  font-size: 6.5rem;
+  font-weight: 900;
+  color: #fff;
+  font-family: 'Zain', sans-serif;
+  text-shadow: 0 0 30px rgba(210, 149, 113, 0.6);
+}
+
+.tasbeeh-zen-subtext {
+  font-size: 1.25rem;
+  color: var(--primary, #D29571);
+  font-weight: 900;
+}
+
+/* ── 13. MODALS & POPUPS SYSTEM ── */
+.tasbeeh-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 8, 6, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 10004;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tasbeeh-modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.tasbeeh-modal-box {
+  background: var(--card-bg, #1e1310);
+  border: 1.5px solid var(--card-border, rgba(210, 149, 113, 0.25));
+  border-radius: 26px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(20px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 22px;
+  gap: 16px;
+}
+
+.tasbeeh-modal-overlay.active .tasbeeh-modal-box {
+  transform: translateY(0);
+}
+
+.tasbeeh-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--card-border, rgba(210, 149, 113, 0.15));
+  padding-bottom: 14px;
+}
+
+.tasbeeh-modal-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main, #f8ede3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tasbeeh-modal-header h3 img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.tasbeeh-modal-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  color: var(--text-main, #f8ede3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Analytics Distribution Bars */
+.tasbeeh-analytics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tasbeeh-analytics-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tasbeeh-analytics-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.tasbeeh-analytics-bar-bg {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.06));
+  overflow: hidden;
+  position: relative;
+}
+
+.tasbeeh-analytics-bar-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--primary, #D29571) 0%, #ffd4b8 100%);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Material Theme Grid */
+.tasbeeh-themes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.tasbeeh-theme-card {
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.04));
+  border: 1.5px solid var(--card-border, rgba(210, 149, 113, 0.2));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.tasbeeh-theme-card.active {
+  border-color: var(--primary, #D29571);
+  background: rgba(210, 149, 113, 0.15);
+  box-shadow: 0 4px 14px rgba(210, 149, 113, 0.25);
+}
+
+.tasbeeh-theme-preview-bead {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.tasbeeh-theme-name {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--text-main, #f8ede3);
+  margin: 0;
+}
+
+.tasbeeh-theme-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted, #a89f91);
+  margin: 0;
+}
+
+/* Niyyah Option Cards */
+.tasbeeh-niyyah-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tasbeeh-niyyah-option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--surface-trans, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--card-border, rgba(210, 149, 113, 0.15));
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main, #f8ede3);
+}
+
+.tasbeeh-niyyah-option-row img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.tasbeeh-niyyah-option-row.active,
+.tasbeeh-niyyah-option-row:hover {
+  background: rgba(210, 149, 113, 0.15);
+  border-color: var(--primary, #D29571);
+  color: var(--primary, #D29571);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .tasbeeh-beads-arena {
+    width: 290px;
+    height: 290px;
+  }
+  .tasbeeh-center-orb {
+    width: 195px;
+    height: 195px;
+  }
+  .tasbeeh-orb-huge-counter {
+    font-size: 3.4rem;
+  }
+  .tasbeeh-streak-card {
+    padding: 12px 14px;
+  }
+  .tasbeeh-week-calendar {
+    gap: 4px;
+  }
+  .tasbeeh-week-day-dot {
+    width: 22px;
+    height: 22px;
+    font-size: 0.65rem;
+  }
+}

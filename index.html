@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/quran.css">
     <link rel="stylesheet" href="css/adhkar.css">
+    <link rel="stylesheet" href="css/tasbeeh.css">
 </head>
 <body>
 
@@ -1362,6 +1363,355 @@
             </button>
             <button class="adhkar-player-bar-btn close-btn" onclick="window.wzkerAdhkar.stopAutoPlaySession()" title="إنهاء الاستماع وإغلاق المشغل">
                 <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 1.5 TASBEEH PAGE (السبحة الإلكترونية وخاتم الاستغفار الذكي - PRO EDITION) -->
+    <div id="tasbeehPage" class="sub-lib-page">
+        <!-- Floating Contoured Prime Navbar -->
+        <div class="tasbeeh-prime-navbar">
+            <div class="tasbeeh-nav-left">
+                <button class="tasbeeh-nav-btn" onclick="closeLibPage('tasbeehPage')" title="الرجوع">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="tasbeeh-nav-title-box">
+                    <img src="images/icons/sabha1.png" alt="Tasbeeh">
+                    <h2 class="tasbeeh-nav-title">السبحة الإلكترونية</h2>
+                </div>
+            </div>
+            <div class="tasbeeh-nav-actions">
+                <button class="tasbeeh-header-pill-btn" onclick="window.wzkerTasbeeh.openZenScreen()" title="وضع التركيز التام">
+                    <img src="images/icons/Focus1.png" alt="Focus">
+                    <span>تركيز</span>
+                </button>
+                <button class="tasbeeh-header-pill-btn" onclick="window.wzkerTasbeeh.openModal('tasbeehPlaylistDrawer')" title="سلاسل الأوراد والجلسات">
+                    <img src="images/icons/playlist.png" alt="Playlists">
+                    <span>الأوراد</span>
+                </button>
+                <button class="tasbeeh-header-pill-btn" onclick="window.wzkerTasbeeh.openAnalytics()" title="سجل وإحصائيات التسبيح">
+                    <img src="images/icons/certificate1.png" alt="Stats">
+                    <span>إحصائيات</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="tasbeeh-scroll-body">
+            <!-- 1. Habit Streak & Weekly Calendar Card -->
+            <div class="tasbeeh-streak-card" onclick="window.wzkerTasbeeh.openAnalytics()" title="عرض تقرير الاستمرار الأسبوعي">
+                <div class="tasbeeh-streak-left">
+                    <div class="tasbeeh-streak-icon-box">
+                        <img src="images/icons/streak.png" alt="Streak">
+                    </div>
+                    <div class="tasbeeh-streak-info">
+                        <h4 id="tasbeehStreakDaysCount">1 أيام متتالية</h4>
+                        <p>مداومة يومية على ملازمة الاستغفار والذكر</p>
+                    </div>
+                </div>
+                <div class="tasbeeh-week-calendar" id="tasbeehWeekCalendar"></div>
+            </div>
+
+            <!-- 2. Niyyah & Mode Switch Cluster -->
+            <div class="tasbeeh-meta-row">
+                <div class="tasbeeh-niyyah-badge" onclick="window.wzkerTasbeeh.openModal('tasbeehNiyyahModal')" title="تحديد نية جلسة التسبيح">
+                    <img id="tasbeehNiyyahIcon" src="images/icons/sabha1.png" alt="Niyyah">
+                    <span id="tasbeehNiyyahLabel">ذكر عام وتقرب لله</span>
+                    <i class="fa-solid fa-chevron-down" style="font-size: 10px; opacity: 0.7;"></i>
+                </div>
+
+                <div class="tasbeeh-mode-selector">
+                    <button class="tasbeeh-mode-btn active" data-mode="single" onclick="window.wzkerTasbeeh.selectSingleDhikr(0)">ذكر منفرد</button>
+                    <button class="tasbeeh-mode-btn" data-mode="chain" onclick="window.wzkerTasbeeh.setChainRoutine(0)">سلسلة ورد</button>
+                    <button class="tasbeeh-mode-btn" data-mode="timed" onclick="window.wzkerTasbeeh.setTimedMode(5)">جلسة مؤقتة</button>
+                </div>
+            </div>
+
+            <!-- 3. Sequential Chain Banner (Active in Chain Mode) -->
+            <div class="tasbeeh-chain-card" id="tasbeehChainCard">
+                <div class="tasbeeh-chain-top-row">
+                    <div class="tasbeeh-chain-name-box">
+                        <img src="images/icons/prayer-mat1.png" alt="Chain">
+                        <h4 class="tasbeeh-chain-title" id="tasbeehChainTitle">ورد دبر الصلوات المكتوبة</h4>
+                    </div>
+                    <button class="tasbeeh-header-pill-btn" onclick="window.wzkerTasbeeh.openModal('tasbeehPlaylistDrawer')">
+                        <span>تغيير السلسلة</span>
+                    </button>
+                </div>
+                <div class="tasbeeh-chain-steps-track" id="tasbeehChainStepsTrack"></div>
+            </div>
+
+            <!-- 4. Single Dhikr Horizontal Capsules (Active in Single Mode) -->
+            <div class="tasbeeh-capsules-wrap" id="tasbeehCapsulesWrap">
+                <div class="tasbeeh-capsules-scroll" id="tasbeehCapsulesScroll"></div>
+            </div>
+
+            <!-- 5. Timed Mode Active Bar (Active in Timed Mode) -->
+            <div class="tasbeeh-timed-bar" id="tasbeehTimedBar">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="images/icons/stopwatch.png" alt="Timer" style="width: 22px; height: 22px; object-fit: contain;">
+                    <span style="font-weight: 800; font-size: 0.88rem; color: var(--text-main);">الوقت المتبقي للجلسة:</span>
+                    <span class="tasbeeh-timer-countdown" id="tasbeehTimerDisplay">05:00</span>
+                </div>
+                <button class="tasbeeh-header-pill-btn" onclick="window.wzkerTasbeeh.finishTimedSession()">
+                    <span>إنهاء الجلسة</span>
+                </button>
+            </div>
+
+            <!-- 6. Central Interactive Beads Ring & Digital Orb -->
+            <div class="tasbeeh-stage-container">
+                <div class="tasbeeh-beads-arena">
+                    <svg id="tasbeehSvgRing" class="tasbeeh-beads-svg-ring" viewBox="0 0 320 320"></svg>
+                    
+                    <div class="tasbeeh-center-orb" id="tasbeehCenterOrb" onclick="window.wzkerTasbeeh.handleTap(event)">
+                        <span class="tasbeeh-orb-dhikr-preview" id="tasbeehOrbDhikrPreview">سُبْحَانَ اللَّهِ</span>
+                        <span class="tasbeeh-orb-huge-counter" id="tasbeehHugeCounter">0</span>
+                        <div class="tasbeeh-orb-target-row">
+                            <span class="tasbeeh-orb-lap-badge" id="tasbeehLapBadge">دورة 1</span>
+                            <span id="tasbeehTargetBadge">/ 33</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Active Dhikr & Fadl Showcase Card -->
+            <div class="tasbeeh-dhikr-display-card">
+                <h3 class="tasbeeh-dhikr-main-text" id="tasbeehDhikrMainText">سُبْحَانَ اللَّهِ</h3>
+                <p class="tasbeeh-dhikr-fadl-text" id="tasbeehDhikrFadlText">تنزيهٌ للرب عن كل نقص، وكل تسبيحة صدقة وغرسٌ لشجرة طيبة في الجنة.</p>
+                <span class="tasbeeh-dhikr-source-tag" id="tasbeehDhikrSourceTag">صحيح مسلم</span>
+            </div>
+        </div>
+
+        <!-- 8. Fixed Bottom Auxiliary Action Dock -->
+        <div class="tasbeeh-bottom-dock">
+            <button class="tasbeeh-dock-action-btn" onclick="window.wzkerTasbeeh.openStillnessBreak()">
+                <div class="tasbeeh-dock-icon-wrap">
+                    <img src="images/icons/Focus1.png" alt="Pause">
+                </div>
+                <span>سكون</span>
+            </button>
+            <button class="tasbeeh-dock-action-btn" onclick="window.wzkerTasbeeh.cycleFeedbackMode()">
+                <div class="tasbeeh-dock-icon-wrap">
+                    <img id="tasbeehFeedbackIcon" src="images/icons/sound.png" alt="Sound">
+                </div>
+                <span id="tasbeehFeedbackLabel">صوت</span>
+            </button>
+            <button class="tasbeeh-dock-action-btn" onclick="window.wzkerTasbeeh.openModal('tasbeehThemesModal')">
+                <div class="tasbeeh-dock-icon-wrap">
+                    <img src="images/icons/paint.png" alt="Themes">
+                </div>
+                <span>الخامة</span>
+            </button>
+            <button class="tasbeeh-dock-action-btn" onclick="window.wzkerTasbeeh.resetCounter()">
+                <div class="tasbeeh-dock-icon-wrap">
+                    <img src="images/icons/Repeat.png" alt="Reset">
+                </div>
+                <span>تصفير</span>
+            </button>
+            <button class="tasbeeh-dock-action-btn" onclick="window.wzkerTasbeeh.openAnalytics()">
+                <div class="tasbeeh-dock-icon-wrap">
+                    <img src="images/icons/certificate2.png" alt="Stats">
+                </div>
+                <span>إحصائيات</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         TASBEEH MODALS & OVERLAYS SYSTEM (PRO EDITION)
+         ========================================================= -->
+
+    <!-- 1. STILLNESS BREAK (استراحة السكون والتأمل) -->
+    <div id="tasbeehStillnessOverlay" class="tasbeeh-stillness-overlay">
+        <div class="tasbeeh-stillness-header">
+            <img src="images/icons/leaf-2.png" alt="Stillness">
+            <span>استراحة السكون والتأمل</span>
+        </div>
+        <div class="tasbeeh-stillness-body">
+            <div class="tasbeeh-stillness-verse" id="tasbeehStillnessVerse">« أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ »</div>
+            <div class="tasbeeh-stillness-reflection" id="tasbeehStillnessRef">توقف للحظات، تنفس بعمق واستشعر قرب الله منك في هذه الخلوة المباركة.</div>
+        </div>
+        <button class="tasbeeh-stillness-resume-btn" onclick="window.wzkerTasbeeh.resumeFromStillness()">
+            <i class="fa-solid fa-play"></i>
+            <span>استئناف الذكر المبارك</span>
+        </button>
+    </div>
+
+    <!-- 2. FULL SCREEN ZEN FOCUS MODE -->
+    <div id="tasbeehZenScreen" class="tasbeeh-zen-screen">
+        <div class="tasbeeh-zen-top">
+            <span style="color: var(--text-muted); font-size: 0.88rem; font-weight: 800;">وضع السكينة التام • انقر في أي مكان</span>
+            <button class="tasbeeh-zen-close-btn" onclick="window.wzkerTasbeeh.closeZenScreen()" title="خروج">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="tasbeeh-zen-center-tap-area" onclick="window.wzkerTasbeeh.handleTap(event)">
+            <span class="tasbeeh-zen-big-number" id="tasbeehZenHugeNum">0</span>
+            <span class="tasbeeh-zen-subtext" id="tasbeehZenSubText">سُبْحَانَ اللَّهِ</span>
+        </div>
+        <div style="font-size: 0.8rem; color: rgba(210, 149, 113, 0.7); font-weight: 700;">وذكر • خلوة ذكر مع الله</div>
+    </div>
+
+    <!-- 3. PLAYLISTS & CHAINS DRAWER MODAL -->
+    <div id="tasbeehPlaylistDrawer" class="tasbeeh-modal-overlay" onclick="if(event.target === this) window.wzkerTasbeeh.closeModal('tasbeehPlaylistDrawer')">
+        <div class="tasbeeh-modal-box" onclick="event.stopPropagation()">
+            <div class="tasbeeh-modal-header">
+                <h3>
+                    <img src="images/icons/playlist.png" alt="Playlists">
+                    <span>قوائم الأوراد وسلاسل الذكر</span>
+                </h3>
+                <button class="tasbeeh-modal-close-btn" onclick="window.wzkerTasbeeh.closeModal('tasbeehPlaylistDrawer')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <p style="font-size: 0.84rem; color: var(--text-muted); margin: 0; font-weight: 700;">اختر إحدى السلاسل النبوية المتتابعة مع الانتقال التلقائي بين الأذكار:</p>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- Routine 1 -->
+                <div class="tasbeeh-streak-card" onclick="window.wzkerTasbeeh.setChainRoutine(0)">
+                    <div class="tasbeeh-streak-left">
+                        <div class="tasbeeh-streak-icon-box">
+                            <img src="images/icons/prayer-mat1.png" alt="Salah">
+                        </div>
+                        <div class="tasbeeh-streak-info">
+                            <h4>ورد دبر الصلوات المكتوبة</h4>
+                            <p>33 تسبيح • 33 تحميد • 34 تكبير • تمام المائة</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Routine 2 -->
+                <div class="tasbeeh-streak-card" onclick="window.wzkerTasbeeh.setChainRoutine(1)">
+                    <div class="tasbeeh-streak-left">
+                        <div class="tasbeeh-streak-icon-box">
+                            <img src="images/icons/prayers3.png" alt="Istighfar">
+                        </div>
+                        <div class="tasbeeh-streak-info">
+                            <h4>سلسلة الاستغفار والتوبة</h4>
+                            <p>100 استغفار • 100 دعاء ذي النون • سيد الاستغفار</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Routine 3 -->
+                <div class="tasbeeh-streak-card" onclick="window.wzkerTasbeeh.setChainRoutine(2)">
+                    <div class="tasbeeh-streak-left">
+                        <div class="tasbeeh-streak-icon-box">
+                            <img src="images/icons/sunrise.png" alt="Morning">
+                        </div>
+                        <div class="tasbeeh-streak-info">
+                            <h4>ورد التسبيح والبركة اليومي</h4>
+                            <p>100 الكلمتان الخفيفتان • 100 صلاة على النبي • 100 تهليل</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Routine 4 -->
+                <div class="tasbeeh-streak-card" onclick="window.wzkerTasbeeh.setChainRoutine(3)">
+                    <div class="tasbeeh-streak-left">
+                        <div class="tasbeeh-streak-icon-box">
+                            <img src="images/icons/leaf-5.png" alt="Relief">
+                        </div>
+                        <div class="tasbeeh-streak-info">
+                            <h4>ورد الحوقلة وتيسير الأمور</h4>
+                            <p>100 الحوقلة كنز الجنة • 100 حسبنا الله • 33 التسبيح العظيم</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Timed Mode Options -->
+            <div style="border-top: 1px solid var(--card-border); padding-top: 12px; margin-top: 6px;">
+                <h4 style="font-size: 0.95rem; font-weight: 900; color: var(--text-main); margin: 0 0 10px 0;">جلسات مؤقتة حرة بالدقائق:</h4>
+                <div style="display: flex; gap: 8px;">
+                    <button class="tasbeeh-header-pill-btn" style="flex: 1; justify-content: center;" onclick="window.wzkerTasbeeh.setTimedMode(3)">3 دقائق</button>
+                    <button class="tasbeeh-header-pill-btn" style="flex: 1; justify-content: center;" onclick="window.wzkerTasbeeh.setTimedMode(5)">5 دقائق</button>
+                    <button class="tasbeeh-header-pill-btn" style="flex: 1; justify-content: center;" onclick="window.wzkerTasbeeh.setTimedMode(10)">10 دقائق</button>
+                    <button class="tasbeeh-header-pill-btn" style="flex: 1; justify-content: center;" onclick="window.wzkerTasbeeh.setTimedMode(15)">15 دقيقة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. NIYYAH INTENTION MODAL -->
+    <div id="tasbeehNiyyahModal" class="tasbeeh-modal-overlay" onclick="if(event.target === this) window.wzkerTasbeeh.closeModal('tasbeehNiyyahModal')">
+        <div class="tasbeeh-modal-box" onclick="event.stopPropagation()">
+            <div class="tasbeeh-modal-header">
+                <h3>
+                    <img src="images/icons/sabha1.png" alt="Niyyah">
+                    <span>تحديد نية جلسة الذكر</span>
+                </h3>
+                <button class="tasbeeh-modal-close-btn" onclick="window.wzkerTasbeeh.closeModal('tasbeehNiyyahModal')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p style="font-size: 0.84rem; color: var(--text-muted); margin: 0; font-weight: 700;">إنما الأعمال بالنيات، اختر نية جلستك لتوثيقها في سجل إنجازاتك المباركة:</p>
+            <div class="tasbeeh-niyyah-options-grid" id="tasbeehNiyyahList"></div>
+        </div>
+    </div>
+
+    <!-- 5. ANALYTICS & DISTRIBUTION MODAL -->
+    <div id="tasbeehAnalyticsModal" class="tasbeeh-modal-overlay" onclick="if(event.target === this) window.wzkerTasbeeh.closeModal('tasbeehAnalyticsModal')">
+        <div class="tasbeeh-modal-box" onclick="event.stopPropagation()">
+            <div class="tasbeeh-modal-header">
+                <h3>
+                    <img src="images/icons/certificate1.png" alt="Analytics">
+                    <span>إحصائيات وتوزيع الأذكار</span>
+                </h3>
+                <button class="tasbeeh-modal-close-btn" onclick="window.wzkerTasbeeh.closeModal('tasbeehAnalyticsModal')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div style="background: rgba(210, 149, 113, 0.12); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; text-align: center;">
+                <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">إجمالي التسبيحات المحفوظة في التطبيق:</span>
+                <h2 style="font-size: 2.2rem; font-weight: 900; color: var(--primary); margin: 4px 0 0 0;" id="tasbeehAnalyticsTotalDisplay">0 تسبيحة</h2>
+            </div>
+
+            <h4 style="font-size: 0.95rem; font-weight: 900; color: var(--text-main); margin: 4px 0 0 0;">توزيع الأذكار ونسب الاستخدام:</h4>
+            <div class="tasbeeh-analytics-list" id="tasbeehAnalyticsBarsList"></div>
+        </div>
+    </div>
+
+    <!-- 6. THEMES & BEAD MATERIALS MODAL -->
+    <div id="tasbeehThemesModal" class="tasbeeh-modal-overlay" onclick="if(event.target === this) window.wzkerTasbeeh.closeModal('tasbeehThemesModal')">
+        <div class="tasbeeh-modal-box" onclick="event.stopPropagation()">
+            <div class="tasbeeh-modal-header">
+                <h3>
+                    <img src="images/icons/paint.png" alt="Themes">
+                    <span>خامات وأشكال السبحة</span>
+                </h3>
+                <button class="tasbeeh-modal-close-btn" onclick="window.wzkerTasbeeh.closeModal('tasbeehThemesModal')">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p style="font-size: 0.84rem; color: var(--text-muted); margin: 0; font-weight: 700;">اختر المظهر والخامة المفضلة لحبات وخرزات السبحة:</p>
+            <div class="tasbeeh-themes-grid" id="tasbeehThemesGrid"></div>
+        </div>
+    </div>
+
+    <!-- 7. TIMED SESSION CELEBRATION MODAL -->
+    <div id="tasbeehCelebrationModal" class="tasbeeh-modal-overlay" onclick="if(event.target === this) window.wzkerTasbeeh.closeModal('tasbeehCelebrationModal')">
+        <div class="tasbeeh-modal-box" style="text-align: center;" onclick="event.stopPropagation()">
+            <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 2px solid #10b981; color: #10b981; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 24px;">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 style="margin: 6px 0 0 0; font-size: 1.25rem; font-weight: 900; color: var(--text-main);" id="tasbeehCelebrationTitle">اكتملت الجلسة المباركة</h3>
+            <p style="font-size: 0.86rem; color: var(--text-muted); margin: 0;">تقبل الله طاعتكم وبارك في ذكركم ورفع درجاتكم في عليين.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                <div style="background: var(--surface-trans); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">إجمالي التسبيحات</span>
+                    <h4 style="font-size: 1.3rem; font-weight: 900; color: var(--primary); margin: 3px 0 0 0;" id="tasbeehCelebrationCount">0</h4>
+                </div>
+                <div style="background: var(--surface-trans); border: 1px solid var(--card-border); border-radius: 14px; padding: 12px;">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">معدل التسبيح</span>
+                    <h4 style="font-size: 1.3rem; font-weight: 900; color: #10b981; margin: 3px 0 0 0;" id="tasbeehCelebrationRate">0</h4>
+                </div>
+            </div>
+
+            <button class="tasbeeh-stillness-resume-btn" style="width: 100%; justify-content: center; margin-top: 8px;" onclick="window.wzkerTasbeeh.closeModal('tasbeehCelebrationModal')">
+                <span>تم والحمد لله</span>
             </button>
         </div>
     </div>
@@ -3464,6 +3814,8 @@
     <script src="js/quran.js"></script>
     <script src="js/adhkar-data.js"></script>
     <script src="js/adhkar.js"></script>
+    <script src="js/tasbeeh-data.js"></script>
+    <script src="js/tasbeeh.js"></script>
     <script src="js/app.js"></script>
 
     <!-- Dynamic Spiritual Time Greeting Script -->

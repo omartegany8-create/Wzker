@@ -252,6 +252,9 @@ window.openLibPage = (id) => {
     window.wzkerQuran.renderHeroCard();
     window.wzkerQuran.renderBookmarksList();
   }
+  if (id === 'tasbeehPage' && window.wzkerTasbeeh) {
+    window.wzkerTasbeeh.updateUI();
+  }
 };
 
 window.closeLibPage = (id) => {
