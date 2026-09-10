@@ -1,0 +1,783 @@
+/**
+ * Wzker Player Stylesheet - Mini Player & Full Screen Player Overlay
+ * Luxury Islamic Emerald & Gold Edition with Modern Glassmorphism
+ */
+
+/* =========================================================
+   1. FLOATING MINI PLAYER (LUXURY GLASS ISLAND)
+   ========================================================= */
+.bottom-player {
+  position: fixed;
+  bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 22px);
+  max-width: 480px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(22, 36, 28, 0.39) 0%, rgba(12, 20, 15, 0.98) 100%);
+  color: #ffffff;
+  border-radius: 22px;
+  padding: 8px 12px 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(214, 173, 96, 0.28);
+
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  z-index: 95;
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s ease;
+}
+
+.bottom-player:hover {
+  transform: translateX(-50%) translateY(-2px);
+  border-color: rgba(214, 173, 96, 0.45);
+
+}
+
+
+
+/* Ambient Subtle Aura Glow on Mini Player */
+.mini-player-aura {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: radial-gradient(circle at 15% 50%, rgba(214, 173, 96, 0.12), transparent 60%);
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.bottom-player.is-playing .mini-player-aura {
+  opacity: 1;
+  animation: miniAuraPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes miniAuraPulse {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Radio Mode Glowing Aurora */
+.bottom-player.radio-mode-active {
+  background: linear-gradient(135deg, #13271b 0%, #1d3b2a 50%, #0d1b13 100%);
+  border-color: rgba(214, 173, 96, 0.45);
+}
+
+.bottom-player.radio-mode-active::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 10% 50%, rgba(214, 173, 96, 0.22), transparent 50%),
+              radial-gradient(circle at 90% 50%, rgba(46, 213, 115, 0.18), transparent 50%);
+  animation: auroraGlow 5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes auroraGlow {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.08); }
+}
+
+/* Mini Player Info (Cover + Text) */
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  flex: 1;
+  min-width: 0;
+  z-index: 2;
+}
+
+.player-img-wrap {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.player-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+
+.player-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.player-text {
+  overflow: hidden;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.player-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.player-text h4 {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+  margin: 0;
+  font-family: var(--app-font-family, 'Zain', sans-serif);
+}
+
+.mini-mode-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #d6ad60;
+  background: rgba(214, 173, 96, 0.14);
+  border: 1px solid rgba(214, 173, 96, 0.3);
+  padding: 1px 6px;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.player-text p {
+  font-size: 12px;
+  font-weight: 600;
+  color: #d6ad60;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Mini Player Controls (Direction LTR for intuitive audio symmetry) */
+.player-controls {
+  direction: ltr !important;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  z-index: 2;
+  flex-shrink: 0;
+  padding-left: 2px;
+}
+
+.mini-ctrl-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.mini-ctrl-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(214, 173, 96, 0.35);
+}
+
+.mini-ctrl-btn:active {
+  transform: scale(0.88);
+}
+
+.mini-ctrl-btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Jewel Play / Pause Button in Mini Player */
+.mini-play-jewel {
+  background:  #9e742000 100%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+
+.mini-play-jewel:active {
+  transform: scale(0.9);
+}
+
+.mini-play-jewel img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  filter: none;
+}
+
+/* Hide Prev/Next when in Radio Mode */
+.bottom-player.radio-mode-active .mini-ctrl-btn.track-nav-btn {
+  display: none !important;
+}
+
+/* Mini Player Bottom Hairline Progress Bar */
+.player-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0 0 22px 22px;
+  overflow: hidden;
+}
+.progress-buffered {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: width 0.25s ease-out;
+}
+
+.progress-current {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #d6ad60 0%, #2ed573 100%);
+  transition: width 0.15s linear;
+  box-shadow: 0 0 8px rgba(214, 173, 96, 0.6);
+}
+
+.progress-current.live-stream-pulse {
+  width: 100% !important;
+  background: linear-gradient(90deg, #ff4757, #f59e0b, #2ed573, #ff4757);
+  background-size: 300% 100%;
+  animation: liveWaveBar 2.5s linear infinite;
+}
+
+@keyframes liveWaveBar {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+
+/* ============================
+   2. FULL SCREEN PLAYER
+   ============================ */
+.full-player-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0 auto;
+  background: radial-gradient(circle at 50% 16%, #1c3224 0%, #101d15 45%, #070c09 100%);
+  color: #ffffff;
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(15px + env(safe-area-inset-top, 0px)) 24px calc(14px + env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+.full-player-overlay.active {
+  transform: translateY(0);
+}
+
+/* Ambient Backlight Glow */
+.fp-ambient-glow {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(214, 173, 96, 0.18) 0%, rgba(46, 213, 115, 0.08) 50%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── 1. TOP NAVBAR ── */
+.fp-top-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  flex-shrink: 0;
+  z-index: 2;
+  margin-bottom: 4px;
+}
+
+.fp-nav-action-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.041);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.fp-nav-action-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(214, 173, 96, 0.4);
+}
+
+.fp-nav-action-btn:active {
+  transform: scale(0.9);
+}
+
+.fp-nav-action-btn img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.fp-nav-title-box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fp-nav-pill-badge {
+  font-size: 12px;
+  font-weight: 800;
+  color: #d6ad60;
+  background: rgba(214, 173, 96, 0.14);
+  border: 1px solid rgba(214, 173, 96, 0.32);
+  padding: 3px 14px;
+  border-radius: 12px;
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fp-nav-brand-text {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── 2. DYNAMICALLY PROPORTIONED ARTWORK ── */
+.fp-artwork-wrapper {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0;
+  z-index: 2;
+}
+
+.fp-cover-card {
+  width: min(80vw, 34vh, 320px);
+  aspect-ratio: 1 / 1;
+  max-height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+
+.fp-cover-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── 3. TRACK INFO & ACTIONS ROW ── */
+.fp-track-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 13px;
+  margin-bottom: 25px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.fp-track-titles-wrap {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.fp-track-titles-wrap h2 {
+  font-size: clamp(19px, 5.2vw, 23px);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 2px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--app-font-family, 'Zain', sans-serif);
+}
+
+.fp-sheikh-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #d6ad60;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fp-verified-mark {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.fp-actions-cluster {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.fp-mini-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(214, 173, 96, 0.16);
+  border: 1px solid rgba(214, 173, 96, 0.35);
+  padding: 4px 9px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #d6ad60;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+
+.fp-mini-chip:active {
+  transform: scale(0.92);
+}
+
+.fp-mini-chip img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.fp-action-circle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.041);
+  display: flex;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.fp-action-circle-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(214, 173, 96, 0.4);
+}
+
+.fp-action-circle-btn:active {
+  transform: scale(0.88);
+}
+
+.fp-action-circle-btn img {
+  width: 23px;
+  height: 23px;
+  object-fit: contain;
+}
+
+/* ── 4. TIMELINE & SEEK BAR ── */
+.fp-timeline-box {
+  flex-shrink: 0;
+  margin-bottom: 12px;
+  z-index: 2;
+}
+
+.fp-progress-container {
+  direction: ltr !important;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.fp-progress-bar {
+  box-sizing: content-box !important;
+  width: 100%;
+  height: 8.5px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  touch-action: none;
+  padding: 2px 0;
+  margin: -1px 0;
+  background-clip: content-box;
+  transition: height 0.18s ease, background 0.18s ease;
+}
+
+.fp-progress-bar:hover,
+.fp-progress-bar.is-scrubbing {
+  background: rgba(255, 255, 255, 0.171);
+}
+
+.fp-progress-bar.is-scrubbing .fp-progress-current {
+  transition: none !important;
+}
+
+.fp-progress-buffered {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 99px;
+  pointer-events: none;
+  transition: width 0.25s ease-out;
+}
+
+.fp-progress-current {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #d6ad60 0%, #2ed573 100%);
+  border-radius: 99px;
+  position: relative;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(214, 173, 96, 0.45);
+  transition: width 0.1s linear;
+}
+
+.fp-progress-handle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2.5px solid #d6ad60;
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%) scale(1);
+  pointer-events: none;
+  transition: transform 0.15s ease;
+}
+
+.fp-progress-bar:hover .fp-progress-handle,
+.fp-progress-bar.is-scrubbing .fp-progress-handle {
+  transform: translateY(-50%) scale(1.3);
+}
+
+.fp-time-row {
+  direction: ltr !important;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 9px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+
+/* ── 5. FIVE PLAYBACK CONTROLS (SYMMETRICAL LTR AUDIO ORIENTATION) ── */
+.fp-controls-row {
+  direction: ltr !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  margin: 10px auto;
+  width: 100%;
+  max-width: 360px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.fp-media-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.fp-media-btn.active {
+  background: rgba(214, 173, 96, 0.22);
+}
+
+.fp-media-btn img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+/* Symmetrical Track Nav Buttons (Prev & Next) */
+.fp-media-btn.track-only-btn {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+}
+
+.fp-media-btn.track-only-btn img {
+  width: 25px;
+  height: 25px;
+}
+
+/* The Grand Center Play / Pause Button */
+.fp-play-btn {
+  border-radius: 50%;
+  background: #070c0900;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fp-play-btn img {
+  width: 70px;
+  height: 70px;
+  opacity: calc(0.9);
+  object-fit: contain;
+}
+
+/* ── 6. AUXILIARY QUICK ACCESS DOCK ── */
+.fp-aux-dock {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.99px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  padding: 14px 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  flex-shrink: 0;
+  z-index: 2;
+  margin: 20px 0;
+}
+
+.fp-dock-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 3px 5px;
+  border-radius: 12px;
+  transition: transform 0.2s ease, background 0.2s ease;
+  min-width: 50px;
+}
+
+.fp-dock-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.fp-dock-btn:active {
+  transform: translateY(-2px) scale(0.95);
+}
+
+.fp-dock-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.fp-dock-btn span {
+  font-size: 12px;
+  color: #afd2df;
+  font-weight: 800;
+}
+
+/* ── LIVE RADIO MODE TOGGLE IN FULL PLAYER ── */
+.fp-live-radio-badge-box {
+  display: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(214, 173, 96, 0.28);
+  border-radius: 14px;
+  padding: 10px 16px;
+  margin: 0 4px 8px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.fp-live-radio-badge-box .live-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2ed573;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.fp-live-radio-badge-box .session-time {
+  font-size: 11.5px;
+  color: #d6ad60;
+  font-weight: 700;
+}
+
+.full-player-overlay.radio-mode .fp-progress-container,
+.full-player-overlay.radio-mode .fp-time-row,
+.full-player-overlay.radio-mode .track-only-btn,
+.full-player-overlay.radio-mode .track-only-action,
+.full-player-overlay.radio-mode #fpFavBtn {
+  display: none !important;
+}
+
+.full-player-overlay.radio-mode .fp-live-radio-badge-box {
+  display: flex !important;
+}

@@ -1,0 +1,537 @@
+/* =========================================================
+   WZKER CLEAN & MINIMALIST SEARCH & EXPLORER VIEW
+   Calm, Dignified, High-Performance (No Heavy Box-Shadows)
+   ========================================================= */
+
+.search-prime-navbar {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: none !important;
+}
+
+.search-navbar-main {
+  display: flex;
+  align-items: center;
+}
+
+.search-nav-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.search-content-body {
+  padding: 14px 16px 24px;
+}
+
+/* 1. Clean Search Box */
+.advanced-search-container {
+  margin-bottom: 16px;
+}
+
+.search-input-box-pro {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: 14px;
+  transition: border-color 0.2s ease;
+  margin-bottom: 12px;
+  border: 3px solid var(--card-border);
+  box-shadow: none !important;
+}
+
+.search-input-box-pro:focus-within {
+  box-shadow: none !important;
+}
+
+.search-lead-icon {
+  position: absolute;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  max-width: 18px;
+  max-height: 18px;
+  font-size: 15px;
+  color: var(--text-muted);
+  pointer-events: none;
+  opacity: 0.8;
+  object-fit: contain;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pro-search-input {
+  width: 100%;
+  padding: 13px 44px 13px 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14.5px;
+  font-family: inherit;
+  font-weight: 700;
+  color: var(--text-main);
+  direction: rtl;
+}
+
+.pro-search-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.search-clear-action-btn {
+  position: absolute;
+  left: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--surface-trans);
+  border: none;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.2s ease;
+  box-shadow: none !important;
+}
+
+.search-clear-action-btn:active {
+  transform: scale(0.9);
+  background: #ff4757;
+  color: #ffffff;
+}
+
+/* Category Filter Tabs Bar */
+.search-filter-pills-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0 8px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.search-filter-pills-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.search-category-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  box-shadow: none !important;
+}
+
+.search-category-pill:active {
+  transform: scale(0.96);
+}
+
+.search-category-pill.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: none !important;
+}
+
+/* 2. Recent Searches History Panel */
+.search-history-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  display: none;
+  box-shadow: none !important;
+}
+
+.search-history-panel.active {
+  display: block;
+}
+
+.sh-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.sh-header-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.sh-clear-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: none !important;
+}
+
+.sh-clear-all-btn:hover {
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.sh-tags-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.sh-tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: none !important;
+}
+
+.sh-tag-item:hover {
+  border-color: var(--accent);
+}
+
+.sh-tag-del-btn {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sh-tag-del-btn:hover {
+  color: #ef4444;
+}
+
+/* 3. Quick Explore Suggestions Panel */
+.search-trending-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  box-shadow: none !important;
+}
+
+.trending-header {
+  margin-bottom: 10px;
+}
+
+.trending-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.trending-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 380px) {
+  .trending-chips-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trending-chip {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 9px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: all 0.2s ease;
+  box-shadow: none !important;
+}
+
+.trending-chip:hover {
+  border-color: var(--accent);
+}
+
+.trending-chip:active {
+  transform: scale(0.98);
+}
+
+.trending-chip span:first-child {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.chip-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* 4. Search Section Dividers & Grouping */
+.search-result-group {
+  margin-bottom: 20px;
+}
+
+.search-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+
+.search-group-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.search-group-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--surface-trans);
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+/* Sheikh / Mobtahil Horizontal Result Card */
+.search-sheikh-cards-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+}
+
+.search-sheikh-cards-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.search-sheikh-card {
+  flex: 0 0 130px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: none !important;
+  transition: border-color 0.2s ease;
+}
+
+.search-sheikh-card:hover {
+  border-color: var(--accent);
+}
+
+.search-sheikh-card:active {
+  transform: scale(0.97);
+}
+
+.search-sheikh-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 6px;
+  border: 1px solid var(--card-border);
+  box-shadow: none !important;
+}
+
+.search-sheikh-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.search-sheikh-name {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.search-sheikh-role {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* 5. Custom Empty State: No Results Found */
+.no-search-results-box {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 28px 18px 22px;
+  text-align: center;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0 25px;
+}
+
+.no-res-artwork-wrap {
+  width: 70px;
+  height: 70px;
+  border-radius: 18px;
+  background: var(--surface-trans);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14px;
+  border: 1px solid var(--card-border);
+  box-shadow: none !important;
+}
+
+.no-res-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: none !important;
+}
+
+.no-res-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.no-res-title .highlight-query {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.no-res-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  line-height: 1.5;
+  max-width: 320px;
+  margin-bottom: 18px;
+}
+
+.no-res-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 300px;
+  justify-content: center;
+}
+
+.return-home-btn {
+  flex: 1;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+}
+
+.return-home-btn:active {
+  transform: scale(0.96);
+  background: var(--primary-dark);
+}
+
+.return-home-btn img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.try-trending-btn {
+  background: var(--surface-trans);
+  color: var(--primary);
+  border: 1px solid var(--card-border);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+}
+
+.try-trending-btn:active {
+  transform: scale(0.96);
+}

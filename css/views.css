@@ -1,0 +1,470 @@
+/**
+ * Wzker Views Stylesheet - Profile Views, Masonry Grid, Search Categories,
+ * Curated Library, Royal Midnight Indigo Live Radio Page & Ultra Settings.
+ */
+
+.view-section {
+  display: none;
+  opacity: 0;
+  animation: fadeInView 0.3s ease forwards;
+}
+
+.view-section.active {
+  display: block;
+}
+
+@keyframes fadeInView {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   SMART SELECTED RECITATIONS (تلاوات مختارة لك - Spotify Pro Tier)
+   ========================================================================== */
+
+.section-subtitle-hint {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.smart-refresh-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.smart-refresh-btn:active {
+  transform: scale(0.94);
+  background: var(--surface-trans-active);
+}
+
+.smart-refresh-btn i {
+  font-size: 11px;
+  transition: transform 0.4s ease;
+}
+
+.smart-refresh-btn.spinning i {
+  transform: rotate(360deg);
+}
+
+/* SMART CATEGORY FILTER PILLS */
+.smart-filters-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 14px 0;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.smart-filters-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.smart-pill {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  backdrop-filter: blur(8px);
+}
+
+.smart-pill img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.smart-pill .pill-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--accent);
+}
+
+.smart-pill.active {
+  background: linear-gradient(135deg, var(--accent) 0%, #b88a38 100%);
+  border-color: var(--accent);
+  color: #12100b !important;
+  box-shadow: 0 4px 14px rgba(214, 173, 96, 0.35);
+  transform: translateY(-1px);
+}
+
+.smart-pill.active img {
+  filter: brightness(0.1);
+}
+
+.smart-pill.active .pill-avatar {
+  border-color: #12100b;
+  filter: none !important;
+}
+
+/* SMART SPOTLIGHT HERO CARD */
+.smart-spotlight-container {
+  margin-bottom: 16px;
+}
+
+.smart-hero-spotlight {
+  position: relative;
+  background:  var(--surface-trans-active);
+  border-radius: 22px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.smart-hero-spotlight:active {
+  transform: scale(0.98);
+}
+
+.smart-hero-spotlight::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, var(--spotlight-accent, var(--accent)) 0%, transparent 70%);
+  opacity: 0.22;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(20px);
+}
+
+.spotlight-art-wrap {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.spotlight-art-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.spotlight-meta-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.spotlight-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10.5px;
+  font-weight: 800;
+  color: var(--accent);
+  background: var(--surface-trans-active);
+  padding: 8px 9px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+}
+
+.spotlight-kicker img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.spotlight-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.spotlight-sheikh {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.spotlight-sheikh img {
+  width: 13px;
+  height: 13px;
+}
+
+.spotlight-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.spot-sub-pill {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* SMART TRACKS GRID & LUXURY CARDS */
+.smart-tracks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+  gap: 14px;
+}
+
+.smart-track-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  user-select: none;
+}
+
+.smart-track-card:active {
+  transform: scale(0.96);
+  border-color: var(--card-accent, var(--accent));
+}
+
+.st-cover-box {
+  position: relative;
+  width: 100%;
+  height: 130px;
+  overflow: hidden;
+  background: #181410;
+}
+
+.st-cover-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.st-cover-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.35) 60%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+.st-tag-ribbon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(18, 14, 10, 0.8);
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(214, 173, 96, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.st-reason-pill {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  max-width: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  backdrop-filter: blur(4px);
+}
+
+.st-play-bubble {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--card-accent, var(--accent));
+  color: #110e08;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease;
+}
+
+.st-play-bubble img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  margin-left: -1px;
+}
+
+.st-play-bubble:active {
+  transform: scale(0.9);
+}
+
+.st-body-content {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: var(--card-bg);
+}
+
+.st-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.st-sheikh {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.st-sheikh img {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+}
+
+.st-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+.st-duration-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.st-menu-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+/* SUB PAGES GENERAL */
+.sub-lib-page {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-color);
+  z-index: 500;
+  overflow-y: auto;
+  padding-bottom: 120px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sub-lib-page.active {
+  transform: translateX(0);
+}
+
+/* Sheikh Profile Page has higher stack priority */
+#sheikhProfilePage {
+  z-index: 600;
+}
+
+/* Downloads Page has top priority to always show when requested */
+#downloadsPage {
+  z-index: 890;
+}
+
+.prime-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  position: sticky;
+  top: 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 20;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.nav-btn:active {
+  transform: scale(0.92);
+}
+
+.navbar-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary);
+}
