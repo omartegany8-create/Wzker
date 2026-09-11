@@ -1,10 +1,12 @@
 /**
  * ══════════════════════════════════════════════════════════════════
  * WZKER ROYAL TASBEEH CONTROLLER (js/tasbeeh.js) - PRO EDITION
- * Physical Interactive Bead Ring Engine, Sequential Chain Dhikr Playlists,
- * Audio Synthesis (Wood Pebble Click & Crystal Chimes), Haptics,
- * Stillness Breaks, Habit Streaks & Dhikr Distribution Analytics.
- * STRICT ZERO EMOJIS ADHERENCE
+ * Modern App-Native Digital Counters:
+ * 1. Royal Circular Glow Ring (حلقة التقدم الملكية الناعمة)
+ * 2. Smart Tally Ring (خاتم التسبيح الإلكتروني العصري)
+ * 3. Zen Minimal Card (كارت السكينة البسيط)
+ * Fully synchronized with active app theme (data-theme) CSS tokens.
+ * ZERO EMOJIS - STRICT ADHERENCE
  * ══════════════════════════════════════════════════════════════════
  */
 
@@ -17,19 +19,17 @@
       this.currentDhikrIndex = 0;
       this.currentChainIndex = 0;
       this.currentChainStep = 0;
-      
+
       this.count = 0;
       this.target = 33;
       this.laps = 0;
       this.totalSessionCount = 0;
-      
-      this.currentThemeId = 'theme_obsidian';
+
+      this.currentShapeId = 'shape_circle'; // 'shape_circle' | 'shape_ring' | 'shape_card'
       this.currentNiyyahId = 'general';
       this.feedbackMode = 'sound_and_haptic'; // 'sound_and_haptic' | 'haptic' | 'sound' | 'silent'
-      
+
       this.audioCtx = null;
-      this.ringRotationDeg = 0;
-      this.visibleBeadsCount = 33;
 
       // Timed Mode variables
       this.timedTotalSec = 300; // 5 mins default
@@ -39,10 +39,9 @@
 
       // Storage keys
       this.storageKeys = {
-        streak: 'wzker_tasbeeh_streak_v1',
-        history: 'wzker_tasbeeh_history_v1',
-        distribution: 'wzker_tasbeeh_distribution_v1',
-        prefs: 'wzker_tasbeeh_prefs_v1'
+        streak: 'wzker_tasbeeh_streak_v2',
+        distribution: 'wzker_tasbeeh_distribution_v2',
+        prefs: 'wzker_tasbeeh_prefs_v2'
       };
 
       this.streakData = { count: 1, lastDate: '', weekHistory: {} };
@@ -69,7 +68,6 @@
       this.updateStreakForToday(false);
       this.renderStreakBanner();
       this.renderCapsules();
-      this.renderBeadRing();
       this.updateUI();
       this.bindEvents();
     }
@@ -80,7 +78,7 @@
         const savedPrefs = localStorage.getItem(this.storageKeys.prefs);
         if (savedPrefs) {
           const p = JSON.parse(savedPrefs);
-          this.currentThemeId = p.themeId || this.currentThemeId;
+          this.currentShapeId = p.shapeId || this.currentShapeId;
           this.currentNiyyahId = p.niyyahId || this.currentNiyyahId;
           this.feedbackMode = p.feedbackMode || this.feedbackMode;
         }
@@ -102,7 +100,7 @@
     savePrefs() {
       try {
         const p = {
-          themeId: this.currentThemeId,
+          shapeId: this.currentShapeId,
           niyyahId: this.currentNiyyahId,
           feedbackMode: this.feedbackMode
         };
@@ -132,7 +130,6 @@
       }
 
       if (this.streakData.lastDate !== today) {
-        // Check if yesterday
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
@@ -142,7 +139,6 @@
         } else if (!this.streakData.lastDate) {
           this.streakData.count = 1;
         } else {
-          // Gap > 1 day, reset streak
           this.streakData.count = 1;
         }
         this.streakData.lastDate = today;
@@ -154,40 +150,42 @@
     renderStreakBanner() {
       const daysCountEl = document.getElementById('tasbeehStreakDaysCount');
       if (daysCountEl) {
-        daysCountEl.textContent = `${this.streakData.count || 1} أيام متتالية`;
+        const c = this.streakData.count || 1;
+        daysCountEl.textContent = `${c} ${c === 1 ? 'يوم' : c === 2 ? 'يومان' : c <= 10 ? 'أيام' : 'يوماً'} متتالية`;
       }
 
       const calContainer = document.getElementById('tasbeehWeekCalendar');
       if (!calContainer) return;
 
-      const dayNames = ['سبت', 'أحد', 'إثنين', 'ثلاث', 'أربع', 'خميس', 'جمعة'];
+      const dayNames = ['سبت', 'أحد', 'إثن', 'ثلا', 'أرب', 'خمي', 'جمع'];
+      const dayFullNames = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
       const now = new Date();
-      const currentDayOfWeek = now.getDay(); // 0 = Sun, 6 = Sat
-
-      // Arabic week starts on Saturday (idx 0 = Sat, 6 = Fri)
-      // JS: Sun = 0, Mon = 1 ... Sat = 6
+      const currentDayOfWeek = now.getDay();
       const remappedToday = (currentDayOfWeek + 1) % 7;
 
       let html = '';
       for (let i = 0; i < 7; i++) {
         const isToday = i === remappedToday;
-        // Check if user completed tasbeeh on this day
         const dayOffset = i - remappedToday;
         const targetDate = new Date();
         targetDate.setDate(now.getDate() + dayOffset);
         const tKey = `${targetDate.getFullYear()}-${String(targetDate.getMonth() + 1).padStart(2, '0')}-${String(targetDate.getDate()).padStart(2, '0')}`;
 
         const isDone = (this.streakData.weekHistory && (this.streakData.weekHistory[tKey] || 0) > 0) || (isToday && this.totalSessionCount > 0);
-        const cls = `tasbeeh-week-day-dot ${isDone ? 'active' : ''} ${isToday ? 'today' : ''}`;
-        const content = isDone ? '<i class="fa-solid fa-check"></i>' : dayNames[i];
+        const statusMark = isDone ? '<i class="fa-solid fa-check"></i>' : (isToday ? '•' : '');
 
-        html += `<div class="${cls}" title="${dayNames[i]}">${content}</div>`;
+        html += `
+          <div class="tasbeeh-day-chip ${isDone ? 'done' : ''} ${isToday ? 'today' : ''}" title="${dayFullNames[i]}">
+            <span class="tasbeeh-day-name">${dayNames[i]}</span>
+            <span class="tasbeeh-day-state">${statusMark}</span>
+          </div>
+        `;
       }
 
       calContainer.innerHTML = html;
     }
 
-    // ── 3. AUDIO SYNTHESIS & HAPTIC FEEDBACK ENGINE ──
+    // ── 3. AUDIO SYNTHESIS & HAPTICS ──
     initAudio() {
       if (!this.audioCtx) {
         const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
@@ -207,29 +205,21 @@
         if (!this.audioCtx) return;
 
         const now = this.audioCtx.currentTime;
-
-        // Realistic wooden bead impact: short resonance + damped click
         const osc = this.audioCtx.createOscillator();
         const gain = this.audioCtx.createGain();
 
-        // Theme-tuned frequencies
-        let baseFreq = 950;
-        if (this.currentThemeId === 'theme_wood') baseFreq = 720;
-        if (this.currentThemeId === 'theme_pearl') baseFreq = 1200;
-        if (this.currentThemeId === 'theme_turquoise') baseFreq = 850;
-
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(baseFreq, now);
-        osc.frequency.exponentialRampToValueAtTime(140, now + 0.045);
+        osc.frequency.setValueAtTime(860, now);
+        osc.frequency.exponentialRampToValueAtTime(120, now + 0.04);
 
-        gain.gain.setValueAtTime(0.28, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
 
         osc.connect(gain);
         gain.connect(this.audioCtx.destination);
 
         osc.start(now);
-        osc.stop(now + 0.05);
+        osc.stop(now + 0.045);
       } catch (e) {}
     }
 
@@ -240,7 +230,7 @@
         if (!this.audioCtx) return;
 
         const now = this.audioCtx.currentTime;
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 arpeggio
+        const notes = [523.25, 659.25, 783.99, 1046.50];
 
         notes.forEach((freq, idx) => {
           const osc = this.audioCtx.createOscillator();
@@ -250,13 +240,13 @@
           osc.frequency.setValueAtTime(freq, now + idx * 0.07);
 
           gain.gain.setValueAtTime(0.18, now + idx * 0.07);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.6);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.55);
 
           osc.connect(gain);
           gain.connect(this.audioCtx.destination);
 
           osc.start(now + idx * 0.07);
-          osc.stop(now + idx * 0.07 + 0.65);
+          osc.stop(now + idx * 0.07 + 0.6);
         });
       } catch (e) {}
     }
@@ -266,99 +256,66 @@
       try {
         if (navigator && typeof navigator.vibrate === 'function') {
           if (isCycleComplete) {
-            navigator.vibrate([45, 30, 60, 30, 90]);
+            navigator.vibrate([40, 30, 60, 30, 80]);
           } else {
-            navigator.vibrate(30);
+            navigator.vibrate(25);
           }
         }
       } catch (e) {}
     }
 
-    // ── 4. BEAD RING SVG GENERATION & ANIMATION ──
-    renderBeadRing() {
-      const svg = document.getElementById('tasbeehSvgRing');
+    // ── 4. DIGITAL PROGRESS RING (LIGHTWEIGHT HIGH-PERFORMANCE SVG) ──
+    renderProgressRing() {
+      const svg = document.getElementById('tasbeehProgressSvg');
       if (!svg) return;
 
-      const activeTheme = window.WZKER_TASBEEH_DATA.themes.find(t => t.id === this.currentThemeId) || window.WZKER_TASBEEH_DATA.themes[0];
-      const radius = 135;
-      const center = 160;
-      const count = this.visibleBeadsCount; // 33 beads
+      const size = 280;
+      const strokeWidth = 7;
+      const radius = 112;
+      const circumference = 2 * Math.PI * radius;
 
-      let svgHtml = `
-        <defs>
-          <radialGradient id="beadGradNorm" cx="35%" cy="35%" r="65%">
-            <stop offset="0%" stop-color="#7a5245" />
-            <stop offset="60%" stop-color="${activeTheme.previewBead}" />
-            <stop offset="100%" stop-color="#0a0504" />
-          </radialGradient>
-          <radialGradient id="beadGradActive" cx="35%" cy="35%" r="65%">
-            <stop offset="0%" stop-color="#fff0e6" />
-            <stop offset="50%" stop-color="${activeTheme.previewAccent}" />
-            <stop offset="100%" stop-color="#804a2d" />
-          </radialGradient>
-          <filter id="beadGlow">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
-        <!-- Ring Wire Guide -->
-        <circle cx="${center}" cy="${center}" r="${radius}" fill="none" stroke="rgba(210, 149, 113, 0.2)" stroke-width="1.5" stroke-dasharray="4 4" />
-      `;
+      const pct = this.target > 0 ? Math.min(1, this.count / this.target) : ((this.count % 33) / 33);
+      const dashoffset = circumference * (1 - pct);
 
-      const progress = this.target > 0 ? (this.count % this.target) : (this.count % 33);
-
-      for (let i = 0; i < count; i++) {
-        const angle = (i / count) * 2 * Math.PI;
-        const x = center + radius * Math.cos(angle);
-        const y = center + radius * Math.sin(angle);
-
-        const isFilled = i < progress;
-        const isCurrent = i === progress;
-
-        const fill = isFilled ? 'url(#beadGradActive)' : 'url(#beadGradNorm)';
-        const stroke = isCurrent ? activeTheme.previewAccent : (isFilled ? activeTheme.previewAccent : 'rgba(210, 149, 113, 0.3)');
-        const strokeW = isCurrent ? 2.5 : 1;
-        const filter = isFilled ? 'filter="url(#beadGlow)"' : '';
-        const r = isCurrent ? 9.5 : (isFilled ? 8.5 : 7.5);
-
-        svgHtml += `
-          <circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeW}" ${filter} style="transition: all 0.2s ease;" />
+      let progCircle = document.getElementById('tasbeehProgressCircle');
+      if (!progCircle) {
+        svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+        svg.innerHTML = `
+          <circle cx="${size / 2}" cy="${size / 2}" r="${radius}"
+                  fill="none" stroke="var(--card-border)" stroke-width="${strokeWidth}" opacity="0.25" />
+          <circle id="tasbeehProgressCircle" cx="${size / 2}" cy="${size / 2}" r="${radius}"
+                  fill="none" stroke="var(--primary)" stroke-width="${strokeWidth}"
+                  stroke-dasharray="${circumference.toFixed(2)}"
+                  stroke-dashoffset="${dashoffset.toFixed(2)}"
+                  stroke-linecap="round"
+                  style="transition: stroke-dashoffset 0.1s ease;" />
         `;
+      } else {
+        progCircle.style.strokeDashoffset = dashoffset.toFixed(2);
       }
 
-      svg.innerHTML = svgHtml;
+      // Also update card shape horizontal bar if active
+      const fillBar = document.getElementById('tasbeehCardProgressFill');
+      if (fillBar) {
+        fillBar.style.width = `${Math.round(pct * 100)}%`;
+      }
     }
 
     // ── 5. USER INTERACTION: TAP & PROGRESS ──
     handleTap(event) {
       this.initAudio();
 
-      // Ripple particle at tap location
-      this.spawnTapRipple(event);
-
-      // Increment counts
       this.count++;
       this.totalSessionCount++;
 
-      // Log distribution category
       const currentDhikr = this.getCurrentDhikr();
       const cat = currentDhikr ? (currentDhikr.category || 'other') : 'other';
       this.distributionData[cat] = (this.distributionData[cat] || 0) + 1;
 
-      // Update streak for today
       this.updateStreakForToday(true);
 
-      // Rotate beads visually (1 step = 360 / 33 deg)
-      this.ringRotationDeg += (360 / this.visibleBeadsCount);
-      const svg = document.getElementById('tasbeehSvgRing');
-      if (svg) {
-        svg.style.transform = `rotate(${this.ringRotationDeg - 90}deg)`;
-      }
-
       // Check Target Reached
-      let isCycleComplete = false;
       if (this.target > 0 && this.count >= this.target) {
-        isCycleComplete = true;
         this.laps++;
         this.count = 0;
 
@@ -373,31 +330,10 @@
         this.triggerHaptic(false);
       }
 
-      this.renderBeadRing();
+      this.renderProgressRing();
       this.updateCounterDisplays();
+      this.updateDailyGoal();
       this.saveStats();
-    }
-
-    spawnTapRipple(e) {
-      const orb = document.getElementById('tasbeehCenterOrb');
-      if (!orb) return;
-
-      const rect = orb.getBoundingClientRect();
-      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : rect.left + rect.width / 2);
-      const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : rect.top + rect.height / 2);
-
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
-
-      const ripple = document.createElement('div');
-      ripple.className = 'tasbeeh-tap-ripple';
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
-      orb.appendChild(ripple);
-
-      setTimeout(() => {
-        if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
-      }, 550);
     }
 
     // ── 6. SEQUENTIAL CHAIN LOGIC (وضع الذكر المتسلسل) ──
@@ -414,15 +350,16 @@
         this.target = nextStep.target;
         this.count = 0;
         this.updateChainUI();
+        this.updateTargetPresetsUI();
         if (window.showToast) {
           window.showToast(`انتقل الورد للذكر التالي: ${nextStep.text.substring(0, 24)}...`);
         }
       } else {
-        // Complete Entire Chain Routine!
         this.currentChainStep = 0;
         this.target = chain.steps[0].target;
         this.count = 0;
         this.updateChainUI();
+        this.updateTargetPresetsUI();
         if (window.showToast) {
           window.showToast('مبارك! اكتمل الورد كاملاً بحمد الله وفضله');
         }
@@ -449,7 +386,7 @@
       this.timedTotalSec = minutes * 60;
       this.timedRemainingSec = this.timedTotalSec;
       this.count = 0;
-      this.target = 0; // Infinite count during time
+      this.target = 0;
       this.laps = 0;
       this.startTimedSession();
       this.updateUI();
@@ -508,7 +445,6 @@
       const overlay = document.getElementById('tasbeehStillnessOverlay');
       if (!overlay) return;
 
-      // Random quote
       const quotes = window.WZKER_TASBEEH_DATA.stillnessQuotes;
       const q = quotes[Math.floor(Math.random() * quotes.length)];
 
@@ -596,66 +532,107 @@
       this.updateUI();
     }
 
-    // ── 10. UI & DISPLAY SYNCHRONIZATION ──
+    setMode(mode) {
+      if (mode === 'chain') {
+        this.setChainRoutine(0);
+      } else if (mode === 'timed') {
+        this.setTimedMode(5);
+      } else {
+        this.selectSingleDhikr(this.currentDhikrIndex || 0);
+      }
+    }
+
+    // ── 10. DIGITAL SHAPES SWITCHING ──
+    setShape(shapeId) {
+      this.currentShapeId = shapeId;
+      this.savePrefs();
+      this.updateShapeVisibility();
+      this.renderProgressRing();
+      this.renderShapesModalList();
+      this.closeModal('tasbeehShapesModal');
+      if (window.showToast) {
+        const s = window.WZKER_TASBEEH_DATA.shapes.find(x => x.id === shapeId);
+        window.showToast(`نمط السبحة: ${s ? s.name : ''}`);
+      }
+    }
+
+    updateShapeVisibility() {
+      const circleArena = document.getElementById('tasbeehShapeCircleArena');
+      const ringBox = document.getElementById('tasbeehShapeRingBox');
+      const cardBox = document.getElementById('tasbeehShapeCardBox');
+
+      if (circleArena) circleArena.style.display = this.currentShapeId === 'shape_circle' ? 'flex' : 'none';
+      if (ringBox) ringBox.style.display = this.currentShapeId === 'shape_ring' ? 'flex' : 'none';
+      if (cardBox) cardBox.style.display = this.currentShapeId === 'shape_card' ? 'flex' : 'none';
+    }
+
+    // ── 11. UI & DISPLAY SYNCHRONIZATION ──
     updateUI() {
-      // Toggle mode buttons
       document.querySelectorAll('.tasbeeh-mode-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-mode') === this.mode);
       });
 
-      // Chain Banner Visibility
       const chainCard = document.getElementById('tasbeehChainCard');
       if (chainCard) {
         chainCard.classList.toggle('active', this.mode === 'chain');
         if (this.mode === 'chain') this.updateChainUI();
       }
 
-      // Capsules Visibility
       const capsulesWrap = document.getElementById('tasbeehCapsulesWrap');
       if (capsulesWrap) {
         capsulesWrap.style.display = this.mode === 'single' ? 'block' : 'none';
         this.renderCapsules();
       }
 
-      // Timed Bar Visibility
       const timedBar = document.getElementById('tasbeehTimedBar');
       if (timedBar) {
         timedBar.classList.toggle('active', this.mode === 'timed');
         this.updateTimedDisplay();
       }
 
-      // Niyyah Badge
       const activeNiyyah = window.WZKER_TASBEEH_DATA.intentions.find(n => n.id === this.currentNiyyahId) || window.WZKER_TASBEEH_DATA.intentions[0];
       const niyyahText = document.getElementById('tasbeehNiyyahLabel');
       const niyyahIcon = document.getElementById('tasbeehNiyyahIcon');
       if (niyyahText) niyyahText.textContent = activeNiyyah.label;
       if (niyyahIcon) niyyahIcon.src = activeNiyyah.icon;
 
+      this.updateShapeVisibility();
       this.updateCounterDisplays();
       this.updateDhikrCard();
-      this.renderBeadRing();
+      this.updateTargetPresetsUI();
+      this.updateDailyGoal();
+      this.updateFeedbackUI();
+      this.renderProgressRing();
       this.renderStreakBanner();
     }
 
     updateCounterDisplays() {
+      const dhikr = this.getCurrentDhikr();
+      const dhikrTitle = dhikr ? dhikr.title : 'سُبْحَانَ اللَّهِ';
+      const targetStr = this.target > 0 ? `/ ${this.target}` : '∞ حر';
+      const lapStr = `دورة ${this.laps + 1}`;
+
+      // Shape 1: Circle Orb
       const numEl = document.getElementById('tasbeehHugeCounter');
       if (numEl) numEl.textContent = this.count;
-
       const targetEl = document.getElementById('tasbeehTargetBadge');
-      if (targetEl) {
-        targetEl.textContent = this.target > 0 ? `/ ${this.target}` : '∞ حر';
-      }
-
+      if (targetEl) targetEl.textContent = targetStr;
       const lapEl = document.getElementById('tasbeehLapBadge');
-      if (lapEl) {
-        lapEl.textContent = `دورة ${this.laps + 1}`;
-      }
-
+      if (lapEl) lapEl.textContent = lapStr;
       const previewEl = document.getElementById('tasbeehOrbDhikrPreview');
-      if (previewEl) {
-        const dhikr = this.getCurrentDhikr();
-        previewEl.textContent = dhikr ? dhikr.title : 'سبحان الله';
-      }
+      if (previewEl) previewEl.textContent = dhikrTitle;
+
+      // Shape 2: Smart Ring
+      const smartNumEl = document.getElementById('tasbeehSmartCountNum');
+      if (smartNumEl) smartNumEl.textContent = this.count;
+      const smartMetaEl = document.getElementById('tasbeehSmartMetaLabel');
+      if (smartMetaEl) smartMetaEl.textContent = `${targetStr} • ${lapStr}`;
+
+      // Shape 3: Zen Card
+      const cardNumEl = document.getElementById('tasbeehCardCountNum');
+      if (cardNumEl) cardNumEl.textContent = this.count;
+      const cardTargetEl = document.getElementById('tasbeehCardTargetLabel');
+      if (cardTargetEl) cardTargetEl.textContent = `${lapStr} ${targetStr}`;
 
       this.updateZenDisplay();
     }
@@ -696,18 +673,6 @@
       stepsContainer.innerHTML = html;
     }
 
-    // ── 11. THEMES & CUSTOMIZATION ──
-    setTheme(themeId) {
-      this.currentThemeId = themeId;
-      this.savePrefs();
-      this.renderBeadRing();
-      this.renderThemesModalList();
-      if (window.showToast) {
-        const theme = window.WZKER_TASBEEH_DATA.themes.find(t => t.id === themeId);
-        window.showToast(`تم تطبيق خامة: ${theme ? theme.name : ''}`);
-      }
-    }
-
     setNiyyah(niyyahId) {
       this.currentNiyyahId = niyyahId;
       this.savePrefs();
@@ -722,10 +687,28 @@
     cycleFeedbackMode() {
       const modes = ['sound_and_haptic', 'haptic', 'sound', 'silent'];
       const labels = {
-        sound_and_haptic: 'صوت واهتزاز لمسي',
-        haptic: 'اهتزاز لمسي فقط',
-        sound: 'صوت نقر خرز فقط',
-        silent: 'صامت تماماً'
+        sound_and_haptic: 'صوت واهتزاز',
+        haptic: 'اهتزاز فقط',
+        sound: 'صوت نقر فقط',
+        silent: 'صامت'
+      };
+
+      const currentIdx = modes.indexOf(this.feedbackMode);
+      this.feedbackMode = modes[(currentIdx + 1) % modes.length];
+      this.savePrefs();
+      this.updateFeedbackUI();
+
+      if (window.showToast) {
+        window.showToast(`نمط التفاعل: ${labels[this.feedbackMode]}`);
+      }
+    }
+
+    updateFeedbackUI() {
+      const labels = {
+        sound_and_haptic: 'صوت واهتزاز',
+        haptic: 'اهتزاز فقط',
+        sound: 'صوت نقر',
+        silent: 'صامت'
       };
       const icons = {
         sound_and_haptic: 'images/icons/sound.png',
@@ -734,26 +717,95 @@
         silent: 'images/icons/pause.png'
       };
 
-      const currentIdx = modes.indexOf(this.feedbackMode);
-      this.feedbackMode = modes[(currentIdx + 1) % modes.length];
-      this.savePrefs();
+      const labelEl = document.getElementById('tasbeehTopFeedbackLabel');
+      const iconEl = document.getElementById('tasbeehTopFeedbackIcon');
+      if (labelEl) labelEl.textContent = labels[this.feedbackMode] || 'صوت واهتزاز';
+      if (iconEl && icons[this.feedbackMode]) iconEl.src = icons[this.feedbackMode];
+    }
 
-      const labelEl = document.getElementById('tasbeehFeedbackLabel');
-      const iconEl = document.getElementById('tasbeehFeedbackIcon');
-      if (labelEl) labelEl.textContent = this.feedbackMode === 'silent' ? 'صامت' : (this.feedbackMode === 'haptic' ? 'هابتك' : 'صوت');
-      if (iconEl) iconEl.src = icons[this.feedbackMode];
-
+    setQuickTarget(target, btnEl) {
+      this.target = Number(target);
+      this.count = 0;
+      this.updateCounterDisplays();
+      this.renderProgressRing();
+      this.updateTargetPresetsUI();
       if (window.showToast) {
-        window.showToast(`نمط التفاعل: ${labels[this.feedbackMode]}`);
+        window.showToast(this.target > 0 ? `تم ضبط الهدف: ${this.target} تسبيحة` : 'تم ضبط الهدف: عد حر مفتوح');
+      }
+    }
+
+    updateTargetPresetsUI() {
+      const container = document.getElementById('tasbeehTargetPresetsList');
+      if (!container) return;
+      container.querySelectorAll('.tasbeeh-tp-btn').forEach(btn => {
+        const t = Number(btn.getAttribute('data-target'));
+        btn.classList.toggle('active', t === this.target);
+      });
+    }
+
+    updateDailyGoal() {
+      const today = this.getTodayKey();
+      const todayCount = (this.streakData && this.streakData.weekHistory && this.streakData.weekHistory[today]) || 0;
+      const goal = 300;
+      const pct = Math.min(100, Math.round((todayCount / goal) * 100));
+
+      const textEl = document.getElementById('tasbeehDailyGoalText');
+      const barEl = document.getElementById('tasbeehDailyGoalBar');
+
+      if (textEl) textEl.textContent = `${todayCount} / ${goal} تسبيحة (${pct}%)`;
+      if (barEl) barEl.style.width = `${pct}%`;
+    }
+
+    copyCurrentDhikr() {
+      const dhikr = this.getCurrentDhikr();
+      if (!dhikr) return;
+      const text = `${dhikr.title}\n${dhikr.fadl ? dhikr.fadl + '\n' : ''}${dhikr.source ? 'المصدر: ' + dhikr.source + '\n' : ''}تطبيق وذكر`;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          if (window.showToast) window.showToast('تم نسخ الذكر وفضله بنجاح');
+        }).catch(() => {
+          this.fallbackCopy(text);
+        });
+      } else {
+        this.fallbackCopy(text);
+      }
+    }
+
+    fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        if (window.showToast) window.showToast('تم نسخ الذكر وفضله بنجاح');
+      } catch (e) {
+        if (window.showToast) window.showToast('تعذر النسخ تلقائياً');
+      }
+      document.body.removeChild(ta);
+    }
+
+    shareCurrentDhikr() {
+      const dhikr = this.getCurrentDhikr();
+      if (!dhikr) return;
+      const text = `${dhikr.title}\n\n${dhikr.fadl || ''}\n${dhikr.source ? '« ' + dhikr.source + ' »' : ''}\n\nعبر تطبيق وذكر للأذكار والقرآن الكريم`;
+      if (navigator.share) {
+        navigator.share({
+          title: 'ذكر وفضل - تطبيق وذكر',
+          text: text
+        }).catch(() => {});
+      } else {
+        this.copyCurrentDhikr();
       }
     }
 
     resetCounter() {
       this.count = 0;
-      this.ringRotationDeg = 0;
-      this.renderBeadRing();
+      this.renderProgressRing();
       this.updateCounterDisplays();
-      if (window.showToast) window.showToast('تم تصفير الدورة الحالية');
+      if (window.showToast) window.showToast('تم تصفير العداد');
     }
 
     // ── 12. ANALYTICS & VISUALIZATION ──
@@ -792,24 +844,26 @@
 
       const totalDisplay = document.getElementById('tasbeehAnalyticsTotalDisplay');
       if (totalDisplay) {
-        totalDisplay.textContent = `${total > 1 ? total : 0} تسبيحة موثقة`;
+        totalDisplay.textContent = `${total > 1 ? total : 0} تسبيحة`;
       }
 
       this.openModal('tasbeehAnalyticsModal');
     }
 
-    renderThemesModalList() {
-      const container = document.getElementById('tasbeehThemesGrid');
+    renderShapesModalList() {
+      const container = document.getElementById('tasbeehShapesGrid');
       if (!container) return;
 
       let html = '';
-      window.WZKER_TASBEEH_DATA.themes.forEach(t => {
-        const isActive = t.id === this.currentThemeId;
+      window.WZKER_TASBEEH_DATA.shapes.forEach(s => {
+        const isActive = s.id === this.currentShapeId;
         html += `
-          <div class="tasbeeh-theme-card ${isActive ? 'active' : ''}" onclick="window.wzkerTasbeeh.setTheme('${t.id}')">
-            <div class="tasbeeh-theme-preview-bead" style="background: ${t.beadGradient}; border: 1.5px solid ${t.previewAccent};"></div>
-            <h4 class="tasbeeh-theme-name">${t.name}</h4>
-            <p class="tasbeeh-theme-sub">${t.subtext}</p>
+          <div class="tasbeeh-shape-option-card ${isActive ? 'active' : ''}" onclick="window.wzkerTasbeeh.setShape('${s.id}')">
+            <img src="${s.icon}" alt="${s.name}">
+            <div>
+              <h4 class="tasbeeh-shape-name">${s.name}</h4>
+              <p class="tasbeeh-shape-sub">${s.subtext}</p>
+            </div>
           </div>
         `;
       });
@@ -837,7 +891,7 @@
 
     // ── 13. MODAL CONTROLS ──
     openModal(id) {
-      if (id === 'tasbeehThemesModal') this.renderThemesModalList();
+      if (id === 'tasbeehShapesModal') this.renderShapesModalList();
       if (id === 'tasbeehNiyyahModal') this.renderNiyyahModalList();
       const m = document.getElementById(id);
       if (m) m.classList.add('active');
@@ -848,9 +902,8 @@
       if (m) m.classList.remove('active');
     }
 
-    // ── 14. EVENT LISTENERS & HOTKEYS ──
+    // ── 14. EVENT LISTENERS ──
     bindEvents() {
-      // Spacebar or Enter tap support on desktop
       document.addEventListener('keydown', (e) => {
         const page = document.getElementById('tasbeehPage');
         if (!page || !page.classList.contains('active')) return;

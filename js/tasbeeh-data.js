@@ -1,8 +1,9 @@
 /**
  * ══════════════════════════════════════════════════════════════════
  * WZKER ROYAL TASBEEH DATA & MODELS (js/tasbeeh-data.js) - PRO EDITION
+ * Perfectly synced with global app theme variables.
  * Bank of authentic adhkars, sequential chain playlists, session intentions (Niyyah),
- * bead material themes, stillness reflection cards & habit tracking constants.
+ * digital tasbeeh shapes (Ring, Circle, Card) & habit tracking constants.
  * STRICT ZERO EMOJIS ADHERENCE
  * ══════════════════════════════════════════════════════════════════
  */
@@ -10,7 +11,7 @@
 (function () {
   'use strict';
 
-  // 1. INDIVIDUAL DHIKR BANK
+  // 1. INDIVIDUAL DHIKR BANK WITH RICH ICONS
   const WZKER_TASBEEH_DHIKR_BANK = [
     {
       id: 'subhan_allah',
@@ -199,51 +200,25 @@
     { id: 'parents', label: 'بر بالوالدين وإهداء الأجر', icon: 'images/icons/fav.png' }
   ];
 
-  // 4. BEAD MATERIAL THEMES (خامات وأشكال السبحة)
-  const WZKER_TASBEEH_THEMES = [
+  // 4. MODERN DIGITAL TASBEEH SHAPES (أشكال السبحة الرقمية العصرية)
+  const WZKER_TASBEEH_SHAPES = [
     {
-      id: 'theme_obsidian',
-      name: 'العقيق الملكي والذهب',
-      subtext: 'أناقة فاخرة مع لمعان ذهبي متوهج',
-      previewBead: '#201614',
-      previewAccent: '#D29571',
-      beadGradient: 'radial-gradient(circle at 35% 35%, #5a3c32 0%, #1e1310 65%, #0d0806 100%)',
-      beadBorder: '#D29571',
-      activeBeadGlow: '0 0 16px rgba(210, 149, 113, 0.95)',
-      activeBeadGradient: 'radial-gradient(circle at 35% 35%, #ffd4b8 0%, #d29571 50%, #824727 100%)'
+      id: 'shape_circle',
+      name: 'العداد الدائري الملكي',
+      subtext: 'حلقة تقدم دائرية ناعمة مع وميض ذهبي متوهج',
+      icon: 'images/icons/sabha1.png'
     },
     {
-      id: 'theme_wood',
-      name: 'خشب الزيتون العتيق',
-      subtext: 'دفء تراثي ونفحات مباركة أصيلة',
-      previewBead: '#5c4033',
-      previewAccent: '#c89d7c',
-      beadGradient: 'radial-gradient(circle at 30% 30%, #855c45 0%, #4a2f20 70%, #29180e 100%)',
-      beadBorder: '#c89d7c',
-      activeBeadGlow: '0 0 16px rgba(200, 157, 124, 0.95)',
-      activeBeadGradient: 'radial-gradient(circle at 30% 30%, #edd3bf 0%, #c89d7c 50%, #6e462c 100%)'
+      id: 'shape_ring',
+      name: 'خاتم التسبيح الذكي',
+      subtext: 'تصميم خاتم إلكتروني عصري بزر لمس رحب',
+      icon: 'images/icons/sabha2.png'
     },
     {
-      id: 'theme_pearl',
-      name: 'اللؤلؤ الأبيض النقي',
-      subtext: 'نقاء روحاني ناصع وسكينة تامة',
-      previewBead: '#e8ecf2',
-      previewAccent: '#94a3b8',
-      beadGradient: 'radial-gradient(circle at 30% 30%, #ffffff 0%, #dbe3ed 60%, #9cb0c7 100%)',
-      beadBorder: '#cbd5e1',
-      activeBeadGlow: '0 0 16px rgba(255, 255, 255, 0.95)',
-      activeBeadGradient: 'radial-gradient(circle at 30% 30%, #ffffff 0%, #f1f5f9 50%, #cbd5e1 100%)'
-    },
-    {
-      id: 'theme_turquoise',
-      name: 'الفيروز والزمرد الإسلامي',
-      subtext: 'ظلال خضراء ساحرة وطمأنينة قلب',
-      previewBead: '#134e4a',
-      previewAccent: '#2dd4bf',
-      beadGradient: 'radial-gradient(circle at 35% 35%, #14b8a6 0%, #0f766e 65%, #042f2e 100%)',
-      beadBorder: '#2dd4bf',
-      activeBeadGlow: '0 0 16px rgba(45, 212, 191, 0.95)',
-      activeBeadGradient: 'radial-gradient(circle at 35% 35%, #99f6e4 0%, #2dd4bf 50%, #0f766e 100%)'
+      id: 'shape_card',
+      name: 'كارت السكينة والتركيز',
+      subtext: 'واجهة بسيطة رحبة خالية من أي شتات',
+      icon: 'images/icons/Focus1.png'
     }
   ];
 
@@ -273,9 +248,10 @@
     dhikrs: WZKER_TASBEEH_DHIKR_BANK,
     chains: WZKER_TASBEEH_CHAINS,
     intentions: WZKER_TASBEEH_INTENTIONS,
-    themes: WZKER_TASBEEH_THEMES,
+    shapes: WZKER_TASBEEH_SHAPES,
     stillnessQuotes: WZKER_STILLNESS_QUOTES
   };
+
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = root.WZKER_TASBEEH_DATA;
   }
