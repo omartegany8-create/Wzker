@@ -1,0 +1,744 @@
+/**
+ * ══════════════════════════════════════════════════════════════════
+ * WZKER CLOUD ACCOUNT & SYNC STYLESHEET (css/cloud-account.css)
+ * Native Islamic Theme Integration + Zero Emojis + High Performance
+ * ══════════════════════════════════════════════════════════════════
+ */
+
+/* ── 1. MAIN CLOUD PAGE CONTAINER ── */
+#loginPage,
+#authLoginPage,
+#authRegisterPage,
+#authForgotPage {
+  background: var(--bg-color, #F3E9DD);
+  color: var(--text-main, #2A1612);
+  z-index: 850;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  font-family: var(--app-font-family, 'Zain', sans-serif);
+}
+
+.cloud-scroll-body {
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 16px 16px 140px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+/* ── 2. HERO ACCOUNT CARD ── */
+.cloud-hero-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+/* User Profile Header (When Logged In) */
+.cloud-user-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.cloud-avatar-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.cloud-user-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid var(--primary);
+  background: var(--surface-trans);
+}
+
+.cloud-avatar-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #10b981;
+  font-size: 16px;
+  background: var(--card-bg);
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.cloud-user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cloud-user-name {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cloud-user-email {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Sync Status Pill */
+.cloud-account-sync-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-top: 4px;
+  width: fit-content;
+  border: 1px solid var(--card-border);
+}
+
+.cloud-account-sync-tag.active {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #059669;
+}
+
+.cloud-account-sync-tag.offline {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #d97706;
+}
+
+.cloud-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.cloud-status-dot.pulse {
+  animation: cloudPulseDot 2s infinite ease-in-out;
+}
+
+.cloud-status-dot.offline {
+  background: #f59e0b;
+}
+
+@keyframes cloudPulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Quick Actions for Logged In User */
+.cloud-quick-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.cloud-act-btn {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  transition: transform 0.15s, opacity 0.2s;
+}
+
+.cloud-act-btn.outline {
+  background: var(--surface-trans);
+  color: var(--text-main);
+  border-color: var(--card-border);
+}
+
+.cloud-act-btn.danger {
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+.cloud-act-btn:hover {
+  opacity: 0.9;
+}
+
+.cloud-act-btn:active {
+  transform: scale(0.97);
+}
+
+/* ── 3. HERO INTRODUCTORY STATE (GUEST / DEFAULT) ── */
+.cloud-intro-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.cloud-guest-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.08);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  width: fit-content;
+}
+
+.cloud-intro-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.cloud-intro-icon-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: var(--surface-trans);
+  border: 1.5px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cloud-intro-icon-box img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.cloud-intro-text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.cloud-intro-title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.cloud-intro-desc {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cloud-intro-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.cloud-primary-action-btn {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: var(--primary);
+  color: #FFFFFF;
+  border: none;
+  font-family: inherit;
+  font-size: 1.02rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.15s, opacity 0.2s;
+  box-shadow: 0 4px 12px rgba(61, 74, 62, 0.15);
+}
+
+.cloud-primary-action-btn:hover {
+  opacity: 0.94;
+}
+
+.cloud-primary-action-btn:active {
+  transform: scale(0.98);
+}
+
+.cloud-google-signin-btn {
+  width: 100%;
+  padding: 13px 18px;
+  border-radius: 16px;
+  background: var(--surface-trans);
+  color: var(--text-main);
+  border: 1.5px solid var(--card-border);
+  font-family: inherit;
+  font-size: 0.94rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.cloud-google-signin-btn:hover {
+  background: var(--card-bg);
+  border-color: var(--primary);
+}
+
+.cloud-google-signin-btn:active {
+  transform: scale(0.98);
+}
+
+/* ── GOOGLE IDENTITY SERVICES (GSI) CONTAINER ── */
+.google-gsi-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin: 4px 0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.google-gsi-wrap iframe {
+  margin: 0 auto !important;
+  color-scheme: light;
+}
+
+/* ── 4. REALTIME SYNCHRONIZED STATS CARDS ── */
+.cloud-stats-section-title {
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.cloud-stats-section-title img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.cloud-stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.cloud-stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  transition: transform 0.15s;
+}
+
+.cloud-stat-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cloud-stat-icon-wrap img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.cloud-stat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cloud-stat-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.cloud-stat-value {
+  font-size: 0.98rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1.25;
+}
+
+.cloud-stat-badge-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #059669;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 4px 10px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+/* ── 5. CLOUD ADVANTAGES & GUARANTEES ── */
+.cloud-features-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 22px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cloud-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.cloud-feature-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.cloud-feature-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1.2px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cloud-feature-icon-wrap img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.cloud-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.cloud-feature-text h4 {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.cloud-feature-text p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+/* ── 6. AUTHENTICATION SCREENS (LOGIN, REGISTER, FORGOT) ── */
+.auth-form-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.auth-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.auth-header-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  background: var(--surface-trans);
+  border: 1.5px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.auth-header-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.auth-card-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.auth-card-subtitle {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 320px;
+  line-height: 1.45;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.auth-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.auth-field-label {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--surface-trans);
+  border: 1.5px solid var(--card-border);
+  border-radius: 14px;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-input-wrapper:focus-within {
+  border-color: var(--primary);
+  background: var(--card-bg);
+}
+
+.auth-input-icon {
+  position: absolute;
+  right: 14px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.auth-text-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 13px 42px 13px 44px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  outline: none;
+  font-weight: 700;
+  direction: ltr;
+  text-align: right;
+  box-sizing: border-box;
+}
+
+.auth-text-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.65;
+  font-weight: 400;
+}
+
+.auth-eye-btn {
+  position: absolute;
+  left: 10px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s;
+}
+
+.auth-eye-btn:hover {
+  color: var(--primary);
+}
+
+.auth-links-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -4px;
+}
+
+.auth-forgot-link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s;
+}
+
+.auth-forgot-link:hover {
+  opacity: 0.8;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--primary);
+  color: #FFFFFF;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.15s, opacity 0.2s;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(61, 74, 62, 0.15);
+}
+
+.auth-submit-btn:hover {
+  opacity: 0.94;
+}
+
+.auth-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin: 4px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--card-border);
+}
+
+.auth-switch-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  padding-top: 4px;
+}
+
+.auth-switch-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.15s;
+}
+
+.auth-switch-btn:hover {
+  opacity: 0.8;
+}

@@ -301,6 +301,9 @@ class WzkerQuranManager {
         this.renderBookmarksList();
         this.updateNavBookmarkIndicator();
         this.updateRibbonBookmarkUI();
+        if (window.wzkerCloud && typeof window.wzkerCloud.triggerSync === 'function') {
+            window.wzkerCloud.triggerSync('bookmark');
+        }
     }
 
     updateNavBookmarkIndicator() {

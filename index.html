@@ -27,6 +27,9 @@
     <link rel="stylesheet" href="css/quran.css">
     <link rel="stylesheet" href="css/adhkar.css">
     <link rel="stylesheet" href="css/tasbeeh.css">
+    <link rel="stylesheet" href="css/cloud-account.css">
+    <!-- Google Identity Services (GIS/GSI) SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -1850,28 +1853,382 @@
         </div>
     </div>
 
-    <!-- 4. LOGIN & ACCOUNT PAGE -->
+    <!-- 4. LOGIN & CLOUD ACCOUNT OVERVIEW PAGE -->
     <div id="loginPage" class="sub-lib-page">
         <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('loginPage')"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="nav-btn" onclick="closeLibPage('loginPage')" title="الرجوع"><i class="fa-solid fa-chevron-right"></i></button>
             <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/Login1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Login">
+                <img src="images/icons/user-account.png" style="width: 26px; height: 26px; object-fit: contain;" alt="Account">
+                <h2 class="navbar-title">الحساب والمزامنة السحابية</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+
+        <div class="cloud-scroll-body">
+            <!-- 1. Hero Profile / Introductory Card (Static Base + Dynamic Profile Updates) -->
+            <div class="cloud-hero-card" id="cloudAccountHeroCard">
+                <div class="cloud-intro-hero">
+                    <div class="cloud-guest-status-pill">
+                        <span class="cloud-status-dot pulse"></span>
+                        <span>وضع الضيف • جميع بياناتك محفوظة محلياً وتعمل بدون إنترنت</span>
+                    </div>
+
+                    <div class="cloud-intro-header">
+                        <div class="cloud-intro-icon-box">
+                            <img src="images/icons/user-account.png" alt="Guest User">
+                        </div>
+                        <div class="cloud-intro-text-box">
+                            <h3 class="cloud-intro-title">حساب وذكر السحابي</h3>
+                            <p class="cloud-intro-desc">احفظ ختمتك القرآنية وسلسلة أورادك وأيام السبحة واستعدها بضغطة زر واحدة من أي هاتف أو حاسوب دون أن تفقد أي تسبيحة.</p>
+                        </div>
+                    </div>
+
+                    <div class="cloud-intro-actions">
+                        <button type="button" class="cloud-primary-action-btn" onclick="openLibPage('authLoginPage')">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            <span>تسجيل الدخول / إنشاء حساب الآن</span>
+                        </button>
+
+                        <div class="google-gsi-wrap" id="googleGsiHeroContainer">
+                            <div class="g_id_signin"
+                                 data-type="standard"
+                                 data-shape="pill"
+                                 data-theme="outline"
+                                 data-text="signin_with"
+                                 data-size="large"
+                                 data-logo_alignment="left"
+                                 data-width="320">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Identity Services Config -->
+            <div id="g_id_onload"
+                 data-client_id="814516981900-b2gsj39k6btm6jdvtkub9fj2ifniiomo.apps.googleusercontent.com"
+                 data-context="signin"
+                 data-ux_mode="popup"
+                 data-callback="handleGoogleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+
+            <!-- 2. Realtime Synchronized Assets Section -->
+            <div class="cloud-stats-section-title">
+                <img src="images/icons/progress1.png" alt="Progress">
+                <span>البيانات المحفوظة في حسابك الحالي</span>
+            </div>
+
+            <div class="cloud-stats-grid">
+                <!-- Bookmark Stat -->
+                <div class="cloud-stat-card">
+                    <div class="cloud-stat-icon-wrap">
+                        <img src="images/icons/quran-bookmark.png" alt="Quran">
+                    </div>
+                    <div class="cloud-stat-body">
+                        <span class="cloud-stat-label">فاصلة المصحف الشريف</span>
+                        <span class="cloud-stat-value" id="cloudStatBookmarkVal">لم تُحدد فاصلة بعد</span>
+                    </div>
+                    <span class="cloud-stat-badge-chip">
+                        <i class="fa-solid fa-check"></i>
+                        <span>محفوظ محلياً</span>
+                    </span>
+                </div>
+
+                <!-- Streak Stat -->
+                <div class="cloud-stat-card">
+                    <div class="cloud-stat-icon-wrap">
+                        <img src="images/icons/streak.png" alt="Streak">
+                    </div>
+                    <div class="cloud-stat-body">
+                        <span class="cloud-stat-label">سلسلة الاستمرار بالسبحة</span>
+                        <span class="cloud-stat-value" id="cloudStatStreakVal">1 يوم متتالي</span>
+                    </div>
+                    <span class="cloud-stat-badge-chip">
+                        <i class="fa-solid fa-check"></i>
+                        <span>محفوظ محلياً</span>
+                    </span>
+                </div>
+
+                <!-- Favorites Stat -->
+                <div class="cloud-stat-card">
+                    <div class="cloud-stat-icon-wrap">
+                        <img src="images/icons/fav-active.png" alt="Favorites">
+                    </div>
+                    <div class="cloud-stat-body">
+                        <span class="cloud-stat-label">التلاوات والابتهالات المفضلة</span>
+                        <span class="cloud-stat-value" id="cloudStatFavoritesVal">0 تلاوة محفوظة</span>
+                    </div>
+                    <span class="cloud-stat-badge-chip">
+                        <i class="fa-solid fa-check"></i>
+                        <span>محفوظ محلياً</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- 3. Why Register in Wzker? Guide & Features -->
+            <div class="cloud-stats-section-title" style="margin-top: 14px;">
+                <img src="images/icons/cloud-sync1.png" alt="Cloud Sync">
+                <span>لماذا تسجل في وذكر؟ مزايا حسابك</span>
+            </div>
+
+            <div class="cloud-features-card">
+                <div class="cloud-feature-item">
+                    <div class="cloud-feature-icon-wrap">
+                        <img src="images/icons/quran-bookmark.png" alt="Quran">
+                    </div>
+                    <div class="cloud-feature-text">
+                        <h4>حفظ موضع الختمة وفاصلة الآيات</h4>
+                        <p>لا تفقد موضع قراءتك أبداً؛ فاصلتك ورقم صفحتك وسورتك محفوظة سحابياً ومستعادة في أي وقت.</p>
+                    </div>
+                </div>
+
+                <div class="cloud-feature-item">
+                    <div class="cloud-feature-icon-wrap">
+                        <img src="images/icons/offline.png" alt="Offline">
+                    </div>
+                    <div class="cloud-feature-text">
+                        <h4>مزامنة أوفلاين ذكية (Offline Persistence)</h4>
+                        <p>واصل القراءة والتسبيح بدون إنترنت تماماً، وتتزامن جميع تعديلاتك تلقائياً وبشكل صامت فور الاتصال.</p>
+                    </div>
+                </div>
+
+                <div class="cloud-feature-item">
+                    <div class="cloud-feature-icon-wrap">
+                        <img src="images/icons/multi-devices.png" alt="MultiDevice">
+                    </div>
+                    <div class="cloud-feature-text">
+                        <h4>تنقل سلس ومتزامن بين جميع أجهزتك</h4>
+                        <p>افتح وذكر من هاتفك أو حاسوبك الشخصي واستكمل أورادك وسجل تسبيحك من نفس النقطة بكل سلاسة.</p>
+                    </div>
+                </div>
+
+                <div class="cloud-feature-item">
+                    <div class="cloud-feature-icon-wrap">
+                        <img src="images/icons/security-shield.png" alt="Privacy">
+                    </div>
+                    <div class="cloud-feature-text">
+                        <h4>حماية وخصوصية تامة 100%</h4>
+                        <p>بياناتك الروحانية مشفرة ومحفوظة لك وحدك في حسابك الآمن وفق أعلى معايير الخصوصية والأمان.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4-A. LOGIN SUB-PAGE -->
+    <div id="authLoginPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('authLoginPage')" title="الرجوع"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/user-account.png" style="width: 24px; height: 24px; object-fit: contain;" alt="Login">
                 <h2 class="navbar-title">تسجيل الدخول</h2>
             </div>
             <div style="width: 38px;"></div>
         </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/Login1.png" alt="Login">
+
+        <div class="cloud-scroll-body">
+            <div class="auth-form-card">
+                <div class="auth-card-header">
+                    <div class="auth-header-icon">
+                        <img src="images/icons/user-account.png" alt="User">
+                    </div>
+                    <h3 class="auth-card-title">مرحباً بك مجدداً في وذكر</h3>
+                    <p class="auth-card-subtitle">سجّل دخولك لمزامنة ختمتك القرآنية وأذكارك عبر أجهزتك</p>
                 </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-user-shield"></i> الحساب السحابي</span>
-                <h3 class="placeholder-page-title">حساب وذكر السحابي</h3>
-                <p class="placeholder-page-desc">صفحة تسجيل الدخول جاهزة للربط مع نظام المصادقة لحفظ التفضيلات وقوائم التشغيل والتنزيلات سحابياً.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('loginPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
-                </button>
+
+                <form class="auth-form" onsubmit="event.preventDefault(); window.wzkerCloud.submitLogin();">
+                    <div class="auth-field-group">
+                        <label class="auth-field-label" for="authLoginEmail">البريد الإلكتروني أو رقم الهاتف</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fa-regular fa-envelope auth-input-icon"></i>
+                            <input type="text" id="authLoginEmail" class="auth-text-input" placeholder="example@email.com" autocomplete="username" required>
+                        </div>
+                    </div>
+
+                    <div class="auth-field-group">
+                        <label class="auth-field-label" for="authLoginPassword">كلمة المرور</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fa-solid fa-lock auth-input-icon"></i>
+                            <input type="password" id="authLoginPassword" class="auth-text-input" placeholder="أدخل كلمة المرور" autocomplete="current-password" required>
+                            <button type="button" class="auth-eye-btn" onclick="window.wzkerCloud.togglePassVisibility('authLoginPassword', this)" title="إظهار / إخفاء">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-links-row">
+                        <button type="button" class="auth-forgot-link" onclick="openLibPage('authForgotPage')">
+                            هل نسيت كلمة المرور؟
+                        </button>
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn" id="authLoginSubmitBtn">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        <span>تسجيل الدخول</span>
+                    </button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>أو</span>
+                </div>
+
+                <div class="google-gsi-wrap" id="googleGsiLoginContainer">
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="pill"
+                         data-theme="outline"
+                         data-text="signin_with"
+                         data-size="large"
+                         data-logo_alignment="left"
+                         data-width="320">
+                    </div>
+                </div>
+
+                <div class="auth-switch-box">
+                    <span>ليس لديك حساب بعد؟</span>
+                    <button type="button" class="auth-switch-btn" onclick="closeLibPage('authLoginPage'); openLibPage('authRegisterPage');">
+                        إنشاء حساب جديد
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4-B. REGISTER SUB-PAGE -->
+    <div id="authRegisterPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('authRegisterPage')" title="الرجوع"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/user-account.png" style="width: 24px; height: 24px; object-fit: contain;" alt="Register">
+                <h2 class="navbar-title">إنشاء حساب جديد</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+
+        <div class="cloud-scroll-body">
+            <div class="auth-form-card">
+                <div class="auth-card-header">
+                    <div class="auth-header-icon">
+                        <img src="images/icons/user-account.png" alt="Register">
+                    </div>
+                    <h3 class="auth-card-title">انضم إلى وذكر</h3>
+                    <p class="auth-card-subtitle">أنشئ حسابك لحفظ أورادك وختماتك القرآنية بأمان تام</p>
+                </div>
+
+                <form class="auth-form" onsubmit="event.preventDefault(); window.wzkerCloud.submitRegister();">
+                    <div class="auth-field-group">
+                        <label class="auth-field-label" for="authRegName">الاسم الكريم أو اللقب</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fa-regular fa-user auth-input-icon"></i>
+                            <input type="text" id="authRegName" class="auth-text-input" placeholder="مثال: عبد الرحمن" autocomplete="name" required>
+                        </div>
+                    </div>
+
+                    <div class="auth-field-group">
+                        <label class="auth-field-label" for="authRegEmail">البريد الإلكتروني</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fa-regular fa-envelope auth-input-icon"></i>
+                            <input type="email" id="authRegEmail" class="auth-text-input" placeholder="example@email.com" autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <div class="auth-field-group">
+                        <label class="auth-field-label" for="authRegPassword">كلمة المرور (6 أحرف أو أكثر)</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fa-solid fa-lock auth-input-icon"></i>
+                            <input type="password" id="authRegPassword" class="auth-text-input" placeholder="أنشئ كلمة مرور قوية" autocomplete="new-password" required minlength="6">
+                            <button type="button" class="auth-eye-btn" onclick="window.wzkerCloud.togglePassVisibility('authRegPassword', this)" title="إظهار / إخفاء">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-field-group">
+                        <label class="auth-field-label" for="authRegConfirmPassword">تأكيد كلمة المرور</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fa-solid fa-shield-halved auth-input-icon"></i>
+                            <input type="password" id="authRegConfirmPassword" class="auth-text-input" placeholder="أعد إدخال كلمة المرور" autocomplete="new-password" required minlength="6">
+                            <button type="button" class="auth-eye-btn" onclick="window.wzkerCloud.togglePassVisibility('authRegConfirmPassword', this)" title="إظهار / إخفاء">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn" id="authRegSubmitBtn">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>إنشاء الحساب الآن</span>
+                    </button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>أو</span>
+                </div>
+
+                <div class="google-gsi-wrap" id="googleGsiRegisterContainer">
+                    <div class="g_id_signin"
+                         data-type="standard"
+                         data-shape="pill"
+                         data-theme="outline"
+                         data-text="signup_with"
+                         data-size="large"
+                         data-logo_alignment="left"
+                         data-width="320">
+                    </div>
+                </div>
+
+                <div class="auth-switch-box">
+                    <span>لديك حساب بالفعل؟</span>
+                    <button type="button" class="auth-switch-btn" onclick="closeLibPage('authRegisterPage'); openLibPage('authLoginPage');">
+                        تسجيل الدخول
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4-C. FORGOT PASSWORD SUB-PAGE -->
+    <div id="authForgotPage" class="sub-lib-page">
+        <div class="prime-navbar">
+            <button class="nav-btn" onclick="closeLibPage('authForgotPage')" title="الرجوع"><i class="fa-solid fa-chevron-right"></i></button>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="images/icons/Login3.png" style="width: 24px; height: 24px; object-fit: contain;" alt="Forgot">
+                <h2 class="navbar-title">استعادة كلمة المرور</h2>
+            </div>
+            <div style="width: 38px;"></div>
+        </div>
+
+        <div class="cloud-scroll-body">
+            <div class="auth-form-card">
+                <div class="auth-card-header">
+                    <div class="auth-header-icon" style="background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.2);">
+                        <img src="images/icons/Login3.png" alt="Reset Password">
+                    </div>
+                    <h3 class="auth-card-title">نسيت كلمة المرور؟</h3>
+                    <p class="auth-card-subtitle">أدخل بريدك الإلكتروني المسجل وسنرسل لك رابطاً آمناً لإعادة تعيين كلمة المرور فوراً</p>
+                </div>
+
+                <form class="auth-form" onsubmit="event.preventDefault(); window.wzkerCloud.submitForgotPassword();">
+                    <div class="auth-field-group">
+                        <label class="auth-field-label" for="authForgotEmail">البريد الإلكتروني</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fa-regular fa-envelope auth-input-icon"></i>
+                            <input type="email" id="authForgotEmail" class="auth-text-input" placeholder="example@email.com" autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn" id="authForgotSubmitBtn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>إرسال رابط الاستعادة</span>
+                    </button>
+                </form>
+
+                <div class="auth-switch-box" style="margin-top: 24px;">
+                    <button type="button" class="auth-switch-btn" onclick="closeLibPage('authForgotPage'); openLibPage('authLoginPage');">
+                        <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i>
+                        العودة إلى تسجيل الدخول
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -3319,11 +3676,11 @@
                 <div class="sidebar-account-card" onclick="window.wzkerSidebar.navigate('loginPage')">
                     <div class="sidebar-account-info">
                         <div class="sidebar-account-avatar">
-                            <img src="images/icons/Login1.png" alt="User">
+                            <img src="images/icons/user-account.png" alt="User">
                         </div>
                         <div class="sidebar-account-texts">
-                            <h3 class="sidebar-account-title">تسجيل الدخول</h3>
-                            <p class="sidebar-account-sub">لحفظ تفضيلاتك وتلاواتك سحابياً</p>
+                            <h3 class="sidebar-account-title">الحساب والمزامنة السحابية</h3>
+                            <p class="sidebar-account-sub">احفظ ختمتك وأذكارك وسلسلة تسبيحك</p>
                         </div>
                     </div>
                     <div class="sidebar-account-arrow">
@@ -3873,6 +4230,16 @@
     <script src="js/adhkar.js"></script>
     <script src="js/tasbeeh-data.js"></script>
     <script src="js/tasbeeh.js"></script>
+
+    <!-- Firebase SDKs (Official Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+    <!-- Wzker Cloud & Offline Sync Engine -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/cloud-sync.js"></script>
+
     <script src="js/app.js"></script>
 
     <!-- Dynamic Spiritual Time Greeting Script -->

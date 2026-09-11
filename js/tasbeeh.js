@@ -112,6 +112,9 @@
       try {
         localStorage.setItem(this.storageKeys.streak, JSON.stringify(this.streakData));
         localStorage.setItem(this.storageKeys.distribution, JSON.stringify(this.distributionData));
+        if (window.wzkerCloud && typeof window.wzkerCloud.triggerSync === 'function') {
+          window.wzkerCloud.triggerSync('tasbeeh');
+        }
       } catch (e) {}
     }
 

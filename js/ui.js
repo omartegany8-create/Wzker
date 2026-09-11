@@ -255,6 +255,12 @@ window.openLibPage = (id) => {
   if (id === 'tasbeehPage' && window.wzkerTasbeeh) {
     window.wzkerTasbeeh.updateUI();
   }
+  if (id === 'loginPage' && window.wzkerCloud) {
+    window.wzkerCloud.updateAccountPageUI();
+  }
+  if ((id === 'loginPage' || id === 'authLoginPage' || id === 'authRegisterPage') && window.wzkerCloud && typeof window.wzkerCloud.renderAllGoogleButtons === 'function') {
+    setTimeout(() => window.wzkerCloud.renderAllGoogleButtons(), 60);
+  }
 };
 
 window.closeLibPage = (id) => {

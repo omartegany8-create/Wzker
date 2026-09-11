@@ -192,6 +192,9 @@ class WzkerLibrary {
     this.renderFavorites();
     this.updateFpFavIcon();
     if (window.wzkerAudio) window.wzkerAudio.updateUI();
+    if (window.wzkerCloud && typeof window.wzkerCloud.triggerSync === 'function') {
+      window.wzkerCloud.triggerSync('favorites');
+    }
     return isNowFav;
   }
 
