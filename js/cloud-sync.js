@@ -15,6 +15,8 @@
       this.isOnline = navigator.onLine;
       this.lastSyncTime = null;
       this.unsubDocListener = null;
+      this.syncDebounceTimer = null;
+      this.lastSyncedDataHash = null;
 
       // Local storage keys we synchronize
       this.syncKeys = {
@@ -55,6 +57,22 @@
       this.setupAuthObserver();
       this.hookLocalSaveTriggers();
       this.initGoogleIdentity();
+
+      // Flush any pending debounced sync when app goes to background or user closes tab
+      window.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden' && this.syncDebounceTimer) {
+          clearTimeout(this.syncDebounceTimer);
+          this.syncDebounceTimer = null;
+          this.pushLocalDataToCloud();
+        }
+      });
+      window.addEventListener('beforeunload', () => {
+        if (this.syncDebounceTimer) {
+          clearTimeout(this.syncDebounceTimer);
+          this.syncDebounceTimer = null;
+          this.pushLocalDataToCloud();
+        }
+      });
     }
 
     // ── 1. AUTHENTICATION LIFECYCLE ──
@@ -529,8 +547,23 @@
         const t = localStorage.getItem(this.syncKeys.theme);
         if (t) payload.app_theme = t;
 
+        // Skip redundant Firestore writes if data is identical to last sync
+        const currentDataHash = JSON.stringify({
+          b: payload.quran_bookmark || null,
+          s: payload.tasbeeh_streak || null,
+          c: payload.tasbeeh_counts || null,
+          f: payload.favorite_audio || null,
+          k: payload.quran_khatma || null,
+          t: payload.app_theme || null
+        });
+
+        if (this.lastSyncedDataHash === currentDataHash) {
+          return;
+        }
+
         // Set with merge: true so nothing is accidentally overwritten
         await db.collection('users').doc(this.currentUser.uid).set(payload, { merge: true });
+        this.lastSyncedDataHash = currentDataHash;
         console.log('[Wzker Cloud] Successfully synced structured data to cloud.');
       } catch (e) {
         console.warn('[Wzker Cloud] Error pushing local data:', e);
@@ -608,6 +641,16 @@
             }
           }
         }
+
+        // Cache remote data hash to avoid immediate loopback write
+        this.lastSyncedDataHash = JSON.stringify({
+          b: remote.quran_bookmark || remote.quranBookmark || null,
+          s: remote.tasbeeh_streak || remote.tasbeehStreak || null,
+          c: remote.tasbeeh_counts || remote.tasbeehDist || null,
+          f: remote.favorite_audio || remote.favorites || null,
+          k: remote.quran_khatma || remote.quranKhatma || null,
+          t: remote.app_theme || remote.theme || null
+        });
       } catch (err) {
         console.warn('[Wzker Cloud] Merge remote data error:', err);
       }
@@ -623,11 +666,22 @@
       }, 60000);
     }
 
-    // Public method to call whenever a bookmark, favorite, or tasbeeh is saved
+    // Public method with smart debouncing to conserve Firebase quota and battery
     triggerSync(type) {
-      if (this.currentUser) {
-        this.pushLocalDataToCloud();
+      if (!this.currentUser || !this.isOnline) return;
+
+      // Fast repetitive actions (like tasbeeh clicks): debounce by 2.5 seconds
+      // Single actions (like bookmarks or favorites): debounce by 800ms
+      const delay = type === 'tasbeeh' ? 5000 : 800;
+
+      if (this.syncDebounceTimer) {
+        clearTimeout(this.syncDebounceTimer);
       }
+
+      this.syncDebounceTimer = setTimeout(() => {
+        this.syncDebounceTimer = null;
+        this.pushLocalDataToCloud();
+      }, delay);
     }
 
     // ── 4. UI SYNCHRONIZATION & PRESENTATION ──

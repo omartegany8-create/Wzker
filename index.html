@@ -1385,13 +1385,12 @@
                 </div>
             </div>
             <div class="tasbeeh-nav-actions">
-                <button class="tasbeeh-header-pill-btn" onclick="window.wzkerTasbeeh.openModal('tasbeehShapesModal')" title="تغيير مظهر السبحة">
-                    <img src="images/icons/sabha2.png" alt="Shape">
-                    <span>المظهر</span>
-                </button>
                 <button class="tasbeeh-header-pill-btn" onclick="window.wzkerTasbeeh.openZenScreen()" title="وضع التركيز التام">
                     <img src="images/icons/Focus1.png" alt="Focus">
                     <span>تركيز</span>
+                </button>
+                <button class="tasbeeh-nav-btn" onclick="window.wzkerTasbeeh.openModal('tasbeehSideDrawer')" title="خيارات وإحصائيات السبحة">
+                    <img src="images/icons/Sidemenu1.png" style="width: 20px; height: 20px; object-fit: contain;" alt="Menu">
                 </button>
             </div>
         </div>
@@ -1410,33 +1409,6 @@
                 <button class="tasbeeh-mode-btn" data-mode="timed" onclick="window.wzkerTasbeeh.setTimedMode(5)">
                     <img src="images/icons/stopwatch.png" alt="Timed">
                     <span>جلسة مؤقتة</span>
-                </button>
-            </div>
-
-            <!-- 2. Habit Streak & Weekly Progress Bar (Clean & Lightweight) -->
-            <div class="tasbeeh-streak-card" onclick="window.wzkerTasbeeh.openAnalytics()" title="عرض تقرير الاستمرار الأسبوعي">
-                <div class="tasbeeh-streak-top-row">
-                    <div class="tasbeeh-streak-left">
-                        <img src="images/icons/streak.png" class="tasbeeh-streak-mini-icon" alt="Streak">
-                        <span class="tasbeeh-streak-title">سلسلة الاستمرار اليومي</span>
-                    </div>
-                    <span class="tasbeeh-streak-days-pill" id="tasbeehStreakDaysCount">1 يوم متصل</span>
-                </div>
-                <div class="tasbeeh-week-calendar-strip" id="tasbeehWeekCalendar"></div>
-            </div>
-
-            <!-- 3. Niyyah & Audio Quick Bar -->
-            <div class="tasbeeh-quick-bar">
-                <div class="tasbeeh-niyyah-badge" onclick="window.wzkerTasbeeh.openModal('tasbeehNiyyahModal')" title="تحديد نية جلسة التسبيح">
-                    <img id="tasbeehNiyyahIcon" src="images/icons/target.png" alt="Niyyah">
-                    <span class="tasbeeh-niyyah-prefix">النية:</span>
-                    <span id="tasbeehNiyyahLabel" class="tasbeeh-niyyah-title">ذكر عام وتقرب لله</span>
-                    <i class="fa-solid fa-chevron-down" style="font-size: 10px; opacity: 0.5; margin-right: auto;"></i>
-                </div>
-
-                <button class="tasbeeh-feedback-quick-btn" onclick="window.wzkerTasbeeh.cycleFeedbackMode()" title="تبديل نمط التنبيه (صوت/اهتزاز)">
-                    <img id="tasbeehTopFeedbackIcon" src="images/icons/sound.png" alt="Feedback">
-                    <span id="tasbeehTopFeedbackLabel">صوت واهتزاز</span>
                 </button>
             </div>
 
@@ -1529,20 +1501,6 @@
                 </div>
             </div>
 
-            <!-- 9. Daily Goal & Progress Widget -->
-            <div class="tasbeeh-daily-goal-card">
-                <div class="tasbeeh-dg-top">
-                    <div class="tasbeeh-dg-title-wrap">
-                        <img src="images/icons/certificate1.png" alt="Goal">
-                        <span>إنجاز اليوم من الأذكار</span>
-                    </div>
-                    <span class="tasbeeh-dg-count-tag" id="tasbeehDailyGoalText">0 / 300 تسبيحة</span>
-                </div>
-                <div class="tasbeeh-dg-progress-track">
-                    <div class="tasbeeh-dg-progress-fill" id="tasbeehDailyGoalBar" style="width: 0%;"></div>
-                </div>
-            </div>
-
             <!-- 10. Active Dhikr & Fadl Showcase Card with Actions -->
             <div class="tasbeeh-dhikr-display-card">
                 <img src="images/icons/leaf-1.png" class="tasbeeh-corner-leaf top-left" alt="Deco">
@@ -1604,6 +1562,102 @@
     <!-- =========================================================
          TASBEEH MODALS & OVERLAYS SYSTEM (PRO EDITION)
          ========================================================= -->
+
+    <!-- 0. TASBEEH SIDE DRAWER (قائمة خيارات وإحصائيات السبحة) -->
+    <div id="tasbeehSideDrawer" class="tasbeeh-drawer-overlay" onclick="if(event.target === this) window.wzkerTasbeeh.closeModal('tasbeehSideDrawer')">
+        <div class="tasbeeh-drawer-panel" onclick="event.stopPropagation()">
+            <!-- Drawer Header -->
+            <div class="tasbeeh-drawer-header">
+                <div class="tasbeeh-drawer-title-box">
+                    <img src="images/icons/sabha1.png" alt="Tasbeeh">
+                    <h3>خيارات وإحصائيات السبحة</h3>
+                </div>
+                <button class="tasbeeh-drawer-close-btn" onclick="window.wzkerTasbeeh.closeModal('tasbeehSideDrawer')" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="tasbeeh-drawer-scroll">
+                <!-- 1. Habit Streak & Weekly Progress Bar -->
+                <div class="tasbeeh-drawer-section">
+                    <div class="tasbeeh-drawer-section-title">
+                        <img src="images/icons/streak.png" alt="Streak">
+                        <span>سلسلة الاستمرار اليومي</span>
+                    </div>
+                    <div class="tasbeeh-streak-card" onclick="window.wzkerTasbeeh.openAnalytics()" title="عرض تقرير الاستمرار الأسبوعي">
+                        <div class="tasbeeh-streak-top-row">
+                            <div class="tasbeeh-streak-left">
+                                <span class="tasbeeh-streak-title">أيام الذكر المتصلة</span>
+                            </div>
+                            <span class="tasbeeh-streak-days-pill" id="tasbeehStreakDaysCount">1 يوم متصل</span>
+                        </div>
+                        <div class="tasbeeh-week-calendar-strip" id="tasbeehWeekCalendar"></div>
+                    </div>
+                </div>
+
+                <!-- 2. Shapes / Appearance Selector -->
+                <div class="tasbeeh-drawer-section">
+                    <div class="tasbeeh-drawer-section-title">
+                        <img src="images/icons/sabha2.png" alt="Shape">
+                        <span>شكل ونمط العداد</span>
+                    </div>
+                    <div class="tasbeeh-drawer-shapes-grid" id="tasbeehDrawerShapesList"></div>
+                </div>
+
+                <!-- 3. Daily Goal & Progress Widget -->
+                <div class="tasbeeh-drawer-section">
+                    <div class="tasbeeh-drawer-section-title">
+                        <img src="images/icons/certificate1.png" alt="Goal">
+                        <span>إنجاز اليوم من الأذكار</span>
+                    </div>
+                    <div class="tasbeeh-daily-goal-card">
+                        <div class="tasbeeh-dg-top">
+                            <div class="tasbeeh-dg-title-wrap">
+                                <span>معدل الهدف اليومي</span>
+                            </div>
+                            <span class="tasbeeh-dg-count-tag" id="tasbeehDailyGoalText">0 / 300 تسبيحة</span>
+                        </div>
+                        <div class="tasbeeh-dg-progress-track">
+                            <div class="tasbeeh-dg-progress-fill" id="tasbeehDailyGoalBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Niyyah & Audio Quick Actions -->
+                <div class="tasbeeh-drawer-section">
+                    <div class="tasbeeh-drawer-section-title">
+                        <img src="images/icons/target.png" alt="Niyyah">
+                        <span>النية ونمط التنبيه</span>
+                    </div>
+                    <div class="tasbeeh-drawer-actions-row">
+                        <button class="tasbeeh-drawer-action-card" onclick="window.wzkerTasbeeh.closeModal('tasbeehSideDrawer'); window.wzkerTasbeeh.openModal('tasbeehNiyyahModal')">
+                            <img src="images/icons/target.png" alt="Niyyah">
+                            <div>
+                                <h4>تحديد النية</h4>
+                                <span id="tasbeehDrawerNiyyahLabel">ذكر عام</span>
+                            </div>
+                        </button>
+                        <button class="tasbeeh-drawer-action-card" onclick="window.wzkerTasbeeh.cycleFeedbackMode(); window.wzkerTasbeeh.updateDrawerFeedbackUI();">
+                            <img id="tasbeehDrawerFeedbackIcon" src="images/icons/sound.png" alt="Feedback">
+                            <div>
+                                <h4>نمط التنبيه</h4>
+                                <span id="tasbeehDrawerFeedbackLabel">صوت واهتزاز</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5. Full Analytics Shortcut -->
+                <div class="tasbeeh-drawer-section">
+                    <button class="tasbeeh-drawer-analytics-btn" onclick="window.wzkerTasbeeh.closeModal('tasbeehSideDrawer'); window.wzkerTasbeeh.openAnalytics()">
+                        <img src="images/icons/chart-pie.png" alt="Stats">
+                        <span>عرض الإحصائيات الكاملة وتوزيع الأذكار</span>
+                        <i class="fa-solid fa-chevron-left" style="margin-right: auto; font-size: 12px; opacity: 0.7;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- 1. STILLNESS BREAK (استراحة السكون والتأمل) -->
     <div id="tasbeehStillnessOverlay" class="tasbeeh-stillness-overlay">

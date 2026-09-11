@@ -32,13 +32,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 12px 18px;
   background: var(--card-bg);
   border-bottom: 1px solid var(--card-border);
   z-index: 100;
   position: sticky;
   top: 0;
   flex-shrink: 0;
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
 }
 
 .tasbeeh-nav-left {
@@ -130,7 +133,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  max-width: 860px;
+  max-width: 540px;
   width: 100%;
   margin: 0 auto;
   scrollbar-width: thin;
@@ -965,10 +968,13 @@
   padding: 10px 16px;
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 540px;
   z-index: 100;
   border-top: 1px solid var(--card-border);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .tasbeeh-dock-action-btn {
@@ -1345,6 +1351,249 @@
   background: var(--surface-trans);
   border-color: var(--primary);
   color: var(--primary);
+}
+
+/* ── TASBEEH SIDE DRAWER (SLIDE-OVER CONTROL PANEL) ── */
+.tasbeeh-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1200;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.tasbeeh-drawer-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.tasbeeh-drawer-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 85%;
+  max-width: 360px;
+  height: 100%;
+  background: var(--card-bg);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -6px 0 30px rgba(0, 0, 0, 0.22);
+  transform: translateX(105%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tasbeeh-drawer-overlay.active .tasbeeh-drawer-panel {
+  transform: translateX(0);
+}
+
+.tasbeeh-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--card-border);
+  background: var(--surface-trans);
+  flex-shrink: 0;
+}
+
+.tasbeeh-drawer-title-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tasbeeh-drawer-title-box img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.tasbeeh-drawer-title-box h3 {
+  font-size: 1.05rem;
+  font-weight: 900;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.tasbeeh-drawer-close-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.tasbeeh-drawer-close-btn:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.tasbeeh-drawer-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px 30px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.tasbeeh-drawer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tasbeeh-drawer-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.tasbeeh-drawer-section-title img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.tasbeeh-drawer-shapes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tasbeeh-drawer-shape-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1.5px solid var(--card-border);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.tasbeeh-drawer-shape-card:hover {
+  border-color: var(--primary);
+}
+
+.tasbeeh-drawer-shape-card.active {
+  border-color: var(--primary);
+  background: var(--card-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.tasbeeh-drawer-shape-card img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.tasbeeh-drawer-shape-card h4 {
+  font-size: 0.92rem;
+  font-weight: 900;
+  margin: 0 0 2px 0;
+  color: var(--text-main);
+}
+
+.tasbeeh-drawer-shape-card p {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 700;
+}
+
+.tasbeeh-drawer-actions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.tasbeeh-drawer-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  cursor: pointer;
+  text-align: right;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.tasbeeh-drawer-action-card:hover {
+  border-color: var(--primary);
+  background: var(--card-bg);
+}
+
+.tasbeeh-drawer-action-card img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.tasbeeh-drawer-action-card h4 {
+  font-size: 0.85rem;
+  font-weight: 900;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.tasbeeh-drawer-action-card span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.tasbeeh-drawer-analytics-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+
+.tasbeeh-drawer-analytics-btn:hover {
+  background: var(--card-bg);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.tasbeeh-drawer-analytics-btn img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 /* Mobile Responsiveness */

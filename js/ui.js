@@ -32,6 +32,10 @@ window.setTheme = (themeId) => {
   localStorage.setItem('wzker_theme', found.id);
   window.showToast('تم تفعيل ثيم: ' + found.name);
 
+  if (window.wzkerCloud && typeof window.wzkerCloud.triggerSync === 'function') {
+    window.wzkerCloud.triggerSync('theme');
+  }
+
   document.querySelectorAll('.theme-pill-card').forEach(p => {
     p.classList.toggle('active', p.getAttribute('data-theme-val') === found.id);
   });

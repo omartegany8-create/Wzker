@@ -68,6 +68,8 @@
       this.updateStreakForToday(false);
       this.renderStreakBanner();
       this.renderCapsules();
+      this.renderDrawerShapesList();
+      this.updateDrawerFeedbackUI();
       this.updateUI();
       this.bindEvents();
     }
@@ -552,7 +554,7 @@
       this.updateShapeVisibility();
       this.renderProgressRing();
       this.renderShapesModalList();
-      this.closeModal('tasbeehShapesModal');
+      this.renderDrawerShapesList();
       if (window.showToast) {
         const s = window.WZKER_TASBEEH_DATA.shapes.find(x => x.id === shapeId);
         window.showToast(`نمط السبحة: ${s ? s.name : ''}`);
@@ -892,10 +894,61 @@
       container.innerHTML = html;
     }
 
+    renderDrawerShapesList() {
+      const container = document.getElementById('tasbeehDrawerShapesList');
+      if (!container || !window.WZKER_TASBEEH_DATA || !window.WZKER_TASBEEH_DATA.shapes) return;
+
+      let html = '';
+      window.WZKER_TASBEEH_DATA.shapes.forEach(s => {
+        const isActive = s.id === this.currentShapeId;
+        html += `
+          <div class="tasbeeh-drawer-shape-card ${isActive ? 'active' : ''}" onclick="window.wzkerTasbeeh.setShape('${s.id}')">
+            <img src="${s.icon}" alt="${s.name}">
+            <div style="flex: 1;">
+              <h4>${s.name}</h4>
+              <p>${s.subtext}</p>
+            </div>
+            ${isActive ? '<i class="fa-solid fa-check" style="color: var(--primary); font-size: 14px;"></i>' : ''}
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    updateDrawerFeedbackUI() {
+      const labels = {
+        sound_and_haptic: 'صوت واهتزاز',
+        haptic: 'اهتزاز فقط',
+        sound: 'صوت نقر فقط',
+        silent: 'صامت'
+      };
+      const icons = {
+        sound_and_haptic: 'images/icons/sound.png',
+        haptic: 'images/icons/Focus1.png',
+        sound: 'images/icons/sound.png',
+        silent: 'images/icons/pause.png'
+      };
+
+      const labelEl = document.getElementById('tasbeehDrawerFeedbackLabel');
+      const iconEl = document.getElementById('tasbeehDrawerFeedbackIcon');
+      if (labelEl) labelEl.textContent = labels[this.feedbackMode] || 'صوت واهتزاز';
+      if (iconEl && icons[this.feedbackMode]) iconEl.src = icons[this.feedbackMode];
+
+      const activeNiyyah = (window.WZKER_TASBEEH_DATA && window.WZKER_TASBEEH_DATA.intentions) ? (window.WZKER_TASBEEH_DATA.intentions.find(n => n.id === this.currentNiyyahId) || window.WZKER_TASBEEH_DATA.intentions[0]) : null;
+      const drawerNiyyahEl = document.getElementById('tasbeehDrawerNiyyahLabel');
+      if (drawerNiyyahEl && activeNiyyah) drawerNiyyahEl.textContent = activeNiyyah.label;
+    }
+
     // ── 13. MODAL CONTROLS ──
     openModal(id) {
       if (id === 'tasbeehShapesModal') this.renderShapesModalList();
       if (id === 'tasbeehNiyyahModal') this.renderNiyyahModalList();
+      if (id === 'tasbeehSideDrawer') {
+        this.renderDrawerShapesList();
+        this.renderStreakBanner();
+        this.updateDailyGoal();
+        this.updateDrawerFeedbackUI();
+      }
       const m = document.getElementById(id);
       if (m) m.classList.add('active');
     }

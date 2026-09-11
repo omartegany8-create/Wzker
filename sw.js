@@ -1,16 +1,43 @@
-const CACHE_NAME = 'wzker-v3.0';
+const CACHE_NAME = 'wzker-v3.1';
 const ASSETS = [
   './index.html',
+  './manifest.json',
+  './images/icon/wzker.png',
+  // Stylesheets
   './css/main.css',
   './css/player.css',
   './css/components.css',
   './css/views.css',
+  './css/sheikh.css',
+  './css/search.css',
+  './css/library.css',
+  './css/radio.css',
+  './css/settings.css',
+  './css/lyrics.css',
+  './css/notifications.css',
+  './css/sidebar.css',
+  './css/quran.css',
+  './css/adhkar.css',
+  './css/tasbeeh.css',
+  './css/cloud-account.css',
+  // JavaScript Engines
   './js/data.js',
-  './js/audio.js',
+  './js/storage-db.js',
   './js/library.js',
+  './js/audio.js',
+  './js/quran-sync.js',
   './js/ui.js',
-  './js/app.js',
-  './images/icon/wzker.png'
+  './js/search.js',
+  './js/notifications.js',
+  './js/sidebar.js',
+  './js/quran.js',
+  './js/adhkar-data.js',
+  './js/adhkar.js',
+  './js/tasbeeh-data.js',
+  './js/tasbeeh.js',
+  './js/firebase-config.js',
+  './js/cloud-sync.js',
+  './js/app.js'
 ];
 
 self.addEventListener('install', (e) => {
