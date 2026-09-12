@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wzker-v3.1';
+const CACHE_NAME = 'wzker-v3.6';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -19,6 +19,7 @@ const ASSETS = [
   './css/quran.css',
   './css/adhkar.css',
   './css/tasbeeh.css',
+  './css/prayer-times.css',
   './css/cloud-account.css',
   // JavaScript Engines
   './js/data.js',
@@ -35,6 +36,7 @@ const ASSETS = [
   './js/adhkar.js',
   './js/tasbeeh-data.js',
   './js/tasbeeh.js',
+  './js/prayer-times.js',
   './js/firebase-config.js',
   './js/cloud-sync.js',
   './js/app.js'
@@ -59,9 +61,33 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  if (e.request.url.includes('stream') || e.request.url.includes('.mp3')) {
+  // Never cache live radio jar stream
+  if (e.request.url.includes('stream')) {
     return;
   }
+
+  // Cache on demand for adhan audio
+  if (e.request.url.includes('/audio/adhans/')) {
+    e.respondWith(
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(e.request).then((response) => {
+          if (response) return response;
+          return fetch(e.request).then((networkResponse) => {
+            if (networkResponse && networkResponse.status === 200) {
+              cache.put(e.request, networkResponse.clone());
+            }
+            return networkResponse;
+          }).catch(() => response);
+        });
+      })
+    );
+    return;
+  }
+
+  if (e.request.url.includes('.mp3')) {
+    return;
+  }
+
   e.respondWith(
     caches.match(e.request).then((res) => res || fetch(e.request))
   );

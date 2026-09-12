@@ -25,7 +25,11 @@
         tasbeehStreak: 'wzker_tasbeeh_streak_v2',
         tasbeehDist: 'wzker_tasbeeh_distribution_v2',
         favorites: 'wzker_favs',
-        theme: 'wzker_theme'
+        theme: 'wzker_theme',
+        prayerLocation: 'wzker_prayer_location',
+        prayerMethod: 'wzker_prayer_method',
+        prayerJuristic: 'wzker_prayer_juristic',
+        prayerMuezzin: 'wzker_prayer_muezzin'
       };
 
       if (document.readyState === 'loading') {
@@ -547,6 +551,18 @@
         const t = localStorage.getItem(this.syncKeys.theme);
         if (t) payload.app_theme = t;
 
+        const pLoc = localStorage.getItem(this.syncKeys.prayerLocation);
+        if (pLoc) payload.prayer_location = JSON.parse(pLoc);
+
+        const pMeth = localStorage.getItem(this.syncKeys.prayerMethod);
+        if (pMeth) payload.prayer_method = pMeth;
+
+        const pJur = localStorage.getItem(this.syncKeys.prayerJuristic);
+        if (pJur) payload.prayer_juristic = pJur;
+
+        const pMuez = localStorage.getItem(this.syncKeys.prayerMuezzin);
+        if (pMuez) payload.prayer_muezzin = pMuez;
+
         // Skip redundant Firestore writes if data is identical to last sync
         const currentDataHash = JSON.stringify({
           b: payload.quran_bookmark || null,
@@ -554,7 +570,11 @@
           c: payload.tasbeeh_counts || null,
           f: payload.favorite_audio || null,
           k: payload.quran_khatma || null,
-          t: payload.app_theme || null
+          t: payload.app_theme || null,
+          pl: payload.prayer_location || null,
+          pm: payload.prayer_method || null,
+          pj: payload.prayer_juristic || null,
+          pz: payload.prayer_muezzin || null
         });
 
         if (this.lastSyncedDataHash === currentDataHash) {
@@ -642,6 +662,35 @@
           }
         }
 
+        const pLoc = remote.prayer_location;
+        if (pLoc) {
+          localStorage.setItem(this.syncKeys.prayerLocation, JSON.stringify(pLoc));
+          if (window.wzkerPrayer) window.wzkerPrayer.location = pLoc;
+        }
+
+        const pMeth = remote.prayer_method;
+        if (pMeth) {
+          localStorage.setItem(this.syncKeys.prayerMethod, pMeth);
+          if (window.wzkerPrayer) window.wzkerPrayer.method = pMeth;
+        }
+
+        const pJur = remote.prayer_juristic;
+        if (pJur) {
+          localStorage.setItem(this.syncKeys.prayerJuristic, pJur);
+          if (window.wzkerPrayer) window.wzkerPrayer.juristic = parseInt(pJur, 10);
+        }
+
+        const pMuez = remote.prayer_muezzin;
+        if (pMuez) {
+          localStorage.setItem(this.syncKeys.prayerMuezzin, pMuez);
+          if (window.wzkerPrayer) window.wzkerPrayer.selectedMuezzin = pMuez;
+        }
+
+        if ((pLoc || pMeth || pJur || pMuez) && window.wzkerPrayer) {
+          window.wzkerPrayer.calculateTodayTimes();
+          window.wzkerPrayer.renderFullUI();
+        }
+
         // Cache remote data hash to avoid immediate loopback write
         this.lastSyncedDataHash = JSON.stringify({
           b: remote.quran_bookmark || remote.quranBookmark || null,
@@ -649,7 +698,11 @@
           c: remote.tasbeeh_counts || remote.tasbeehDist || null,
           f: remote.favorite_audio || remote.favorites || null,
           k: remote.quran_khatma || remote.quranKhatma || null,
-          t: remote.app_theme || remote.theme || null
+          t: remote.app_theme || remote.theme || null,
+          pl: remote.prayer_location || null,
+          pm: remote.prayer_method || null,
+          pj: remote.prayer_juristic || null,
+          pz: remote.prayer_muezzin || null
         });
       } catch (err) {
         console.warn('[Wzker Cloud] Merge remote data error:', err);

@@ -685,7 +685,7 @@
       this.closeModal('tasbeehNiyyahModal');
       if (window.showToast) {
         const n = window.WZKER_TASBEEH_DATA.intentions.find(i => i.id === niyyahId);
-        window.showToast(`النية المعتمدة للجلسة: ${n ? n.label : ''}`);
+        window.showToast(` الذكر المعتمد للجلسة: ${n ? n.label : ''}`);
       }
     }
 
@@ -815,29 +815,54 @@
 
     // ── 12. ANALYTICS & VISUALIZATION ──
     openAnalytics() {
-      const total = Object.values(this.distributionData).reduce((a, b) => a + b, 0) || 1;
+      const total = Object.values(this.distributionData).reduce((a, b) => a + b, 0);
       const container = document.getElementById('tasbeehAnalyticsBarsList');
       if (container) {
         const labels = {
           tasbeeh: 'التسبيح والتقديس',
-          tahmeed: 'الحمد والشكر',
+          tahmeed: 'الحمد والشكر لله',
           takbeer: 'التكبير والتعظيم',
+          tahleel: 'التهليل والتوحيد',
+          'تهليل': 'التهليل والتوحيد',
           istighfar: 'الاستغفار والتوبة',
           salawat: 'الصلاة على النبي',
           hawqala: 'الحوقلة والتوكل',
-          other: 'أذكار أخرى'
+          other: 'أذكار عامة ومتنوعة'
+        };
+        const icons = {
+          tasbeeh: 'images/icons/sabha1.png',
+          tahmeed: 'images/icons/prayer1.png',
+          takbeer: 'images/icons/mosque1.png',
+          tahleel: 'images/icons/quran1.png',
+          'تهليل': 'images/icons/quran1.png',
+          istighfar: 'images/icons/prayers3.png',
+          salawat: 'images/icons/quran1.png',
+          hawqala: 'images/icons/leaf-5.png',
+          other: 'images/icons/target.png'
         };
 
         let html = '';
+        const hasAny = total > 0;
+
         Object.entries(this.distributionData).forEach(([key, val]) => {
-          const pct = Math.round((val / total) * 100);
+          const pct = hasAny ? Math.round((val / total) * 100) : 0;
+          const icon = icons[key] || 'images/icons/sabha1.png';
+          const label = labels[key] || key;
           html += `
-            <div class="tasbeeh-analytics-item">
-              <div class="tasbeeh-analytics-row">
-                <span>${labels[key] || key}</span>
-                <span>${val} (${pct}%)</span>
+            <div class="tasbeeh-analytics-card">
+              <div class="tasbeeh-analytics-card-top">
+                <div class="tasbeeh-analytics-cat-info">
+                  <div class="tasbeeh-analytics-cat-icon-wrap">
+                    <img src="${icon}" alt="${label}">
+                  </div>
+                  <div class="tasbeeh-analytics-cat-text">
+                    <span class="tasbeeh-analytics-cat-name">${label}</span>
+                    <span class="tasbeeh-analytics-val-label">${val} تسبيحة مكتملة</span>
+                  </div>
+                </div>
+                <span class="tasbeeh-analytics-pct-badge">${pct}%</span>
               </div>
-              <div class="tasbeeh-analytics-bar-bg">
+              <div class="tasbeeh-analytics-bar-track">
                 <div class="tasbeeh-analytics-bar-fill" style="width: ${pct}%;"></div>
               </div>
             </div>
@@ -849,7 +874,7 @@
 
       const totalDisplay = document.getElementById('tasbeehAnalyticsTotalDisplay');
       if (totalDisplay) {
-        totalDisplay.textContent = `${total > 1 ? total : 0} تسبيحة`;
+        totalDisplay.textContent = `${total} تسبيحة`;
       }
 
       this.openModal('tasbeehAnalyticsModal');
@@ -950,7 +975,11 @@
         this.updateDrawerFeedbackUI();
       }
       const m = document.getElementById(id);
-      if (m) m.classList.add('active');
+      if (m) {
+        m.classList.remove('active');
+        void m.offsetWidth;
+        m.classList.add('active');
+      }
     }
 
     closeModal(id) {

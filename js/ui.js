@@ -85,7 +85,7 @@ window.toggleSettingSwitch = (key, checkbox) => {
   if (key === 'sys_notif' && val && 'Notification' in window) {
     Notification.requestPermission().then(permission => {
       if (permission === 'granted') {
-        window.showToast('تم تفعيل إشعارات النظام بنجاح 🔔');
+        window.showToast('تم تفعيل إشعارات النظام بنجاح');
       } else {
         checkbox.checked = false;
         window.showToast('يرجى السماح بالإشعارات من إعدادات المتصفح');
@@ -246,6 +246,10 @@ window.refreshRadioStream = () => {
 window.openLibPage = (id) => {
   const page = document.getElementById(id);
   if (page) page.classList.add('active');
+  document.body.classList.add('subpage-active');
+  if (id === 'tasbeehPage') {
+    document.body.classList.add('tasbeeh-active');
+  }
   if (id === 'settingsPage') {
     window.updateSettingsStorageInfo();
     if (window.wzkerNotif && window.wzkerNotif.syncSettingsUI) {
@@ -259,6 +263,9 @@ window.openLibPage = (id) => {
   if (id === 'tasbeehPage' && window.wzkerTasbeeh) {
     window.wzkerTasbeeh.updateUI();
   }
+  if (id === 'prayerTimesPage' && window.wzkerPrayer) {
+    window.wzkerPrayer.renderFullUI();
+  }
   if (id === 'loginPage' && window.wzkerCloud) {
     window.wzkerCloud.updateAccountPageUI();
   }
@@ -270,6 +277,15 @@ window.openLibPage = (id) => {
 window.closeLibPage = (id) => {
   const page = document.getElementById(id);
   if (page) page.classList.remove('active');
+  if (id === 'tasbeehPage') {
+    document.body.classList.remove('tasbeeh-active');
+  }
+  if (id === 'prayerTimesPage' && window.wzkerPrayer) {
+    window.wzkerPrayer.stopAdhanAudio();
+  }
+  if (!document.querySelector('.sub-lib-page.active')) {
+    document.body.classList.remove('subpage-active');
+  }
 };
 
 window.updateSettingsStorageInfo = () => {

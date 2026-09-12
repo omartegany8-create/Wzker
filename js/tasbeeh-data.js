@@ -48,7 +48,7 @@
     },
     {
       id: 'la_ilaha_illallah',
-      category: 'tahleel',
+      category: 'تهليل',
       title: 'لَا إِلَهَ إِلَّا اللَّهُ',
       shortName: 'التهليل',
       fadl: 'أفضل الذكر لا إله إلا الله، كلمة التوحيد وحبل النجاة المتين.',
@@ -190,7 +190,7 @@
     }
   ];
 
-  // 3. NIYYAH / SESSION INTENTIONS (نظام النية)
+  // 3. NIYYAH / SESSION INTENTIONS (نظام الذكر)
   const WZKER_TASBEEH_INTENTIONS = [
     { id: 'general', label: 'ذكر عام وتقرب لله', icon: 'images/icons/sabha1.png' },
     { id: 'post_prayer', label: 'دبر الصلاة المكتوبة', icon: 'images/icons/prayer-mat1.png' },
