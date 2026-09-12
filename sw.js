@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wzker-v3.7';
+const CACHE_NAME = 'wzker-v3.8';
 const ASSETS = [
   './index.html',
   './manifest.json',
