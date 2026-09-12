@@ -2947,21 +2947,37 @@
 
     <!-- 10. PRAYER TIMES PAGE (مواقيت الصلاة والقبلة) -->
     <div id="prayerTimesPage" class="sub-lib-page">
-        <!-- Top Navbar with Side Drawer Trigger -->
-        <div class="prime-navbar prayer-prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('prayerTimesPage')" title="الرجوع">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
-            <div class="prayer-nav-center">
-                <img src="images/icons/prayers1.png" class="prayer-nav-icon" alt="Prayers">
-                <h2 class="navbar-title">مواقيت الصلاة</h2>
+        <!-- BESPOKE SPIRITUAL TOP NAVBAR (PRO ARCHITECTURE) -->
+        <header class="prayer-custom-navbar">
+            <div class="pnav-left-cluster">
+                <button class="pnav-btn pnav-back-btn" onclick="closeLibPage('prayerTimesPage')" title="الرجوع">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="pnav-brand-group">
+                    <div class="pnav-icon-badge">
+                        <img src="images/icons/prayers1.png" alt="Prayers">
+                    </div>
+                    <div class="pnav-titles-col">
+                        <div class="pnav-title-row">
+                            <h1 class="pnav-title">مواقيت الصلاة</h1>
+
+                        </div>
+                        <span class="pnav-subtitle" id="pnavCitySubtitle">القاهرة، مصر • حساب فلكي دقيق</span>
+                    </div>
+                </div>
             </div>
-            <div class="prayer-nav-actions">
-                <button class="nav-btn prayer-nav-drawer-btn" onclick="window.wzkerPrayer.openDrawer()" title="خيارات وإعدادات المواقيت">
-                    <img src="images/icons/Sidemenu1.png" style="width: 20px; height: 20px; object-fit: contain;" alt="Menu">
+
+            <div class="pnav-actions-cluster">
+                <!-- Audio Adhan Quick Toggle Button -->
+                <button class="pnav-btn pnav-audio-btn" id="pnavAudioToggleBtn" onclick="window.wzkerPrayer.toggleAudioMute()" title="كتم / تشغيل صوت الأذان">
+                    <img src="images/icons/sound-on.png" id="pnavAudioIconImg" alt="Adhan Sound">
+                </button>
+                <!-- Side Drawer Settings Button -->
+                <button class="pnav-btn pnav-menu-btn" onclick="window.wzkerPrayer.openDrawer()" title="خيارات وإعدادات المواقيت">
+                    <img src="images/icons/Sidemenu1.png" alt="Settings & Menu">
                 </button>
             </div>
-        </div>
+        </header>
 
         <div class="sub-page-body prayer-sub-page-body">
             <!-- 1. HERO MOMENT: FULL-BLEED ATMOSPHERIC SKY BANNER -->
@@ -2977,21 +2993,76 @@
                     <span class="prayer-hero-tag" id="prayerHeroTag">الصلاة القادمة</span>
                 </div>
 
+                <!-- CELESTIAL ORBIT & DAY TRACK (مسار الفلك اليومي) -->
+                <div class="prayer-celestial-track" id="prayerCelestialTrack">
+                    <div class="celestial-orbit-line"></div>
+                    <div class="celestial-station" data-station="fajr" title="صلاة الفجر">
+                        <div class="station-icon-wrap">
+                            <img src="images/icons/fajr1.png" alt="Fajr">
+                        </div>
+                        <span class="station-label">الفجر</span>
+                    </div>
+                    <div class="celestial-station" data-station="sunrise" title="شروق الشمس">
+                        <div class="station-icon-wrap">
+                            <img src="images/icons/sunrise.png" alt="Sunrise">
+                        </div>
+                        <span class="station-label">الشروق</span>
+                    </div>
+                    <div class="celestial-station" data-station="dhuhr" title="صلاة الظهر">
+                        <div class="station-icon-wrap">
+                            <img src="images/icons/dhuhr.png" alt="Dhuhr">
+                        </div>
+                        <span class="station-label">الظهر</span>
+                    </div>
+                    <div class="celestial-station" data-station="asr" title="صلاة العصر">
+                        <div class="station-icon-wrap">
+                            <img src="images/icons/asr.png" alt="Asr">
+                        </div>
+                        <span class="station-label">العصر</span>
+                    </div>
+                    <div class="celestial-station" data-station="maghrib" title="صلاة المغرب">
+                        <div class="station-icon-wrap">
+                            <img src="images/icons/sunset.png" alt="Maghrib">
+                        </div>
+                        <span class="station-label">المغرب</span>
+                    </div>
+                    <div class="celestial-station" data-station="isha" title="صلاة العشاء">
+                        <div class="station-icon-wrap">
+                            <img src="images/icons/isha.png" alt="Isha">
+                        </div>
+                        <span class="station-label">العشاء</span>
+                    </div>
+                </div>
+
                 <div class="prayer-hero-core">
                     <h1 class="prayer-hero-prayer-name" id="prayerHeroName">صلاة الفجر</h1>
                     <div class="prayer-hero-time-badge" id="prayerHeroTime">--:-- --</div>
+                    
                     <div class="prayer-hero-timer-wrap">
                         <span class="prayer-hero-timer-label">متبقي على الأذان</span>
                         <span class="prayer-hero-digits" id="prayerHeroTimer">00:00:00</span>
+                    </div>
+
+                    <!-- Micro Progress Bar (معدل اقتراب وقت الأذان) -->
+                    <div class="prayer-hero-micro-track">
+                        <div class="prayer-hero-micro-fill" id="prayerHeroProgressFill" style="width: 0%;"></div>
+                    </div>
+
+                    <!-- Dynamic Hadith & Reflection Box (نفحة الصلاة) -->
+                    <div class="prayer-hero-hadith-box" id="prayerHeroHadithBox">
+                        <span class="hadith-ornament-mark">«</span>
+                        <span class="hadith-text" id="prayerHeroHadithText">ركعتا الفجر خيرٌ من الدُّنيا وما فيها</span>
+                        <span class="hadith-ornament-mark">»</span>
                     </div>
                 </div>
 
                 <div class="prayer-hero-footer-bar">
                     <div class="prayer-hero-bar-item">
                         <i class="fa-solid fa-shield-halved"></i>
-                        <span>توقيت فلكي معتمد</span>
+                        <span id="prayerHeroMethodName">حساب فلكي معتمد</span>
                     </div>
-                    <div class="prayer-hero-bar-item">
+                    <div class="prayer-hero-bar-item date-cluster">
+                        <i class="fa-regular fa-calendar-check"></i>
                         <span id="prayerHeroDateInfo">اليوم</span>
                     </div>
                 </div>
@@ -3000,18 +3071,47 @@
             <!-- 2. MAIN CONTAINER -->
             <div class="prayer-body-container">
 
-                <!-- 2.1 HABIT STREAK & STATS SUMMARY CHIP -->
+                <!-- 2.1 HABIT STREAK & 5-PRAYERS INTERACTIVE CHIP -->
                 <div class="prayer-streak-strip">
-                    <div class="prayer-streak-right">
-                        <div class="prayer-streak-icon-wrap">
-                            <img src="images/icons/streak.png" alt="Streak">
+                    <div class="prayer-streak-top-row">
+                        <div class="prayer-streak-right">
+                            <div class="prayer-streak-icon-wrap">
+                                <img src="images/icons/streak.png" alt="Streak">
+                            </div>
+                            <div class="prayer-streak-texts">
+                                <span class="prayer-streak-lead">المحافظة على الصلاة</span>
+                                <span class="prayer-streak-sub" id="prayerStreakSubtitle">صليت 0 من 5 فروض اليوم</span>
+                            </div>
                         </div>
-                        <div class="prayer-streak-texts">
-                            <span class="prayer-streak-lead">المحافظة على الصلاة</span>
-                            <span class="prayer-streak-sub" id="prayerStreakSubtitle">صليت 0 من 5 فروض اليوم</span>
+                        <div class="prayer-streak-badges-cluster">
+                            <div class="prayer-streak-badge" id="prayerDoneRatioBadge" title="الفروض المنجزة">0 / 5</div>
+                            <div class="prayer-sunnah-badge" id="prayerSunnahRatioBadge" title="السنن المنجزة">0 سنن</div>
                         </div>
                     </div>
-                    <div class="prayer-streak-badge" id="prayerDoneRatioBadge">0 / 5</div>
+
+                    <!-- Interactive 5 Prayers Quick Dots Row -->
+                    <div class="prayer-streak-pills-row" id="prayerStreakPillsRow">
+                        <button class="prayer-streak-dot-pill" data-key="fajr" onclick="window.wzkerPrayer.togglePrayerCheck('fajr', false)" type="button">
+                            <span class="dot-indicator"></span>
+                            <span class="dot-name">الفجر</span>
+                        </button>
+                        <button class="prayer-streak-dot-pill" data-key="dhuhr" onclick="window.wzkerPrayer.togglePrayerCheck('dhuhr', false)" type="button">
+                            <span class="dot-indicator"></span>
+                            <span class="dot-name">الظهر</span>
+                        </button>
+                        <button class="prayer-streak-dot-pill" data-key="asr" onclick="window.wzkerPrayer.togglePrayerCheck('asr', false)" type="button">
+                            <span class="dot-indicator"></span>
+                            <span class="dot-name">العصر</span>
+                        </button>
+                        <button class="prayer-streak-dot-pill" data-key="maghrib" onclick="window.wzkerPrayer.togglePrayerCheck('maghrib', false)" type="button">
+                            <span class="dot-indicator"></span>
+                            <span class="dot-name">المغرب</span>
+                        </button>
+                        <button class="prayer-streak-dot-pill" data-key="isha" onclick="window.wzkerPrayer.togglePrayerCheck('isha', false)" type="button">
+                            <span class="dot-indicator"></span>
+                            <span class="dot-name">العشاء</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- 2.2 MASTER INTEGRATED TIMELINE (اليوم + المتابعة ككيان واحد) -->
@@ -3029,18 +3129,19 @@
                     </div>
                 </div>
 
-                <!-- 2.3 SPIRITUAL MOMENTS (أوقات مباركة ونفحات) -->
+                <!-- 2.3 SPIRITUAL MOMENTS (أوقات وساعات مباركة - 4 بطاقات محسوبة) -->
                 <div class="prayer-moments-section">
                     <div class="prayer-section-header">
                         <div class="prayer-sec-title-wrap">
                             <img src="images/icons/leaf-4.png" class="sec-header-icon" alt="Moments">
                             <h3 class="prayer-sec-title">أوقات وساعات مباركة</h3>
                         </div>
+                        <span class="prayer-sec-hint">محسوبة فلكياً بدقة</span>
                     </div>
                     
                     <div class="prayer-moments-grid">
-                        <!-- Last Third Card -->
-                        <div class="prayer-moment-card">
+                        <!-- 1. Last Third Card -->
+                        <div class="prayer-moment-card" onclick="window.wzkerPrayer.showMomentInfo('night')">
                             <div class="moment-card-icon-wrap night">
                                 <img src="images/icons/night-moon1.png" alt="Night">
                             </div>
@@ -3051,22 +3152,47 @@
                             </div>
                         </div>
 
-                        <!-- Duha Card -->
-                        <div class="prayer-moment-card">
+                        <!-- 2. Duha Card -->
+                        <div class="prayer-moment-card" onclick="window.wzkerPrayer.showMomentInfo('duha')">
                             <div class="moment-card-icon-wrap day">
                                 <img src="images/icons/sunrise.png" alt="Duha">
                             </div>
                             <div class="moment-card-body">
                                 <span class="moment-title">صلاة الضحى (الأوابين)</span>
                                 <span class="moment-time" id="prayerDuhaTime">--:-- --</span>
-                                <span class="moment-desc">تبدأ بعد الشروق بربع ساعة</span>
+                                <span class="moment-desc">تبدأ بعد الشروق بربع ساعة وتعدل ٣٦٠ صدقة</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Suhoor & Istighfar Card -->
+                        <div class="prayer-moment-card" onclick="window.wzkerPrayer.showMomentInfo('suhoor')">
+                            <div class="moment-card-icon-wrap suhoor">
+                                <img src="images/icons/waking-up2.png" alt="Suhoor">
+                            </div>
+                            <div class="moment-card-body">
+                                <span class="moment-title">وقت السحر والاستغفار</span>
+                                <span class="moment-time" id="prayerSuhoorTime">--:-- --</span>
+                                <span class="moment-desc">الساعة المباركة قبيل أذان الفجر</span>
+                            </div>
+                        </div>
+
+                        <!-- 4. Forbidden Time before Dhuhr -->
+                        <div class="prayer-moment-card" onclick="window.wzkerPrayer.showMomentInfo('prohibited')">
+                            <div class="moment-card-icon-wrap caution">
+                                <img src="images/icons/stopwatch.png" alt="Caution">
+                            </div>
+                            <div class="moment-card-body">
+                                <span class="moment-title">وقت النهي عن التنفل</span>
+                                <span class="moment-time" id="prayerProhibitedTime">--:-- --</span>
+                                <span class="moment-desc">قبيل الظهر بـ ١٢ دقيقة (استواء الشمس)</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2.4 QUICK ACTIONS (القبلة + دعاء الأذان) -->
+                <!-- 2.4 QUICK ACTIONS (القبلة + أذكار الصلاة + دعاء الأذان + سجود السهو) -->
                 <div class="prayer-quick-tiles-row">
+                    <!-- 1. Qibla -->
                     <div class="prayer-quick-tile" onclick="openLibPage('qiblaPage')">
                         <div class="quick-tile-left">
                             <div class="quick-tile-icon-box">
@@ -3080,6 +3206,21 @@
                         <i class="fa-solid fa-chevron-left quick-tile-chevron"></i>
                     </div>
 
+                    <!-- 2. Azkar after Prayer -->
+                    <div class="prayer-quick-tile" onclick="openSheet('prayerAzkarSheet')">
+                        <div class="quick-tile-left">
+                            <div class="quick-tile-icon-box">
+                                <img src="images/icons/prayer-mat1.png" alt="Azkar">
+                            </div>
+                            <div>
+                                <h4 class="quick-tile-title">أذكار ما بعد الصلاة</h4>
+                                <span class="quick-tile-sub">الاستغفار والتسبيح وآية الكرسي</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-left quick-tile-chevron"></i>
+                    </div>
+
+                    <!-- 3. Adhan Dua -->
                     <div class="prayer-quick-tile" onclick="openSheet('adhanDuaSheet')">
                         <div class="quick-tile-left">
                             <div class="quick-tile-icon-box">
@@ -3088,6 +3229,20 @@
                             <div>
                                 <h4 class="quick-tile-title">دعاء ما بعد الأذان</h4>
                                 <span class="quick-tile-sub">الوسيلة والفضيلة والمقام المحمود</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-left quick-tile-chevron"></i>
+                    </div>
+
+                    <!-- 4. Sujood As-Sahw -->
+                    <div class="prayer-quick-tile" onclick="openSheet('sujoodSahwSheet')">
+                        <div class="quick-tile-left">
+                            <div class="quick-tile-icon-box">
+                                <img src="images/icons/prayers1.png" alt="Sahw">
+                            </div>
+                            <div>
+                                <h4 class="quick-tile-title">دليل سجود السهو</h4>
+                                <span class="quick-tile-sub">متى يكون قبل السلام وبعد السلام</span>
                             </div>
                         </div>
                         <i class="fa-solid fa-chevron-left quick-tile-chevron"></i>
@@ -3113,6 +3268,19 @@
             </div>
 
             <div class="prayer-drawer-scroll">
+                <!-- 0. Weekly Consistency Overview -->
+                <div class="prayer-drawer-section">
+                    <div class="prayer-drawer-section-title">
+                        <img src="images/icons/streak.png" alt="Consistency">
+                        <span>المحافظة على الصلوات خلال الأسبوع</span>
+                    </div>
+                    <div class="prayer-week-consistency-card">
+                        <div class="prayer-week-calendar-strip" id="prayerWeekCalendarStrip">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 1. Audio & Notification Quick Switchers -->
                 <div class="prayer-drawer-section">
                     <div class="prayer-drawer-section-title">
@@ -3135,6 +3303,17 @@
                                 <span>تحديث بـ GPS</span>
                             </div>
                         </button>
+                    </div>
+
+                    <!-- Lead Alert Selection (تنبيه مسبق قبل الأذان) -->
+                    <div class="prayer-drawer-field" style="margin-top: 12px;">
+                        <label class="prayer-drawer-label">التنبيه المسبق قبل الأذان:</label>
+                        <select id="prayerLeadAlertSelect" class="prayer-styled-select" onchange="window.wzkerPrayer.updateLeadAlert(this.value)">
+                            <option value="0">عند موعد الأذان تماماً</option>
+                            <option value="5">قبل الأذان بـ ٥ دقائق (استعداد)</option>
+                            <option value="10">قبل الأذان بـ ١٠ دقائق (للوضوء)</option>
+                            <option value="15">قبل الأذان بـ ١٥ دقيقة</option>
+                        </select>
                     </div>
                 </div>
 
@@ -3196,7 +3375,7 @@
         </div>
     </div>
 
-    <!-- POST-ADHAN DUA BOTTOM SHEET -->
+    <!-- 1. POST-ADHAN DUA BOTTOM SHEET -->
     <div id="adhanDuaSheet" class="bottom-sheet-overlay" onclick="closeSheet('adhanDuaSheet')">
         <div class="bottom-sheet-modal" onclick="event.stopPropagation()" style="text-align: center;">
             <div class="sheet-drag-handle"></div>
@@ -3204,7 +3383,7 @@
                 <img src="images/icons/certificate1.png" style="width: 44px; height: 44px; object-fit: contain;" alt="Dua">
             </div>
             <h3 style="margin: 0 0 0.75rem; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">دعاء ما بعد الأذان</h3>
-            <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-main); font-weight: 600; margin: 0 0 1rem; background: var(--surface-trans); padding: 1.25rem; border-radius: 14px;">
+            <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-main); font-weight: 600; margin: 0 0 1rem; background: var(--surface-trans); padding: 1.25rem; border-radius: 14px; border: 1px solid var(--card-border);">
                 "اللَّهُمَّ رَبَّ هَذِهِ الدَّعْوَةِ التَّامَّةِ، وَالصَّلَاةِ الْقَائِمَةِ، آتِ مُحَمَّداً الْوَسِيلَةَ وَالْفَضِيلَةَ، وَابْعَثْهُ مَقَاماً مَحْمُوداً الَّذِي وَعَدْتَهُ، [إِنَّكَ لَا تُخْلِفُ الْمِيعَادَ]"
             </p>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0 0 1.5rem;">
@@ -3214,18 +3393,123 @@
         </div>
     </div>
 
-    <!-- PRAYER LOCATION PICKER MODAL -->
+    <!-- 2. AZKAR AFTER PRAYER BOTTOM SHEET (أذكار ما بعد الصلاة المفروضة) -->
+    <div id="prayerAzkarSheet" class="bottom-sheet-overlay" onclick="closeSheet('prayerAzkarSheet')">
+        <div class="bottom-sheet-modal prayer-azkar-sheet-modal" onclick="event.stopPropagation()">
+            <div class="sheet-drag-handle"></div>
+            <div class="sheet-header-box">
+                <img src="images/icons/prayer-mat1.png" class="sheet-header-icon" alt="Azkar">
+                <div>
+                    <h3 class="sheet-header-title">أذكار ما بعد الصلاة المفروضة</h3>
+                    <span class="sheet-header-sub">سنة مؤكدة عن النبي ﷺ دبر كل فريضة</span>
+                </div>
+            </div>
+
+            <div class="prayer-azkar-scroll-body">
+                <!-- Dhikr 1: Istighfar -->
+                <div class="prayer-azkar-item-card">
+                    <span class="azkar-step-tag">الاستغفار ٣ مرات</span>
+                    <p class="azkar-item-text">"أَسْتَغْفِرُ اللَّهَ، أَسْتَغْفِرُ اللَّهَ، أَسْتَغْفِرُ اللَّهَ، اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالإِكْرَامِ."</p>
+                </div>
+
+                <!-- Dhikr 2: Tahlil -->
+                <div class="prayer-azkar-item-card">
+                    <span class="azkar-step-tag">التهليل والثناء</span>
+                    <p class="azkar-item-text">"لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، اللَّهُمَّ لَا مَانِعَ لِمَا أَعْطَيْتَ، وَلَا مُعْطِيَ لِمَا مَنَعْتَ، وَلَا يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ."</p>
+                </div>
+
+                <!-- Dhikr 3: Tasbeeh & Tahmeed & Takbeer -->
+                <div class="prayer-azkar-item-card">
+                    <span class="azkar-step-tag">التسبيحات (٣٣ - ٣٣ - ٣٣ وتمام المائة)</span>
+                    <p class="azkar-item-text">"سُبْحَانَ اللَّهِ (٣٣)، الْحَمْدُ لِلَّهِ (٣٣)، اللَّهُ أَكْبَرُ (٣٣)، وتَمَامُ الْمِائَةِ: لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ."</p>
+                    <small class="azkar-fadl-note">فضلها: غُفِرَتْ خَطَايَاهُ وَإِنْ كَانَتْ مِثْلَ زَبَدِ الْبَحْرِ (صحيح مسلم)</small>
+                </div>
+
+                <!-- Dhikr 4: Ayat Al-Kursi -->
+                <div class="prayer-azkar-item-card">
+                    <span class="azkar-step-tag">آية الكرسي</span>
+                    <p class="azkar-item-text">« اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ »</p>
+                    <small class="azkar-fadl-note">فضلها: مَن قرأها دبر كل صلاة مكتوبة لم يمنعه من دخول الجنة إلا أن يموت</small>
+                </div>
+
+                <!-- Dhikr 5: Mu'awwidhat -->
+                <div class="prayer-azkar-item-card">
+                    <span class="azkar-step-tag">المعوذات</span>
+                    <p class="azkar-item-text">قراءة سورة الإخلاص، وسورة الفلق، وسورة النَّاس (مرة بعد كل صلاة، وثلاث مرات بعد الفجر والمغرب).</p>
+                </div>
+            </div>
+
+            <button class="modal-primary-action-btn" onclick="closeSheet('prayerAzkarSheet')">تم</button>
+        </div>
+    </div>
+
+    <!-- 3. SUJOOD AS-SAHW BOTTOM SHEET (دليل سجود السهو المبسط) -->
+    <div id="sujoodSahwSheet" class="bottom-sheet-overlay" onclick="closeSheet('sujoodSahwSheet')">
+        <div class="bottom-sheet-modal prayer-azkar-sheet-modal" onclick="event.stopPropagation()">
+            <div class="sheet-drag-handle"></div>
+            <div class="sheet-header-box">
+                <img src="images/icons/prayers1.png" class="sheet-header-icon" alt="Sahw">
+                <div>
+                    <h3 class="sheet-header-title">دليل وأحكام سجود السهو</h3>
+                    <span class="sheet-header-sub">سجدتان لجبر الخلل في الصلاة • سنة نبوية</span>
+                </div>
+            </div>
+
+            <div class="prayer-azkar-scroll-body">
+                <!-- Case 1: Before Salam -->
+                <div class="prayer-azkar-item-card sahw-card-before">
+                    <div class="sahw-tag-row">
+                        <span class="sahw-badge before">قبل السلام</span>
+                        <span class="sahw-cause">في حالتين:</span>
+                    </div>
+                    <ul class="sahw-points-list">
+                        <li><b>الشك مع البناء على اليقين (الأقل):</b> كمن شك أصلى ثلاثاً أم أربعاً، يعتبرها ثلاثاً ويأتي برابعة ثم يسجد سجدتين قبل أن يسلم.</li>
+                        <li><b>نقصان سنة من السنن المؤكدة:</b> كنسيان التشهد الأول والانتقال للركعة الثالثة دون الجلوس.</li>
+                    </ul>
+                </div>
+
+                <!-- Case 2: After Salam -->
+                <div class="prayer-azkar-item-card sahw-card-after">
+                    <div class="sahw-tag-row">
+                        <span class="sahw-badge after">بعد السلام</span>
+                        <span class="sahw-cause">في حالتين:</span>
+                    </div>
+                    <ul class="sahw-points-list">
+                        <li><b>الزيادة في الصلاة سهواً:</b> كمن صلى خمساً في صلاة رباعية سهواً وتذكر بعد تمامها، يسجد سجدتين بعد أن يسلم ثم يسلم ثانية.</li>
+                        <li><b>الشك مع غلبة الظن والترجيح:</b> يتحرى الصواب ويبني على ما ترجح عنده ويسلم ثم يسجد سجدتين ويسلم.</li>
+                    </ul>
+                </div>
+
+                <!-- Rule summary -->
+                <div class="prayer-azkar-item-card">
+                    <span class="azkar-step-tag">صفة سجود السهو</span>
+                    <p class="azkar-item-text">يسجد المصلي سجدتين كسجود الصلاة العادي، يكبر إذا سجد ويكبر إذا رفع، ويقول فيهما: «سُبْحَانَ رَبِّيَ الأَعْلَى» كأي سجود، ثم يسلم.</p>
+                </div>
+            </div>
+
+            <button class="modal-primary-action-btn" onclick="closeSheet('sujoodSahwSheet')">تم</button>
+        </div>
+    </div>
+
+    <!-- PRAYER LOCATION PICKER MODAL WITH SEARCH -->
     <div id="prayerLocationModal" class="prayer-modal-overlay" onclick="window.wzkerPrayer.closeLocationPickerDrawer()">
         <div class="prayer-modal-content" onclick="event.stopPropagation()">
             <div class="modal-header-row">
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <img src="images/icons/travel1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="City">
-                    <h3 class="modal-header-title">اختر مدينتك (أوفلاين 100%)</h3>
+                    <h3 class="modal-header-title">اختر مدينتك</h3>
                 </div>
                 <button class="modal-close-btn" onclick="window.wzkerPrayer.closeLocationPickerDrawer()" type="button">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
+
+            <!-- Instant Search Input for Cities -->
+            <div class="prayer-city-search-wrap">
+                <i class="fa-solid fa-magnifying-glass city-search-icon"></i>
+                <input type="text" id="prayerCitySearchInput" class="prayer-city-search-input" placeholder="ابحث عن مدينتك أو دولتك..." oninput="window.wzkerPrayer.filterCities(this.value)">
+            </div>
+
             <div class="prayer-cities-list" id="prayerCitiesModalList">
                 <!-- Populated dynamically -->
             </div>

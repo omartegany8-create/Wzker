@@ -189,7 +189,7 @@
   ];
 
   // ─────────────────────────────────────────────────────────────
-  // 3. MUEZZIN VOICES
+  // 3. MUEZZIN VOICES & SPIRITUAL REPOSITORY
   // ─────────────────────────────────────────────────────────────
   const MUEZZIN_VOICES = [
     { id: 'makkah', name: 'أذان المسجد الحرام (مكة المكرمة)', url: 'https://cdn.aladhan.com/audio/adhans/a1.mp3' },
@@ -198,8 +198,26 @@
     { id: 'cairo', name: 'أذان مساجد مصر (الشيخ محمد رفعت)', url: 'https://cdn.aladhan.com/audio/adhans/a4.mp3' }
   ];
 
+  const PRAYER_HADITHS = {
+    fajr: 'ركعتا الفجر خيرٌ من الدُّنيا وما فيها',
+    sunrise: 'من صلى الصبح في جماعة ثم قعد يذكر الله حتى تطلع الشمس كان له كأجر حجة وعمرة',
+    dhuhr: 'إنها ساعة تُفتح فيها أبواب السماء فأحب أن يصعد لي فيها عمل صالح',
+    asr: 'من صلى البَرْدَيْن (الفجر والعصر) دخل الجنة • حافظ على الصلاة الوسطى',
+    maghrib: 'أمسينا وأمسى الملك لله والحمد لله، لا إله إلا الله وحده لا شريك له',
+    isha: 'من صلى العشاء في جماعة فكأنما قام نصف الليل'
+  };
+
+  const PRAYER_RAKAT = {
+    fajr: '٢ فريضة (جهرية)',
+    sunrise: 'وقت الإشراق والضحى',
+    dhuhr: '٤ فريضة (سرية)',
+    asr: '٤ فريضة (سرية)',
+    maghrib: '٣ فريضة (٢ ج + ١ س)',
+    isha: '٤ فريضة (٢ ج + ٢ س)'
+  };
+
   // ─────────────────────────────────────────────────────────────
-  // 4. MAIN WZKER PRAYER CONTROLLER
+  // 4. MAIN WZKER PRAYER CONTROLLER (PRO BESPOKE EDITION)
   // ─────────────────────────────────────────────────────────────
   class WzkerPrayerTimes {
     constructor() {
@@ -209,6 +227,7 @@
         JURISTIC: 'wzker_prayer_juristic',
         SELECTED_MUEZZIN: 'wzker_prayer_muezzin',
         AUDIO_MUTED: 'wzker_prayer_audio_muted',
+        LEAD_ALERT: 'wzker_prayer_lead_alert',
         TRACKER_PREFIX: 'wzker_prayer_tracker_'
       };
 
@@ -217,12 +236,15 @@
       this.juristic = parseInt(localStorage.getItem(this.STORAGE_KEYS.JURISTIC) || '1', 10);
       this.selectedMuezzin = localStorage.getItem(this.STORAGE_KEYS.SELECTED_MUEZZIN) || 'makkah';
       this.isAudioMuted = localStorage.getItem(this.STORAGE_KEYS.AUDIO_MUTED) === '1';
+      this.leadAlert = parseInt(localStorage.getItem(this.STORAGE_KEYS.LEAD_ALERT) || '0', 10);
 
       this.currentPrayerTimes = {};
       this.nextPrayer = null;
+      this.previousPrayer = null;
       this.audioPlayer = new Audio();
       this.liveTimerInterval = null;
       this.lastPlayedPrayerKey = null;
+      this.lastLeadAlertKey = null;
 
       this.init();
     }
@@ -298,9 +320,12 @@
       ];
 
       let upcoming = null;
+      let prev = null;
+
       for (let i = 0; i < list.length; i++) {
         if (list[i].date && list[i].date > now) {
           upcoming = list[i];
+          prev = i > 0 ? list[i - 1] : null;
           break;
         }
       }
@@ -309,9 +334,16 @@
         const tomorrowFajr = new Date(this.currentPrayerTimes.fajr);
         tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);
         upcoming = { key: 'fajr', name: 'صلاة الفجر', date: tomorrowFajr, isPrayer: true };
+        prev = list[list.length - 1]; // Isha of today
+      } else if (!prev && this.currentPrayerTimes.isha) {
+        // Between midnight and Fajr
+        const yesterdayIsha = new Date(this.currentPrayerTimes.isha);
+        yesterdayIsha.setDate(yesterdayIsha.getDate() - 1);
+        prev = { key: 'isha', name: 'صلاة العشاء', date: yesterdayIsha, isPrayer: true };
       }
 
       this.nextPrayer = upcoming;
+      this.previousPrayer = prev;
     }
 
     calculateSpiritualMoments() {
@@ -334,6 +366,20 @@
         const lastThirdEl = document.getElementById('prayerLastThirdTime');
         if (lastThirdEl) lastThirdEl.textContent = PrayTimesCore.formatTime(lastThirdStart);
       }
+
+      // 3. Suhoor: 50 minutes before Fajr
+      if (this.currentPrayerTimes.fajr) {
+        const suhoorDate = new Date(this.currentPrayerTimes.fajr.getTime() - 50 * 60 * 1000);
+        const suhoorEl = document.getElementById('prayerSuhoorTime');
+        if (suhoorEl) suhoorEl.textContent = PrayTimesCore.formatTime(suhoorDate);
+      }
+
+      // 4. Prohibited time (استواء الشمس): 12 minutes before Dhuhr
+      if (this.currentPrayerTimes.dhuhr) {
+        const prohibitedDate = new Date(this.currentPrayerTimes.dhuhr.getTime() - 12 * 60 * 1000);
+        const prohibitedEl = document.getElementById('prayerProhibitedTime');
+        if (prohibitedEl) prohibitedEl.textContent = PrayTimesCore.formatTime(prohibitedDate);
+      }
     }
 
     setupCountdownTicker() {
@@ -352,6 +398,19 @@
       const now = new Date();
       const diffMs = this.nextPrayer.date - now;
 
+      // Check lead alert (e.g. 5, 10, or 15 mins before adhan)
+      if (this.leadAlert > 0 && this.nextPrayer.isPrayer) {
+        const leadTargetMs = this.leadAlert * 60 * 1000;
+        if (diffMs <= leadTargetMs && diffMs >= leadTargetMs - 3500) {
+          const leadKey = `${this.nextPrayer.key}_lead_${now.toDateString()}`;
+          if (this.lastLeadAlertKey !== leadKey) {
+            this.lastLeadAlertKey = leadKey;
+            this.onLeadAlertReached(this.nextPrayer, this.leadAlert);
+          }
+        }
+      }
+
+      // Adhan reached
       if (diffMs <= 1000 && diffMs >= -4000) {
         const prayerKeyToday = `${this.nextPrayer.key}_${now.toDateString()}`;
         if (this.lastPlayedPrayerKey !== prayerKeyToday) {
@@ -381,6 +440,33 @@
         timerEl.textContent = `${hh}:${mm}:${ss}`;
       }
 
+      // Update Micro Progress Bar in Hero
+      if (this.previousPrayer && this.previousPrayer.date && this.nextPrayer.date) {
+        const totalDuration = this.nextPrayer.date.getTime() - this.previousPrayer.date.getTime();
+        const elapsed = now.getTime() - this.previousPrayer.date.getTime();
+        const pct = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+        const barFill = document.getElementById('prayerHeroProgressFill');
+        if (barFill) {
+          barFill.style.width = `${pct.toFixed(1)}%`;
+        }
+      }
+
+      // Sync Celestial Station Nodes
+      const stations = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+      const nextKey = this.nextPrayer ? this.nextPrayer.key : null;
+      const nextIdx = stations.indexOf(nextKey);
+      stations.forEach((st, idx) => {
+        const stationEl = document.querySelector(`.celestial-station[data-station="${st}"]`);
+        if (!stationEl) return;
+        stationEl.classList.remove('active-station', 'passed-station');
+        if (st === nextKey) {
+          stationEl.classList.add('active-station');
+        } else if (nextIdx !== -1 && idx < nextIdx) {
+          stationEl.classList.add('passed-station');
+        }
+      });
+
+      // Home ribbon sync
       const homeTag = document.getElementById('homeNextPrayerTag');
       if (homeTag) {
         homeTag.textContent = `${hh}:${mm}:${ss}`;
@@ -388,6 +474,25 @@
       const homeLead = document.getElementById('homeNextPrayerLead');
       if (homeLead && this.nextPrayer) {
         homeLead.textContent = `الصلاة القادمة: ${this.nextPrayer.name}`;
+      }
+    }
+
+    onLeadAlertReached(prayer, mins) {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        try {
+          new Notification(`اقترب موعد أذان ${prayer.name}`, {
+            body: `متبقي ${mins} دقائق على الأذان • استعد للوضوء والصلاة`,
+            icon: 'images/icon/wzker.png',
+            dir: 'rtl',
+            lang: 'ar'
+          });
+        } catch (e) {
+          console.log('[Lead Alert]', e);
+        }
+      }
+
+      if (window.showToast) {
+        window.showToast(`متبقي ${mins} دقائق على أذان ${prayer.name} • استعد للصلاة`);
       }
     }
 
@@ -487,6 +592,13 @@
 
       const locNameEl = document.getElementById('prayerCurrentCityName');
       if (locNameEl) locNameEl.textContent = this.location.name;
+
+      const pnavSubEl = document.getElementById('pnavCitySubtitle');
+      if (pnavSubEl) {
+        const m = PrayTimesCore.methods[this.method];
+        const mName = m ? m.name : 'حساب فلكي دقيق';
+        pnavSubEl.textContent = `${this.location.name} • ${mName}`;
+      }
     }
 
     renderHeroMoment() {
@@ -494,6 +606,8 @@
       const heroPrayerName = document.getElementById('prayerHeroName');
       const heroPrayerTime = document.getElementById('prayerHeroTime');
       const heroDateInfo = document.getElementById('prayerHeroDateInfo');
+      const heroMethod = document.getElementById('prayerHeroMethodName');
+      const heroHadith = document.getElementById('prayerHeroHadithText');
 
       if (!this.nextPrayer) return;
 
@@ -501,10 +615,20 @@
       if (heroPrayerTime) heroPrayerTime.textContent = PrayTimesCore.formatTime(this.nextPrayer.date);
       if (heroContainer) heroContainer.setAttribute('data-prayer', this.nextPrayer.key);
 
+      if (heroMethod) {
+        const m = PrayTimesCore.methods[this.method];
+        heroMethod.textContent = m ? m.name : 'حساب فلكي معتمد';
+      }
+
+      if (heroHadith) {
+        heroHadith.textContent = PRAYER_HADITHS[this.nextPrayer.key] || 'حافظوا على الصلوات والصلاة الوسطى';
+      }
+
       if (heroDateInfo) {
         const now = new Date();
         const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-        heroDateInfo.textContent = `${days[now.getDay()]} • ${now.getDate()}/${now.getMonth() + 1}`;
+        const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+        heroDateInfo.textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]}`;
       }
     }
 
@@ -532,12 +656,17 @@
     saveTodayTracker(state) {
       localStorage.setItem(this.getTodayTrackerKey(), JSON.stringify(state));
       this.renderStreakSummary();
+      this.renderWeeklyConsistency();
       if (window.wzkerCloud && typeof window.wzkerCloud.triggerSync === 'function') {
         window.wzkerCloud.triggerSync('prayer_tracker');
       }
     }
 
     togglePrayerCheck(key, isSunnah = false) {
+      if (navigator.vibrate) {
+        navigator.vibrate([25, 40]);
+      }
+
       const state = this.loadTodayTracker();
       const targetKey = isSunnah ? `${key}_sunnah` : key;
       state[targetKey] = !state[targetKey];
@@ -562,6 +691,22 @@
 
       const badge = document.getElementById('prayerDoneRatioBadge');
       if (badge) badge.textContent = `${doneCount} / 5`;
+
+      // Calculate completed Sunnahs
+      let sunnahCount = 0;
+      fardhKeys.forEach(k => { if (state[`${k}_sunnah`]) sunnahCount++; });
+      const sunnahBadge = document.getElementById('prayerSunnahRatioBadge');
+      if (sunnahBadge) {
+        sunnahBadge.textContent = `${sunnahCount} سنن`;
+      }
+
+      // Update 5-Prayers Interactive Pills
+      fardhKeys.forEach(k => {
+        const pill = document.querySelector(`.prayer-streak-dot-pill[data-key="${k}"]`);
+        if (pill) {
+          pill.classList.toggle('done', !!state[k]);
+        }
+      });
 
       const sub = document.getElementById('prayerStreakSubtitle');
       if (sub) {
@@ -594,7 +739,7 @@
           icon: 'sunrise.png',
           time: this.currentPrayerTimes.sunrise,
           isPrayer: false,
-          sunnahText: 'نهاية وقت الفجر وبداية وقت البكور'
+          sunnahText: 'نهاية وقت الفجر وبداية وقت البكور والضحى'
         },
         {
           key: 'dhuhr',
@@ -602,7 +747,7 @@
           icon: 'dhuhr.png',
           time: this.currentPrayerTimes.dhuhr,
           isPrayer: true,
-          sunnahText: '4 ركعات قبل الظهر و2 بعدها'
+          sunnahText: '٤ ركعات قبلية مؤكدة وركعتان بعدية'
         },
         {
           key: 'asr',
@@ -610,7 +755,7 @@
           icon: 'asr.png',
           time: this.currentPrayerTimes.asr,
           isPrayer: true,
-          sunnahText: 'الصلاة الوسطى • حافظ عليها'
+          sunnahText: '٤ ركعات قبلية مستحبة • الصلاة الوسطى'
         },
         {
           key: 'maghrib',
@@ -618,7 +763,7 @@
           icon: 'sunset.png',
           time: this.currentPrayerTimes.maghrib,
           isPrayer: true,
-          sunnahText: 'ركعتان سنة بعدية بعد المغرب'
+          sunnahText: 'ركعتان سنة بعدية مؤكدة بعد المغرب'
         },
         {
           key: 'isha',
@@ -626,7 +771,7 @@
           icon: 'isha.png',
           time: this.currentPrayerTimes.isha,
           isPrayer: true,
-          sunnahText: 'ركعتان سنة بعدية وركعة الوتر'
+          sunnahText: 'ركعتان سنة بعدية مؤكدة وصلاة الوتر'
         }
       ];
 
@@ -642,6 +787,20 @@
         if (isNext) stateModifier = 'active-next';
         else if (isPassed) stateModifier = 'passed';
 
+        // Time status label
+        let timeStateBadge = '';
+        if (isNext) {
+          timeStateBadge = '<span class="step-active-pill">الصلاة القادمة</span>';
+        } else if (isPassed && item.time) {
+          const elapsedMins = Math.round((now.getTime() - item.time.getTime()) / (60 * 1000));
+          const elStr = elapsedMins < 60 ? `${elapsedMins} دقيقة` : `${Math.floor(elapsedMins / 60)} ساعة`;
+          timeStateBadge = `<span class="step-time-state-pill passed">مضت منذ ${elStr}</span>`;
+        } else if (item.time && item.time > now) {
+          const remMins = Math.round((item.time.getTime() - now.getTime()) / (60 * 1000));
+          const remStr = remMins < 60 ? `${remMins} دقيقة` : `${Math.floor(remMins / 60)} ساعة`;
+          timeStateBadge = `<span class="step-time-state-pill upcoming">بعد ${remStr}</span>`;
+        }
+
         html += `
           <div class="timeline-step-row ${stateModifier}" data-key="${item.key}">
             <!-- Timeline Axis -->
@@ -656,13 +815,16 @@
             <div class="timeline-step-content">
               <div class="step-main-row">
                 <div class="step-prayer-meta">
-                  <h4 class="step-prayer-title">${item.name}</h4>
+                  <div class="step-title-line">
+                    <h4 class="step-prayer-title">${item.name}</h4>
+                    <span class="step-rakat-tag">${PRAYER_RAKAT[item.key] || ''}</span>
+                  </div>
                   <span class="step-sunnah-hint">${item.sunnahText}</span>
                 </div>
 
                 <div class="step-time-side">
                   <span class="step-prayer-clock">${PrayTimesCore.formatTime(item.time)}</span>
-                  ${isNext ? '<span class="step-active-pill">الصلاة القادمة</span>' : ''}
+                  ${timeStateBadge}
                 </div>
               </div>
 
@@ -694,6 +856,17 @@
       });
 
       container.innerHTML = html;
+    }
+
+    showMomentInfo(type) {
+      if (!window.showToast) return;
+      const info = {
+        night: 'الثلث الأخير من الليل: ساعة استجابة الدعاء والنزول الإلهي، أفضل أوقات قيام الليل والاستغفار.',
+        duha: 'صلاة الضحى (صلاة الأوابين): تبدأ بعد الشروق بربع ساعة حتى قبيل الظهر، وتعدل ٣٦٠ صدقة عن مفاصل البدن.',
+        suhoor: 'وقت السحر: الساعة الأخيرة قبيل أذان الفجر، قال تعالى: «وَبِالْأَسْحَارِ هُمْ يَسْتَغْفِرُونَ».',
+        prohibited: 'وقت النهي: يكره التنفل بالصلاة قبيل أذان الظهر بـ ١٢ دقيقة عند استواء الشمس في كبد السماء.'
+      };
+      window.showToast(info[type] || 'وقت مبارك ونفحة إيمانية عظيمة');
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -739,6 +912,79 @@
 
       const juristicSelect = document.getElementById('prayerJuristicSelect');
       if (juristicSelect) juristicSelect.value = String(this.juristic);
+
+      const leadSelect = document.getElementById('prayerLeadAlertSelect');
+      if (leadSelect) leadSelect.value = String(this.leadAlert);
+
+      // Sync Navbar Audio Button
+      const pnavAudioIcon = document.getElementById('pnavAudioIconImg');
+      const pnavAudioBtn = document.getElementById('pnavAudioToggleBtn');
+      if (pnavAudioIcon) {
+        pnavAudioIcon.src = this.isAudioMuted ? 'images/icons/sound-off.png' : 'images/icons/sound-on.png';
+      }
+      if (pnavAudioBtn) {
+        pnavAudioBtn.classList.toggle('muted', this.isAudioMuted);
+      }
+
+      this.renderWeeklyConsistency();
+    }
+
+    renderWeeklyConsistency() {
+      const strip = document.getElementById('prayerWeekCalendarStrip');
+      if (!strip) return;
+
+      const daysOfWeek = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'];
+      const now = new Date();
+      const currentDayIdx = now.getDay(); // 0 is Sun, 6 is Sat
+      // Map JS Sunday (0) to Saturday-first index (0 for Sat, 1 for Sun, etc.)
+      const satBasedToday = (currentDayIdx + 1) % 7;
+
+      let html = '';
+      for (let i = 0; i < 7; i++) {
+        const offsetDays = i - satBasedToday;
+        const targetDate = new Date(now);
+        targetDate.setDate(now.getDate() + offsetDays);
+
+        const dateKey = `${this.STORAGE_KEYS.TRACKER_PREFIX}${targetDate.getFullYear()}_${targetDate.getMonth() + 1}_${targetDate.getDate()}`;
+        let count = 0;
+        try {
+          const d = localStorage.getItem(dateKey);
+          if (d) {
+            const parsed = JSON.parse(d);
+            ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].forEach(k => {
+              if (parsed[k]) count++;
+            });
+          }
+        } catch (e) {}
+
+        const isToday = i === satBasedToday;
+        let dotClass = '';
+        if (count === 5) dotClass = 'perfect';
+        else if (count > 0) dotClass = 'partial';
+
+        html += `
+          <div class="prayer-week-day-col ${isToday ? 'today' : ''}">
+            <span class="pweek-day-name">${daysOfWeek[i]}</span>
+            <div class="pweek-dot ${dotClass}">
+              ${count === 5 ? '<i class="fa-solid fa-check"></i>' : ''}
+            </div>
+            <span class="pweek-score">${count}/5</span>
+          </div>
+        `;
+      }
+
+      strip.innerHTML = html;
+    }
+
+    updateLeadAlert(val) {
+      this.leadAlert = parseInt(val, 10) || 0;
+      localStorage.setItem(this.STORAGE_KEYS.LEAD_ALERT, String(this.leadAlert));
+      if (window.showToast) {
+        const msg = this.leadAlert === 0 
+          ? 'التنبيه عند موعد الأذان تماماً' 
+          : `تم تفعيل التنبيه المسبق قبل الأذان بـ ${this.leadAlert} دقائق`;
+        window.showToast(msg);
+      }
     }
 
     toggleAudioMute() {
@@ -787,11 +1033,27 @@
 
     openLocationPickerDrawer() {
       const modal = document.getElementById('prayerLocationModal');
+      const searchInp = document.getElementById('prayerCitySearchInput');
+      if (searchInp) searchInp.value = '';
+      this.renderCityList(CITY_PRESETS);
+      if (modal) modal.classList.add('active');
+    }
+
+    renderCityList(cities) {
       const listEl = document.getElementById('prayerCitiesModalList');
-      if (!modal || !listEl) return;
+      if (!listEl) return;
+
+      if (!cities || cities.length === 0) {
+        listEl.innerHTML = `
+          <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted);">
+            <p>لا توجد مدن مطابقة للبحث</p>
+          </div>
+        `;
+        return;
+      }
 
       let html = '';
-      CITY_PRESETS.forEach(c => {
+      cities.forEach(c => {
         const isSelected = this.location.id === c.id;
         html += `
           <button class="modal-city-btn ${isSelected ? 'active' : ''}" 
@@ -806,7 +1068,16 @@
       });
 
       listEl.innerHTML = html;
-      modal.classList.add('active');
+    }
+
+    filterCities(query) {
+      const q = (query || '').trim().toLowerCase();
+      if (!q) {
+        this.renderCityList(CITY_PRESETS);
+        return;
+      }
+      const filtered = CITY_PRESETS.filter(c => c.name.toLowerCase().includes(q));
+      this.renderCityList(filtered);
     }
 
     closeLocationPickerDrawer() {

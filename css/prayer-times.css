@@ -12,41 +12,123 @@
   min-height: 100vh;
 }
 
-.prayer-prime-navbar {
+/* ── Bespoke Spiritual Top Navbar (Pro Architecture) ── */
+.prayer-custom-navbar {
   position: sticky;
   top: 0;
-  z-index: 90;
-  background: var(--glass-bg);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--card-border);
-}
-
-.prayer-nav-center {
+  z-index: 100;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  padding: clamp(0.7rem, 2vw, 0.95rem) clamp(0.9rem, 3vw, 1.5rem);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
 }
 
-.prayer-nav-icon {
+.pnav-left-cluster {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1.8vw, 0.9rem);
+}
+
+.pnav-btn {
+  width: clamp(38px, 9vw, 44px);
+  height: clamp(38px, 9vw, 44px);
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.pnav-btn:hover {
+  background: var(--surface-trans);
+  transform: translateY(-1px);
+  border-color: var(--primary-light);
+}
+
+.pnav-btn:active {
+  transform: scale(0.94);
+}
+
+.pnav-btn img {
   width: 22px;
   height: 22px;
   object-fit: contain;
 }
 
-.prayer-nav-actions {
+.pnav-brand-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.7rem;
 }
 
-.prayer-nav-drawer-btn {
-  width: 38px;
-  height: 38px;
+.pnav-icon-badge {
+  width: clamp(38px, 8.5vw, 42px);
+  height: clamp(38px, 8.5vw, 42px);
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
+
+.pnav-icon-badge img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.pnav-titles-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.pnav-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pnav-title {
+  font-size: clamp(1.05rem, 2.8vw, 1.25rem);
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.2;
+}
+
+
+
+.pnav-subtitle {
+  font-size: clamp(0.76rem, 2vw, 0.84rem);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.pnav-actions-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pnav-audio-btn.muted {
+  opacity: 0.75;
+}
+
 
 /* ── 1. HERO MOMENT: FULL-BLEED ATMOSPHERIC SKY BANNER ── */
 .prayer-hero-fullbleed {
@@ -60,6 +142,7 @@
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
+  border-radius: 0 0 18px 18px;
   transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -140,19 +223,110 @@
   letter-spacing: 0.5px;
 }
 
+/* ── CELESTIAL ORBIT & DAY TRACK (مسار الفلك اليومي) ── */
+.prayer-celestial-track {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: clamp(1rem, 2.8vw, 1.6rem) auto 0;
+  width: 100%;
+  max-width: 580px;
+  padding: 0.5rem 0.6rem;
+  box-sizing: border-box;
+}
+
+.celestial-orbit-line {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(210, 149, 113, 0.5) 50%, 
+    rgba(255, 255, 255, 0.15) 100%
+  );
+  z-index: 1;
+}
+
+.celestial-station {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.station-icon-wrap {
+  width: clamp(34px, 7vw, 40px);
+  height: clamp(34px, 7vw, 40px);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.station-icon-wrap img {
+  width: clamp(17px, 3.8vw, 21px);
+  height: clamp(17px, 3.8vw, 21px);
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.station-label {
+  font-size: clamp(0.72rem, 1.8vw, 0.8rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.82);
+  transition: color 0.2s ease;
+}
+
+/* Celestial Station States */
+.celestial-station:hover .station-icon-wrap {
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.celestial-station.active-station .station-icon-wrap {
+  background: #FFF8F2;
+  border-color: #D29571;
+  box-shadow: 0 0 16px rgba(210, 149, 113, 0.7), 0 0 0 3px rgba(210, 149, 113, 0.3);
+  transform: scale(1.15);
+}
+
+.celestial-station.active-station .station-label {
+  color: #FFE6D4;
+  font-weight: 900;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.celestial-station.passed-station {
+  opacity: 0.6;
+}
+
 .prayer-hero-core {
   position: relative;
   z-index: 2;
   text-align: center;
-  margin: clamp(1.2rem, 3.5vw, 2.2rem) 0;
+  margin: clamp(1rem, 2.8vw, 1.8rem) 0 clamp(0.6rem, 2vw, 1rem);
 }
 
 .prayer-hero-prayer-name {
-  font-size: clamp(2.4rem, 7.5vw, 4.2rem);
+  font-size: clamp(2.3rem, 7vw, 4rem);
   font-weight: 900;
   margin: 0;
   line-height: 1.1;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.38);
   letter-spacing: -0.5px;
 }
 
@@ -169,14 +343,14 @@
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin-top: 1rem;
-  background: rgba(0, 0, 0, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 0.5rem 1.35rem;
+  margin-top: 0.9rem;
+  background: rgba(0, 0, 0, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.48rem 1.35rem;
   border-radius: 999px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
 }
 
 .prayer-hero-timer-label {
@@ -194,6 +368,57 @@
   letter-spacing: 1px;
 }
 
+/* Micro Progress Bar */
+.prayer-hero-micro-track {
+  width: 100%;
+  max-width: 280px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  margin: 0.75rem auto 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.prayer-hero-micro-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #D29571 0%, #FFD6BC 100%);
+  border-radius: 999px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 8px rgba(210, 149, 113, 0.6);
+}
+
+/* Dynamic Spiritual Hadith Box */
+.prayer-hero-hadith-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.95rem;
+  padding: 0.45rem 1.15rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  max-width: 90%;
+  box-sizing: border-box;
+}
+
+.hadith-ornament-mark {
+  color: #D29571;
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.hadith-text {
+  font-size: clamp(0.78rem, 2.1vw, 0.88rem);
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.4;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
 .prayer-hero-footer-bar {
   position: relative;
   z-index: 2;
@@ -201,13 +426,19 @@
   align-items: center;
   justify-content: space-between;
   font-size: 0.84rem;
-  opacity: 0.85;
+  opacity: 0.88;
+  margin-top: 0.4rem;
 }
 
 .prayer-hero-bar-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
+}
+
+.prayer-hero-bar-item.date-cluster {
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
 
 /* ── 2. BODY CONTAINER ── */
@@ -222,17 +453,23 @@
   gap: clamp(1.2rem, 3vw, 1.9rem);
 }
 
-/* ── 2.1 HABIT STREAK & SUMMARY STRIP ── */
+/* ── 2.1 HABIT STREAK & 5-PRAYERS STRIP ── */
 .prayer-streak-strip {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.9rem 1.25rem;
-  border-radius: 16px;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: 18px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   box-shadow: var(--shadow-sm);
   transition: all 0.2s ease;
+}
+
+.prayer-streak-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .prayer-streak-right {
@@ -242,28 +479,31 @@
 }
 
 .prayer-streak-icon-wrap {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   background: var(--surface-trans);
+  border: 1px solid var(--card-border);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .prayer-streak-icon-wrap img {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 
 .prayer-streak-texts {
   display: flex;
   flex-direction: column;
+  gap: 0.15rem;
 }
 
 .prayer-streak-lead {
-  font-size: 0.98rem;
+  font-size: 1rem;
   font-weight: 800;
   color: var(--text-main);
 }
@@ -271,6 +511,12 @@
 .prayer-streak-sub {
   font-size: 0.82rem;
   color: var(--text-muted);
+}
+
+.prayer-streak-badges-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .prayer-streak-badge {
@@ -282,6 +528,74 @@
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
   font-family: monospace, sans-serif;
+}
+
+.prayer-sunnah-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+}
+
+/* 5-Prayers Quick Interactive Pills */
+.prayer-streak-pills-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.45rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--card-border);
+}
+
+.prayer-streak-dot-pill {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 0.5rem 0.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  font-family: var(--app-font-family);
+  transition: all 0.2s ease;
+}
+
+.prayer-streak-dot-pill:hover {
+  background: var(--surface-trans-active);
+  transform: translateY(-1px);
+}
+
+.dot-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.dot-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.prayer-streak-dot-pill.done {
+  background: rgba(46, 213, 115, 0.12);
+  border-color: #2ed573;
+}
+
+.prayer-streak-dot-pill.done .dot-indicator {
+  background: #2ed573;
+  border-color: #2ed573;
+  box-shadow: 0 0 8px rgba(46, 213, 115, 0.5);
+}
+
+.prayer-streak-dot-pill.done .dot-name {
+  color: var(--text-main);
+  font-weight: 800;
 }
 
 /* ── 2.2 MASTER INTEGRATED TIMELINE ── */
@@ -417,7 +731,13 @@
 .step-prayer-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
+}
+
+.step-title-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 .step-prayer-title {
@@ -431,20 +751,31 @@
   color: var(--primary);
 }
 
+.step-rakat-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+}
+
 .step-sunnah-hint {
   font-size: 0.8rem;
   color: var(--text-muted);
+  line-height: 1.35;
 }
 
 .step-time-side {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.25rem;
+  gap: 0.3rem;
 }
 
 .step-prayer-clock {
-  font-size: 1.12rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--text-main);
   direction: ltr;
@@ -462,6 +793,26 @@
   padding: 0.15rem 0.6rem;
   border-radius: 999px;
   letter-spacing: 0.4px;
+  box-shadow: 0 2px 8px rgba(210, 149, 113, 0.35);
+}
+
+.step-time-state-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+}
+
+.step-time-state-pill.passed {
+  opacity: 0.85;
+}
+
+.step-time-state-pill.upcoming {
+  color: var(--primary);
+  border-color: rgba(210, 149, 113, 0.4);
 }
 
 /* Interactive Checkboxes Strip */
@@ -488,11 +839,16 @@
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--text-main);
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .step-check-btn:hover {
   background: var(--surface-trans-active);
+  transform: translateY(-1px);
+}
+
+.step-check-btn:active {
+  transform: scale(0.97);
 }
 
 .step-check-circle {
@@ -510,18 +866,30 @@
 }
 
 .step-check-btn.checked {
-  background: var(--surface-trans-active);
-  border-color: var(--primary);
-  color: var(--primary);
+  background: rgba(46, 213, 115, 0.12);
+  border-color: #2ed573;
+  color: #2ed573;
 }
 
 .step-check-btn.checked .step-check-circle {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: #2ed573;
+  border-color: #2ed573;
   color: #FFFFFF;
 }
 
-/* ── 2.3 SPIRITUAL MOMENTS ── */
+.step-check-btn.sunnah.checked {
+  background: rgba(210, 149, 113, 0.14);
+  border-color: #D29571;
+  color: #D29571;
+}
+
+.step-check-btn.sunnah.checked .step-check-circle {
+  background: #D29571;
+  border-color: #D29571;
+  color: #FFFFFF;
+}
+
+/* ── 2.3 SPIRITUAL MOMENTS (4 CARDS GRID) ── */
 .prayer-moments-section {
   display: flex;
   flex-direction: column;
@@ -543,6 +911,14 @@
   align-items: center;
   gap: 0.95rem;
   box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.prayer-moment-card:hover {
+  background: var(--surface-trans);
+  transform: translateY(-2px);
+  border-color: var(--primary-light);
 }
 
 .moment-card-icon-wrap {
@@ -556,11 +932,19 @@
 }
 
 .moment-card-icon-wrap.night {
-  background: rgba(42, 54, 79, 0.12);
+  background: rgba(42, 54, 79, 0.14);
 }
 
 .moment-card-icon-wrap.day {
-  background: rgba(210, 149, 113, 0.15);
+  background: rgba(210, 149, 113, 0.16);
+}
+
+.moment-card-icon-wrap.suhoor {
+  background: rgba(100, 120, 170, 0.15);
+}
+
+.moment-card-icon-wrap.caution {
+  background: rgba(230, 126, 34, 0.14);
 }
 
 .moment-card-icon-wrap img {
@@ -592,9 +976,10 @@
 .moment-desc {
   font-size: 0.78rem;
   color: var(--text-muted);
+  line-height: 1.35;
 }
 
-/* ── 2.4 QUICK ACTION TILES ── */
+/* ── 2.4 QUICK ACTION TILES (4 TILES GRID) ── */
 .prayer-quick-tiles-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -611,13 +996,14 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.22s ease;
   box-shadow: var(--shadow-sm);
 }
 
 .prayer-quick-tile:hover {
   background: var(--surface-trans);
   transform: translateY(-2px);
+  border-color: var(--primary-light);
 }
 
 .quick-tile-left {
@@ -627,13 +1013,15 @@
 }
 
 .quick-tile-icon-box {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
   background: var(--surface-trans);
+  border: 1px solid var(--card-border);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .quick-tile-icon-box img {
@@ -657,6 +1045,235 @@
 .quick-tile-chevron {
   font-size: 0.85rem;
   color: var(--text-muted);
+  transition: transform 0.2s ease;
+}
+
+.prayer-quick-tile:hover .quick-tile-chevron {
+  transform: translateX(-3px);
+  color: var(--primary);
+}
+
+/* ── AZKAR & SAHW BOTTOM SHEETS STYLING ── */
+.prayer-azkar-sheet-modal {
+  text-align: right;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-header-box {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--card-border);
+  margin-bottom: 0.9rem;
+}
+
+.sheet-header-icon {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.sheet-header-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.sheet-header-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.prayer-azkar-scroll-body {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-left: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.prayer-azkar-item-card {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 0.95rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.azkar-step-tag {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--primary);
+  background: rgba(210, 149, 113, 0.12);
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+}
+
+.azkar-item-text {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-main);
+  font-weight: 600;
+  margin: 0;
+}
+
+.azkar-fadl-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px dashed var(--card-border);
+  padding-top: 0.4rem;
+  line-height: 1.4;
+}
+
+/* Sujood Sahw specific cards */
+.sahw-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sahw-badge {
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  color: #FFFFFF;
+}
+
+.sahw-badge.before {
+  background: #3B82F6;
+}
+
+.sahw-badge.after {
+  background: #10B981;
+}
+
+.sahw-cause {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.sahw-points-list {
+  margin: 0;
+  padding-right: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+/* ── DRAWER WEEKLY CONSISTENCY STRIP ── */
+.prayer-week-consistency-card {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 0.85rem;
+}
+
+.prayer-week-calendar-strip {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+}
+
+.prayer-week-day-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.2rem;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  font-family: var(--app-font-family);
+}
+
+.prayer-week-day-col.today {
+  border-color: var(--primary);
+  background: rgba(210, 149, 113, 0.1);
+}
+
+.pweek-day-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.pweek-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem;
+}
+
+.pweek-dot.perfect {
+  background: #2ed573;
+  border-color: #2ed573;
+  color: #FFFFFF;
+}
+
+.pweek-dot.partial {
+  background: #D29571;
+  border-color: #D29571;
+  color: #FFFFFF;
+}
+
+.pweek-score {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--text-main);
+  font-family: monospace, sans-serif;
+}
+
+/* ── INSTANT CITY SEARCH INPUT ── */
+.prayer-city-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.city-search-icon {
+  position: absolute;
+  right: 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.prayer-city-search-input {
+  width: 100%;
+  padding: 0.75rem 2.6rem 0.75rem 1rem;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-family: var(--app-font-family);
+  font-size: 0.95rem;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.prayer-city-search-input:focus {
+  border-color: var(--primary);
 }
 
 /* ── 3. PRAYER SIDE DRAWER ── */
