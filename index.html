@@ -254,6 +254,7 @@
             <!-- Clean Modern Sticky Header for Search View -->
             <header class="search-prime-navbar">
                 <div class="search-navbar-main">
+                    <img src="images/icons/search-active.png" class="header-logo-pro" height="30" width="30" >
                     <h1 class="search-nav-title">البحث</h1>
                 </div>
             </header>
@@ -262,8 +263,8 @@
                 <!-- Advanced Search Box -->
                 <div class="advanced-search-container">
                     <div class="search-input-box-pro">
-                        <i class="fa-solid fa-magnifying-glass search-lead-icon"></i>
-                        <input type="text" id="mainSearchInput" class="pro-search-input" placeholder="ابحث عن قارئ، سورة، أو ابتهال..." autocomplete="off">
+                            <i class="fa-solid fa-magnifying-glass search-lead-icon"></i>
+                        <input type="text" id="mainSearchInput" class="pro-search-input" placeholder="ابحث عن سور أو إبتهالات" autocomplete="off">
                         <button type="button" id="clearSearchBtn" class="search-clear-action-btn" onclick="clearMainSearchInput()" title="مسح النص" style="display: none;">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
@@ -275,16 +276,16 @@
                             <span>الكل</span>
                         </button>
                         <button class="search-category-pill" onclick="setSearchCategory('reciters', this)">
-                            <span>القراء (٩)</span>
+                            <span>القراء</span>
                         </button>
                         <button class="search-category-pill" onclick="setSearchCategory('surahs', this)">
-                            <span>السور (١١٤)</span>
+                            <span>السور</span>
                         </button>
                         <button class="search-category-pill" onclick="setSearchCategory('ibtehal', this)">
-                            <span>الابتهالات (٣)</span>
+                            <span>الابتهالات</span>
                         </button>
                         <button class="search-category-pill" onclick="setSearchCategory('radio', this)">
-                            <span>الإذاعة المباشرة</span>
+                            <span>الإذاعة</span>
                         </button>
                     </div>
                 </div>
@@ -309,7 +310,7 @@
                     <div class="trending-header">
                         <div class="trending-title">
                             <i class="fa-solid fa-compass"></i>
-                            <span>اقتراحات الاستماع السريع</span>
+                            <span>اقتراحات الاستماع</span>
                         </div>
                     </div>
                     <div class="trending-chips-grid">
@@ -318,11 +319,11 @@
                             <span class="chip-badge">تلاوة مباركة</span>
                         </div>
                         <div class="trending-chip" onclick="applySearchQuery('المنشاوي')">
-                            <span>الشيخ محمد صديق المنشاوي</span>
+                            <span>المنشاوي</span>
                             <span class="chip-badge">المصحف المرتل</span>
                         </div>
                         <div class="trending-chip" onclick="applySearchQuery('عبدالباسط')">
-                            <span>الشيخ عبدالباسط عبدالصمد</span>
+                            <span>عبدالباسط</span>
                             <span class="chip-badge">تلاوة خاشعة</span>
                         </div>
                         <div class="trending-chip" onclick="applySearchQuery('جل المنادي')">
@@ -334,8 +335,8 @@
                             <span class="chip-badge">مشاري العفاسي</span>
                         </div>
                         <div class="trending-chip" onclick="applySearchQuery('إذاعة القرآن الكريم')">
-                            <span>إذاعة القرآن من القاهرة</span>
-                            <span class="chip-badge">بث مباشر</span>
+                            <span>إذاعة القرآن الكريم</span>
+                            <span class="chip-badge">مباشر</span>
                         </div>
                     </div>
                 </div>
@@ -358,13 +359,13 @@
                         <img src="images/icons/spiritual-lib.png" alt="Library">
                     </div>
                     <div class="lib-nav-meta">
-                        <h1 class="lib-nav-title">مكتبتي الروحانية</h1>
-                        <span class="lib-nav-subtitle">مستودعك الخاص للمفضلات، السور المحملة، وقوائمك</span>
+                        <h1 class="lib-nav-title">مكتبتي</h1>
+                        <span class="lib-nav-subtitle">مكتبتك الخاصة للمفضلات وقوائمك</span>
                     </div>
                 </div>
                 <button class="lib-create-quick-btn" onclick="openCustomModal()" title="إنشاء قائمة جديدة">
                     <img src="images/icons/plus.png" alt="Create">
-                    <span>قائمة جديدة</span>
+                    <span>قائمة</span>
                 </button>
             </header>
             
@@ -383,7 +384,7 @@
                         </div>
                         <div class="lib-card-details">
                             <h3 class="lib-card-name">المفضلة</h3>
-                            <p class="lib-card-desc">تلاواتك ومصاحفك المحببة</p>
+                            <p class="lib-card-desc">تلاواتك المفضلة</p>
                         </div>
                     </div>
 
@@ -413,7 +414,7 @@
                         </div>
                         <div class="lib-card-details">
                             <h3 class="lib-card-name">قوائم التشغيل</h3>
-                            <p class="lib-card-desc">مجموعاتك ومصاحفك الخاصة</p>
+                            <p class="lib-card-desc">مجموعاتك الخاصة</p>
                         </div>
                     </div>
 
@@ -428,7 +429,7 @@
                         </div>
                         <div class="lib-card-details">
                             <h3 class="lib-card-name">سجل الاستماع</h3>
-                            <p class="lib-card-desc">آخر النفحات والتلاوات</p>
+                            <p class="lib-card-desc">آخر ما استمعت</p>
                         </div>
                     </div>
                 </div>
@@ -452,7 +453,7 @@
                     </div>
                     <div class="khatmah-footer-stats">
                         <span id="khatmahSurahsListened">٠ من ١١٤ سورة مستمعة</span>
-                        <span id="khatmahRemainingSurahs">باقي ١١٤ سورة للختم</span>
+                        <span id="khatmahRemainingSurahs">باقي ١١٤ سورة</span>
                     </div>
                 </div>
 
@@ -461,22 +462,22 @@
                     <div class="lib-analytics-header">
                         <div class="la-title">
                             <img src="images/icons/leaf-5.png" alt="Analytics">
-                            <span>إحصائيات إنجازك الروحاني</span>
+                            <span>إحصائيات إنجازك</span>
                         </div>
-                        <span class="la-badge">تحديث حي</span>
+                        <span class="la-badge">تحديث تلقائي</span>
                     </div>
                     <div class="lib-metrics-grid">
                         <div class="lib-metric-box">
                             <span class="metric-num" id="statTotalHours">٠.٠ س</span>
-                            <span class="metric-label">إجمالي الاستماع</span>
+                            <span class="metric-label">ساعات الاستماع</span>
                         </div>
                         <div class="lib-metric-box">
                             <span class="metric-num" id="statTopSheikh">المنشاوي</span>
-                            <span class="metric-label">أكثر قارئ استمعت له</span>
+                            <span class="metric-label">الأكثر استماعاً</span>
                         </div>
                         <div class="lib-metric-box">
                             <span class="metric-num" id="statSavedStorage">٠ ك.ب</span>
-                            <span class="metric-label">المساحة المحفوظة</span>
+                            <span class="metric-label">المساحة</span>
                         </div>
                     </div>
                 </div>
@@ -485,10 +486,10 @@
                 <div class="lib-reflections-card">
                     <div class="reflections-header">
                         <img src="images/icons/leaf-2.png" alt="Reflections">
-                        <span>خزينة الخواطر والآيات اليومية</span>
+                        <span>خواطر وايات يومية</span>
                     </div>
                     <blockquote class="reflections-quote" id="dailySpiritualQuote">
-                        «الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ ۗ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ»
+                        « الّذين آمنوا وتطمئن قلوبهم بذكر الله ألا بذكر الله تطمئن القلوب »
                     </blockquote>
                     <span class="quote-surah-tag">سورة الرعد • آية ٢٨</span>
                 </div>
@@ -766,7 +767,7 @@
             <button class="nav-btn" onclick="closeLibPage('settingsPage')"><i class="fa-solid fa-chevron-right"></i></button>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <img src="images/icons/settings.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Settings">
-                <h2 class="navbar-title">الإعدادات الشاملة</h2>
+                <h2 class="navbar-title">الإعدادات والتخصيص</h2>
             </div>
             <div style="width: 38px;"></div>
         </div>
@@ -786,7 +787,7 @@
                             <span class="t-dot" style="background: #D29571;"></span>
                             <span class="t-dot" style="background: #F3E9DD;"></span>
                         </div>
-                        <span>شروق الصحراء</span>
+                        <span>الصحراء</span>
                     </div>
 
                     <div class="theme-pill-card" data-theme-val="sage_copper" onclick="setTheme('sage_copper')">
@@ -795,7 +796,7 @@
                             <span class="t-dot" style="background: #C7885D;"></span>
                             <span class="t-dot" style="background: #DEEAE0;"></span>
                         </div>
-                        <span>واحة المرمية</span>
+                        <span>طبيعة</span>
                     </div>
 
                     <div class="theme-pill-card" data-theme-val="deep_ocean" onclick="setTheme('deep_ocean')">
@@ -804,7 +805,7 @@
                             <span class="t-dot" style="background: #0EA5E9;"></span>
                             <span class="t-dot" style="background: #D5E5F0;"></span>
                         </div>
-                        <span>أعماق المحيط</span>
+                        <span>تلجي</span>
                     </div>
 
                     <div class="theme-pill-card" data-theme-val="midnight_calm" onclick="setTheme('midnight_calm')">
@@ -813,7 +814,7 @@
                             <span class="t-dot" style="background: #F59E0B;"></span>
                             <span class="t-dot" style="background: #151C28;"></span>
                         </div>
-                        <span>السحر الليلي</span>
+                        <span>ليلي</span>
                     </div>
                 </div>
             </div>
