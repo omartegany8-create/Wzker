@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wzker-v3.8';
+const CACHE_NAME = 'wzker-v4.5';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -20,6 +20,8 @@ const ASSETS = [
   './css/adhkar.css',
   './css/tasbeeh.css',
   './css/prayer-times.css',
+  './css/qibla.css',
+  './css/hisn.css',
   './css/cloud-account.css',
   // JavaScript Engines
   './js/data.js',
@@ -37,6 +39,9 @@ const ASSETS = [
   './js/tasbeeh-data.js',
   './js/tasbeeh.js',
   './js/prayer-times.js',
+  './js/qibla.js',
+  './js/hisn-data.js',
+  './js/hisn.js',
   './js/firebase-config.js',
   './js/cloud-sync.js',
   './js/app.js'

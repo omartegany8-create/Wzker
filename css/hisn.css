@@ -1,0 +1,2597 @@
+/**
+ * ══════════════════════════════════════════════════════════════════
+ * WZKER ROYAL HISN AL-MUSLIM STYLESHEET (css/hisn.css) - PRO EDITION
+ * State-of-the-Art Luxury Design System for Situational Supplications.
+ * Full Mobile Responsiveness (320px - 480px), Perfect Viewport Bounds
+ * Dynamic Category Dual-Art, Official Number Badges, Zero Emojis
+ * ══════════════════════════════════════════════════════════════════
+ */
+
+/* ── 0. Strict Viewport & Page Container Architecture ────────── */
+#hisnMuslimPage.sub-lib-page {
+  padding: 0 !important;
+  padding-bottom: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+  background-color: var(--bg-color) !important;
+}
+
+.hisn-sub-page-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  box-sizing: border-box !important;
+  background-color: var(--bg-color) !important;
+  padding: 0 !important;
+}
+
+.hisn-page-content {
+  width: 100% !important;
+  max-width: 860px !important;
+  margin: 0 auto !important;
+  padding: 14px 14px 120px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+/* ── 1. Floating Contoured Prime Navbar ──────────────────────── */
+.hisn-prime-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--glass-bg, var(--card-bg));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+}
+
+.hisn-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.hisn-nav-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.hisn-nav-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.hisn-nav-btn:active {
+  transform: scale(0.94);
+}
+
+.hisn-nav-title-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.hisn-nav-title-box img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.hisn-nav-title {
+  margin: 0;
+  font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+  font-weight: 900;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hisn-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.hisn-zen-toggle-btn,
+.hisn-settings-toggle-btn,
+.hisn-drawer-trigger-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hisn-zen-toggle-btn img,
+.hisn-settings-toggle-btn img,
+.hisn-drawer-trigger-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.hisn-zen-toggle-btn:hover,
+.hisn-settings-toggle-btn:hover,
+.hisn-drawer-trigger-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.hisn-zen-toggle-btn:active,
+.hisn-settings-toggle-btn:active,
+.hisn-drawer-trigger-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── 2. Dedicated Slide-Out Drawer (Opens naturally from Right Arabic edge) ── */
+.hisn-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 10005;
+  display: flex;
+  justify-content: flex-start !important; /* In RTL: flex-start anchors strictly to the RIGHT edge! */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+}
+
+.hisn-drawer-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hisn-drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0; /* Arabic RTL natural opening side */
+  bottom: 0;
+  width: 360px;
+  max-width: 88vw;
+  height: 100%;
+  border-radius: 28px 0 0 28px;
+  background: var(--card-bg);
+  border-left: 1.5px solid var(--card-border);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  box-sizing: border-box;
+  z-index: 10006;
+}
+
+.hisn-drawer-overlay.active .hisn-drawer-panel {
+  transform: translateX(0);
+}
+
+.hisn-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--card-border);
+  background: var(--surface-trans);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.hisn-drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hisn-drawer-brand img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.hisn-drawer-brand h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.hisn-progress-badge {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: #10B981;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hisn-progress-badge img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.hisn-drawer-close-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.hisn-drawer-close-btn:hover {
+  background: var(--surface-trans-active);
+  transform: rotate(90deg);
+}
+
+.hisn-drawer-body {
+  padding: 16px 14px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Drawer Spiritual Mastery Rank Card */
+.hisn-drawer-mastery-card {
+  background: linear-gradient(135deg, rgba(214, 173, 96, 0.12) 0%, var(--surface-trans) 100%);
+  border: 1.5px solid rgba(214, 173, 96, 0.35);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.hisn-mastery-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hisn-mastery-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid rgba(214, 173, 96, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.hisn-mastery-icon-box img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.hisn-mastery-rank-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hisn-mastery-rank-lead {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.hisn-mastery-rank-name {
+  font-size: 0.96rem;
+  font-weight: 900;
+  color: var(--accent);
+  margin: 0;
+}
+
+.hisn-mastery-summary {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.hisn-mastery-progress-track {
+  height: 6px;
+  border-radius: 4px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.hisn-mastery-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent), #10B981);
+  transition: width 0.4s ease;
+}
+
+.hisn-drawer-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 10px;
+  border-bottom: 1px dashed var(--card-border);
+  padding-bottom: 6px;
+}
+
+.hisn-drawer-section-title img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.hisn-drawer-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@keyframes hisnDrawerItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hisn-drawer-overlay.active .hisn-drawer-menu-item {
+  animation: hisnDrawerItemIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hisn-drawer-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hisn-drawer-menu-item:hover,
+.hisn-drawer-menu-item.active {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateX(-4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.hisn-drawer-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hisn-drawer-item-left img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.hisn-drawer-item-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.hisn-drawer-item-count {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.hisn-virtue-card-mini {
+  background: var(--surface-trans);
+  border-right: 3px solid var(--accent);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.hisn-virtue-card-mini:hover {
+  transform: translateY(-2px);
+  border-right-color: #10B981;
+}
+
+.hisn-virtue-mini-title {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0;
+}
+
+.hisn-virtue-mini-verse {
+  font-family: var(--app-font-family);
+  font-size: 0.92rem;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.hisn-virtue-mini-hadith {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── 3. Smart Grand Hero Card with Dynamic Category Artwork ─── */
+.hisn-hero-card {
+  position: relative;
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--surface-trans) 100%);
+  border: 1px solid var(--card-border);
+  border-top: 4px solid var(--card-cat-accent, var(--accent, #D29571));
+  border-radius: 22px;
+  padding: 20px 22px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hisn-hero-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+@keyframes hisnFloat {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-8px) rotate(4deg); }
+}
+
+@keyframes hisnArtBounce {
+  0% { transform: scale(0.8) rotate(-8deg); opacity: 0.6; }
+  50% { transform: scale(1.12) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.hisn-hero-artwork.art-bounce .main-art {
+  animation: hisnArtBounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hisn-hero-watermark {
+  position: absolute;
+  bottom: -25px;
+  left: -15px;
+  width: 140px;
+  height: 140px;
+  pointer-events: none;
+  opacity: 0.12;
+  animation: hisnFloat 7s ease-in-out infinite alternate;
+}
+
+.hisn-hero-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hisn-hero-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2;
+  min-width: 0;
+}
+
+.hisn-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-trans);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  width: fit-content;
+  border: 1px solid var(--card-border);
+  max-width: 100%;
+}
+
+.hisn-hero-badge img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.hisn-hero-badge span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hisn-hero-title {
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.hisn-hero-desc {
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.hisn-hero-actions {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hisn-hero-btn {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 14px;
+  font-size: 0.88rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hisn-hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.hisn-hero-filter-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 9px 16px;
+  border-radius: 14px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hisn-hero-filter-btn img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.hisn-hero-filter-btn:hover,
+.hisn-hero-filter-btn.active {
+  background: var(--surface-trans-active);
+  border-color: #10B981;
+  color: #10B981;
+}
+
+.hisn-hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.hisn-hero-artwork {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hisn-hero-artwork .main-art {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.18));
+  transition: transform 0.3s ease;
+}
+
+.hisn-hero-artwork:hover .main-art {
+  transform: scale(1.08);
+}
+
+.hisn-hero-artwork .sub-art {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: var(--card-bg);
+  padding: 4px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--card-border);
+  transition: transform 0.3s ease;
+}
+
+.hisn-hero-artwork:hover .sub-art {
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* ── 3.5 Featured Daily Situation Card (موقف اليوم المبارك) ───────── */
+.hisn-featured-card {
+  background: linear-gradient(135deg, rgba(214, 173, 96, 0.12) 0%, var(--card-bg) 60%, var(--surface-trans) 100%);
+  border: 1.5px solid rgba(214, 173, 96, 0.4);
+  border-radius: 22px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 6px 24px -4px rgba(214, 173, 96, 0.12), var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hisn-featured-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(214, 173, 96, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hisn-featured-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hisn-featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(214, 173, 96, 0.22) 0%, rgba(214, 173, 96, 0.08) 100%);
+  border: 1px solid rgba(214, 173, 96, 0.45);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.hisn-featured-badge img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.hisn-featured-tag {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  background: var(--surface-trans);
+  padding: 3px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+}
+
+.hisn-featured-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hisn-featured-situation {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.hisn-featured-text {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1.15rem, 3.5vw, 1.35rem);
+  line-height: 2.1;
+  color: var(--text-main);
+  margin: 0;
+  padding: 10px 14px;
+  background: var(--surface-trans);
+  border-radius: 14px;
+  border-right: 3.5px solid var(--accent);
+  text-align: justify;
+}
+
+.hisn-featured-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+  border-top: 1px dashed var(--card-border);
+}
+
+.hisn-featured-source {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.hisn-featured-btns {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hisn-featured-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.hisn-featured-action-btn img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.hisn-featured-action-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.hisn-featured-action-btn.primary {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hisn-featured-action-btn.primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ── 4. Memorization Progress Streak Card ────────────────────── */
+.hisn-streak-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hisn-mastery-rank-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(214, 173, 96, 0.16) 0%, var(--surface-trans) 100%);
+  border: 1.5px solid rgba(214, 173, 96, 0.45);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 0.82rem;
+  font-weight: 900;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.hisn-mastery-rank-pill img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.hisn-streak-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hisn-streak-stat-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hisn-streak-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(16, 185, 129, 0.05));
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hisn-streak-icon-box img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.hisn-streak-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.hisn-streak-lead {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.hisn-streak-val {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 2px 0 0;
+  line-height: 1.2;
+}
+
+.hisn-streak-val span {
+  color: #10B981;
+}
+
+.hisn-streak-pill-percent {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(16, 185, 129, 0.08));
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  font-size: 0.84rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.hisn-progress-bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--surface-trans);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.hisn-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10B981, #059669);
+  border-radius: 10px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.hisn-streak-filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.hisn-streak-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.hisn-streak-tab {
+  padding: 5px 12px;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.hisn-streak-tab:hover {
+  color: var(--text-main);
+  background: var(--surface-trans-active);
+}
+
+.hisn-streak-tab.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+/* ── 5. Horizontal Category Capsules ─────────────────────────── */
+.hisn-capsules-wrap {
+  position: relative;
+  margin: 0 -2px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hisn-capsules-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+.hisn-capsules-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hisn-capsule-item {
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+  color: var(--text-main);
+  font-size: 0.86rem;
+  font-weight: 800;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.hisn-capsule-item img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.hisn-capsule-item .capsule-badge {
+  background: var(--surface-trans);
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.hisn-capsule-item:hover {
+  background: var(--surface-trans);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.hisn-capsule-item:hover img {
+  transform: scale(1.15);
+}
+
+.hisn-capsule-item.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+}
+
+.hisn-capsule-item.active .capsule-badge {
+  background: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+/* ── 6. Quick Situational Mood Tag Filter Strip ───────────────── */
+.hisn-quick-tags-scroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 4px 2px 6px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hisn-quick-tags-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hisn-quick-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 22px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hisn-quick-tag img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.hisn-quick-tag:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  color: var(--text-main);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.hisn-quick-tag:hover img {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+.hisn-quick-tag.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
+}
+
+.hisn-quick-tag.active img {
+  filter: brightness(0) invert(1);
+}
+
+/* ── 7. Smart Search Bar & Status Pills ───────────────────────── */
+.hisn-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 9px 14px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hisn-search-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--surface-trans-active);
+}
+
+.hisn-search-icon-wrap {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hisn-search-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hisn-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--text-main);
+  direction: rtl;
+  min-width: 0;
+}
+
+.hisn-search-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.75;
+}
+
+.hisn-clear-search {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: none;
+  font-size: 0.9rem;
+}
+
+.hisn-clear-search.visible {
+  display: block;
+}
+
+.hisn-results-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hisn-results-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.hisn-sync-hint-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* ── 7. Luxury Hisn Cards with Official 1-9 Icons & Royal 10+ Badges ── */
+.hisn-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@keyframes hisnCardPop {
+  0% { transform: scale(0.98); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.hisn-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 4px solid var(--card-cat-accent, var(--accent, #D29571));
+  background-image: linear-gradient(180deg, var(--card-cat-bg, rgba(210, 149, 113, 0.08)) 0%, var(--card-bg) 75px, var(--card-bg) 100%);
+  border-radius: 20px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hisn-card:hover {
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.14), 0 0 0 1px var(--card-cat-accent, var(--accent));
+  border-color: var(--card-cat-accent, var(--accent));
+  transform: translateY(-2px);
+}
+
+.hisn-card.is-memorized {
+  border-color: rgba(16, 185, 129, 0.45);
+  border-top-color: #10B981;
+  background-image: linear-gradient(180deg, rgba(16, 185, 129, 0.09) 0%, var(--card-bg) 75px, var(--card-bg) 100%);
+  animation: hisnCardPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Card Header & Meta */
+.hisn-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hisn-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.hisn-meta-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-trans);
+  border: 1.5px solid var(--card-cat-accent, var(--card-border));
+  color: var(--card-cat-accent, var(--text-main));
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  max-width: 160px;
+}
+
+.hisn-meta-category:hover {
+  transform: translateY(-1px);
+  background: var(--surface-trans-active);
+}
+
+.hisn-meta-category img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.hisn-meta-category span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 1-9 Official Icon Badge */
+.hisn-card-number-badge.official-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--surface-trans) 0%, var(--card-bg) 100%);
+  border: 1px solid var(--card-border);
+  padding: 2px 5px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.hisn-number-icon-single {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* 10+ Royal Designed Number Badge */
+.hisn-card-number-badge.royal-num-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, rgba(214, 173, 96, 0.15) 0%, var(--surface-trans) 100%);
+  border: 1.5px solid rgba(214, 173, 96, 0.4);
+  padding: 2px 8px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.royal-num-prefix {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.royal-num-val {
+  font-size: 0.84rem;
+  font-weight: 900;
+  color: var(--accent);
+  letter-spacing: 0.3px;
+  font-family: var(--app-font-family);
+}
+
+/* Card Header Actions */
+.hisn-card-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.hisn-memorize-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.hisn-memorize-toggle-btn:hover {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: #10B981;
+  color: #10B981;
+}
+
+.hisn-memorize-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.hisn-memorize-toggle-btn.memorized {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #ffffff;
+  border-color: #10B981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.hisn-memorize-toggle-btn img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.hisn-action-icon-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.hisn-action-icon-btn img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.hisn-action-icon-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.hisn-action-icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* Card Title & Content */
+.hisn-card-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.hisn-title-leaf-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.hisn-title-leaf-wrap img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.hisn-situation-title {
+  font-size: clamp(1.05rem, 2.5vw, 1.28rem);
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.35;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Inner Sacred Text Frame */
+.hisn-text-frame {
+  background: linear-gradient(to left, var(--card-cat-bg, rgba(210, 149, 113, 0.04)) 0%, var(--surface-trans) 50px);
+  border: 1px solid var(--card-border);
+  border-right: 4px solid var(--card-cat-accent, var(--accent));
+  border-radius: 16px;
+  padding: 2px 2px 2px 0;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  transition: border-color 0.25s ease;
+}
+
+.hisn-card:hover .hisn-text-frame {
+  border-right-color: var(--card-cat-accent, var(--accent));
+  border-color: var(--card-cat-accent, var(--card-border));
+}
+
+.hisn-card-text {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1.18rem, 3.8vw, 1.42rem);
+  line-height: 2.15;
+  color: var(--text-main);
+  margin: 0;
+  padding: 14px 16px;
+  text-align: justify;
+  text-justify: kashida;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  width: 100%;
+  background: transparent;
+}
+
+/* Source & Fadl meta badges column */
+.hisn-meta-badges-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Typography Customizer Dynamic Classes */
+.hisn-cards-container.size-large .hisn-card-text {
+  font-size: clamp(1.34rem, 4.2vw, 1.58rem) !important;
+  line-height: 2.25 !important;
+}
+
+.hisn-cards-container.size-huge .hisn-card-text {
+  font-size: clamp(1.48rem, 4.6vw, 1.76rem) !important;
+  line-height: 2.4 !important;
+}
+
+.hisn-card-source,
+.hisn-card-fadl {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.hisn-card-source {
+  color: var(--text-muted);
+}
+
+.hisn-card-source img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.hisn-card-fadl {
+  color: var(--accent);
+  background: rgba(210, 149, 113, 0.05);
+  border-color: rgba(210, 149, 113, 0.2);
+}
+
+.hisn-card-fadl img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Card Footer Tools — Memorize is king, copy & share are secondary */
+.hisn-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--card-border);
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Memorize button takes full width as primary CTA */
+.hisn-card-footer .hisn-memorize-toggle-btn {
+  flex: 1 1 100%;
+  width: 100%;
+  justify-content: center;
+  padding: 9px 16px;
+  font-size: 0.85rem;
+  border-radius: 14px;
+  gap: 8px;
+}
+
+.hisn-footer-tool-btn {
+  flex: 1 1 calc(50% - 4px);
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.hisn-footer-tool-btn img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.hisn-footer-tool-btn:hover {
+  background: var(--surface-trans-active);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.hisn-footer-tool-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── 8. Full-Screen Zen Focus Overlay ────────────────────────── */
+.hisn-zen-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-color);
+  z-index: 10010;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  box-sizing: border-box;
+}
+
+.hisn-zen-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hisn-zen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hisn-zen-progress-indicator {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.hisn-zen-close-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.hisn-zen-close-btn:hover {
+  background: var(--surface-trans-active);
+  transform: rotate(90deg);
+}
+
+.hisn-zen-body {
+  max-width: 680px;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hisn-zen-category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-trans);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--accent);
+  border: 1px solid var(--card-border);
+}
+
+.hisn-zen-category-tag img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.hisn-zen-situation-title {
+  font-size: clamp(1.25rem, 3.5vw, 1.65rem);
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.hisn-zen-text-wrap {
+  padding: 16px;
+  background: var(--surface-trans);
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  max-height: 48vh;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hisn-zen-text {
+  font-family: 'Amiri', serif;
+  font-size: clamp(1.35rem, 4vw, 1.8rem);
+  line-height: 2.2;
+  color: var(--text-main);
+  margin: 0;
+  text-align: center;
+}
+
+.hisn-zen-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.hisn-zen-nav-btn {
+  padding: 9px 20px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hisn-zen-nav-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ── 9. Pinterest-Style Gift Social Story Card Modal ─────────── */
+.hisn-gift-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 10020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+  box-sizing: border-box;
+}
+
+.hisn-gift-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hisn-gift-card-box {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transform: scale(0.94);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.hisn-gift-modal-overlay.active .hisn-gift-card-box {
+  transform: scale(1);
+}
+
+.hisn-pinterest-card {
+  background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+  border: 2px solid #D29571;
+  border-radius: 22px;
+  padding: 22px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.hisn-pinterest-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(210, 149, 113, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.hisn-pinterest-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #D29571;
+}
+
+.hisn-pinterest-situation {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.hisn-pinterest-text {
+  font-family: 'Amiri', serif;
+  font-size: 1.25rem;
+  line-height: 2.05;
+  color: #F8FAFC;
+  margin: 0;
+  text-align: justify;
+}
+
+.hisn-pinterest-source {
+  font-size: 0.8rem;
+  color: #94A3B8;
+}
+
+.hisn-pinterest-fadl {
+  font-size: 0.8rem;
+  color: #D29571;
+  line-height: 1.45;
+}
+
+.hisn-pinterest-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.8rem;
+}
+
+.hisn-gift-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hisn-gift-btn {
+  flex: 1;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hisn-gift-btn img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.hisn-gift-btn.primary {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.hisn-gift-btn.download {
+  background: #10B981;
+  color: #ffffff;
+}
+
+.hisn-gift-btn.secondary {
+  background: var(--surface-trans);
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+}
+
+.hisn-gift-btn.close {
+  flex: 0 0 38px;
+  width: 38px;
+  background: var(--surface-trans);
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+}
+
+.hisn-gift-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ── 10. Settings Modal (Typography & Tashkeel) ──────────────── */
+.hisn-settings-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  box-sizing: border-box;
+}
+
+.hisn-settings-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.hisn-settings-modal-box {
+  width: 100%;
+  max-width: 400px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 22px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.94);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.hisn-settings-modal-overlay.active .hisn-settings-modal-box {
+  transform: scale(1);
+}
+
+.hisn-settings-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.hisn-settings-close-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.hisn-settings-close-btn:hover {
+  transform: rotate(90deg);
+}
+
+.hisn-settings-modal-body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hisn-setting-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hisn-setting-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hisn-setting-label .main-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.hisn-setting-label .sub-label {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.hisn-setting-options {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hisn-option-pill {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.hisn-option-pill.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+/* ── 11. Empty State ─────────────────────────────────────────── */
+.hisn-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 36px 16px;
+  gap: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.hisn-empty-state img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+.hisn-empty-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.hisn-empty-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 320px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.hisn-empty-btn {
+  padding: 9px 20px;
+  border-radius: 14px;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.hisn-empty-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ── 12. Floating Scroll Top Button ──────────────────────────── */
+.hisn-scroll-top-btn {
+  position: fixed;
+  bottom: 80px;
+  left: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--glass-bg, var(--card-bg));
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 99;
+}
+
+.hisn-scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hisn-scroll-top-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   13. ULTRA-RESPONSIVE MOBILE RULES (320px - 580px)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 580px) {
+  /* Navbar text hidden -> compact square icons */
+  .hisn-zen-toggle-btn span,
+  .hisn-settings-toggle-btn span,
+  .hisn-drawer-trigger-btn span {
+    display: none !important;
+  }
+
+  .hisn-zen-toggle-btn,
+  .hisn-settings-toggle-btn,
+  .hisn-drawer-trigger-btn {
+    padding: 7px !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 11px !important;
+    justify-content: center !important;
+    gap: 0 !important;
+  }
+
+  .hisn-zen-toggle-btn img,
+  .hisn-settings-toggle-btn img,
+  .hisn-drawer-trigger-btn img {
+    width: 17px !important;
+    height: 17px !important;
+  }
+
+  .hisn-prime-navbar {
+    padding: 8px 10px !important;
+  }
+
+  /* Page content tight padding */
+  .hisn-page-content {
+    padding: 10px 10px 110px !important;
+    gap: 13px !important;
+  }
+
+  /* Hero Card Mobile Reorganization */
+  .hisn-hero-card {
+    padding: 14px 12px !important;
+    border-radius: 18px !important;
+    flex-direction: column-reverse !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .hisn-hero-artwork {
+    width: 68px !important;
+    height: 68px !important;
+    margin: 0 auto !important;
+  }
+
+  .hisn-hero-artwork .main-art {
+    width: 56px !important;
+    height: 56px !important;
+  }
+
+  .hisn-hero-artwork .sub-art {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .hisn-hero-actions {
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 7px !important;
+  }
+
+  .hisn-hero-btn,
+  .hisn-hero-filter-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 9px 12px !important;
+    font-size: 0.84rem !important;
+    border-radius: 12px !important;
+  }
+
+  /* Streak Card Mobile */
+  .hisn-streak-card {
+    padding: 12px 12px !important;
+    border-radius: 16px !important;
+    gap: 10px !important;
+  }
+
+  .hisn-streak-icon-box {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+  }
+
+  .hisn-streak-icon-box img {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .hisn-streak-val {
+    font-size: 1.05rem !important;
+  }
+
+  .hisn-streak-pill-percent {
+    font-size: 0.76rem !important;
+    padding: 3px 9px !important;
+  }
+
+  .hisn-streak-filter-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+
+  .hisn-streak-tabs {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 5px !important;
+  }
+
+  .hisn-streak-tab {
+    justify-content: center !important;
+    padding: 6px 4px !important;
+    font-size: 0.72rem !important;
+    border-radius: 10px !important;
+  }
+
+  .hisn-streak-tab img {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  /* Capsules */
+  .hisn-capsule-item {
+    padding: 5px 10px !important;
+    font-size: 0.8rem !important;
+    border-radius: 13px !important;
+  }
+
+  .hisn-capsule-item img {
+    width: 17px !important;
+    height: 17px !important;
+  }
+
+  /* Search */
+  .hisn-search-bar {
+    padding: 7px 10px !important;
+    border-radius: 13px !important;
+  }
+
+  .hisn-search-input {
+    font-size: 0.85rem !important;
+  }
+
+  .hisn-results-status-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+
+  /* Cards Mobile Bounds */
+  .hisn-card {
+    padding: 14px 12px !important;
+    border-radius: 16px !important;
+    gap: 11px !important;
+  }
+
+  .hisn-card-header {
+    gap: 6px !important;
+  }
+
+  .hisn-card-meta {
+    gap: 5px !important;
+    flex: 1 1 auto !important;
+  }
+
+  .hisn-meta-category {
+    padding: 3px 8px !important;
+    font-size: 0.75rem !important;
+    border-radius: 10px !important;
+    max-width: 125px !important;
+  }
+
+  .hisn-meta-category img {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .hisn-number-icon-single {
+    height: 19px !important;
+  }
+
+  .hisn-card-number-badge.royal-num-badge {
+    padding: 2px 6px !important;
+  }
+
+  .royal-num-prefix {
+    font-size: 0.68rem !important;
+  }
+
+  .royal-num-val {
+    font-size: 0.78rem !important;
+  }
+
+  .hisn-memorize-toggle-btn {
+    padding: 5px 9px !important;
+    font-size: 0.75rem !important;
+    border-radius: 10px !important;
+    gap: 4px !important;
+  }
+
+  .hisn-memorize-toggle-btn img {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .hisn-action-icon-btn {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 10px !important;
+  }
+
+  .hisn-action-icon-btn img {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .hisn-situation-title {
+    font-size: 1.05rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .hisn-card-text {
+    font-size: 1.14rem !important;
+    line-height: 1.95 !important;
+    padding: 10px 12px !important;
+  }
+
+  .hisn-text-frame {
+    border-radius: 12px !important;
+  }
+
+  .hisn-card-source,
+  .hisn-card-fadl {
+    font-size: 0.76rem !important;
+    padding: 5px 8px !important;
+  }
+
+  .hisn-card-source img,
+  .hisn-card-fadl img {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* Mastery rank pill mobile */
+  .hisn-mastery-rank-pill {
+    padding: 3px 10px !important;
+    font-size: 0.76rem !important;
+    border-radius: 12px !important;
+  }
+  .hisn-mastery-rank-pill img {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* Featured card mobile */
+  .hisn-featured-card {
+    padding: 14px 12px !important;
+    border-radius: 18px !important;
+    gap: 10px !important;
+  }
+  .hisn-featured-text {
+    font-size: 1.08rem !important;
+    line-height: 1.9 !important;
+    padding: 8px 10px !important;
+  }
+  .hisn-featured-footer {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  .hisn-featured-btns {
+    width: 100% !important;
+  }
+  .hisn-featured-action-btn {
+    flex: 1 !important;
+    justify-content: center !important;
+    padding: 7px 10px !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* Quick tags strip mobile */
+  .hisn-quick-tag {
+    padding: 5px 11px !important;
+    font-size: 0.78rem !important;
+    border-radius: 18px !important;
+    gap: 5px !important;
+  }
+  .hisn-quick-tag img {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* Card footer — memorize full width, copy & share 50/50 */
+  .hisn-card-footer {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .hisn-card-footer .hisn-memorize-toggle-btn {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .hisn-footer-tool-btn {
+    flex: 1 1 calc(50% - 3px) !important;
+    padding: 7px 8px !important;
+    font-size: 0.75rem !important;
+    border-radius: 10px !important;
+  }
+
+  .hisn-footer-tool-btn:last-child {
+    flex: 1 1 100% !important;
+  }
+
+  .hisn-footer-tool-btn img {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* Drawer panel mobile — smaller panel, keep right-slide animation */
+  .hisn-drawer-panel {
+    width: 290px !important;
+    max-width: 88vw !important;
+    border-radius: 20px 0 0 20px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .hisn-page-content {
+    padding: 8px 6px 100px !important;
+  }
+
+  .hisn-card {
+    padding: 12px 9px !important;
+    border-radius: 14px !important;
+    gap: 10px !important;
+  }
+
+  .hisn-meta-category {
+    max-width: 100px !important;
+  }
+
+  .hisn-card-text {
+    font-size: 1.08rem !important;
+    line-height: 1.85 !important;
+    padding: 8px 10px !important;
+  }
+
+  .hisn-text-frame {
+    border-radius: 10px !important;
+  }
+
+  .hisn-situation-title {
+    font-size: 0.96rem !important;
+  }
+
+  .hisn-nav-title {
+    font-size: 0.9rem !important;
+  }
+
+  .hisn-drawer-panel {
+    width: 265px !important;
+    max-width: 90vw !important;
+    border-radius: 16px 0 0 16px !important;
+  }
+
+  .hisn-quick-tag {
+    padding: 4px 9px !important;
+    font-size: 0.74rem !important;
+  }
+}

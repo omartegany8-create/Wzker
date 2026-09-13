@@ -29,7 +29,8 @@
         prayerLocation: 'wzker_prayer_location',
         prayerMethod: 'wzker_prayer_method',
         prayerJuristic: 'wzker_prayer_juristic',
-        prayerMuezzin: 'wzker_prayer_muezzin'
+        prayerMuezzin: 'wzker_prayer_muezzin',
+        hisnMemorized: 'wzker_hisn_memorized'
       };
 
       if (document.readyState === 'loading') {
@@ -563,6 +564,9 @@
         const pMuez = localStorage.getItem(this.syncKeys.prayerMuezzin);
         if (pMuez) payload.prayer_muezzin = pMuez;
 
+        const hMem = localStorage.getItem(this.syncKeys.hisnMemorized);
+        if (hMem) payload.hisn_memorized = JSON.parse(hMem);
+
         // Skip redundant Firestore writes if data is identical to last sync
         const currentDataHash = JSON.stringify({
           b: payload.quran_bookmark || null,
@@ -574,7 +578,8 @@
           pl: payload.prayer_location || null,
           pm: payload.prayer_method || null,
           pj: payload.prayer_juristic || null,
-          pz: payload.prayer_muezzin || null
+          pz: payload.prayer_muezzin || null,
+          hm: payload.hisn_memorized || null
         });
 
         if (this.lastSyncedDataHash === currentDataHash) {
@@ -686,6 +691,19 @@
           if (window.wzkerPrayer) window.wzkerPrayer.selectedMuezzin = pMuez;
         }
 
+        const hisnMem = remote.hisn_memorized || remote.hisnMemorized;
+        if (hisnMem && Array.isArray(hisnMem)) {
+          const localH = localStorage.getItem(this.syncKeys.hisnMemorized);
+          if (!localH || JSON.stringify(hisnMem) !== localH) {
+            localStorage.setItem(this.syncKeys.hisnMemorized, JSON.stringify(hisnMem));
+            if (window.wzkerHisn && typeof window.wzkerHisn.loadMemorizedState === 'function') {
+              window.wzkerHisn.loadMemorizedState();
+              window.wzkerHisn.renderHero();
+              window.wzkerHisn.renderList();
+            }
+          }
+        }
+
         if ((pLoc || pMeth || pJur || pMuez) && window.wzkerPrayer) {
           window.wzkerPrayer.calculateTodayTimes();
           window.wzkerPrayer.renderFullUI();
@@ -702,7 +720,8 @@
           pl: remote.prayer_location || null,
           pm: remote.prayer_method || null,
           pj: remote.prayer_juristic || null,
-          pz: remote.prayer_muezzin || null
+          pz: remote.prayer_muezzin || null,
+          hm: hisnMem || null
         });
       } catch (err) {
         console.warn('[Wzker Cloud] Merge remote data error:', err);
@@ -735,6 +754,10 @@
         this.syncDebounceTimer = null;
         this.pushLocalDataToCloud();
       }, delay);
+    }
+
+    scheduleCloudPush(type = 'hisn') {
+      this.triggerSync(type);
     }
 
     // ── 4. UI SYNCHRONIZATION & PRESENTATION ──

@@ -23,7 +23,7 @@
     methods: {
       MWL: { name: 'رابطة العالم الإسلامي', params: { fajr: 18, isha: 17 } },
       ISNA: { name: 'الجمعية الإسلامية لأمريكا الشمالية (ISNA)', params: { fajr: 15, isha: 15 } },
-      Egypt: { name: 'الهيئة المصرية العامة للمساحة', params: { fajr: 19.5, isha: 17.5 } },
+      Egypt: { name: 'الهيئة المصرية العامة', params: { fajr: 19.5, isha: 17.5 } },
       Makkah: { name: 'جامعة أم القرى بمكة المكرمة', params: { fajr: 18.5, isha: '90 min' } },
       Karachi: { name: 'جامعة العلوم الإسلامية بكراتشي', params: { fajr: 18, isha: 18 } },
       Tehran: { name: 'معهد لواء بجامعة طهران', params: { fajr: 17.7, isha: 14 } },
@@ -253,6 +253,10 @@
       this.calculateTodayTimes();
       this.setupCountdownTicker();
       this.renderFullUI();
+
+      window.addEventListener('resize', () => {
+        this.renderCelestialTrack();
+      });
     }
 
     loadLocation() {
@@ -311,12 +315,12 @@
     resolveNextPrayer() {
       const now = new Date();
       const list = [
-        { key: 'fajr', name: 'صلاة الفجر', date: this.currentPrayerTimes.fajr, isPrayer: true },
-        { key: 'sunrise', name: 'شروق الشمس', date: this.currentPrayerTimes.sunrise, isPrayer: false },
-        { key: 'dhuhr', name: 'صلاة الظهر', date: this.currentPrayerTimes.dhuhr, isPrayer: true },
-        { key: 'asr', name: 'صلاة العصر', date: this.currentPrayerTimes.asr, isPrayer: true },
-        { key: 'maghrib', name: 'صلاة المغرب', date: this.currentPrayerTimes.maghrib, isPrayer: true },
-        { key: 'isha', name: 'صلاة العشاء', date: this.currentPrayerTimes.isha, isPrayer: true }
+        { key: 'fajr', name: 'الفجر', date: this.currentPrayerTimes.fajr, isPrayer: true },
+        { key: 'sunrise', name: 'الشروق', date: this.currentPrayerTimes.sunrise, isPrayer: false },
+        { key: 'dhuhr', name: 'الظهر', date: this.currentPrayerTimes.dhuhr, isPrayer: true },
+        { key: 'asr', name: 'العصر', date: this.currentPrayerTimes.asr, isPrayer: true },
+        { key: 'maghrib', name: 'المغرب', date: this.currentPrayerTimes.maghrib, isPrayer: true },
+        { key: 'isha', name: 'العشاء', date: this.currentPrayerTimes.isha, isPrayer: true }
       ];
 
       let upcoming = null;
@@ -473,7 +477,7 @@
       }
       const homeLead = document.getElementById('homeNextPrayerLead');
       if (homeLead && this.nextPrayer) {
-        homeLead.textContent = `الصلاة القادمة: ${this.nextPrayer.name}`;
+        homeLead.textContent = `الصلاة القادمة | ${this.nextPrayer.name}`;
       }
     }
 
@@ -630,6 +634,101 @@
         const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
         heroDateInfo.textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]}`;
       }
+
+      this.renderCelestialTrack();
+    }
+
+    renderCelestialTrack() {
+      const track = document.getElementById('prayerCelestialTrack');
+      if (!track || !this.currentPrayerTimes) return;
+
+      const now = new Date();
+      const stationKeys = ['fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'];
+      const nextKey = this.nextPrayer ? this.nextPrayer.key : null;
+      let nextIdx = stationKeys.indexOf(nextKey);
+      if (nextIdx === -1) nextIdx = 0;
+
+      stationKeys.forEach((key) => {
+        const stationEl = track.querySelector(`.celestial-station[data-station="${key}"]`);
+        const timePill = document.getElementById(`stationTime_${key}`);
+        const pTime = this.currentPrayerTimes[key];
+
+        if (timePill && pTime) {
+          timePill.textContent = PrayTimesCore.formatTime(pTime);
+        }
+
+        if (stationEl) {
+          const isPassed = pTime && pTime < now && key !== nextKey;
+          const isActive = (key === nextKey);
+
+          stationEl.classList.toggle('active-station', isActive);
+          stationEl.classList.toggle('passed-station', isPassed);
+        }
+      });
+
+      // Align orbit line exactly from center of Fajr icon to center of Isha icon
+      const orbitLine = track.querySelector('.celestial-orbit-line');
+      const fajrWrap = track.querySelector('.celestial-station[data-station="fajr"] .station-icon-wrap');
+      const ishaWrap = track.querySelector('.celestial-station[data-station="isha"] .station-icon-wrap');
+
+      if (orbitLine && fajrWrap && ishaWrap) {
+        const trackRect = track.getBoundingClientRect();
+        const fajrRect = fajrWrap.getBoundingClientRect();
+        const ishaRect = ishaWrap.getBoundingClientRect();
+
+        if (trackRect.width > 0 && fajrRect.width > 0) {
+          const rightOffset = Math.round(trackRect.right - (fajrRect.left + fajrRect.width / 2));
+          const leftOffset = Math.round((ishaRect.left + ishaRect.width / 2) - trackRect.left);
+          const topOffset = Math.round((fajrRect.top + fajrRect.height / 2) - trackRect.top);
+
+          if (rightOffset > 0 && leftOffset > 0) {
+            orbitLine.style.right = `${rightOffset}px`;
+            orbitLine.style.left = `${leftOffset}px`;
+            orbitLine.style.top = `${topOffset}px`;
+          }
+        }
+      }
+
+      // Luminous progress fill along orbit line
+      const glowLine = document.getElementById('celestialOrbitGlow');
+      if (glowLine) {
+        const fillPercents = [0, 20, 40, 60, 80, 100];
+        const targetPercent = fillPercents[nextIdx] !== undefined ? fillPercents[nextIdx] : 0;
+        glowLine.style.width = `${targetPercent}%`;
+      }
+    }
+
+    scrollToPrayerCard(prayerKey) {
+      if (!prayerKey) return;
+
+      // Haptic tactile feedback
+      if (navigator.vibrate) {
+        try { navigator.vibrate([18, 35]); } catch (e) {}
+      }
+
+      // Visual click ripple on the clicked station
+      const stationEl = document.querySelector(`.celestial-station[data-station="${prayerKey}"]`);
+      if (stationEl) {
+        stationEl.classList.add('station-clicked');
+        setTimeout(() => stationEl.classList.remove('station-clicked'), 320);
+      }
+
+      // Find corresponding timeline row in the unified schedule
+      const targetRow = document.querySelector(`.timeline-step-row[data-key="${prayerKey}"]`);
+      if (!targetRow) return;
+
+      // Smooth scroll to card (center block ensures it's not hidden behind sticky navbar)
+      targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Trigger focus animation
+      targetRow.classList.remove('celestial-focus-highlight');
+      void targetRow.offsetWidth; // force browser layout reflow
+      targetRow.classList.add('celestial-focus-highlight');
+
+      if (this._highlightTimeout) clearTimeout(this._highlightTimeout);
+      this._highlightTimeout = setTimeout(() => {
+        targetRow.classList.remove('celestial-focus-highlight');
+      }, 2200);
     }
 
     getTodayTrackerKey() {

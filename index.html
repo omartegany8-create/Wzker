@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="css/adhkar.css">
     <link rel="stylesheet" href="css/tasbeeh.css">
     <link rel="stylesheet" href="css/prayer-times.css">
+    <link rel="stylesheet" href="css/qibla.css">
+    <link rel="stylesheet" href="css/hisn.css">
     <link rel="stylesheet" href="css/cloud-account.css">
     <!-- Google Identity Services (GIS/GSI) SDK -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -146,8 +148,8 @@
                     <div class="home-prayer-left">
                         <img src="images/icons/prayers1.png" class="home-prayer-icon" alt="Prayers">
                         <div class="home-prayer-texts">
-                            <span class="home-prayer-lead" id="homeNextPrayerLead">الصلاة القادمة: صلاة الفجر</span>
-                            <span class="home-prayer-sub" id="homeNextPrayerSub">مواقيت اليوم • حسب موقعك الجغرافي</span>
+                            <span class="home-prayer-lead" id="homeNextPrayerLead">الصلاة القادمة صلاة الفجر</span>
+                            <span class="home-prayer-sub" id="homeNextPrayerSub">مواقيت اليوم • حسب موقعك</span>
                         </div>
                     </div>
                     <div class="home-prayer-right">
@@ -1904,28 +1906,407 @@
         </div>
     </div>
 
-    <!-- 2. HISN AL-MUSLIM PAGE -->
+    <!-- 2. HISN AL-MUSLIM PAGE (SITUATIONAL REFERENCE & SEARCH - ROYAL PRO EDITION) -->
     <div id="hisnMuslimPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('hisnMuslimPage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/book1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Hisn">
-                <h2 class="navbar-title">حصن المسلم</h2>
-            </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/book1.png" alt="Hisn">
-                </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-book-open"></i> أدعية الكتاب والسنة</span>
-                <h3 class="placeholder-page-title">حصن المسلم من أذكار الكتاب والسنة</h3>
-                <p class="placeholder-page-desc">تم تجهيز هذه الصفحة كشاشة مستقلة جاهزة للبناء الكامل وإضافة كافة الأدعية والأذكار المأثورة بتصميم فاخر.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('hisnMuslimPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+        <!-- Floating Contoured Prime Navbar -->
+        <div class="hisn-prime-navbar">
+            <div class="hisn-nav-left">
+                <button class="hisn-nav-btn" onclick="closeLibPage('hisnMuslimPage')" title="الرجوع">
+                    <i class="fa-solid fa-chevron-right"></i>
                 </button>
+                <div class="hisn-nav-title-box">
+                    <img src="images/icons/book1.png" alt="Hisn">
+                    <div>
+                        <h2 class="hisn-nav-title">حصن المسلم</h2>
+                        <span class="hisn-nav-subtitle">مرجع الأدعية والمواقف</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hisn-nav-actions">
+                <button class="hisn-zen-toggle-btn" onclick="window.wzkerHisn.openZenMode()" title="وضع التركيز التام">
+                    <img src="images/icons/Focus1.png" alt="Focus">
+                    <span>تركيز</span>
+                </button>
+                <button class="hisn-settings-toggle-btn" onclick="window.wzkerHisn.toggleSettingsModal()" title="تخصيص الخط والتشكيل">
+                    <img src="images/icons/settings.png" alt="تخصيص">
+                    <span>تخصيص</span>
+                </button>
+                <button class="hisn-drawer-trigger-btn" onclick="window.wzkerHisn.openDrawer()" title="فهرس وفضائل حصن المسلم">
+                    <img src="images/icons/Sidemenu1.png" alt="Index">
+                    <span>الفهرس</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="sub-page-body hisn-sub-page-body" id="hisnScrollBody" style="overflow-y: auto;">
+            <div class="hisn-page-content">
+                <!-- Smart Grand Hero Card with 3D Ambient Watermark -->
+                <div class="hisn-hero-card" id="hisnHeroCard">
+                    <div class="hisn-hero-watermark">
+                        <img id="hisnHeroWatermarkImg" src="images/icons/book2.png" alt="Watermark">
+                    </div>
+                    <div class="hisn-hero-left">
+                        <span class="hisn-hero-badge">
+                            <img id="hisnHeroBadgeIcon" src="images/icons/certificate1.png" alt="Badge">
+                            <span id="hisnHeroBadgeText">مرجع الأدعية حسب المواقف الحياتية</span>
+                        </span>
+                        <h3 class="hisn-hero-title" id="hisnHeroTitle">حصن المسلم من أذكار الكتاب والسنة</h3>
+                        <p class="hisn-hero-desc" id="hisnHeroDesc">موسوعة شاملة تضم 132 موقفاً ودعاءً مأثوراً لجميع أحوال المسلم في السفر والشدائد واليوم والليلة.</p>
+                        <div class="hisn-hero-actions">
+                            <button class="hisn-hero-btn" onclick="window.wzkerHisn.scrollToCards()">
+                                <span>تصفح كافة المواقف</span>
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+                            <button class="hisn-hero-filter-btn" id="hisnHeroFilterFavBtn" onclick="window.wzkerHisn.toggleMemorizedFilter()">
+                                <img src="images/icons/task-done1.png" alt="المحفوظة">
+                                <span>المحفوظة فقط</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hisn-hero-right">
+                        <div class="hisn-hero-artwork" id="hisnHeroArtworkBox">
+                            <img class="main-art" id="hisnHeroMainArt" src="images/icons/book1.png" alt="Hisn Book">
+                            <img class="sub-art" id="hisnHeroSubArt" src="images/icons/security-shield.png" alt="Shield">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Daily Situation Card (موقف اليوم المختار) -->
+                <div class="hisn-featured-card" id="hisnFeaturedCard">
+                    <div class="hisn-featured-top">
+                        <div class="hisn-featured-badge">
+                            <img src="images/icons/certificate1.png" alt="مختار">
+                            <span>موقف اليوم المبارك</span>
+                        </div>
+                        <span class="hisn-featured-tag" id="hisnFeaturedCatTag">الحياة اليومية</span>
+                    </div>
+                    <div class="hisn-featured-content">
+                        <h4 class="hisn-featured-situation" id="hisnFeaturedSituation">عند الخروج من المنزل</h4>
+                        <p class="hisn-featured-text" id="hisnFeaturedText">بِسْمِ اللَّهِ، تَوَكَّلْتُ عَلَى اللَّهِ، وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ.</p>
+                    </div>
+                    <div class="hisn-featured-footer">
+                        <span class="hisn-featured-source" id="hisnFeaturedSource">سنن أبي داود والترمذي</span>
+                        <div class="hisn-featured-btns">
+                            <button class="hisn-featured-action-btn" onclick="window.wzkerHisn.copyFeaturedDhikr()" title="نسخ الدعاء">
+                                <img src="images/icons/copy1.png" alt="نسخ">
+                                <span>نسخ</span>
+                            </button>
+                            <button class="hisn-featured-action-btn primary" onclick="window.wzkerHisn.reciteFeaturedDhikr()" title="قراءة خاشعة">
+                                <img src="images/icons/Focus1.png" alt="قراءة">
+                                <span>تركيز</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memorization Progress & Mastery Card -->
+                <div class="hisn-streak-card">
+                    <div class="hisn-streak-top-row">
+                        <div class="hisn-streak-stat-box">
+                            <div class="hisn-streak-icon-box">
+                                <img src="images/icons/task-done1.png" alt="تقدم الحفظ">
+                            </div>
+                            <div class="hisn-streak-text-group">
+                                <span class="hisn-streak-lead">حصيلة حفظ الأدعية والمواقف</span>
+                                <div class="hisn-streak-val" id="hisnHeroStatVal">
+                                    <span>0</span> من 132 موقفاً
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hisn-mastery-rank-pill" id="hisnMasteryRankBadge">
+                            <img src="images/icons/certificate1.png" alt="رتبة">
+                            <span id="hisnMasteryRankLabel">المبتدئ بالسنن</span>
+                        </div>
+                        <div class="hisn-streak-pill-percent" id="hisnHeroPercentVal">0%</div>
+                    </div>
+
+                    <div class="hisn-progress-bar-track">
+                        <div class="hisn-progress-bar-fill" id="hisnHeroProgressFill" style="width: 0%;"></div>
+                    </div>
+
+                    <div class="hisn-streak-filter-row">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <img src="images/icons/ideas1.png" style="width: 15px; height: 15px; object-fit: contain;" alt="نصيحة">
+                            <span>من حفظ دعاءً وعمل به في حينه كان له نوراً وحرزاً</span>
+                        </div>
+                        <div class="hisn-streak-tabs">
+                            <button class="hisn-streak-tab active" data-filter="all" onclick="window.wzkerHisn.setFilter('all')">
+                                <img src="images/icons/book1.png" style="width: 14px; height: 14px; object-fit: contain;" alt="الكل">
+                                <span>الكل</span>
+                            </button>
+                            <button class="hisn-streak-tab" data-filter="memorized" onclick="window.wzkerHisn.setFilter('memorized')">
+                                <img src="images/icons/task-done1.png" style="width: 14px; height: 14px; object-fit: contain;" alt="المحفوظة">
+                                <span>المحفوظة</span>
+                            </button>
+                            <button class="hisn-streak-tab" data-filter="unmemorized" onclick="window.wzkerHisn.setFilter('unmemorized')">
+                                <img src="images/icons/note2.png" style="width: 14px; height: 14px; object-fit: contain;" alt="غير المحفوظة">
+                                <span>غير المحفوظة</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horizontal Category Capsules with Gentle Auto Drift -->
+                <div class="hisn-capsules-wrap">
+                    <div class="hisn-capsules-scroll" id="hisnCapsulesScroll">
+                        <!-- Populated dynamically by hisn.js -->
+                    </div>
+                </div>
+
+                <!-- Smart Search Bar -->
+                <div class="hisn-search-bar" id="hisnSearchBarSection">
+                    <div class="hisn-search-icon-wrap">
+                        <img src="images/icons/search.png" alt="Search">
+                    </div>
+                    <input type="text" id="hisnSearchInput" class="hisn-search-input" placeholder="ابحث في نصوص المواقف أو الفضائل (مثال: سفر، عطاس، دين، غضب)..." autocomplete="off" spellcheck="false">
+                    <button id="hisnClearSearchBtn" class="hisn-clear-search" title="مسح البحث" onclick="window.wzkerHisn.clearSearch()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Quick Situational Mood Filter Tags -->
+                <div class="hisn-quick-tags-scroll" id="hisnQuickTags">
+                    <button class="hisn-quick-tag active" data-tag="all" onclick="window.wzkerHisn.filterByTag('all', this)">
+                        <img src="images/icons/book1.png" alt="الكل">
+                        <span>الكل</span>
+                    </button>
+                    <button class="hisn-quick-tag" data-tag="سفر" onclick="window.wzkerHisn.filterByTag('سفر', this)">
+                        <img src="images/icons/travel1.png" alt="سفر">
+                        <span>السفر والتنقل</span>
+                    </button>
+                    <button class="hisn-quick-tag" data-tag="كرب" onclick="window.wzkerHisn.filterByTag('كرب', this)">
+                        <img src="images/icons/security-shield.png" alt="كرب">
+                        <span>تفريج الكرب والهم</span>
+                    </button>
+                    <button class="hisn-quick-tag" data-tag="شفاء" onclick="window.wzkerHisn.filterByTag('شفاء', this)">
+                        <img src="images/icons/Ruqayyah1.png" alt="شفاء">
+                        <span>طلب الشفاء والرقية</span>
+                    </button>
+                    <button class="hisn-quick-tag" data-tag="نوم" onclick="window.wzkerHisn.filterByTag('نوم', this)">
+                        <img src="images/icons/sleeping1.png" alt="نوم">
+                        <span>النوم والاستيقاظ</span>
+                    </button>
+                    <button class="hisn-quick-tag" data-tag="مطر" onclick="window.wzkerHisn.filterByTag('مطر', this)">
+                        <img src="images/icons/sunset1.png" alt="مطر">
+                        <span>المطر والرياح</span>
+                    </button>
+                    <button class="hisn-quick-tag" data-tag="صلاة" onclick="window.wzkerHisn.filterByTag('صلاة', this)">
+                        <img src="images/icons/prayer-mat1.png" alt="صلاة">
+                        <span>المساجد والصلوات</span>
+                    </button>
+                    <button class="hisn-quick-tag" data-tag="طعام" onclick="window.wzkerHisn.filterByTag('طعام', this)">
+                        <img src="images/icons/food1.png" alt="طعام">
+                        <span>الطعام والشراب</span>
+                    </button>
+                </div>
+
+                <!-- Results Status Bar -->
+                <div class="hisn-results-status-bar">
+                    <div class="hisn-results-pill">
+                        <img src="images/icons/leaf-3.png" style="width: 16px; height: 16px; object-fit: contain;" alt="عدد المواقف">
+                        <span id="hisnResultsCount">132 موقف متوفر</span>
+                    </div>
+                    <div class="hisn-sync-hint-pill">
+                        <img src="images/icons/cloud-sync1.png" style="width: 15px; height: 15px; object-fit: contain;" alt="مزامنة">
+                        <span>انقر على (حفظته) لتسجيل الحفظ ومزامنته سحابياً</span>
+                    </div>
+                </div>
+
+                <!-- Hisn Cards Container Grid / List -->
+                <div class="hisn-cards-container" id="hisnCardsContainer">
+                    <!-- Populated dynamically by hisn.js -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Scroll to Top Button -->
+        <button id="hisnScrollTopBtn" class="hisn-scroll-top-btn" title="الصعود للأعلى" onclick="window.wzkerHisn.scrollToTop()">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- DEDICATED HISN SLIDE-OUT DRAWER (فهرس وفضائل حصن المسلم - يفتح من جهة اليمين المتوافقة مع العربية) -->
+    <div id="hisnDrawerOverlay" class="hisn-drawer-overlay" onclick="if(event.target === this) window.wzkerHisn.closeDrawer()">
+        <div class="hisn-drawer-panel" onclick="event.stopPropagation()">
+            <div class="hisn-drawer-header">
+                <div class="hisn-drawer-brand">
+                    <img src="images/icons/book1.png" alt="Hisn">
+                    <div>
+                        <h3>حصن المسلم</h3>
+                        <span class="hisn-drawer-subbrand">الموسوعة النبوية الميسرة</span>
+                    </div>
+                </div>
+                <div class="hisn-drawer-header-left">
+                    <div class="hisn-progress-badge" id="hisnDrawerProgressBadge" title="إنجاز حفظ المواقف">
+                        <img src="images/icons/task-done1.png" alt="Progress">
+                        <span id="hisnDrawerBadgeCount">0 / 132</span>
+                    </div>
+                    <button class="hisn-drawer-close-btn" onclick="window.wzkerHisn.closeDrawer()" title="إغلاق">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="hisn-drawer-body">
+                <!-- Section 0: Spiritual Rank & Mastery Card -->
+                <div class="hisn-drawer-mastery-card">
+                    <div class="hisn-mastery-card-top">
+                        <div class="hisn-mastery-icon-box">
+                            <img src="images/icons/certificate1.png" alt="وسام">
+                        </div>
+                        <div class="hisn-mastery-rank-info">
+                            <span class="hisn-mastery-rank-lead">الرتبة الروحانية الحالية</span>
+                            <h4 class="hisn-mastery-rank-name" id="hisnDrawerRankTitle">المبتدئ بالسنن</h4>
+                        </div>
+                    </div>
+                    <p class="hisn-mastery-summary" id="hisnDrawerMasteryText">حفظت 0 موقفاً من أصل 132 موقفاً مأثوراً بنسبة 0%.</p>
+                    <div class="hisn-mastery-progress-track">
+                        <div class="hisn-mastery-progress-fill" id="hisnDrawerProgressFill" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <!-- Section 1: Categories Index -->
+                <div>
+                    <div class="hisn-drawer-section-title">
+                        <img src="images/icons/leaf-1.png" alt="Leaf">
+                        <span>أقسام وفئات المواقف (132 موقفاً)</span>
+                    </div>
+                    <div class="hisn-drawer-menu-list" id="hisnDrawerCategoriesList">
+                        <!-- Populated dynamically by hisn.js -->
+                    </div>
+                </div>
+
+                <!-- Section 2: Virtues & Merits of Du'a -->
+                <div>
+                    <div class="hisn-drawer-section-title">
+                        <img src="images/icons/certificate1.png" alt="Virtues">
+                        <span>من فضائل وثمرات الدعاء</span>
+                    </div>
+                    <div id="hisnDrawerVirtuesList">
+                        <!-- Populated dynamically by hisn.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HISN ZEN FOCUS FULL-SCREEN OVERLAY -->
+    <div id="hisnZenOverlay" class="hisn-zen-overlay">
+        <div class="hisn-zen-header">
+            <span class="hisn-zen-progress-indicator" id="hisnZenIndicator">موقف 1 من 132</span>
+            <button class="hisn-zen-close-btn" onclick="window.wzkerHisn.closeZenMode()" title="خروج من وضع التركيز">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="hisn-zen-body">
+            <div class="hisn-zen-category-tag" id="hisnZenCategoryTag">
+                <img src="images/icons/book1.png" alt="Category">
+                <span id="hisnZenCategoryName">الحياة اليومية</span>
+            </div>
+            <h3 class="hisn-zen-situation-title" id="hisnZenSituationTitle">عند الاستيقاظ من النوم</h3>
+            <div class="hisn-zen-text-wrap">
+                <p class="hisn-zen-text" id="hisnZenText"></p>
+            </div>
+            <button class="hisn-memorize-toggle-btn" id="hisnZenMemorizeBtn" onclick="window.wzkerHisn.toggleZenMemorized()">
+                <i class="fa-solid fa-check"></i>
+                <span>حفظته</span>
+            </button>
+        </div>
+
+        <div class="hisn-zen-footer">
+            <button class="hisn-zen-nav-btn" onclick="window.wzkerHisn.prevZenDhikr()">
+                <i class="fa-solid fa-chevron-right"></i>
+                <span>السابق</span>
+            </button>
+            <button class="hisn-zen-nav-btn" onclick="window.wzkerHisn.nextZenDhikr()">
+                <span>التالي</span>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PINTEREST-STYLE SOCIAL STORY CARD MODAL FOR HISN -->
+    <div id="hisnGiftModal" class="hisn-gift-modal-overlay" onclick="if(event.target === this) window.wzkerHisn.closeShareModal()">
+        <div class="hisn-gift-card-box" onclick="event.stopPropagation()">
+            <div class="hisn-pinterest-card" id="hisnPinterestCard">
+                <div class="hisn-pinterest-header">
+                    <img src="images/icons/book1.png" style="width: 18px; height: 18px; object-fit: contain;" alt="Hisn">
+                    <span id="hisnGiftCategory">الحياة اليومية</span>
+                </div>
+                <h4 class="hisn-pinterest-situation" id="hisnGiftSituation">عند لبس الثوب الجديد</h4>
+                <blockquote class="hisn-pinterest-text" id="hisnGiftText"></blockquote>
+                <div class="hisn-pinterest-source" id="hisnGiftSource">المصدر: سنن أبي داود</div>
+                <div class="hisn-pinterest-fadl" id="hisnGiftFadl"></div>
+                <div class="hisn-pinterest-footer">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <img src="images/icon/wzker.png" style="width: 20px; height: 20px;" alt="Wzker">
+                        <span style="font-weight: 800;">تطبيق وذكر • مرجع حصن المسلم</span>
+                    </div>
+                    <span id="hisnGiftMemorizedBadge" style="font-size: 0.78rem; font-weight: 800; color: #10B981;"></span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="hisn-gift-actions">
+                <button class="hisn-gift-btn download" onclick="window.wzkerHisn.downloadCardImage()">
+                    <img src="images/icons/download.png" alt="Download">
+                    <span>تحميل كصورة</span>
+                </button>
+                <button class="hisn-gift-btn primary" onclick="window.wzkerHisn.shareGiftCardNow()">
+                    <img src="images/icons/share-picture1.png" alt="Share">
+                    <span>مشاركة البطاقة</span>
+                </button>
+                <button class="hisn-gift-btn secondary" onclick="window.wzkerHisn.copyFormattedDhikrFromModal()">
+                    <img src="images/icons/copy1.png" alt="Copy">
+                    <span>نسخ منسق</span>
+                </button>
+                <button class="hisn-gift-btn close" onclick="window.wzkerHisn.closeShareModal()" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Canvas for PNG Image Export -->
+    <canvas id="hisnShareCanvas" width="1080" height="1350" style="display: none;"></canvas>
+
+    <!-- Typography, Tashkeel & Reading Customizer Modal -->
+    <div id="hisnSettingsModal" class="hisn-settings-modal-overlay" onclick="if(event.target === this) window.wzkerHisn.toggleSettingsModal()">
+        <div class="hisn-settings-modal-box" onclick="event.stopPropagation()">
+            <div class="hisn-settings-modal-header">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <img src="images/icons/settings.png" alt="Settings" style="width: 22px; height: 22px; object-fit: contain;">
+                    <h4 style="margin: 0; font-size: 1.15rem; font-weight: 900; color: var(--text-main);">تخصيص قراءة حصن المسلم</h4>
+                </div>
+                <button class="hisn-settings-close-btn" onclick="window.wzkerHisn.toggleSettingsModal()" title="إغلاق">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="hisn-settings-modal-body">
+                <!-- Font Size -->
+                <div class="hisn-setting-row">
+                    <div class="hisn-setting-label">
+                        <span class="main-label">حجم خط الأدعية</span>
+                        <span class="sub-label">اختر الحجم الأنسب لراحة عينيك أثناء القراءة</span>
+                    </div>
+                    <div class="hisn-setting-options" id="hisnFontSizeOptions">
+                        <button class="hisn-option-pill active" data-size="standard" onclick="window.wzkerHisn.setFontSize('standard')">عادي</button>
+                        <button class="hisn-option-pill" data-size="large" onclick="window.wzkerHisn.setFontSize('large')">كبير</button>
+                        <button class="hisn-option-pill" data-size="huge" onclick="window.wzkerHisn.setFontSize('huge')">كبير جداً</button>
+                    </div>
+                </div>
+
+                <!-- Tashkeel Diacritics -->
+                <div class="hisn-setting-row">
+                    <div class="hisn-setting-label">
+                        <span class="main-label">التشكيل العربي</span>
+                        <span class="sub-label">إظهار أو تبسيط حركات وضبط الحروف</span>
+                    </div>
+                    <div class="hisn-setting-options" id="hisnTashkeelOptions">
+                        <button class="hisn-option-pill active" data-tashkeel="full" onclick="window.wzkerHisn.setTashkeelMode('full')">مضبوط بالكامل</button>
+                        <button class="hisn-option-pill" data-tashkeel="simple" onclick="window.wzkerHisn.setTashkeelMode('simple')">مبسط خفيف</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2995,43 +3376,57 @@
 
                 <!-- CELESTIAL ORBIT & DAY TRACK (مسار الفلك اليومي) -->
                 <div class="prayer-celestial-track" id="prayerCelestialTrack">
-                    <div class="celestial-orbit-line"></div>
-                    <div class="celestial-station" data-station="fajr" title="صلاة الفجر">
+                    <div class="celestial-orbit-line">
+                        <div class="celestial-orbit-glow" id="celestialOrbitGlow"></div>
+                    </div>
+                    <button class="celestial-station" data-station="fajr" onclick="window.wzkerPrayer.scrollToPrayerCard('fajr')" type="button" title="الانتقال إلى صلاة الفجر">
+                        <div class="station-halo"></div>
                         <div class="station-icon-wrap">
                             <img src="images/icons/fajr1.png" alt="Fajr">
                         </div>
                         <span class="station-label">الفجر</span>
-                    </div>
-                    <div class="celestial-station" data-station="sunrise" title="شروق الشمس">
+                        <span class="station-time-pill" id="stationTime_fajr">--:--</span>
+                    </button>
+                    <button class="celestial-station" data-station="sunrise" onclick="window.wzkerPrayer.scrollToPrayerCard('sunrise')" type="button" title="الانتقال إلى وقت الشروق">
+                        <div class="station-halo"></div>
                         <div class="station-icon-wrap">
                             <img src="images/icons/sunrise.png" alt="Sunrise">
                         </div>
                         <span class="station-label">الشروق</span>
-                    </div>
-                    <div class="celestial-station" data-station="dhuhr" title="صلاة الظهر">
+                        <span class="station-time-pill" id="stationTime_sunrise">--:--</span>
+                    </button>
+                    <button class="celestial-station" data-station="dhuhr" onclick="window.wzkerPrayer.scrollToPrayerCard('dhuhr')" type="button" title="الانتقال إلى صلاة الظهر">
+                        <div class="station-halo"></div>
                         <div class="station-icon-wrap">
                             <img src="images/icons/dhuhr.png" alt="Dhuhr">
                         </div>
                         <span class="station-label">الظهر</span>
-                    </div>
-                    <div class="celestial-station" data-station="asr" title="صلاة العصر">
+                        <span class="station-time-pill" id="stationTime_dhuhr">--:--</span>
+                    </button>
+                    <button class="celestial-station" data-station="asr" onclick="window.wzkerPrayer.scrollToPrayerCard('asr')" type="button" title="الانتقال إلى صلاة العصر">
+                        <div class="station-halo"></div>
                         <div class="station-icon-wrap">
                             <img src="images/icons/asr.png" alt="Asr">
                         </div>
                         <span class="station-label">العصر</span>
-                    </div>
-                    <div class="celestial-station" data-station="maghrib" title="صلاة المغرب">
+                        <span class="station-time-pill" id="stationTime_asr">--:--</span>
+                    </button>
+                    <button class="celestial-station" data-station="maghrib" onclick="window.wzkerPrayer.scrollToPrayerCard('maghrib')" type="button" title="الانتقال إلى صلاة المغرب">
+                        <div class="station-halo"></div>
                         <div class="station-icon-wrap">
                             <img src="images/icons/sunset.png" alt="Maghrib">
                         </div>
                         <span class="station-label">المغرب</span>
-                    </div>
-                    <div class="celestial-station" data-station="isha" title="صلاة العشاء">
+                        <span class="station-time-pill" id="stationTime_maghrib">--:--</span>
+                    </button>
+                    <button class="celestial-station" data-station="isha" onclick="window.wzkerPrayer.scrollToPrayerCard('isha')" type="button" title="الانتقال إلى صلاة العشاء">
+                        <div class="station-halo"></div>
                         <div class="station-icon-wrap">
                             <img src="images/icons/isha.png" alt="Isha">
                         </div>
                         <span class="station-label">العشاء</span>
-                    </div>
+                        <span class="station-time-pill" id="stationTime_isha">--:--</span>
+                    </button>
                 </div>
 
                 <div class="prayer-hero-core">
@@ -3346,7 +3741,7 @@
                     <div class="prayer-drawer-field">
                         <label class="prayer-drawer-label">الجهة المعتمدة للحساب:</label>
                         <select id="prayerMethodSelect" class="prayer-styled-select" onchange="window.wzkerPrayer.updateMethod(this.value)">
-                            <option value="Egypt">الهيئة المصرية العامة للمساحة</option>
+                            <option value="Egypt">الهيئة المصرية </option>
                             <option value="Makkah">جامعة أم القرى (مكة المكرمة)</option>
                             <option value="MWL">رابطة العالم الإسلامي</option>
                             <option value="Karachi">جامعة العلوم الإسلامية بكراتشي</option>
@@ -3568,27 +3963,269 @@
         </div>
     </div>
 
-    <!-- 13. QIBLA COMPASS PAGE (اتجاه القبلة وبوصلة الكعبة) -->
+    <!-- 13. QIBLA COMPASS PAGE (اتجاه القبلة وبوصلة الكعبة الفلكية) -->
     <div id="qiblaPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('qiblaPage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/Qibla1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Qibla">
-                <h2 class="navbar-title">اتجاه القبلة</h2>
-            </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/Qibla1.png" alt="Qibla">
+        <!-- Bespoke Spiritual Top Navbar -->
+        <div class="qibla-custom-navbar">
+            <div class="qnav-left-cluster">
+                <button class="qnav-btn" onclick="closeLibPage('qiblaPage')" title="رجوع">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="qnav-brand-group">
+                    <div class="qnav-icon-badge">
+                        <img src="images/icons/Qibla1.png" alt="القبلة">
+                    </div>
+                    <div class="qnav-titles-col">
+                        <h2 class="qnav-title">اتجاه القبلة المشرفة</h2>
+                        <span class="qnav-subtitle" id="qnavSubtitle">جاري تحديد الموقع...</span>
+                    </div>
                 </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-kaaba"></i> بوصلة الكعبة المشرفة</span>
-                <h3 class="placeholder-page-title">بوصلة القبلة التفاعلية الذكية</h3>
-                <p class="placeholder-page-desc">شاشة اتجاه القبلة مهيأة للربط المباشر مع مستشعر الهاتف الفلكي ثلاثي الأبعاد والـ GPS لتحديد زاوية الكعبة الشريفة بدقة متناهية مع الاهتزاز والتوهج الحسي عند التطابق.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('qiblaPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+            </div>
+            <div class="qnav-actions-cluster">
+                <button class="qnav-btn gps-quick-btn" onclick="window.wzkerQibla && window.wzkerQibla.locateExactGPS()" title="تحديد موقعي الدقيق عبر الأقمار الصناعية GPS">
+                    <img src="images/icons/Focus1.png" alt="GPS">
+                </button>
+                <button class="qnav-btn" onclick="window.wzkerQibla && window.wzkerQibla.requestIOSSensorPermission()" title="معايرة الحساس">
+                    <img src="images/icons/target.png" alt="معايرة">
+                </button>
+            </div>
+        </div>
+
+        <!-- Scrollable Sub Page Body -->
+        <div class="qibla-sub-page-body">
+            <div class="qibla-body-container">
+
+                <!-- Telemetry & Distance Strip -->
+                <div class="qibla-telemetry-strip">
+                    <div class="qibla-telemetry-col">
+                        <span class="qtele-label">المسافة للكعبة</span>
+                        <span class="qtele-val" id="qiblaDistanceVal">-- كم</span>
+                    </div>
+                    <div class="qibla-telemetry-col">
+                        <span class="qtele-label">زاوية القبلة</span>
+                        <span class="qtele-val" id="qiblaBearingVal">--°</span>
+                    </div>
+                    <div class="qibla-telemetry-col">
+                        <span class="qtele-label">اتجاهك اللحظي</span>
+                        <span class="qtele-val heading-val" id="qiblaCurrentHeadingVal">--°</span>
+                    </div>
+                </div>
+
+                <!-- Hero 3D Astrolabe Compass Dial -->
+                <div class="qibla-compass-hero" id="qiblaCompassHero">
+                    <!-- Status Banner -->
+                    <div class="qibla-status-banner" id="qiblaStatusBanner">
+                        <span class="qibla-status-indicator-dot"></span>
+                        <span id="qiblaStatusText">جاري تهيئة البوصلة الفلكية...</span>
+                    </div>
+
+                    <!-- Compass Dial Stage -->
+                    <div class="qibla-dial-stage" id="qiblaDialStage" title="اسحب يدوياً للتدوير • تعود تلقائياً للقبلة فور الإفلات">
+                        <!-- Fixed Outer Astrolabe Ring with Engraved Arabesque Accents -->
+                        <div class="qibla-fixed-outer-ring">
+                            <div class="astrolabe-corner-ornament north-ornament"></div>
+                            <div class="astrolabe-corner-ornament south-ornament"></div>
+                        </div>
+
+                        <!-- Top Lubber Alignment Pointer (12 o'clock Golden Apex) -->
+                        <div class="qibla-lubber-mark"></div>
+
+                        <!-- Rotating Compass Disc -->
+                        <div class="qibla-rotating-disc" id="qiblaRotatingDisc">
+                            <!-- 360 Degree Ticks SVG -->
+                            <svg class="qibla-ticks-layer" id="qiblaTicksSvg" viewBox="0 0 200 200"></svg>
+
+                            <!-- Cardinal Directions with Illuminated Medallions -->
+                            <span class="qibla-cardinal-point north">ش</span>
+                            <span class="qibla-cardinal-point east">ق</span>
+                            <span class="qibla-cardinal-point south">ج</span>
+                            <span class="qibla-cardinal-point west">غ</span>
+
+                            <!-- Sacred Kaaba Light Beam (Extends from center to beacon) -->
+                            <div class="qibla-kaaba-beacon" id="qiblaKaabaBeacon">
+                                <div class="kaaba-icon-pill" title="الكعبة المشرفة">
+                                    <img src="images/icons/Qibla1.png" alt="الكعبة المشرفة">
+                                    <div class="kaaba-sanctuary-halo"></div>
+                                </div>
+                                <div class="kaaba-beam-line"></div>
+                            </div>
+                        </div>
+
+                        <!-- Central Astrolabe Hub & Live Degrees Readout -->
+                        <div class="qibla-central-hub" id="qiblaCentralHub">
+                            <span class="qhub-angle" id="qhubAngle">--°</span>
+                            <span class="qhub-label" id="qhubSub">شمال</span>
+                        </div>
+                    </div>
+
+                    <!-- Stability Hold Meter -->
+                    <div class="qibla-stability-track">
+                        <div class="qibla-stability-fill" id="qiblaStabilityFill"></div>
+                    </div>
+
+                    <!-- Interactive Alignment Hint -->
+                    <p class="qibla-alignment-hint" id="qiblaAlignmentHint">
+                        قم بتدوير هاتفك حتى يتطابق المؤشر الذهبي مع السهم العلوي
+                    </p>
+
+                    <!-- Interactive Quick Action Buttons directly in Hero -->
+                    <div class="qibla-hero-actions-row">
+                        <button class="qibla-hero-pill-btn primary" onclick="window.wzkerQibla && window.wzkerQibla.snapToQibla()" title="توجيه البوصلة تلقائياً لزاوية القبلة">
+                            <img src="images/icons/target.png" alt="توجيه">
+                            <span>وجّهني للقبلة تلقائياً</span>
+                        </button>
+                        <button class="qibla-hero-pill-btn" onclick="window.wzkerQibla && window.wzkerQibla.locateExactGPS()" title="تحديد الإحداثيات بالأقمار الصناعية بدقة عالية">
+                            <img src="images/icons/Focus1.png" alt="GPS">
+                            <span>تحديث موقعي GPS</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 1. LIVE MECCA SANCTUARY CARD (أجواء وتوقيت مكة المكرمة المباشر) -->
+                <div class="qibla-mecca-card">
+                    <div class="qmecca-top">
+                        <div class="qmecca-title-box">
+                            <div class="qmecca-icon-wrap">
+                                <img src="images/icons/mosque1.png" alt="المسجد الحرام">
+                            </div>
+                            <div>
+                                <h3 class="qmecca-title">المسجد الحرام • مكة المكرمة</h3>
+                                <p class="qmecca-sub">قبلة المسلمين • مهوى الأفئدة</p>
+                            </div>
+                        </div>
+                        <div class="qmecca-clock-badge">
+                            <span class="qclock-label">توقيت مكة المكرمة</span>
+                            <span class="qclock-time" id="meccaLiveTimeVal">--:--:--</span>
+                        </div>
+                    </div>
+                    <div class="qmecca-desc-bar">
+                        <img src="images/icons/leaf-2.png" alt="Deco">
+                        <span>أكثر من ملياري مسلم يجتمعون حول الكعبة المشرفة في كل ركعة وسجدة</span>
+                    </div>
+                </div>
+
+                <!-- 2. MECCA JOURNEY & PILGRIM TELEMETRY (رحلة المسير إلى الكعبة المشرفة) -->
+                <div class="qibla-journey-card">
+                    <div class="qjourney-header">
+                        <div class="qjourney-header-title">
+                            <img src="images/icons/travel1.png" alt="رحلة الحج">
+                            <span>رحلة المسير إلى مكة المكرمة</span>
+                        </div>
+                        <span class="qjourney-sub-badge">بيانات الرحلة التقديرية</span>
+                    </div>
+
+                    <div class="qjourney-grid">
+                        <div class="qjourney-col">
+                            <div class="qj-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                            <span class="qj-val" id="qiblaFlightTimeVal">--</span>
+                            <span class="qj-label">بالطائرة النفاثة</span>
+                        </div>
+                        <div class="qjourney-col">
+                            <div class="qj-icon"><i class="fa-solid fa-car-side"></i></div>
+                            <span class="qj-val" id="qiblaCarTimeVal">--</span>
+                            <span class="qj-label">بالسيارة / الحافلة</span>
+                        </div>
+                        <div class="qjourney-col">
+                            <div class="qj-icon"><i class="fa-solid fa-person-walking"></i></div>
+                            <span class="qj-val" id="qiblaFootDaysVal">--</span>
+                            <span class="qj-label">قوافل الحجيج مشياً</span>
+                        </div>
+                    </div>
+
+                    <div class="qjourney-footer">
+                        <img src="images/icons/certificate1.png" alt="إحداثيات">
+                        <span>إحداثيات موقعك: <strong id="qiblaCoordsVal">--</strong></span>
+                    </div>
+                </div>
+
+                <!-- 3. SACRED DU'A & INTENTION CARD (دعاء ونيّة استقبال القبلة) -->
+                <div class="qibla-dua-card">
+                    <div class="qdua-header">
+                        <div class="qdua-header-title">
+                            <img src="images/icons/prayer-mat1.png" alt="دعاء">
+                            <span>دعاء ونيّة التوجه للقبلة الشريفة</span>
+                        </div>
+                        <button class="qdua-copy-btn" onclick="window.wzkerQibla && window.wzkerQibla.copyDua()" title="نسخ الدعاء">
+                            <img src="images/icons/copy1.png" alt="نسخ">
+                            <span>نسخ الدعاء</span>
+                        </button>
+                    </div>
+
+                    <div class="qdua-ayah-box">
+                        « فَوَلِّ وَجْهَكَ شَطْرَ الْمَسْجِدِ الْحَرَامِ ۚ وَحَيْثُ مَا كُنتُمْ فَوَلُّوا وُجُوهَكُمْ شَطْرَهُ »
+                    </div>
+
+                    <blockquote class="qdua-text">
+                        « وَجَّهْتُ وَجْهِيَ لِلَّذِي فَطَرَ السَّمَاوَاتِ وَالْأَرْضَ حَنِيفًا وَمَا أَنَا مِنَ الْمُشْرِكِينَ • إِنَّ صَلَاتِي وَنُسُكِي وَمَحْيَايَ وَمَمَاتِي لِلَّهِ رَبِّ الْعَالَمِينَ »
+                    </blockquote>
+
+                    <div class="qdua-actions-row">
+                        <button class="qdua-action-btn" onclick="window.wzkerQibla && window.wzkerQibla.shareQiblaInfo()">
+                            <img src="images/icons/share.png" alt="مشاركة">
+                            <span>مشاركة زاوية القبلة</span>
+                        </button>
+                        <button class="qdua-action-btn" onclick="openLibPage('prayerTimesPage')">
+                            <img src="images/icons/prayer-mat1.png" alt="مواقيت الصلاة">
+                            <span>مواقيت الصلاة والمدينة</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. EDUCATIONAL & FIQH CARDS (أحكام وآداب استقبال القبلة) -->
+                <div class="qibla-info-section">
+                    <div class="qibla-info-header">
+                        <img src="images/icons/security-shield.png" class="qinfo-icon" alt="أحكام القبلة">
+                        <h3 class="qinfo-title">فقه وآداب استقبال القبلة</h3>
+                    </div>
+                    <div class="qibla-cards-grid">
+                        <div class="qibla-rule-card">
+                            <div class="qrule-top">
+                                <span class="qrule-badge">شرط صحة</span>
+                                <h4 class="qrule-card-title">استقبال عين الكعبة أو جهتها</h4>
+                            </div>
+                            <p class="qrule-card-text">
+                                استقبال القبلة شرط لصحة الفريضة؛ المشاهد للكعبة يستقبل عينها، والبعيد عنها يستقبل جهتها وسمتها كما أجمع علماء الأمة.
+                            </p>
+                        </div>
+                        <div class="qibla-rule-card">
+                            <div class="qrule-top">
+                                <span class="qrule-badge">رخصة التيسير</span>
+                                <h4 class="qrule-card-title">ما بين المشرق والمغرب قبلة</h4>
+                            </div>
+                            <p class="qrule-card-text">
+                                صح عن النبي ﷺ قوله: «مَا بَيْنَ الْمَشْرِقِ وَالْمَغْرِبِ قِبْلَةٌ»، فلا يضر الانحراف اليسير ما دام المصلي متجهاً لجهة مكة عموماً.
+                            </p>
+                        </div>
+                        <div class="qibla-rule-card">
+                            <div class="qrule-top">
+                                <span class="qrule-badge">رخصة شرعية</span>
+                                <h4 class="qrule-card-title">متى يسقط الاستقبال؟</h4>
+                            </div>
+                            <p class="qrule-card-text">
+                                يسقط الاستقبال عند العجز كالمريض، وفي شدة الخوف، وفي صلاة النافلة للراكب في السفر (كالطائرة والسيارة) حيثما توجهت به راحلته.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Calibration Guide Modal (Figure-8) -->
+        <div class="qibla-modal-overlay" id="qiblaCalibrationModal" onclick="if(event.target === this) window.wzkerQibla && window.wzkerQibla.closeCalibrationModal()">
+            <div class="qibla-modal-content">
+                <div class="qnav-icon-badge" style="width: 52px; height: 52px;">
+                    <img src="images/icons/Focus1.png" alt="معايرة">
+                </div>
+                <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: var(--text-main);">معايرة بوصلة الهاتف</h3>
+                <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">
+                    لضمان أعلى دقة لبوصلة القبلة وحساس الجيروسكوب، يُرجى تحريك هاتفك في الهواء على شكل رقم ثمانية بالإنجليزية (8) لمدة ٥ ثوانٍ والابتعاد عن المعادن والمغناطيس.
+                </p>
+                <div class="qcalib-anim-box">
+                    <span class="qcalib-infinity-track">∞</span>
+                </div>
+                <button class="qibla-action-btn primary" style="width: 100%; justify-content: center;" onclick="window.wzkerQibla && window.wzkerQibla.closeCalibrationModal()">
+                    <span>تم، متابعة البوصلة</span>
                 </button>
             </div>
         </div>
@@ -4879,6 +5516,9 @@
     <script src="js/tasbeeh-data.js"></script>
     <script src="js/tasbeeh.js"></script>
     <script src="js/prayer-times.js"></script>
+    <script src="js/qibla.js"></script>
+    <script src="js/hisn-data.js"></script>
+    <script src="js/hisn.js"></script>
 
     <!-- Firebase SDKs (Official Compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>

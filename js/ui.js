@@ -266,6 +266,15 @@ window.openLibPage = (id) => {
   if (id === 'prayerTimesPage' && window.wzkerPrayer) {
     window.wzkerPrayer.renderFullUI();
   }
+  if (id === 'qiblaPage' && window.wzkerQibla) {
+    window.wzkerQibla.location = window.wzkerQibla.loadLocation();
+    window.wzkerQibla.calculateGeodesicQibla();
+    window.wzkerQibla.renderStaticUI();
+    window.wzkerQibla.snapToQibla();
+  }
+  if (id === 'hisnMuslimPage' && window.wzkerHisn) {
+    window.wzkerHisn.init();
+  }
   if (id === 'loginPage' && window.wzkerCloud) {
     window.wzkerCloud.updateAccountPageUI();
   }

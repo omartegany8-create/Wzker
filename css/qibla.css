@@ -1,0 +1,1225 @@
+/* ══════════════════════════════════════════════════════════════════
+   WZKER QIBLA COMPASS DESIGN SYSTEM (css/qibla.css)
+   PRO BESPOKE ARCHITECTURE — ZERO EMOJIS — LUXURY 3D ASTROLABE
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Container Layout & Body ── */
+.qibla-sub-page-body {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── 1. BESPOKE SPIRITUAL TOP NAVBAR ── */
+.qibla-custom-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(0.7rem, 2vw, 0.95rem) clamp(0.9rem, 3vw, 1.5rem);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+}
+
+.qnav-left-cluster {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1.8vw, 0.9rem);
+  min-width: 0;
+}
+
+.qnav-btn {
+  width: clamp(38px, 9vw, 44px);
+  height: clamp(38px, 9vw, 44px);
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.qnav-btn:hover {
+  background: var(--surface-trans);
+  transform: translateY(-1px);
+  border-color: var(--primary-light);
+}
+
+.qnav-btn:active {
+  transform: scale(0.94);
+}
+
+.qnav-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.qnav-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.qnav-icon-badge {
+  width: clamp(38px, 8.5vw, 42px);
+  height: clamp(38px, 8.5vw, 42px);
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qnav-icon-badge img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.qnav-titles-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.qnav-title {
+  font-size: clamp(1.02rem, 2.7vw, 1.25rem);
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.qnav-subtitle {
+  font-size: clamp(0.72rem, 2vw, 0.82rem);
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: clamp(130px, 35vw, 240px);
+}
+
+.qnav-actions-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+/* ── 2. MAIN CONTAINER ── */
+.qibla-body-container {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(0.9rem, 2.8vw, 1.6rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+}
+
+/* ── 2.1 TELEMETRY & DISTANCE STRIP ── */
+.qibla-telemetry-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 0.85rem 1rem;
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+}
+
+.qibla-telemetry-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.qibla-telemetry-col:not(:last-child) {
+  border-left: 1px dashed var(--card-border);
+}
+
+.qtele-label {
+  font-size: clamp(0.68rem, 1.8vw, 0.76rem);
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.qtele-val {
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  font-weight: 900;
+  color: var(--primary);
+  font-family: monospace, sans-serif;
+  direction: ltr;
+  white-space: nowrap;
+}
+
+.qtele-val.heading-val {
+  color: var(--text-main);
+}
+
+/* ── 2.2 HERO QIBLA COMPASS DIAL (THE CROWN JEWEL) ── */
+.qibla-compass-hero {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(145deg, #151C2C 0%, #1E273D 50%, #2A2338 100%);
+  border-radius: 24px;
+  padding: clamp(1.4rem, 4vw, 2.2rem) clamp(1rem, 3vw, 1.8rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  color: #FFFFFF;
+  transition: all 0.4s ease;
+}
+
+/* Ambient backdrop nebula */
+.qibla-compass-hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 140%;
+  height: 140%;
+  background: radial-gradient(circle at 50% 45%, rgba(210, 149, 113, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Alignment Celebratory State */
+.qibla-compass-hero.locked-on {
+  border-color: #2ED573;
+  box-shadow: 0 0 45px rgba(46, 213, 115, 0.35), 0 12px 36px rgba(0, 0, 0, 0.4);
+}
+
+.qibla-compass-hero.locked-on::before {
+  background: radial-gradient(circle at 50% 45%, rgba(46, 213, 115, 0.22) 0%, transparent 65%);
+}
+
+/* Status Banner at Top of Hero */
+.qibla-status-banner {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-size: clamp(0.78rem, 2.1vw, 0.88rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: clamp(1rem, 3vw, 1.6rem);
+  transition: all 0.3s ease;
+}
+
+.qibla-status-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D29571;
+  box-shadow: 0 0 8px #D29571;
+  transition: all 0.3s ease;
+}
+
+.qibla-compass-hero.locked-on .qibla-status-banner {
+  background: rgba(46, 213, 115, 0.2);
+  border-color: #2ED573;
+  color: #E8FFF1;
+}
+
+.qibla-compass-hero.locked-on .qibla-status-indicator-dot {
+  background: #2ED573;
+  box-shadow: 0 0 10px #2ED573;
+}
+
+/* ── 3D COMPASS DIAL ASSEMBLY ── */
+.qibla-dial-stage {
+  position: relative;
+  width: clamp(260px, 72vw, 340px);
+  height: clamp(260px, 72vw, 340px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.4rem 0 1.2rem;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  cursor: grab;
+}
+
+.qibla-dial-stage:active {
+  cursor: grabbing;
+}
+
+/* Outer Astrolabe Fixed Golden Ring */
+.qibla-fixed-outer-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(224, 169, 109, 0.45);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.75), 0 0 32px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.qibla-fixed-outer-ring::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 1px dashed rgba(224, 169, 109, 0.35);
+}
+
+.astrolabe-corner-ornament {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid rgba(224, 169, 109, 0.6);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.astrolabe-corner-ornament.north-ornament {
+  top: -7px;
+  left: calc(50% - 7px);
+  background: rgba(224, 169, 109, 0.2);
+}
+
+.astrolabe-corner-ornament.south-ornament {
+  bottom: -7px;
+  left: calc(50% - 7px);
+  background: rgba(224, 169, 109, 0.2);
+}
+
+/* Top Lubber Alignment Pointer (Triangle Marker at 12 o'clock) */
+.qibla-lubber-mark {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 13px solid #E0A96D;
+  z-index: 10;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  transition: border-top-color 0.3s ease, filter 0.3s ease;
+}
+
+.qibla-compass-hero.locked-on .qibla-lubber-mark {
+  border-top-color: #2ED573;
+  filter: drop-shadow(0 0 12px #2ED573);
+}
+
+/* Rotating Compass Disc (Spins with Device Heading) */
+.qibla-rotating-disc {
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #162033 0%, #0E1524 75%, #080D17 100%);
+  border: 1.5px solid rgba(224, 169, 109, 0.25);
+  box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s linear;
+  will-change: transform;
+}
+
+/* 360 Degree Marks Graphic via SVG */
+.qibla-ticks-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* Cardinal Directions Labels */
+.qibla-cardinal-point {
+  position: absolute;
+  font-family: var(--app-font-family);
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: rgba(224, 169, 109, 0.85);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.qibla-cardinal-point.north {
+  top: 18px;
+  left: 50%;
+  color: #FF4757;
+  text-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
+}
+
+.qibla-cardinal-point.east {
+  top: 50%;
+  left: calc(100% - 18px);
+}
+
+.qibla-cardinal-point.south {
+  top: calc(100% - 18px);
+  left: 50%;
+}
+
+.qibla-cardinal-point.west {
+  top: 50%;
+  left: 18px;
+}
+
+/* KAABA BEACON POINTER (Positioned at exact Qibla Bearing on disc) */
+.qibla-kaaba-beacon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 48px;
+  height: 50%;
+  transform-origin: bottom center;
+  margin-left: -24px;
+  pointer-events: none;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.kaaba-icon-pill {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFF1E0 0%, #E0A96D 50%, #9C6634 100%);
+  border: 2px solid #FFF8F2;
+  box-shadow: 0 0 18px rgba(224, 169, 109, 0.9), 0 4px 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kaaba-icon-pill img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.kaaba-sanctuary-halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(224, 169, 109, 0.5);
+  opacity: 0.7;
+  animation: haloSpin 12s infinite linear;
+}
+
+@keyframes haloSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.kaaba-beam-line {
+  width: 2.5px;
+  flex: 1;
+  background: linear-gradient(180deg, rgba(224, 169, 109, 0.95) 0%, rgba(224, 169, 109, 0.15) 100%);
+  box-shadow: 0 0 8px rgba(224, 169, 109, 0.5);
+}
+
+.qibla-compass-hero.locked-on .kaaba-icon-pill {
+  background: linear-gradient(135deg, #E0FFE9 0%, #2ED573 100%);
+  border-color: #FFFFFF;
+  box-shadow: 0 0 32px rgba(46, 213, 115, 0.95), 0 0 0 5px rgba(46, 213, 115, 0.4);
+  transform: scale(1.22);
+  animation: kaabaCelebrationPulse 1.8s infinite ease-in-out;
+}
+
+.qibla-compass-hero.locked-on .kaaba-beam-line {
+  background: linear-gradient(180deg, #2ED573 0%, rgba(46, 213, 115, 0.2) 100%);
+  box-shadow: 0 0 12px rgba(46, 213, 115, 0.7);
+}
+
+@keyframes kaabaCelebrationPulse {
+  0%, 100% {
+    transform: scale(1.22);
+    box-shadow: 0 0 24px rgba(46, 213, 115, 0.85);
+  }
+  50% {
+    transform: scale(1.32);
+    box-shadow: 0 0 40px rgba(46, 213, 115, 1), 0 0 0 8px rgba(46, 213, 115, 0.45);
+  }
+}
+
+/* Central Astrolabe Hub & Live Degrees Readout */
+.qibla-central-hub {
+  position: absolute;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #182236 0%, #0E1524 100%);
+  border: 2px solid rgba(224, 169, 109, 0.35);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.7), inset 0 2px 8px rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.qhub-angle {
+  font-family: monospace, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1;
+  direction: ltr;
+}
+
+.qhub-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #E0A96D;
+  margin-top: 3px;
+}
+
+.qibla-compass-hero.locked-on .qibla-central-hub {
+  border-color: #2ED573;
+  box-shadow: 0 0 24px rgba(46, 213, 115, 0.5);
+}
+
+.qibla-compass-hero.locked-on .qhub-angle {
+  color: #2ED573;
+}
+
+/* Stability Meter (Holds for ~1.2s before final lock confirmation) */
+.qibla-stability-track {
+  position: relative;
+  width: 100%;
+  max-width: 260px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  margin-top: 0.3rem;
+  overflow: hidden;
+}
+
+.qibla-stability-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #E0A96D 0%, #2ED573 100%);
+  border-radius: 999px;
+  transition: width 0.15s ease;
+}
+
+/* Interactive Alignment Hint below Dial */
+.qibla-alignment-hint {
+  font-size: clamp(0.82rem, 2.2vw, 0.92rem);
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0.75rem 0 0;
+  text-align: center;
+  line-height: 1.45;
+  max-width: 90%;
+}
+
+/* Quick Action Pills in Hero */
+.qibla-hero-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1.1rem;
+  width: 100%;
+  max-width: 420px;
+  flex-wrap: wrap;
+}
+
+.qibla-hero-pill-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFFFF;
+  font-family: var(--app-font-family);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.22s ease;
+}
+
+.qibla-hero-pill-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #E0A96D;
+  transform: translateY(-1px);
+}
+
+.qibla-hero-pill-btn:active {
+  transform: scale(0.96);
+}
+
+.qibla-hero-pill-btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.qibla-hero-pill-btn.primary {
+  background: linear-gradient(135deg, #E0A96D 0%, #9C6634 100%);
+  border-color: #FFF2E0;
+  color: #1A1208;
+  font-weight: 900;
+  box-shadow: 0 4px 14px rgba(224, 169, 109, 0.4);
+}
+
+.qibla-hero-pill-btn.primary:hover {
+  opacity: 0.95;
+  box-shadow: 0 6px 18px rgba(224, 169, 109, 0.6);
+}
+
+/* Quick GPS Pulse in Navbar */
+.gps-quick-btn {
+  position: relative;
+}
+
+.gps-quick-btn::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2ED573;
+  box-shadow: 0 0 8px #2ED573;
+  animation: gpsBadgePulse 2s infinite;
+}
+
+@keyframes gpsBadgePulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ── 2.3 LIVE MECCA SANCTUARY CARD ── */
+.qibla-mecca-card {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 1.15rem 1.3rem;
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: all 0.22s ease;
+}
+
+.qibla-mecca-card:hover {
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.qmecca-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.qmecca-title-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.qmecca-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qmecca-icon-wrap img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.qmecca-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.qmecca-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.qmecca-clock-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  padding: 0.35rem 0.85rem;
+  border-radius: 12px;
+}
+
+.qclock-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.qclock-time {
+  font-family: monospace, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--primary);
+  direction: ltr;
+}
+
+.qmecca-desc-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.qmecca-desc-bar img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ── 2.4 MECCA JOURNEY & PILGRIM TELEMETRY ── */
+.qibla-journey-card {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 1.15rem 1.3rem;
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.qjourney-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.qjourney-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.qjourney-header-title img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.qjourney-sub-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--surface-trans);
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+}
+
+.qjourney-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.qjourney-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  gap: 0.25rem;
+}
+
+.qj-icon {
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 0.2rem;
+}
+
+.qj-val {
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: var(--text-main);
+  white-space: nowrap;
+}
+
+.qj-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.qjourney-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding-top: 0.3rem;
+  border-top: 1px dashed var(--card-border);
+}
+
+.qjourney-footer img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* ── 2.5 SACRED DU'A & INTENTION CARD ── */
+.qibla-dua-card {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(224, 169, 109, 0.08) 0%, var(--card-bg) 60%);
+  border: 1px solid rgba(224, 169, 109, 0.3);
+  border-radius: 20px;
+  padding: 1.25rem 1.3rem;
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.qdua-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.qdua-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.qdua-header-title img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.qdua-copy-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 0.35rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--app-font-family);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.qdua-copy-btn:hover {
+  border-color: var(--primary);
+  background: var(--surface-trans);
+}
+
+.qdua-copy-btn img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.qdua-ayah-box {
+  background: var(--surface-trans);
+  border-right: 3px solid var(--primary);
+  padding: 0.65rem 0.95rem;
+  border-radius: 8px 12px 12px 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.6;
+}
+
+.qdua-text {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-main);
+  font-weight: 600;
+  font-style: normal;
+}
+
+.qdua-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  padding-top: 0.4rem;
+}
+
+.qdua-action-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 0.55rem 0.95rem;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--app-font-family);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.qdua-action-btn:hover {
+  background: var(--surface-trans);
+  border-color: var(--primary);
+}
+
+.qdua-action-btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* ── 2.6 EDUCATIONAL & FIQH CARDS ── */
+.qibla-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.qibla-info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.2rem;
+}
+
+.qinfo-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.qinfo-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.qibla-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.85rem;
+}
+
+.qibla-rule-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 1rem 1.15rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: all 0.22s ease;
+}
+
+.qibla-rule-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-light);
+}
+
+.qrule-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.qrule-badge {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--primary);
+  background: var(--surface-trans);
+  border: 1px solid var(--card-border);
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+}
+
+.qrule-card-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.qrule-card-text {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── 3. CALIBRATION MODAL (FIGURE-8 GUIDE) ── */
+.qibla-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.qibla-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.qibla-modal-content {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 22px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.94);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.qibla-modal-overlay.active .qibla-modal-content {
+  transform: scale(1);
+}
+
+.qcalib-anim-box {
+  width: 120px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.qcalib-infinity-track {
+  font-size: 4rem;
+  color: var(--primary);
+  opacity: 0.35;
+  line-height: 1;
+}
+
+/* ── 4. RESPONSIVE BREAKPOINTS ── */
+@media (max-width: 520px) {
+  .qibla-body-container {
+    padding: 0.75rem 0.75rem 2.2rem;
+    gap: 1rem;
+  }
+
+  .qibla-telemetry-strip {
+    padding: 0.75rem 0.6rem;
+    gap: 0.4rem;
+  }
+
+  .qtele-val {
+    font-size: 0.98rem;
+  }
+
+  .qibla-compass-hero {
+    padding: 1.2rem 0.75rem 1.6rem;
+    border-radius: 20px;
+  }
+
+  .qibla-dial-stage {
+    width: 270px;
+    height: 270px;
+  }
+
+  .qibla-central-hub {
+    width: 76px;
+    height: 76px;
+  }
+
+  .qhub-angle {
+    font-size: 1.1rem;
+  }
+
+  .qjourney-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .qjourney-col {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .qibla-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 360px) {
+  .qibla-dial-stage {
+    width: 240px;
+    height: 240px;
+  }
+
+  .qnav-icon-badge {
+    display: none;
+  }
+
+  .qibla-hero-actions-row {
+    flex-direction: column;
+  }
+
+  .qibla-hero-pill-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.qibla-action-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  cursor: pointer;
+  font-family: var(--app-font-family);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.22s ease;
+}
+
+.qibla-action-btn:hover {
+  background: var(--surface-trans);
+  transform: translateY(-1px);
+  border-color: var(--primary);
+}
+
+.qibla-action-btn.primary {
+  background: linear-gradient(135deg, #E0A96D 0%, #9C6634 100%);
+  color: #FFFFFF;
+  border-color: #FFF2E0;
+  box-shadow: 0 4px 14px rgba(224, 169, 109, 0.4);
+}
+
+.qibla-action-btn.primary:hover {
+  opacity: 0.95;
+}
