@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="css/qibla.css">
     <link rel="stylesheet" href="css/hisn.css">
     <link rel="stylesheet" href="css/cloud-account.css">
+    <link rel="stylesheet" href="css/feedback.css">
     <!-- Google Identity Services (GIS/GSI) SDK -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -2718,28 +2719,493 @@
         </div>
     </div>
 
-    <!-- 5. FEEDBACK PAGE -->
+    <!-- 5. FEEDBACK PAGE (شاركنا رأيك واقتراحاتك - لتطوير وذكر) -->
     <div id="feedbackPage" class="sub-lib-page">
+        <!-- Sticky Royal Navbar -->
         <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('feedbackPage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/ideas1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Feedback">
-                <h2 class="navbar-title">شاركنا ملاحظاتك</h2>
+            <button class="nav-btn" onclick="closeLibPage('feedbackPage')" title="رجوع">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="images/icons/bulb-ideas1.png" style="width: 26px; height: 26px; object-fit: contain;" alt="Feedback">
+                <h2 class="navbar-title">شاركنا رأيك واقتراحاتك</h2>
             </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/ideas1.png" alt="Feedback">
-                </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-lightbulb"></i> صوتك يهمنا</span>
-                <h3 class="placeholder-page-title">شاركنا اقتراحاتك لتطوير وذكر</h3>
-                <p class="placeholder-page-desc">صفحة الملاحظات مهيأة لاستقبال أفكارك وتقييماتك للميزات الجديدة لمساعدتنا في جعل وذكر أفضل تطبيق إسلامي.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('feedbackPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+            <div style="width: 40px; display: flex; justify-content: flex-end;">
+                <button class="nav-btn" onclick="if(window.wzkerFeedback) window.wzkerFeedback.submit()" title="إرسال الفكرة">
+                    <img src="images/icons/send.png" style="width: 18px; height: 18px; object-fit: contain;" alt="Send">
                 </button>
+            </div>
+        </div>
+
+        <div class="sub-page-body" style="padding: 0;">
+            <div class="feedback-page-wrapper">
+
+                <!-- FLOATING SEGMENTED TAB CONTROLLER -->
+                <div class="feedback-tabs-nav">
+                    <button type="button" class="feedback-tab-btn active" data-tab="ideasTab">
+                        <img src="images/icons/bulb-ideas2.png" style="width: 20px; height: 20px; object-fit: contain;" alt="Ideas">
+                        <span>صندوق الأفكار والتقييم</span>
+                    </button>
+                    <button type="button" class="feedback-tab-btn" data-tab="roadmapTab">
+                        <img src="images/icons/Voting-Notes.png" style="width: 20px; height: 20px; object-fit: contain;" alt="Voting">
+                        <span>خارطة التطوير والتصويت</span>
+                    </button>
+                    <button type="button" class="feedback-tab-btn" data-tab="ticketsTab">
+                        <img src="images/icons/Ticket-idea.png" style="width: 20px; height: 20px; object-fit: contain;" alt="Tickets">
+                        <span>أفكاري اللي بعتها</span>
+                        <span id="myTicketsCountBadge" class="feedback-tab-badge" style="display: none;">0</span>
+                    </button>
+                </div>
+
+                <!-- ══════════════════════════════════════════
+                     TAB 1: IDEAS & FEEDBACK HUB
+                     ══════════════════════════════════════════ -->
+                <div id="ideasTab" class="feedback-tab-pane active">
+
+                    <!-- HERO BANNER -->
+                    <div class="feedback-hero-card">
+                        <img src="images/icons/leaf-1.png" class="feedback-hero-bg-leaves" alt="Leaf">
+                        <img src="images/icons/leaf-3.png" class="feedback-hero-bg-leaves-left" alt="Leaf">
+                        
+                        <div class="feedback-hero-icon-box">
+                            <img src="images/icons/bulb-ideas1.png" alt="Ideas Icon">
+                        </div>
+                        
+                        <div class="feedback-hero-badge">
+                            <i class="fa-solid fa-sparkles"></i>
+                            <span>رأيك بيهمنا وبنطور التطبيق عشانك</span>
+                        </div>
+
+                        <h1 class="feedback-hero-title">شاركنا رأيك واقتراحاتك لتطوير وذكر</h1>
+                        <p class="feedback-hero-quote">﴿ وَأَمْرُهُمْ شُورَىٰ بَيْنَهُمْ ﴾</p>
+                        <p class="feedback-hero-desc">
+                            أي فكرة أو ملاحظة بتكتبها بتكون سبب إن وذكر يخدم ملايين المسلمين بشكل أفضل وأجمل. اكتب فكرتك أو سجلها بصوتك وتابعها برقم كارت خاص بيك!
+                        </p>
+                    </div>
+
+                    <!-- ASPECT RATINGS & OVERALL GAUGE -->
+                    <div class="feedback-card">
+                        <div class="feedback-card-header">
+                            <div class="feedback-card-title-group">
+                                <div class="feedback-card-icon-pill">
+                                    <img src="images/icons/details.png" style="width: 22px; height: 22px;" alt="Rating">
+                                </div>
+                                <div>
+                                    <h3 class="feedback-card-title">تقييمك لتجربتك في وذكر</h3>
+                                    <p class="feedback-card-subtitle">إيه رأيك في التطبيق بشكل عام وفي كل جزء فيه؟</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main 5-Star Gauge -->
+                        <div class="feedback-rating-wrapper">
+                            <div class="feedback-stars-row">
+                                <button type="button" class="feedback-star-btn" data-value="5" title="5 نجوم">★</button>
+                                <button type="button" class="feedback-star-btn" data-value="4" title="4 نجوم">★</button>
+                                <button type="button" class="feedback-star-btn" data-value="3" title="3 نجوم">★</button>
+                                <button type="button" class="feedback-star-btn" data-value="2" title="نجمتان">★</button>
+                                <button type="button" class="feedback-star-btn" data-value="1" title="نجمة واحدة">★</button>
+                            </div>
+                            <div id="feedbackRatingBadge" class="feedback-rating-label-badge">
+                                <span>👑 تحفة بجد وتسلم إيدك!</span>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Aspect Matrix -->
+                        <div class="aspects-grid">
+                            <div class="aspect-box">
+                                <img src="images/icons/details.png" style="width: 26px; height: 26px; object-fit: contain;" alt="Design">
+                                <span class="aspect-box-title">شكل وألوان التصميم</span>
+                                <div class="aspect-stars-row">
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="ui" data-val="5">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="ui" data-val="4">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="ui" data-val="3">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="ui" data-val="2">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="ui" data-val="1">★</button>
+                                </div>
+                                <span id="aspectScore_ui" class="aspect-score-label">5 / 5</span>
+                            </div>
+
+                            <div class="aspect-box">
+                                <img src="images/icons/sound-on.png" style="width: 26px; height: 26px; object-fit: contain;" alt="Audio">
+                                <span class="aspect-box-title">نقاء وسلاسة الصوت</span>
+                                <div class="aspect-stars-row">
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="audio" data-val="5">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="audio" data-val="4">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="audio" data-val="3">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="audio" data-val="2">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="audio" data-val="1">★</button>
+                                </div>
+                                <span id="aspectScore_audio" class="aspect-score-label">5 / 5</span>
+                            </div>
+
+                            <div class="aspect-box">
+                                <img src="images/icons/Rocket.png" style="width: 26px; height: 26px; object-fit: contain;" alt="Speed">
+                                <span class="aspect-box-title">سرعة وخفة التطبيق</span>
+                                <div class="aspect-stars-row">
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="speed" data-val="5">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="speed" data-val="4">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="speed" data-val="3">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="speed" data-val="2">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="speed" data-val="1">★</button>
+                                </div>
+                                <span id="aspectScore_speed" class="aspect-score-label">5 / 5</span>
+                            </div>
+
+                            <div class="aspect-box">
+                                <img src="images/icons/book1.png" style="width: 26px; height: 26px; object-fit: contain;" alt="Content">
+                                <span class="aspect-box-title">دقة الأذكار والمواقيت</span>
+                                <div class="aspect-stars-row">
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="content" data-val="5">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="content" data-val="4">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="content" data-val="3">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="content" data-val="2">★</button>
+                                    <button type="button" class="aspect-star-mini selected" data-aspect="content" data-val="1">★</button>
+                                </div>
+                                <span id="aspectScore_content" class="aspect-score-label">5 / 5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CATEGORIES SELECTOR -->
+                    <div class="feedback-card">
+                        <div class="feedback-card-header">
+                            <div class="feedback-card-title-group">
+                                <div class="feedback-card-icon-pill">
+                                    <img src="images/icons/Suggestions.png" style="width: 22px; height: 22px;" alt="Category">
+                                </div>
+                                <div>
+                                    <h3 class="feedback-card-title">إيه نوع فكرتك أو ملاحظتك؟</h3>
+                                    <p class="feedback-card-subtitle">اختار القسم الأقرب عشان يوصلنا مظبوط</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feedback-categories-grid">
+                            <button type="button" class="feedback-chip-btn active" data-category="feature">
+                                <img src="images/icons/Suggestions.png" style="width: 24px; height: 24px;" alt="Feature">
+                                <span>اقتراح فكرة جديدة</span>
+                            </button>
+                            <button type="button" class="feedback-chip-btn" data-category="ux">
+                                <img src="images/icons/development.png" style="width: 24px; height: 24px;" alt="Design">
+                                <span>تحسين في التصميم والسرعة</span>
+                            </button>
+                            <button type="button" class="feedback-chip-btn" data-category="bug">
+                                <img src="images/icons/note1.png" style="width: 24px; height: 24px;" alt="Bug">
+                                <span>مشكلة أو عطل فني</span>
+                            </button>
+                            <button type="button" class="feedback-chip-btn" data-category="content">
+                                <img src="images/icons/book2.png" style="width: 24px; height: 24px;" alt="Content">
+                                <span>إضافة تلاوات وأدعية</span>
+                            </button>
+                            <button type="button" class="feedback-chip-btn" data-category="thanks">
+                                <img src="images/icons/fav-active.png" style="width: 24px; height: 24px;" alt="Thanks">
+                                <span>كلمة حلوة وشكر</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- DETAILED FORM & VOICE STUDIO -->
+                    <div class="feedback-card">
+                        <div class="feedback-card-header">
+                            <div class="feedback-card-title-group">
+                                <div class="feedback-card-icon-pill">
+                                    <img src="images/icons/writing.png" style="width: 22px; height: 22px;" alt="Write">
+                                </div>
+                                <div>
+                                    <h3 class="feedback-card-title">تحب تكتب ولا تسجل صوتك؟</h3>
+                                    <p class="feedback-card-subtitle">اختار الطريقة الأسهل ليك للتعبير</p>
+                                </div>
+                            </div>
+
+                            <!-- Input Mode Switcher -->
+                            <div class="input-mode-switcher">
+                                <button type="button" class="input-mode-btn active" data-mode="text">
+                                    <img src="images/icons/writing.png" style="width: 18px; height: 18px;" alt="Write">
+                                    <span>كتابة</span>
+                                </button>
+                                <button type="button" class="input-mode-btn" data-mode="voice">
+                                    <img src="images/icons/recorde.png" style="width: 18px; height: 18px;" alt="Voice">
+                                    <span>تسجيل صوتي</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 1. Voice Studio -->
+                        <div id="voiceStudioContainer" class="voice-studio-container">
+                            <div class="voice-mic-outer-ring">
+                                <div id="voiceMicPulse" class="voice-mic-pulse"></div>
+                                <button type="button" id="voiceMicBtn" class="voice-mic-btn" onclick="window.wzkerFeedback.toggleVoiceRecord()" title="بدء التسجيل">
+                                    <img src="images/icons/recorde.png" style="width: 32px; height: 32px;" alt="Mic">
+                                </button>
+                            </div>
+                            <div id="voiceTimerDisplay" class="voice-timer">00:00</div>
+                            <canvas id="voiceWaveformCanvas" class="voice-waveform-canvas"></canvas>
+                            <p id="voiceStatusMsg" class="voice-status-msg">دوس على المايك وسجل ملاحظتك بصوتك براحتك</p>
+
+                            <!-- Audio Preview Player -->
+                            <div id="voicePreviewCard" class="voice-preview-card">
+                                <button type="button" id="voicePlayToggleBtn" class="voice-play-toggle-btn" onclick="window.wzkerFeedback.toggleVoicePlayback()">
+                                    <i class="fa-solid fa-play"></i>
+                                </button>
+                                <div style="flex: 1; text-align: right;">
+                                    <div style="font-weight: 800; font-size: 0.88rem; color: var(--text-main);">تم حفظ التسجيل الصوتي</div>
+                                    <div style="font-size: 0.76rem; color: var(--text-muted);">جاهز للإرسال مع كارت فكرتك</div>
+                                </div>
+                                <button type="button" class="voice-delete-btn" onclick="window.wzkerFeedback.deleteVoiceRecord()" title="حذف وإعادة التسجيل">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 2. Text Form Group -->
+                        <div id="feedbackTextFormGroup" style="display: flex; flex-direction: column;">
+                            <!-- Quick Suggestions Tags -->
+                            <div class="feedback-quick-tags-wrap">
+                                <div class="feedback-quick-tags-title">
+                                    <img src="images/icons/Suggestions.png" style="width: 16px; height: 16px;" alt="Tags">
+                                    <span>اقتراحات سريعة بنقرة واحدة:</span>
+                                </div>
+                                <div class="feedback-quick-tags-list">
+                                    <span class="feedback-quick-tag-pill" data-insert="إضافة ودجت شاشة القفل ومواقيت الصلاة">+ ودجت شاشة القفل</span>
+                                    <span class="feedback-quick-tag-pill" data-insert="إضافة خطوط قرآنية عثمانية إضافية">+ خطوط قرآنية إضافية</span>
+                                    <span class="feedback-quick-tag-pill" data-insert="تكرار ذكي للتلاوة للحفظ والمراجعة">+ تكرار ذكي للتلاوة</span>
+                                    <span class="feedback-quick-tag-pill" data-insert="إتاحة تنزيل التلاوات للعمل بدون إنترنت">+ تحميل كامل أوفلاين</span>
+                                    <span class="feedback-quick-tag-pill" data-insert="إضافة أذكار المسجد والمأثورات النبوية">+ أذكار المسجد</span>
+                                </div>
+                            </div>
+
+                            <!-- Subject Input -->
+                            <div class="feedback-form-group">
+                                <label class="feedback-form-label" for="feedbackSubject">
+                                    <span>عنوان الفكرة باختصار</span>
+                                    <span class="optional-tag">اختياري</span>
+                                </label>
+                                <div class="feedback-input-container">
+                                    <input type="text" id="feedbackSubject" class="feedback-text-input" placeholder="مثال: خط مصحف المدينة أو تكرار الآيات" maxlength="120">
+                                    <i class="fa-solid fa-heading feedback-input-icon"></i>
+                                </div>
+                            </div>
+
+                            <!-- Message Textarea -->
+                            <div class="feedback-form-group">
+                                <label class="feedback-form-label" for="feedbackMessage">
+                                    <span>تفاصيل فكرتك أو مقترحك</span>
+                                    <span style="color: var(--primary); font-size: 0.78rem;">مطلوب *</span>
+                                </label>
+                                <div class="feedback-textarea-container">
+                                    <textarea id="feedbackMessage" class="feedback-textarea" placeholder="إيه الفكرة أو الميزة اللي حابب تشوفها في وذكر؟ احكيلي عنها براحتك..." maxlength="600"></textarea>
+                                </div>
+                                <div class="feedback-textarea-footer">
+                                    <span>كل كلمة بتكتبها بقرأها وبشتغل عليها بإذن الله</span>
+                                    <span id="feedbackCharCount" class="feedback-char-count">0 / 600</span>
+                                </div>
+                            </div>
+
+                            <!-- Optional Name & Email -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 18px;">
+                                <div class="feedback-form-group" style="margin-bottom: 0;">
+                                    <label class="feedback-form-label" for="feedbackUserName">
+                                        <span>اسمك الكريم</span>
+                                        <span class="optional-tag">اختياري</span>
+                                    </label>
+                                    <div class="feedback-input-container">
+                                        <input type="text" id="feedbackUserName" class="feedback-text-input" placeholder="مثال: عبد الله" maxlength="60">
+                                        <i class="fa-solid fa-user feedback-input-icon"></i>
+                                    </div>
+                                </div>
+
+                                <div class="feedback-form-group" style="margin-bottom: 0;">
+                                    <label class="feedback-form-label" for="feedbackUserEmail">
+                                        <span>إيميلك لو حابب أرد عليك</span>
+                                        <span class="optional-tag">اختياري</span>
+                                    </label>
+                                    <div class="feedback-input-container">
+                                        <input type="email" id="feedbackUserEmail" class="feedback-text-input" placeholder="name@example.com" maxlength="80">
+                                        <i class="fa-solid fa-envelope feedback-input-icon"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Screenshot Dropzone -->
+                            <div class="feedback-form-group">
+                                <label class="feedback-form-label">
+                                    <span>لو في صورة أو سكرين شوت حابب توضح بيها</span>
+                                    <span class="optional-tag">اختياري</span>
+                                </label>
+                                <div id="feedbackDropzone" class="feedback-dropzone">
+                                    <input type="file" id="feedbackFileInput" accept="image/*" style="display: none;">
+                                    <img src="images/icons/Upload.png" style="width: 38px; height: 38px; margin-bottom: 8px;" alt="Upload">
+                                    <div class="feedback-dropzone-title">اسحب الصورة هنا أو دوس للاختيار</div>
+                                    <div class="feedback-dropzone-sub">يدعم صور PNG أو JPG لحد 5 ميجا</div>
+                                    
+                                    <div id="feedbackPreviewThumbWrap" class="feedback-preview-thumb-wrap">
+                                        <img id="feedbackThumbImg" src="" alt="Thumbnail">
+                                        <button type="button" class="feedback-remove-thumb-btn" onclick="window.wzkerFeedback.removeAttachedImage()" title="إزالة الصورة">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- LIVE 3D GOLDEN TICKET PREVIEW -->
+                        <div class="ticket-preview-wrapper">
+                            <div class="royal-vip-ticket">
+                                <div class="ticket-header-row">
+                                    <div class="ticket-brand-meta">
+                                        <img src="images/icons/Ticket-idea.png" alt="Ticket">
+                                        <div>
+                                            <h4 class="ticket-brand-title">كارت الفكرة بتاعتك 💡</h4>
+                                            <span class="ticket-brand-sub">رقم المتابعة الخاص بفكرتك</span>
+                                        </div>
+                                    </div>
+                                    <span class="ticket-badge-pill">فكرة مسجلة</span>
+                                </div>
+
+                                <div class="ticket-body-grid">
+                                    <div class="ticket-info-group">
+                                        <div>
+                                            <span class="ticket-info-label">صاحب الفكرة:</span>
+                                            <div id="ticketPreviewName" class="ticket-info-val">صاحب الفكرة</div>
+                                        </div>
+                                        <div>
+                                            <span class="ticket-info-label">عنوان الملاحظة:</span>
+                                            <div id="ticketPreviewSubject" class="ticket-info-val">اقتراح فكرة جديدة</div>
+                                        </div>
+                                        <div>
+                                            <span class="ticket-info-label">القسم:</span>
+                                            <div id="ticketPreviewCategory" style="font-size: 0.84rem; color: var(--primary); font-weight: 800;">💡 اقتراح فكرة جديدة</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ticket-barcode-box">
+                                        <div class="ticket-barcode-lines">
+                                            <div class="barcode-bar w3"></div>
+                                            <div class="barcode-bar"></div>
+                                            <div class="barcode-bar w2 short"></div>
+                                            <div class="barcode-bar"></div>
+                                            <div class="barcode-bar w3"></div>
+                                            <div class="barcode-bar w2"></div>
+                                            <div class="barcode-bar short"></div>
+                                            <div class="barcode-bar w3"></div>
+                                            <div class="barcode-bar"></div>
+                                            <div class="barcode-bar w2"></div>
+                                            <div class="barcode-bar"></div>
+                                            <div class="barcode-bar w3 short"></div>
+                                        </div>
+                                        <div id="ticketPreviewCode" class="ticket-code-num">#WZK-2026</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submission Action Buttons -->
+                        <div class="feedback-actions-row">
+                            <button type="button" class="feedback-submit-btn" onclick="window.wzkerFeedback.submit()">
+                                <img src="images/icons/send.png" style="width: 20px; height: 20px; object-fit: contain;" alt="Send">
+                                <span>ابعت الفكرة دلوقتي</span>
+                            </button>
+                            <button type="button" class="feedback-copy-btn" onclick="window.wzkerFeedback.copyTicketText()" title="نسخ تفاصيل الفكرة">
+                                <img src="images/icons/copy1.png" style="width: 18px; height: 18px; object-fit: contain;" alt="Copy">
+                                <span>نسخ الفكرة</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- DIRECT CONTACT CHANNELS -->
+                    <div class="feedback-card">
+                        <div class="feedback-card-header">
+                            <div class="feedback-card-title-group">
+                                <div class="feedback-card-icon-pill">
+                                    <img src="images/icons/whatsapp.png" style="width: 24px; height: 24px;" alt="Contact">
+                                </div>
+                                <div>
+                                    <h3 class="feedback-card-title">حابب تتكلم معايا على طول؟ كلمني هنا</h3>
+                                    <p class="feedback-card-subtitle">تقدر تبعتلي رسالتك أو تسجيلك الصوتي مباشرة</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="feedback-channels-grid">
+                            <a href="javascript:void(0)" class="feedback-channel-item" onclick="window.wzkerFeedback.sendViaWhatsApp()">
+                                <div class="feedback-channel-icon-circle whatsapp">
+                                    <img src="images/icons/whatsapp.png" style="width: 28px; height: 28px; object-fit: contain;" alt="WhatsApp">
+                                </div>
+                                <div>
+                                    <div class="feedback-channel-name">واتساب مباشر</div>
+                                    <div class="feedback-channel-desc">201158601817+</div>
+                                </div>
+                            </a>
+
+                            <a href="javascript:void(0)" class="feedback-channel-item" onclick="window.wzkerFeedback.sendViaTelegram()">
+                                <div class="feedback-channel-icon-circle telegram">
+                                    <img src="images/icons/telegram.png" style="width: 28px; height: 28px; object-fit: contain;" alt="Telegram">
+                                </div>
+                                <div>
+                                    <div class="feedback-channel-name">تيليجرام</div>
+                                    <div class="feedback-channel-desc">201158601817+</div>
+                                </div>
+                            </a>
+
+                            <a href="javascript:void(0)" class="feedback-channel-item" onclick="window.wzkerFeedback.sendViaEmail()">
+                                <div class="feedback-channel-icon-circle email">
+                                    <img src="images/icons/Mail.png" style="width: 26px; height: 26px; object-fit: contain;" alt="Gmail">
+                                </div>
+                                <div>
+                                    <div class="feedback-channel-name">جيميل</div>
+                                    <div class="feedback-channel-desc">omartegany8@gmail.com</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ══════════════════════════════════════════
+                     TAB 2: ROADMAP & COMMUNITY VOTING HUB
+                     ══════════════════════════════════════════ -->
+                <div id="roadmapTab" class="feedback-tab-pane">
+                    <!-- Roadmap Hero -->
+                    <div class="feedback-hero-card">
+                        <div class="feedback-hero-badge">
+                            <img src="images/icons/Voting-Notes.png" style="width: 18px; height: 18px; vertical-align: middle;" alt="Vote">
+                            <span>أفكاركم لتطوير وذكر</span>
+                        </div>
+                        <h2 class="feedback-hero-title">خارطة التطوير وتصويت المجتمع</h2>
+                        <p class="feedback-hero-desc">
+                            كل فكرة بتبعتها بتنزل هنا بـ 0 قلوب ❤️ عشان كل مستخدمي وذكر يدوسوا قلب ويصوتوا للأفكار اللي نفسهم يشوفوها في التحديث الجاي!
+                        </p>
+                    </div>
+
+                    <!-- Roadmap Cards Container -->
+                    <div id="roadmapCardsList" class="roadmap-cards-list">
+                        <!-- Populated dynamically by feedback.js (starts clean from user ideas) -->
+                    </div>
+                </div>
+
+                <!-- ══════════════════════════════════════════
+                     TAB 3: MY VIP TICKETS HISTORY
+                     ══════════════════════════════════════════ -->
+                <div id="ticketsTab" class="feedback-tab-pane">
+                    <!-- Tickets Hero -->
+                    <div class="feedback-hero-card">
+                        <div class="feedback-hero-badge">
+                            <img src="images/icons/Ticket-idea.png" style="width: 18px; height: 18px; vertical-align: middle;" alt="Ticket">
+                            <span>أفكارك السابقة</span>
+                        </div>
+                        <h2 class="feedback-hero-title">أفكاري اللي بعتها</h2>
+                        <p class="feedback-hero-desc">
+                            كل فكرة أو رسالة بعتها هنا متسجلة برقم كارت خاص بيك عشان تتابع أول بأول إيه اللي اتنفذ منها.
+                        </p>
+                    </div>
+
+                    <!-- Tickets Container -->
+                    <div id="ticketsHistoryList" style="display: flex; flex-direction: column; gap: 14px;">
+                        <!-- Populated dynamically by feedback.js -->
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -5501,6 +5967,43 @@
         </div>
     </div>
 
+    <!-- FEEDBACK SUCCESS & CELEBRATION MODAL (ROOT VIEWPORT OVERLAY) -->
+    <div id="feedbackSuccessOverlay" class="feedback-success-overlay" onclick="if(event.target === this) window.wzkerFeedback.closeSuccessModal(false)">
+        <canvas id="feedbackConfettiCanvas" class="feedback-confetti-canvas"></canvas>
+        <div class="feedback-success-card" onclick="event.stopPropagation()">
+            <button type="button" class="feedback-modal-close-btn" onclick="window.wzkerFeedback.closeSuccessModal(false)" title="إغلاق">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="feedback-success-icon-wrap">
+                <img src="images/icons/checked.png" style="width: 72px; height: 72px; object-fit: contain;" alt="Success">
+            </div>
+            <h3 class="feedback-success-title">عاش يا بطل! فكرتك وصلت بنجاح</h3>
+            <div class="feedback-modal-code-badge" onclick="window.wzkerFeedback.copyTicketText()" title="انقر لنسخ كود الفكرة">
+                <span>رقم الفكرة:</span>
+                <b id="successTicketCodeDisplay">#WZK-2026</b>
+                <i class="fa-regular fa-copy" style="font-size: 0.85rem; margin-right: 4px; opacity: 0.8;"></i>
+            </div>
+            <p class="feedback-success-dua">﴿ جَزَاكُمُ اللَّهُ خَيْرًا وَبَارَكَ فِيكُمْ ﴾</p>
+            <p class="feedback-success-desc">
+                تسلم إيدك على وقتك وفكرتك الروعة.. فكرتك اتضافت فوراً في <b>"خارطة التطوير"</b> عشان المستخدمين يصوتوا عليها بقلوبهم، وهتفضل محفوظة باسمك في <b>"أفكاري اللي بعتها"</b>!
+            </p>
+            <div class="feedback-modal-actions">
+                <button type="button" class="feedback-success-btn" onclick="window.wzkerFeedback.goToRoadmapFromModal()">
+                    <img src="images/icons/Voting-Notes.png" style="width: 22px; height: 22px; object-fit: contain; vertical-align: middle; margin-left: 6px;" alt="Roadmap">
+                    <span>شوف فكرتك في خارطة التطوير</span>
+                </button>
+                <button type="button" class="feedback-modal-whatsapp-btn" onclick="window.wzkerFeedback.sendLastSubmittedToWhatsApp()">
+                    <img src="images/icons/whatsapp.png" style="width: 20px; height: 20px; object-fit: contain; vertical-align: middle; margin-left: 6px;" alt="WhatsApp">
+                    <span>ابعتها لعمر واتساب كمان</span>
+                </button>
+                <button type="button" class="feedback-modal-home-btn" onclick="window.wzkerFeedback.closeSuccessModal(true); if(window.closeLibPage) window.closeLibPage('feedbackPage');">
+                    <img src="images/icons/home.png" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle; margin-left: 6px;" alt="Home">
+                    <span>الرجوع للرئيسية</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/data.js"></script>
     <script src="js/storage-db.js"></script>
@@ -5529,6 +6032,7 @@
     <!-- Wzker Cloud & Offline Sync Engine -->
     <script src="js/firebase-config.js"></script>
     <script src="js/cloud-sync.js"></script>
+    <script src="js/feedback.js"></script>
 
     <script src="js/app.js"></script>
 

@@ -278,6 +278,12 @@ window.openLibPage = (id) => {
   if (id === 'loginPage' && window.wzkerCloud) {
     window.wzkerCloud.updateAccountPageUI();
   }
+  if (id === 'feedbackPage' && window.wzkerFeedback) {
+    window.wzkerFeedback.renderStars();
+    window.wzkerFeedback.updateTicketBadgeCount();
+    window.wzkerFeedback.renderRoadmap();
+    window.wzkerFeedback.initWaveformCanvas();
+  }
   if ((id === 'loginPage' || id === 'authLoginPage' || id === 'authRegisterPage') && window.wzkerCloud && typeof window.wzkerCloud.renderAllGoogleButtons === 'function') {
     setTimeout(() => window.wzkerCloud.renderAllGoogleButtons(), 60);
   }
