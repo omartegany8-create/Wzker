@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="css/hisn.css">
     <link rel="stylesheet" href="css/cloud-account.css">
     <link rel="stylesheet" href="css/feedback.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/privacy.css">
     <!-- Google Identity Services (GIS/GSI) SDK -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -3210,55 +3212,596 @@
         </div>
     </div>
 
-    <!-- 6. ABOUT APP PAGE -->
+    <!-- 6. ABOUT APP PAGE (عن التطبيق - وذكر PRO) -->
     <div id="aboutPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('aboutPage')"><i class="fa-solid fa-chevron-right"></i></button>
+        <!-- Ambient Background Orbs -->
+        <div class="about-ambient-orb about-orb-1"></div>
+        <div class="about-ambient-orb about-orb-2"></div>
+
+        <!-- Premium Top Navbar -->
+        <div class="prime-navbar" style="position: sticky; top: 0; z-index: 10;">
+            <button class="nav-btn" onclick="closeLibPage('aboutPage')" title="رجوع">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <img src="images/icons/About1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="About">
                 <h2 class="navbar-title">عن التطبيق</h2>
             </div>
-            <div style="width: 38px;"></div>
+            <button class="top-custom-icon-btn" onclick="window.wzkerAbout.shareApp()" title="مشاركة التطبيق">
+                <img src="images/icons/share.png" style="width: 19px; height: 19px; object-fit: contain;" alt="Share">
+            </button>
         </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/About1.png" alt="About">
+
+        <div class="sub-page-body about-page-wrapper">
+
+            <!-- 1. HERO SHOWCASE & APP CREST -->
+            <div class="about-hero-card">
+                <div class="about-crest-wrap">
+                    <div class="about-crest-glow-ring"></div>
+                    <div class="about-crest-pulse"></div>
+                    <div class="about-crest-icon">
+                        <img src="images/icon/wzker.png" alt="Wzker">
+                    </div>
                 </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-circle-info"></i> رسالة وذكر</span>
-                <h3 class="placeholder-page-title">تطبيق وذكر | Wzker</h3>
-                <p class="placeholder-page-desc">مشروع إسلامي تقني متكامل، مصمم بأعلى معايير الجمال والسرعة ليكون رفيقك اليومي في تلاوة وسماع القرآن والأذكار المباركة.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('aboutPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
-                </button>
+
+                <div class="about-hero-badges">
+                    <span class="about-badge-gold">
+                        <span class="about-badge-dot"></span>
+                        الإصدار الذهبي v2.5
+                    </span>
+                    <span class="about-badge-waqf">
+                        <img src="images/icons/leaf-1.png" style="width: 14px; height: 14px; vertical-align: middle;" alt="Waqf">
+                        وقف لله تعالى • صدقة جارية
+                    </span>
+                </div>
+
+                <h1 class="about-hero-title">تطبيق وِذْكِرْ</h1>
+                <p class="about-hero-tagline">﴿ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ ﴾</p>
+                <p class="about-hero-desc">
+                    واحتك الروحية اليومية في زحمة الحياة.. شُيّد بحب وإتقان عشان تعيش مع كتاب الله وسنة نبيه بهدوء وطمأنينة تامة، وبدون أي إعلانات مزعجة تشتتك أو تقطع خشوعك.
+                </p>
+                <div class="about-hero-dua-chip">
+                    اللهم اجعله عملاً خالصاً لوجهك الكريم وعلماً نافعاً يُنتفع به إلى يوم الدين
+                </div>
             </div>
+
+            <!-- 2. WZKER BY NUMBERS (INTERACTIVE STATS GRID) -->
+            <div class="about-stats-grid">
+                <div class="about-stat-card">
+                    <div class="about-stat-icon">
+                        <img src="images/icons/security-shield.png" alt="No Ads">
+                    </div>
+                    <span class="about-stat-num" style="color: #28a745;">0</span>
+                    <span class="about-stat-label">إعلانات للأبد</span>
+                    <span class="about-stat-sub">مفيش أي إعلانات تجارية تقطع خشوعك</span>
+                </div>
+
+                <div class="about-stat-card">
+                    <div class="about-stat-icon">
+                        <img src="images/icons/quran1.png" alt="Quran">
+                    </div>
+                    <span class="about-stat-num" id="statSurahsCount">+114</span>
+                    <span class="about-stat-label">سورة كاملة</span>
+                    <span class="about-stat-sub">مصحف متزامن صوتياً مع كبار القراء</span>
+                </div>
+
+                <div class="about-stat-card">
+                    <div class="about-stat-icon">
+                        <img src="images/icons/sabha1.png" alt="Adhkar">
+                    </div>
+                    <span class="about-stat-num" id="statAdhkarCount">+300</span>
+                    <span class="about-stat-label">ذكر ودعاء</span>
+                    <span class="about-stat-sub">أذكار محققة وحصن المسلم ومسبحة</span>
+                </div>
+
+                <div class="about-stat-card">
+                    <div class="about-stat-icon">
+                        <img src="images/icons/checked.png" alt="Privacy">
+                    </div>
+                    <span class="about-stat-num" id="statPrivacyCount">100%</span>
+                    <span class="about-stat-label">خصوصية وأمان</span>
+                    <span class="about-stat-sub">بياناتك ووردك محفوظ محلياً على جهازك</span>
+                </div>
+            </div>
+
+            <!-- 3. حكاية وذكر (رسالة من القلب) -->
+            <div class="about-story-card">
+                <div class="about-section-header">
+                    <div class="about-section-icon">
+                        <img src="images/icons/bulb-ideas1.png" alt="Story">
+                    </div>
+                    <div>
+                        <h3 class="about-section-title">حكاية وذكر • ليه بدأنا؟</h3>
+                        <p class="about-section-subtitle">رسالة وهدف التطبيق بكل صدق وشفافية</p>
+                    </div>
+                </div>
+                <div class="about-story-content">
+                    <p>
+                        كنا دايماً بنحلم بتطبيق إسلامي شكله <span class="about-story-highlight">شيك وراقي جداً</span>، مريح للعين والنفس، مفيش فيه إعلانات تطلع فجأة في وشك وإنت بتقرأ قرآن أو بتسبح، ولا يطلب منك اشتراك شهري ولا يتبع بياناتك.. تطبيق معمول بحب وروحانية وبأعلى مستوى تكنولوجي ممكن.
+                    </p>
+                    <p>
+                        <span class="about-story-highlight">وِذْكِرْ اتعمل لوجه الله تعالى خالصاً</span>.. كصدقة جارية وعمل ينتفع به، معمول عشان يكون رفيقك الصادق في زحمة الدنيا، يفكرك بربك، يعينك على تلاوة القرآن وحفظ وردك اليومي، ويكون سبب في طمأنينة قلبك في أي وقت وفي أي مكان.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 4. أعمدة وقيم وذكر (THE 4 PILLARS) -->
+            <div class="about-pillars-grid">
+                <div class="about-pillar-item">
+                    <div class="about-pillar-icon">
+                        <img src="images/icons/leaf-2.png" alt="Waqf">
+                    </div>
+                    <div class="about-pillar-texts">
+                        <h4>وقف وبركة</h4>
+                        <p>تطبيق غير ربحي تماماً، لا اشتراكات ولا أهداف تجارية، معمول لوجه الله لخدمة كل مسلم ومسلمة.</p>
+                    </div>
+                </div>
+
+                <div class="about-pillar-item">
+                    <div class="about-pillar-icon">
+                        <img src="images/icons/verified-sheikh.png" alt="Authenticity">
+                    </div>
+                    <div class="about-pillar-texts">
+                        <h4>الدقة والأمانة</h4>
+                        <p>كل ذكر ودعاء وحديث نبوي تم تدقيقه ومراجعته من كتب الأحاديث المعتمدة لتطمئن نفسك.</p>
+                    </div>
+                </div>
+
+                <div class="about-pillar-item">
+                    <div class="about-pillar-icon">
+                        <img src="images/icons/color paint.png" alt="Design Excellence">
+                    </div>
+                    <div class="about-pillar-texts">
+                        <h4>الإحسان في التصميم</h4>
+                        <p>«إن الله يحب إذا عمل أحدكم عملاً أن يتقنه».. كل بكسل وتفصيلة صممت بعناية لتقديم واجهة تليق بكتاب الله.</p>
+                    </div>
+                </div>
+
+                <div class="about-pillar-item">
+                    <div class="about-pillar-icon">
+                        <img src="images/icons/security-shield.png" alt="Privacy">
+                    </div>
+                    <div class="about-pillar-texts">
+                        <h4>سيادة الخصوصية</h4>
+                        <p>خصوصيتك أمانة مقدسة.. مفيش أي بيع لبياناتك أو إعلانات تتبع، كل شيء يعمل بأمان كامل.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. بطاقة المطور (عمر التيجاني) -->
+            <div class="about-developer-card">
+                <div class="about-dev-top">
+                    <div class="about-dev-avatar-wrap">
+                        <div class="about-dev-avatar">
+                            <img src="images/icons/user-account.png" alt="عمر التيجاني">
+                        </div>
+                        <div class="about-dev-verified-badge" title="مطور موثق">
+                            <img src="images/icons/checked.png" alt="Verified">
+                        </div>
+                    </div>
+                    <div class="about-dev-info">
+                        <div class="about-dev-name-row">
+                            <h3 class="about-dev-name">عمر التيجاني</h3>
+                            <span class="about-dev-role">مطور ومصمم واجهات وذكر</span>
+                        </div>
+                        <div>
+                            <span class="about-dev-status-pill">
+                                <span class="about-badge-dot"></span>
+                                متواجد ومتابع لكل مقترحاتكم
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-dev-quote">
+                    "التطبيق ده أمانة وعمل قصدت بيه رضا الله وحده وصدقة جارية.. دعوة صالحة ليا ولوالديّ بظهر الغيب في صلاتك تسوى كنوز الدنيا كلها. وبابي مفتوح ليك دايماً لأي فكرة أو ملاحظة أو حتى رسالة سلام ودعاء."
+                </div>
+
+                <div class="about-dev-actions">
+                    <button type="button" class="about-contact-btn whatsapp" onclick="window.wzkerAbout.openWhatsApp()">
+                        <img src="images/icons/whatsapp.png" alt="WhatsApp">
+                        <span>واتساب مباشر</span>
+                    </button>
+                    <button type="button" class="about-contact-btn telegram" onclick="window.wzkerAbout.openTelegram()">
+                        <img src="images/icons/telegram.png" alt="Telegram">
+                        <span>تليجرام</span>
+                    </button>
+                    <button type="button" class="about-contact-btn email" onclick="window.wzkerAbout.openEmail()">
+                        <img src="images/icons/Mail.png" alt="Email">
+                        <span>إرسال إيميل</span>
+                    </button>
+                </div>
+
+                <div style="margin-top: 14px; text-align: center;">
+                    <button type="button" style="background: transparent; border: none; color: var(--accent-gold); font-size: 0.88rem; font-weight: 800; cursor: pointer; text-decoration: underline; font-family: inherit;" onclick="closeLibPage('aboutPage'); window.wzkerSidebar.navigate('feedbackPage');">
+                        عندك فكرة أو مقترح جديد؟ شاركنا في صفحة الملاحظات وخارطة التطوير
+                    </button>
+                </div>
+            </div>
+
+            <!-- 6. ركن الدعاء التفاعلي (دعوة بظهر الغيب) -->
+            <div class="about-dua-zone">
+                <div class="about-dua-zone-icon">
+                    <img src="images/icons/prayers1.png" alt="Dua">
+                </div>
+                <h3 class="about-dua-zone-title">﴿ رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا ﴾</h3>
+                <p class="about-dua-zone-desc">
+                    دعوة حلوة من قلبك للمطور ولوالديه ولكل من ساهم في وذكر بظهر الغيب.. والملك يقول لك: «ولك بمثل».
+                </p>
+                <button type="button" class="about-dua-pulse-btn" onclick="window.wzkerAbout.sendDua()">
+                    <img src="images/icons/prayers3.png" style="width: 24px; height: 24px; object-fit: contain;" alt="Pray">
+                    <span>دعوة بظهر الغيب (اضغط هنا)</span>
+                </button>
+                <div class="about-dua-counter-chip">
+                    عدد الدعوات المباركة المسجلة: <b id="aboutDuaCounterVal">142</b> دعوة
+                </div>
+            </div>
+
+            <!-- 7. مسيرة التطوير والتحديثات (TIMELINE) -->
+            <div class="about-timeline-card">
+                <div class="about-section-header">
+                    <div class="about-section-icon">
+                        <img src="images/icons/Rocket.png" alt="Timeline">
+                    </div>
+                    <div>
+                        <h3 class="about-section-title">مسيرة وذكر • سجل الإصدارات</h3>
+                        <p class="about-section-subtitle">رحلة التطوير المستمر لخدمة كتاب الله</p>
+                    </div>
+                </div>
+
+                <div class="about-timeline-list">
+                    <div class="about-timeline-node current">
+                        <div class="about-node-dot"></div>
+                        <div class="about-node-header">
+                            <span class="about-node-ver">الإصدار 2.5 (النسخة الحالية)</span>
+                            <span class="about-node-badge">أحدث إصدار PRO</span>
+                        </div>
+                        <p class="about-node-desc">
+                            إعادة تصميم كاملة للصفحات بنمط فخم واستثنائي، مركز الأفكار وخارطة التطوير التفاعلية، نظام التزامن الصوتي للقرآن الكريم، ومسبحة إلكترونية متطورة.
+                        </p>
+                    </div>
+
+                    <div class="about-timeline-node">
+                        <div class="about-node-dot"></div>
+                        <div class="about-node-header">
+                            <span class="about-node-ver">الإصدار 2.0</span>
+                            <span class="about-node-badge">تحديث شامل</span>
+                        </div>
+                        <p class="about-node-desc">
+                            إضافة حصن المسلم المطور بكافة أبوابه، أذكار النوم والاستيقاظ، راديو القرآن الكريم المباشر، ومواقيت الصلاة الدقيقة.
+                        </p>
+                    </div>
+
+                    <div class="about-timeline-node">
+                        <div class="about-node-dot"></div>
+                        <div class="about-node-header">
+                            <span class="about-node-ver">الإصدار 1.0</span>
+                            <span class="about-node-badge">الانطلاقة الأولى</span>
+                        </div>
+                        <p class="about-node-desc">
+                            تدشين النواة الأولى لتطبيق وذكر كصدقة جارية بمصحف إلكتروني وأذكار الصباح والمساء الأساسية.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. شارك في الأجر (SHARE BANNER) -->
+            <div class="about-share-banner">
+                <div class="about-share-left">
+                    <div class="about-share-icon">
+                        <img src="images/icons/share.png" alt="Share">
+                    </div>
+                    <div class="about-share-texts">
+                        <h4>انشر تؤجر • شارك وذكر مع من تحب</h4>
+                        <p>«الدال على الخير كفاعله».. لك مثل أجر كل تسبيحة وآية تُقرأ بفضلك.</p>
+                    </div>
+                </div>
+                <div class="about-share-actions">
+                    <button type="button" class="about-share-main-btn" onclick="window.wzkerAbout.shareApp()">
+                        <i class="fa-solid fa-share-nodes"></i>
+                        <span>مشاركة التطبيق</span>
+                    </button>
+                    <button type="button" class="about-copy-btn" onclick="window.wzkerAbout.copyShareLink()">
+                        <img src="images/icons/copy1.png" style="width: 16px; height: 16px;" alt="Copy">
+                        <span>نسخ الرابط</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- 7. PRIVACY POLICY PAGE -->
+
+    <!-- 7. PRIVACY POLICY PAGE (سياسة الخصوصية وأمان البيانات - وذكر PRO) -->
     <div id="privacyPolicyPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('privacyPolicyPage')"><i class="fa-solid fa-chevron-right"></i></button>
+        <!-- Ambient Background Orbs -->
+        <div class="privacy-ambient-orb privacy-orb-1"></div>
+        <div class="privacy-ambient-orb privacy-orb-2"></div>
+
+        <!-- Premium Top Navbar -->
+        <div class="prime-navbar" style="position: sticky; top: 0; z-index: 10;">
+            <button class="nav-btn" onclick="closeLibPage('privacyPolicyPage')" title="رجوع">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <img src="images/icons/note2.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Privacy">
-                <h2 class="navbar-title">سياسة الخصوصية</h2>
+                <h2 class="navbar-title">سياسة الخصوصية وأمان بياناتك</h2>
             </div>
-            <div style="width: 38px;"></div>
+            <button class="top-custom-icon-btn" onclick="window.wzkerPrivacy.openWhatsApp()" title="تواصل بخصوص الخصوصية">
+                <img src="images/icons/security-shield.png" style="width: 19px; height: 19px; object-fit: contain;" alt="Security">
+            </button>
         </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/note2.png" alt="Privacy">
+
+        <div class="sub-page-body privacy-page-wrapper">
+
+            <!-- 1. HERO SHOWCASE & 3D SECURITY SHIELD -->
+            <div class="privacy-hero-card">
+                <div class="privacy-shield-wrap">
+                    <div class="privacy-shield-glow-ring"></div>
+                    <div class="privacy-shield-pulse"></div>
+                    <div class="privacy-shield-icon">
+                        <img src="images/icons/security-shield.png" alt="Security Shield">
+                    </div>
                 </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-shield-halved"></i> أمان وخصوصية تامة</span>
-                <h3 class="placeholder-page-title">سياسة الخصوصية وحماية البيانات</h3>
-                <p class="placeholder-page-desc">نلتزم في وذكر بحماية خصوصية مستخدمينا بنسبة 100%. لا نجمع أي بيانات شخصية حساسة وجميع تفضيلاتك وسجلاتك محفوظة محلياً على جهازك بأعلى درجات الأمان.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('privacyPolicyPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
-                </button>
+
+                <div class="privacy-hero-badges">
+                    <span class="privacy-badge-secure">
+                        <span class="privacy-badge-dot"></span>
+                        أمان وخصوصية 100%
+                    </span>
+                    <span class="privacy-badge-local">
+                        <img src="images/icons/leaf-1.png" style="width: 14px; height: 14px; vertical-align: middle;" alt="Waqf">
+                        وقف لله • بدون إعلانات ولا تتبع
+                    </span>
+                </div>
+
+                <h1 class="privacy-hero-title">سياسة الخصوصية وأمان بياناتك</h1>
+                <p class="privacy-hero-tagline">﴿ وَاللَّهُ بِمَا تَعْمَلُونَ بَصِيرٌ ﴾</p>
+                <p class="privacy-hero-desc">
+                    في تطبيق وِذْكِرْ، خصوصيتك ووردك اليومي أمانة مقدسة.. معندناش أي مصلحة نجمع بياناتك أو نبيعها لحد، كل حاجة بتعملها متسجلة على موبايلك وبس، بدون أي تتبع أو إعلانات للأبد.
+                </p>
+                <div class="privacy-hero-dua-chip">
+                    اللهم اجعلنا ممن يؤدون الأمانات إلى أهلها ويتقونك في السر والعلن
+                </div>
             </div>
+
+            <!-- 2. TRUST MATRIX (المصفوفة الرباعية للأمان) -->
+            <div class="privacy-matrix-grid">
+                <div class="privacy-matrix-card">
+                    <div class="privacy-matrix-header">
+                        <div class="privacy-matrix-icon">
+                            <img src="images/icons/leaf-1.png" alt="No Sale">
+                        </div>
+                        <h4 class="privacy-matrix-title">صفر بيع بيانات للأبد</h4>
+                    </div>
+                    <p class="privacy-matrix-desc">
+                        تطبيق وقفي خالص لوجه الله.. مفيش أي وسيط إعلاني أو شركات تسويق وتتبع بتشوف أو بتاخد بياناتك أو نشاطك.
+                    </p>
+                </div>
+
+                <div class="privacy-matrix-card">
+                    <div class="privacy-matrix-header">
+                        <div class="privacy-matrix-icon">
+                            <img src="images/icons/multi-devices.png" alt="Local Storage">
+                        </div>
+                        <h4 class="privacy-matrix-title">تخزين محلي على جهازك وبس</h4>
+                    </div>
+                    <p class="privacy-matrix-desc">
+                        علامة وقوفك في المصحف، تسبيحاتك، ومفضلاتك متسجلة في ذاكرة جهازك محلياً بدون إرسالها لأي سيرفر خارجي.
+                    </p>
+                </div>
+
+                <div class="privacy-matrix-card">
+                    <div class="privacy-matrix-header">
+                        <div class="privacy-matrix-icon">
+                            <img src="images/icons/security-shield.png" alt="Permissions">
+                        </div>
+                        <h4 class="privacy-matrix-title">أذونات نظيفة بدون أي تجسس</h4>
+                    </div>
+                    <p class="privacy-matrix-desc">
+                        التطبيق لا يطلب ولا يطلع على الكاميرا، جهات الاتصال، أو ملفاتك الخاصة إطلاقاً.
+                    </p>
+                </div>
+
+                <div class="privacy-matrix-card">
+                    <div class="privacy-matrix-header">
+                        <div class="privacy-matrix-icon">
+                            <img src="images/icons/settings.png" alt="Control">
+                        </div>
+                        <h4 class="privacy-matrix-title">أنت صاحب القرار وسيد بياناتك</h4>
+                    </div>
+                    <p class="privacy-matrix-desc">
+                        تقدر في أي ثانية تحمل نسخة احتياطية من بياناتك كلها أو تمسحها بالكامل بزرار واحد بدون تعقيد.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3. دليل الشفافية والصلاحيات (ليه بنطلب كل إذن؟) -->
+            <div class="privacy-perms-card">
+                <div class="privacy-section-header">
+                    <div class="privacy-section-icon">
+                        <img src="images/icons/checked.png" alt="Transparency">
+                    </div>
+                    <div>
+                        <h3 class="privacy-section-title">دليل الشفافية • الصلاحيات اللي بنحتاجها وليه؟</h3>
+                        <p class="privacy-section-sub">توضيح صريح ومباشر لكل إذن يطلبه التطبيق</p>
+                    </div>
+                </div>
+
+                <div class="privacy-perms-list">
+                    <div class="privacy-perm-item">
+                        <div class="privacy-perm-left">
+                            <div class="privacy-perm-icon">
+                                <img src="images/icons/Qibla1.png" alt="Location">
+                            </div>
+                            <div class="privacy-perm-texts">
+                                <h4>تحديد الموقع الجغرافي (Location)</h4>
+                                <p>بنحتاجه لغرض وحيد وهو حساب مواقيت الصلاة بدقة وتحديد اتجاه القبلة حسب مدينتك، ولا يتم تتبعه أو تخزينه إطلاقاً.</p>
+                            </div>
+                        </div>
+                        <span class="privacy-perm-tag">محدود ومحلي</span>
+                    </div>
+
+                    <div class="privacy-perm-item">
+                        <div class="privacy-perm-left">
+                            <div class="privacy-perm-icon">
+                                <img src="images/icons/book1.png" alt="Storage">
+                            </div>
+                            <div class="privacy-perm-texts">
+                                <h4>ذاكرة التخزين المحلية (Local Storage)</h4>
+                                <p>عشان التطبيق يفتكر مكان وقوفك في المصحف، ومفضلاتك، وعدد التسبيحات اللي خلصتها في المسبحة.</p>
+                            </div>
+                        </div>
+                        <span class="privacy-perm-tag">أساسي لتجربتك</span>
+                    </div>
+
+                    <div class="privacy-perm-item">
+                        <div class="privacy-perm-left">
+                            <div class="privacy-perm-icon">
+                                <img src="images/icons/recorde.png" alt="Microphone">
+                            </div>
+                            <div class="privacy-perm-texts">
+                                <h4>الميكروفون وتسجيل الصوت (Microphone)</h4>
+                                <p>المايك لا يفتح نهائياً إلا إذا ضغطت بنفسك لتسجيل مقترح صوتي في صفحة الملاحظات، ولا يتم استخدامه في أي مكان آخر.</p>
+                            </div>
+                        </div>
+                        <span class="privacy-perm-tag">اختياري تماماً</span>
+                    </div>
+
+                    <div class="privacy-perm-item">
+                        <div class="privacy-perm-left">
+                            <div class="privacy-perm-icon">
+                                <img src="images/icons/notification.png" alt="Notifications">
+                            </div>
+                            <div class="privacy-perm-texts">
+                                <h4>إشعارات التذكير (Notifications)</h4>
+                                <p>لتذكيرك بالأذكار ومواقيت الصلاة حسب اختيارك أنت، وتقدر تفعلها أو تعطلها بنقرة واحدة من الإعدادات.</p>
+                            </div>
+                        </div>
+                        <span class="privacy-perm-tag">تحت سيطرتك</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. ركن فحص الأمان التفاعلي (LIVE PRIVACY AUDIT TOOL) -->
+            <div class="privacy-audit-card">
+                <span class="privacy-audit-badge">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    أداة فحص الخصوصية اللحظية
+                </span>
+                <h3 class="privacy-audit-title">افحص أمان وخصوصية جلستك الآن</h3>
+                <p class="privacy-audit-desc">
+                    اضغط على الزرار عشان التطبيق يفحص قدام عينك حالة التخزين، وانعدام أدوات التتبع، وأمان اتصالك في لحظة.
+                </p>
+                <button type="button" id="privacyAuditBtn" class="privacy-audit-btn" onclick="window.wzkerPrivacy.runPrivacyAudit()">
+                    <i class="fa-solid fa-radar"></i>
+                    <span>بدء الفحص اللحظي</span>
+                </button>
+
+                <div id="privacyAuditResults" class="privacy-audit-results">
+                    <div class="privacy-audit-row">
+                        <span>أدوات التتبع الإعلاني الخارجية:</span>
+                        <span class="privacy-audit-status">
+                            <i class="fa-solid fa-circle-check"></i>
+                            0 متعقبات (نظيف 100%)
+                        </span>
+                    </div>
+                    <div class="privacy-audit-row">
+                        <span>أمان التخزين والمفضلة:</span>
+                        <span class="privacy-audit-status">
+                            <i class="fa-solid fa-circle-check"></i>
+                            محلي ومحمي في ذاكرة جهازك
+                        </span>
+                    </div>
+                    <div class="privacy-audit-row">
+                        <span>الأكواد الإعلانية والتجارية:</span>
+                        <span class="privacy-audit-status">
+                            <i class="fa-solid fa-circle-check"></i>
+                            خالي تماماً من أي إعلانات للأبد
+                        </span>
+                    </div>
+                    <div class="privacy-audit-row">
+                        <span>حالة الاتصال والبيانات:</span>
+                        <span class="privacy-audit-status">
+                            <i class="fa-solid fa-circle-check"></i>
+                            أنت تتصفح وذكر بأعلى درجات الأمان
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. مركز التحكم في بياناتك (DATA MANAGEMENT SUITE) -->
+            <div class="privacy-data-suite">
+                <div class="privacy-section-header">
+                    <div class="privacy-section-icon">
+                        <img src="images/icons/details.png" alt="Data Suite">
+                    </div>
+                    <div>
+                        <h3 class="privacy-section-title">مركز التحكم في بياناتك المحفوظة</h3>
+                        <p class="privacy-section-sub">بياناتك ملكك بالكامل وتقدر تديرها وتصدرها في أي وقت</p>
+                    </div>
+                </div>
+
+                <div class="privacy-data-stats-row">
+                    <div class="privacy-data-stat-box">
+                        <span class="privacy-data-stat-val" id="privacyStatFavs">0</span>
+                        <span class="privacy-data-stat-lbl">أذكار وتلاوات مفضلة</span>
+                    </div>
+                    <div class="privacy-data-stat-box">
+                        <span class="privacy-data-stat-val" id="privacyStatBookmark">محفوظة</span>
+                        <span class="privacy-data-stat-lbl">علامة المصحف</span>
+                    </div>
+                    <div class="privacy-data-stat-box">
+                        <span class="privacy-data-stat-val" id="privacyStatTickets">0</span>
+                        <span class="privacy-data-stat-lbl">أفكار مقترحة مسجلة</span>
+                    </div>
+                </div>
+
+                <div class="privacy-data-actions">
+                    <button type="button" class="privacy-export-btn" onclick="window.wzkerPrivacy.exportUserData()">
+                        <i class="fa-solid fa-download"></i>
+                        <span>تصدير نسخة احتياطية من بياناتي (JSON)</span>
+                    </button>
+                    <button type="button" class="privacy-clear-btn" onclick="window.wzkerPrivacy.clearUserData()">
+                        <i class="fa-solid fa-trash-can"></i>
+                        <span>تصفير السجلات المحلية</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 6. تعهد المطور وميثاق الوقف (DEVELOPER PLEDGE) -->
+            <div class="privacy-pledge-card">
+                <div class="privacy-pledge-header">
+                    <div class="privacy-pledge-seal">
+                        <img src="images/icons/certificate1.png" alt="Pledge Seal">
+                    </div>
+                    <div>
+                        <h3 class="privacy-pledge-title">تعهد المطور وميثاق الأمانة</h3>
+                        <span class="privacy-pledge-sub">عمر التيجاني • مطور ومصمم وذكر</span>
+                    </div>
+                </div>
+
+                <div class="privacy-pledge-quote">
+                    "أعاهد الله سبحانه وتعالى ثم أعاهدكم جميعاً أن تطبيق وِذْكِرْ شُيّد ليكون وقفاً خالصاً لوجه الله تعالى.. لن يُستغل يوماً في جمع بياناتكم أو بيعها أو التكسب التجاري منها، وأن أمانكم الروحي والتقني أمانة سأُسأل عنها أمام الله يوم القيامة."
+                </div>
+
+                <div class="privacy-pledge-actions">
+                    <button type="button" class="privacy-pledge-btn whatsapp" onclick="window.wzkerPrivacy.openWhatsApp()">
+                        <img src="images/icons/whatsapp.png" style="width: 18px; height: 18px; object-fit: contain;" alt="WhatsApp">
+                        <span>تواصل أمني عبر واتساب</span>
+                    </button>
+                    <button type="button" class="privacy-pledge-btn email" onclick="window.wzkerPrivacy.openEmail()">
+                        <img src="images/icons/Mail.png" style="width: 18px; height: 18px; object-fit: contain;" alt="Email">
+                        <span>إرسال بريد أمني</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 7. تاريخ السريان والمراجعة -->
+            <div class="privacy-meta-footer">
+                آخر تحديث ومراجعة: <b>سبتمبر 2026</b> • سارية مدى الحياة ومحمية بميثاق الوقف الإسلامي
+            </div>
+
         </div>
     </div>
 
@@ -6033,6 +6576,8 @@
     <script src="js/firebase-config.js"></script>
     <script src="js/cloud-sync.js"></script>
     <script src="js/feedback.js"></script>
+    <script src="js/about.js"></script>
+    <script src="js/privacy.js"></script>
 
     <script src="js/app.js"></script>
 

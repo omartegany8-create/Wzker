@@ -284,6 +284,12 @@ window.openLibPage = (id) => {
     window.wzkerFeedback.renderRoadmap();
     window.wzkerFeedback.initWaveformCanvas();
   }
+  if (id === 'aboutPage' && window.wzkerAbout) {
+    window.wzkerAbout.onOpen();
+  }
+  if (id === 'privacyPolicyPage' && window.wzkerPrivacy) {
+    window.wzkerPrivacy.onOpen();
+  }
   if ((id === 'loginPage' || id === 'authLoginPage' || id === 'authRegisterPage') && window.wzkerCloud && typeof window.wzkerCloud.renderAllGoogleButtons === 'function') {
     setTimeout(() => window.wzkerCloud.renderAllGoogleButtons(), 60);
   }
