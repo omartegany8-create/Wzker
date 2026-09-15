@@ -1,7 +1,7 @@
 /**
- * WZKER (وذكر) - PRIVACY POLICY & SECURITY MODULE (js/privacy.js)
- * Interactive Live Privacy Audit, Local Data Stats,
- * JSON Data Export (Backup), Safe Data Reset & Security Connect
+ * WZKER (وذكر) - PRIVACY & SECURITY HUB MODULE (js/privacy.js)
+ * Real Permissions Checker, Storage Metrics, JSON Export,
+ * Interactive FAQ Accordion, and Developer Contact
  */
 
 (function () {
@@ -11,7 +11,6 @@
     constructor() {
       this.whatsappNumber = '201158601817';
       this.developerEmail = 'omartegany8@gmail.com';
-      this.isAuditing = false;
 
       this.init();
     }
@@ -25,15 +24,53 @@
     }
 
     setup() {
-      this.updateDataStats();
+      this.updateStorageMetrics();
+      this.checkLivePermissions();
+      this.bindFaqAccordion();
     }
 
     onOpen() {
-      this.updateDataStats();
+      this.updateStorageMetrics();
+      this.checkLivePermissions();
     }
 
-    // ── 1. إحصائيات البيانات المحلية ──
-    updateDataStats() {
+    // ── 1. فحص حالة الأذونات الفعلية في المتصفح ──
+    async checkLivePermissions() {
+      // 1. Geolocation
+      const geoBadge = document.getElementById('permGeoBadge');
+      if (geoBadge && navigator.permissions) {
+        try {
+          const status = await navigator.permissions.query({ name: 'geolocation' });
+          this.applyPermBadge(geoBadge, status.state);
+          status.onchange = () => this.applyPermBadge(geoBadge, status.state);
+        } catch (e) {
+          geoBadge.textContent = 'متاح عند الطلب';
+        }
+      }
+
+      // 2. Notifications
+      const notifBadge = document.getElementById('permNotifBadge');
+      if (notifBadge && 'Notification' in window) {
+        this.applyPermBadge(notifBadge, Notification.permission);
+      }
+    }
+
+    applyPermBadge(element, state) {
+      if (!element) return;
+      if (state === 'granted') {
+        element.textContent = 'مُفعل ونشط ✓';
+        element.className = 'privacy-perm-badge active';
+      } else if (state === 'denied') {
+        element.textContent = 'مرفوض';
+        element.className = 'privacy-perm-badge';
+      } else {
+        element.textContent = 'عند الحاجة فقط';
+        element.className = 'privacy-perm-badge';
+      }
+    }
+
+    // ── 2. إحصائيات التخزين المحلي والبيانات ──
+    updateStorageMetrics() {
       try {
         // Favorites
         const favs = JSON.parse(localStorage.getItem('wzker_favorites') || '[]');
@@ -45,114 +82,94 @@
         const bookmarkEl = document.getElementById('privacyStatBookmark');
         if (bookmarkEl) bookmarkEl.textContent = bookmark ? 'محفوظة' : 'لا يوجد';
 
-        // Tickets & Ideas
+        // Ideas & Tickets
         const tickets = JSON.parse(localStorage.getItem('wzker_user_tickets') || '[]');
         const ticketsEl = document.getElementById('privacyStatTickets');
         if (ticketsEl) ticketsEl.textContent = (Array.isArray(tickets) ? tickets.length : 0).toLocaleString('ar-EG');
       } catch (e) {
-        console.warn('Privacy stats calculation error:', e);
+        console.warn('Storage calculation error:', e);
       }
     }
 
-    // ── 2. أداة فحص أمان وخصوصية الجلسة (LIVE PRIVACY AUDIT) ──
-    runPrivacyAudit() {
-      if (this.isAuditing) return;
-      this.isAuditing = true;
-
-      const btn = document.getElementById('privacyAuditBtn');
-      const results = document.getElementById('privacyAuditResults');
-      const originalText = btn ? btn.innerHTML : '';
-
-      if (btn) {
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> <span>جاري فحص الأمان والخصوصية...</span>';
-        btn.style.opacity = '0.75';
-        btn.style.pointerEvents = 'none';
-      }
-
-      // Simulated realistic check steps
-      setTimeout(() => {
-        if (results) {
-          results.classList.add('active');
-        }
-        if (btn) {
-          btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>اكتمل الفحص: الجلسة آمنة 100%</span>';
-          btn.style.background = 'linear-gradient(135deg, #20c997, #28a745)';
-          btn.style.opacity = '1';
-          btn.style.pointerEvents = 'auto';
-        }
-        this.isAuditing = false;
-
-        // Haptic feedback
-        if (navigator.vibrate) {
-          try { navigator.vibrate([40, 50, 40]); } catch (e) {}
-        }
-
-        if (window.showToast) {
-          window.showToast('فحص الأمان: لا توجد أي أدوات تتبع والبيانات محلية 100% ✅');
-        }
-      }, 900);
+    // ── 3. الأسئلة الشائعة (Interactive FAQ Accordion) ──
+    bindFaqAccordion() {
+      const items = document.querySelectorAll('.privacy-faq-item');
+      items.forEach((item) => {
+        const btn = item.querySelector('.privacy-faq-question');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          items.forEach(i => i.classList.remove('open'));
+          if (!isOpen) {
+            item.classList.add('open');
+          }
+        });
+      });
     }
 
-    // ── 3. تصدير نسخة احتياطية من بيانات المستخدم (JSON BACKUP) ──
+    // ── 4. تصدير البيانات (JSON Backup) ──
     exportUserData() {
       try {
-        const backupData = {
-          app: 'Wzker (وذكر)',
-          exportDate: new Date().toISOString(),
+        const backup = {
+          appName: 'Wzker (وذكر)',
           version: '2.5',
+          date: new Date().toISOString(),
           favorites: JSON.parse(localStorage.getItem('wzker_favorites') || '[]'),
           quranBookmark: localStorage.getItem('wzker_quran_bookmark') || null,
           khatmaProgress: JSON.parse(localStorage.getItem('wzker_khatma_progress') || '{}'),
-          tasbeehCounters: JSON.parse(localStorage.getItem('wzker_tasbeeh_state') || '{}'),
-          userTickets: JSON.parse(localStorage.getItem('wzker_user_tickets') || '[]'),
-          feedbackDraft: localStorage.getItem('wzker_user_name') || ''
+          tasbeehState: JSON.parse(localStorage.getItem('wzker_tasbeeh_state') || '{}'),
+          userTickets: JSON.parse(localStorage.getItem('wzker_user_tickets') || '[]')
         };
 
-        const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(backupData, null, 2));
-        const downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute('href', dataStr);
-        downloadAnchor.setAttribute('download', `wzker-data-backup-${new Date().toISOString().split('T')[0]}.json`);
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        downloadAnchor.remove();
+        const jsonStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(backup, null, 2));
+        const a = document.createElement('a');
+        a.setAttribute('href', jsonStr);
+        a.setAttribute('download', `wzker-backup-${new Date().toISOString().split('T')[0]}.json`);
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
 
         if (window.showToast) {
-          window.showToast('تم تحميل نسختك الاحتياطية من البيانات بنجاح ✨');
+          window.showToast('تم تحميل نسختك الاحتياطية بنجاح 📁');
         }
       } catch (e) {
         console.error('Export error:', e);
-        if (window.showToast) window.showToast('حدث خطأ أثناء تصدير البيانات');
+        if (window.showToast) window.showToast('تعذر تصدير البيانات');
       }
     }
 
-    // ── 4. تصفير السجلات المحلية بأمان ──
+    // ── 5. تصفير السجلات المحلية بأمان ──
     clearUserData() {
-      const confirmClear = window.confirm('هل أنت متأكد من مسح السجلات المحلية المحفوظة على جهازك؟ (سيتم مسح علامات المصحف، المفضلة، وسجلات التسبيح وستبدأ من جديد).');
-      if (!confirmClear) return;
+      const confirmed = window.confirm(
+        'هل تود مسح السجلات المحلية المحفوظة على جهازك؟\n' +
+        '(سيتم مسح المفضلة وعلامة المصحف وسجلات التسبيح وستبدأ من جديد).'
+      );
+
+      if (!confirmed) return;
 
       try {
         localStorage.removeItem('wzker_favorites');
         localStorage.removeItem('wzker_quran_bookmark');
         localStorage.removeItem('wzker_khatma_progress');
         localStorage.removeItem('wzker_tasbeeh_state');
-        this.updateDataStats();
+        this.updateStorageMetrics();
 
         if (window.showToast) {
-          window.showToast('تم تصفير السجلات المحلية بنجاح 🧹');
+          window.showToast('تم مسح السجلات المحلية بنجاح');
         }
       } catch (e) {
-        console.error('Clear data error:', e);
+        console.error('Clear error:', e);
       }
     }
 
-    // ── 5. التواصل المباشر مع المطور بخصوص الأمان ──
+    // ── 6. قنوات التواصل المباشر مع عمر ──
     openWhatsApp() {
-      const text = encodeURIComponent('السلام عليكم يا عمر، عندي استفسار بخصوص سياسة الخصوصية وأمان البيانات في تطبيق وذكر.');
+      const text = encodeURIComponent('السلام عليكم يا عمر، حابب أستفسر بخصوص الخصوصية وأمان البيانات في تطبيق وذكر.');
       window.open(`https://wa.me/${this.whatsappNumber}?text=${text}`, '_blank');
     }
 
     openEmail() {
-      const mailto = `mailto:${this.developerEmail}?subject=${encodeURIComponent('استفسار أمني بخصوص تطبيق وذكر')}&body=${encodeURIComponent('السلام عليكم ورحمة الله وبركاته،\n\n')}`;
+      const mailto = `mailto:${this.developerEmail}?subject=${encodeURIComponent('استفسار أمني - وذكر')}&body=${encodeURIComponent('السلام عليكم ورحمة الله،\n\n')}`;
       window.open(mailto, '_blank');
     }
   }

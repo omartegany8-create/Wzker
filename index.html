@@ -34,6 +34,12 @@
     <link rel="stylesheet" href="css/feedback.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/privacy.css">
+    <link rel="stylesheet" href="css/nawawi.css">
+    <link rel="stylesheet" href="css/quran-stories.css">
+    <link rel="stylesheet" href="css/etiquette.css">
+    <link rel="stylesheet" href="css/ruqyah.css">
+    <link rel="stylesheet" href="css/allah-names.css">
+    <link rel="stylesheet" href="css/hadith.css">
     <!-- Google Identity Services (GIS/GSI) SDK -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -2315,28 +2321,147 @@
         </div>
     </div>
 
-    <!-- 3. HADITH ENCYCLOPEDIA PAGE -->
+    <!-- 3. HADITH ENCYCLOPEDIA PAGE (موسوعة الأحاديث النبوية الشريفة) -->
     <div id="hadithPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('hadithPage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/book2.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Hadith">
-                <h2 class="navbar-title">موسوعة الأحاديث</h2>
+        <!-- Ambient Atmosphere Orbs -->
+        <div class="hd-ambient-orb hd-orb-1"></div>
+        <div class="hd-ambient-orb hd-orb-2"></div>
+        <div class="hd-ambient-orb hd-orb-3"></div>
+
+        <!-- Sticky Glass Navbar -->
+        <div class="hd-navbar">
+            <button class="nav-btn" onclick="closeLibPage('hadithPage')" title="رجوع">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div class="hd-nav-center">
+                <img src="images/icons/book2.png" class="hd-nav-crest" alt="Hadith">
+                <h2 class="navbar-title">موسوعة الأحاديث النبوية</h2>
             </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/book2.png" alt="Hadith">
-                </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-scroll"></i> السنة النبوية الشريفة</span>
-                <h3 class="placeholder-page-title">موسوعة الأحاديث النبوية الصحيحة</h3>
-                <p class="placeholder-page-desc">صفحة مهيأة بالكامل لعرض الأحاديث الصحيحة مصنفة حسب الأبواب مع معانيها وشروحها الميسرة.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('hadithPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+            <div class="hd-nav-actions">
+                <button class="top-custom-icon-btn" onclick="window.wzkerHadith.pickRandomBillboardHadith()" title="حديث عشوائي مبارك">
+                    <i class="fas fa-dice" style="color: #10b981; font-size: 1.15rem;"></i>
                 </button>
+                <button class="top-custom-icon-btn" onclick="document.getElementById('hdSearchInput').focus()" title="بحث في الأحاديث">
+                    <i class="fas fa-search" style="color: #64748b; font-size: 1.05rem;"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="hd-page-wrapper">
+            <!-- Grand Diwan Canopy -->
+            <div class="hd-diwan-canopy">
+                <div class="hd-canopy-top">
+                    <div class="hd-canopy-branding">
+                        <div class="hd-canopy-emblem">
+                            <img src="images/icons/book2.png" alt="Hadith Diwan">
+                        </div>
+                        <div class="hd-canopy-titles">
+                            <h2>ديوان السنة النبوية المطهرة</h2>
+                            <p>جامع الصحاح والمسانيد والسنن بأصح الروايات والأسانيد</p>
+                        </div>
+                    </div>
+                    <div class="hd-canopy-hadith-ribbon">
+                        <i class="fas fa-sparkles"></i>
+                        <span>«تركت فيكم ما إن تمسكتم به لن تضلوا بعدي»</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto-Flipping Rotating Hadith Billboard (لوحة الإعلان التلقائية كقبس متجدد) -->
+            <section class="hd-billboard-wrap">
+                <div class="hd-billboard-header">
+                    <div class="hd-billboard-live-tag">
+                        <span class="hd-live-dot"></span>
+                        <span>قبس نبوي متجدد (تقليب تلقائي)</span>
+                    </div>
+                    <div class="hd-billboard-ctrls">
+                        <button class="hd-ctrl-btn" id="hdBillboardPrev" title="الحديث السابق">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="hd-ctrl-btn" id="hdBillboardPlayBtn" title="إيقاف / تشغيل التقليب">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button class="hd-ctrl-btn" id="hdBillboardNext" title="الحديث التالي">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="hd-ctrl-btn" id="hdBillboardDice" title="قبس عشوائي">
+                            <i class="fas fa-dice"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 7-second Progress Bar -->
+                <div class="hd-billboard-progress-track">
+                    <div class="hd-billboard-progress-fill" id="hdBillboardProgressBar"></div>
+                </div>
+
+                <!-- Active Billboard Card -->
+                <div class="hd-billboard-card" id="hdBillboardInnerCard">
+                    <div class="hd-billboard-meta-row">
+                        <span class="hd-narrator-pill" id="hdBillboardNarratorPill">
+                            <img src="images/icons/book1.png" id="hdBillboardBookIcon" style="width: 14px; height: 14px;" alt="Book">
+                            <span id="hdBillboardBookName">صحيح البخاري</span>
+                        </span>
+                        <p class="hd-sanad-text" id="hdBillboardSanad"></p>
+                    </div>
+
+                    <div class="hd-billboard-hadith-box">
+                        <p class="hd-billboard-text" id="hdBillboardText"></p>
+                        <div class="hd-billboard-takhrij" id="hdBillboardTakhrij"></div>
+                    </div>
+
+                    <div class="hd-billboard-footer">
+                        <button class="hd-speech-btn" id="hdBillboardSpeechBtn" onclick="window.wzkerHadith.toggleBillboardSpeech()">
+                            <i class="fas fa-volume-up"></i>
+                            <span>استماع صوتي للقبس</span>
+                        </button>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="hd-card-tool-btn" onclick="window.wzkerHadith.copyCurrentBillboard()" title="نسخ الحديث">
+                                <i class="far fa-copy"></i>
+                            </button>
+                            <button class="hd-card-tool-btn" onclick="window.wzkerHadith.shareCurrentBillboard()" title="مشاركة">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Narrator Collections Spectrum Bar (كل راوي بلون) -->
+            <section class="hd-spectrum-section">
+                <div class="hd-spectrum-header">
+                    <div class="hd-spectrum-title">
+                        <img src="images/icons/certificate1.png" alt="Books">
+                        <span>دواوين السنة وأئمة الحديث (تمايز الألوان)</span>
+                    </div>
+                </div>
+                <div class="hd-spectrum-grid" id="hdSpectrumGrid"></div>
+            </section>
+
+            <!-- Thematic Subject Tabs -->
+            <div class="hd-topic-tabs-row" id="hdTopicTabs"></div>
+
+            <!-- Live Search Bar -->
+            <div class="hd-search-wrap">
+                <img src="images/icons/search.png" class="hd-search-icon-left" alt="Search">
+                <input type="text" 
+                       id="hdSearchInput" 
+                       class="hd-search-input" 
+                       placeholder="ابحث بمتن الحديث، اسم الصحابي، أو التخريج والموضوع..." 
+                       autocomplete="off">
+                <button class="hd-search-clear-btn" id="hdSearchClear" title="مسح البحث">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Hadith Cards Grid -->
+            <div class="hd-cards-grid" id="hdCardsGrid"></div>
+
+            <!-- Empty Search State -->
+            <div id="hdEmptyState" style="display: none; text-align: center; padding: 48px 20px;">
+                <img src="images/icons/book2.png" style="width: 64px; height: 64px; opacity: 0.5; margin-bottom: 14px;" alt="Empty">
+                <h4 style="color: var(--text-main); font-weight: 800; margin: 0 0 6px;">لم يتم العثور على أحاديث مطابقة</h4>
+                <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0;">جرب البحث بكلمات أخرى أو اختر ديواناً مختلفاً.</p>
             </div>
         </div>
     </div>
@@ -4921,56 +5046,276 @@
         </div>
     </div>
 
-    <!-- 11. RUQYAH PAGE (الرقية الشرعية) -->
+    <!-- 11. RUQYAH PAGE (الرقية الشرعية المطولة) -->
     <div id="ruqyahPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('ruqyahPage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/Ruqayyah1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Ruqyah">
-                <h2 class="navbar-title">الرقية الشرعية</h2>
+        <!-- Atmospheric Healing Light Orbs -->
+        <div class="ruq-ambient-orb ruq-orb-1"></div>
+        <div class="ruq-ambient-orb ruq-orb-2"></div>
+        <div class="ruq-ambient-orb ruq-orb-3"></div>
+
+        <!-- Sticky Glass Prime Navbar -->
+        <div class="ruq-navbar">
+            <button class="nav-btn" onclick="closeLibPage('ruqyahPage')" title="رجوع">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div class="ruq-nav-center">
+                <img src="images/icons/Ruqayyah1.png" class="ruq-nav-crest" alt="Ruqyah">
+                <h2 class="navbar-title">الرقية الشرعية والتحصين</h2>
             </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/Ruqayyah1.png" alt="Ruqyah">
-                </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-hand-holding-heart"></i> شفاء وسكينة</span>
-                <h3 class="placeholder-page-title">الرقية الشرعية من الكتاب والسنة</h3>
-                <p class="placeholder-page-desc">شاشة الرقية الشرعية مهيأة بالكامل لعرض الآيات والأدعية النبوية للتحصين والشفاء، مع خيار الاستماع الصوتي الخاشع.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('ruqyahPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+            <div class="ruq-nav-actions">
+                <button class="top-custom-icon-btn" onclick="window.wzkerRuqyah.openAdabModal()" title="شروط وآداب الرقية">
+                    <img src="images/icons/bulb-ideas1.png" style="width: 20px; height: 20px;" alt="Adab">
+                </button>
+                <button class="top-custom-icon-btn" onclick="window.wzkerRuqyah.resetAllSessionCounts()" title="إعادة تصفير تكرار الجلسة">
+                    <i class="fa-solid fa-arrow-rotate-right" style="font-size: 14px; color: var(--text-muted);"></i>
+                </button>
+                <button class="top-custom-icon-btn" onclick="window.wzkerRuqyah.setCategory('favs')" title="المحفوظات">
+                    <img src="images/icons/fav-active.png" style="width: 20px; height: 20px;" alt="Favs">
                 </button>
             </div>
         </div>
+
+        <div class="sub-page-body ruq-page-wrapper">
+            <!-- 1. THE HEALING CANOPY & SHIELD OF LIGHT -->
+            <div class="ruq-shield-canopy">
+                <div class="ruq-canopy-top">
+                    <div class="ruq-canopy-branding">
+                        <div class="ruq-shield-emblem">
+                            <img src="images/icons/Ruqayyah1.png" alt="الرقية الشرعية">
+                        </div>
+                        <div class="ruq-canopy-titles">
+                            <h2>حِصْنُ الشِّفَاءِ وَالتَّحْصِينِ الرَّبَّانِيِّ</h2>
+                            <p>«وَنُنَزِّلُ مِنَ الْقُرْآنِ مَا هُوَ شِفَاءٌ وَرَحْمَةٌ لِّلْمُؤْمِنِينَ»</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Session Intent Strip -->
+                <div class="ruq-intent-strip">
+                    <div class="ruq-intent-header">
+                        <span>
+                            <i class="fa-solid fa-hand-holding-medical" style="color: var(--ruq-accent);"></i>
+                            <span>اختر نية جلسة الاستشفاء والتحصين:</span>
+                        </span>
+                        <span style="color: var(--ruq-primary); font-size: 0.78rem;">توجيه مخصص للآيات</span>
+                    </div>
+                    <div class="ruq-intent-chips">
+                        <button type="button" class="ruq-intent-chip active" data-intent="all" onclick="window.wzkerRuqyah.setIntent('all')">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>الرقية الشاملة الجامعة</span>
+                        </button>
+                        <button type="button" class="ruq-intent-chip" data-intent="healing" onclick="window.wzkerRuqyah.setIntent('healing')">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span>طلب الشفاء وزوال المرض</span>
+                        </button>
+                        <button type="button" class="ruq-intent-chip" data-intent="eye" onclick="window.wzkerRuqyah.setIntent('eye')">
+                            <i class="fa-solid fa-eye-slash"></i>
+                            <span>دفع العين والحسد</span>
+                        </button>
+                        <button type="button" class="ruq-intent-chip" data-intent="duas" onclick="window.wzkerRuqyah.setIntent('duas')">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                            <span>الأدعية النبوية والمسح</span>
+                        </button>
+                        <button type="button" class="ruq-intent-chip" data-intent="anxiety" onclick="window.wzkerRuqyah.setIntent('anxiety')">
+                            <i class="fa-solid fa-dove"></i>
+                            <span>تفريج الهم والسكينة</span>
+                        </button>
+                        <button type="button" class="ruq-intent-chip" data-intent="home" onclick="window.wzkerRuqyah.setIntent('home')">
+                            <i class="fa-solid fa-house-chimney-medical"></i>
+                            <span>تحصين البيت والنوم</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FOUR HEALTH & HEALING METRIC TILES -->
+            <div class="ruq-metrics-row">
+                <div class="ruq-metric-card">
+                    <div class="ruq-metric-icon-wrap">
+                        <img src="images/icons/book1.png" alt="Verses">
+                    </div>
+                    <div class="ruq-metric-info">
+                        <span class="ruq-metric-val" id="ruqTotalItemsVal">٣٣ آية ودعاء</span>
+                        <span class="ruq-metric-lbl">نصوص الرقية المعتمدة</span>
+                    </div>
+                </div>
+
+                <div class="ruq-metric-card">
+                    <div class="ruq-metric-icon-wrap">
+                        <img src="images/icons/task-done1.png" alt="Completed">
+                    </div>
+                    <div class="ruq-metric-info">
+                        <span class="ruq-metric-val" id="ruqCompletedVal">٠ من ٣٣</span>
+                        <span class="ruq-metric-lbl">الآيات المكتملة بالتكرار</span>
+                    </div>
+                </div>
+
+                <div class="ruq-metric-card">
+                    <div class="ruq-metric-icon-wrap">
+                        <img src="images/icons/sabha1.png" alt="Repeats">
+                    </div>
+                    <div class="ruq-metric-info">
+                        <span class="ruq-metric-val" id="ruqRepeatsVal">٠ تكرار</span>
+                        <span class="ruq-metric-lbl">إجمالي التكرارات المنجزة</span>
+                    </div>
+                </div>
+
+                <div class="ruq-metric-card">
+                    <div class="ruq-metric-icon-wrap">
+                        <img src="images/icons/security-shield.png" alt="Shield Status">
+                    </div>
+                    <div class="ruq-metric-info">
+                        <span class="ruq-metric-val" id="ruqStatusVal" style="font-size: 0.95rem; color: var(--ruq-accent);">ابدأ الرقية الآن</span>
+                        <span class="ruq-metric-lbl">حالة جلسة الاستشفاء</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. ROYAL AUDIO RUQYAH STATION DOCK -->
+            <div id="ruqAudioDockWrap">
+                <!-- Injected dynamically by wzkerRuqyah -->
+            </div>
+
+            <!-- 4. CATEGORY SHIELD TABS -->
+            <div class="ruq-category-tabs" id="ruqCategoryTabs">
+                <!-- Injected dynamically by wzkerRuqyah -->
+            </div>
+
+            <!-- 5. SMART SEARCH BAR -->
+            <div class="ruq-search-wrap">
+                <img src="images/icons/search.png" class="ruq-search-icon-left" alt="Search">
+                <input type="text" id="ruqSearchInput" class="ruq-search-input" placeholder="ابحث في الآيات، الأدعية، أو هدي الاستشفاء النبوي...">
+                <button type="button" id="ruqSearchClear" class="ruq-search-clear-btn" title="مسح">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- 6. SACRED HEALING CARDS GRID -->
+            <div class="ruq-cards-grid" id="ruqCardsGrid">
+                <!-- Injected dynamically by wzkerRuqyah -->
+            </div>
+        </div>
+
     </div>
 
-    <!-- 12. ALLAH NAMES PAGE (أسماء الله الحسنى) -->
+    <!-- 12. ALLAH NAMES PAGE (أسماء الله الحسنى الـ ٩٩) -->
     <div id="allahNamesPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('allahNamesPage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/leaf-1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Names">
-                <h2 class="navbar-title">أسماء الله الحسنى</h2>
+        <!-- Atmospheric Starlight Radiance -->
+        <div class="an-ambient-orb an-orb-1"></div>
+        <div class="an-ambient-orb an-orb-2"></div>
+        <div class="an-ambient-orb an-orb-3"></div>
+
+        <!-- Sticky Glass Prime Navbar -->
+        <div class="an-navbar">
+            <button class="nav-btn" onclick="closeLibPage('allahNamesPage')" title="رجوع">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div class="an-nav-center">
+                <img src="images/icons/certificate1.png" class="an-nav-crest" alt="أسماء الله الحسنى">
+                <h2 class="navbar-title">أسماء الله الحسنى الـ ٩٩</h2>
             </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/leaf-1.png" alt="Names">
-                </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-star-and-crescent"></i> ولله الأسماء الحسنى فادعوه بها</span>
-                <h3 class="placeholder-page-title">أسماء الله الحسنى الـ ٩٩</h3>
-                <p class="placeholder-page-desc">شاشة أسماء الله الحسنى جاهزة لعرض بطاقات تفاعلية أنيقة لجميع الأسماء الحسنى مع معانيها وأدعية التضرع بها.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('allahNamesPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+            <div class="an-nav-actions">
+                <button class="top-custom-icon-btn" onclick="window.wzkerAllahNames.playFullAudioTrack()" title="الاستماع لترتيل الأسماء كاملة">
+                    <img src="images/icons/sound-on.png" style="width: 20px; height: 20px;" alt="Audio">
+                </button>
+                <button class="top-custom-icon-btn" onclick="window.wzkerAllahNames.setGate('memorized')" title="الأسماء التي تم إحصاؤها">
+                    <img src="images/icons/task-done1.png" style="width: 20px; height: 20px;" alt="Memorized">
+                </button>
+                <button class="top-custom-icon-btn" onclick="window.wzkerAllahNames.setGate('favs')" title="الأسماء المحفوظة">
+                    <img src="images/icons/fav-active.png" style="width: 20px; height: 20px;" alt="Favorites">
                 </button>
             </div>
         </div>
+
+        <div class="sub-page-body an-page-wrapper">
+            <!-- 1. THE CELESTIAL THRONE CANOPY -->
+            <div class="an-celestial-canopy">
+                <div class="an-canopy-top">
+                    <div class="an-canopy-branding">
+                        <div class="an-canopy-emblem">
+                            <img src="images/icons/certificate1.png" alt="الأسماء الحسنى">
+                        </div>
+                        <div class="an-canopy-titles">
+                            <h2>فَلَكُ التَّجَلِّيَاتِ • أَسْمَاءُ اللَّهِ الحُسْنَى الـ ٩٩</h2>
+                            <p>«وَلِلَّهِ الْأَسْمَاءُ الْحُسْنَىٰ فَادْعُوهُ بِهَا»</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="an-hadith-ribbon">
+                    <i class="fa-solid fa-gem"></i>
+                    <span>قال رسول الله ﷺ: «إِنَّ لِلَّهِ تِسْعَةً وَتِسْعِينَ اسْمًا، مِائَةً إِلَّا وَاحِدًا، مَنْ أَحْصَاهَا دَخَلَ الْجَنَّةَ».</span>
+                </div>
+            </div>
+
+            <!-- 2. INTERACTIVE IHSAA' & MEMORIZATION RANK CARD -->
+            <div class="an-ihsaa-card">
+                <div class="an-ihsaa-left">
+                    <div class="an-ihsaa-seal">
+                        <img src="images/icons/certificate2.png" id="anRankSealImg" alt="Rank">
+                    </div>
+                    <div class="an-ihsaa-texts">
+                        <h4 id="anRankTitle">مقام الإحصاء المبارك</h4>
+                        <p id="anRankBadge">ابدأ بتدبر اسم واحد يومياً واعمل بمقتضاه</p>
+                    </div>
+                </div>
+
+                <div class="an-ihsaa-progress-area">
+                    <div class="an-ihsaa-meta">
+                        <span style="font-weight: 800; color: var(--text-main);">
+                            <i class="fa-solid fa-award" style="color: var(--an-gold); margin-left: 5px;"></i>
+                            <span id="anMemorizedCountVal">٠ من ٩٩ اسماً</span>
+                        </span>
+                        <span style="font-weight: 900; color: var(--an-gold);" id="anMemorizedPctVal">٠%</span>
+                    </div>
+                    <div class="an-ihsaa-track">
+                        <div class="an-ihsaa-fill" id="anIhsaaFill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. THE DIVINE NAME OF THE DAY SHOWCASE -->
+            <div class="an-daily-vault" id="anDailyVault">
+                <!-- Injected dynamically by wzkerAllahNames -->
+            </div>
+
+            <!-- 4. AUDIO RECITATION STATION BAR -->
+            <div class="an-audio-station">
+                <div class="an-audio-left">
+                    <div class="an-audio-crest">
+                        <img src="images/icons/sound-on.png" alt="Recitation">
+                    </div>
+                    <div class="an-audio-texts">
+                        <h5>ترتيل أسماء الله الحسنى الـ ٩٩ بصوت خاشع</h5>
+                        <p>تلاوة مباركة تبعث السكينة وتعين على الحفظ والتدبر</p>
+                    </div>
+                </div>
+                <button type="button" class="an-audio-play-btn" onclick="window.wzkerAllahNames.playFullAudioTrack()">
+                    <i class="fa-solid fa-play"></i>
+                    <span>تشغيل الترتيل</span>
+                </button>
+            </div>
+
+            <!-- 5. SPIRITUAL GATES TABS -->
+            <div class="an-gates-row" id="anGatesRow">
+                <!-- Injected dynamically by wzkerAllahNames -->
+            </div>
+
+            <!-- 6. SMART SEARCH BAR -->
+            <div class="an-search-wrap">
+                <img src="images/icons/search.png" class="an-search-icon-left" alt="Search">
+                <input type="text" id="anSearchInput" class="an-search-input" placeholder="ابحث في أسماء الله الحسنى، المعاني، أو الآيات والأدعية...">
+                <button type="button" id="anSearchClear" class="an-search-clear-btn" title="مسح">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- 7. THE 99 GOLDEN CALLIGRAPHIC CARDS GRID -->
+            <div class="an-names-grid" id="anNamesGrid">
+                <!-- Injected dynamically by wzkerAllahNames -->
+            </div>
+        </div>
+
     </div>
 
     <!-- 13. QIBLA COMPASS PAGE (اتجاه القبلة وبوصلة الكعبة الفلكية) -->
@@ -5243,80 +5588,390 @@
 
     <!-- 14. ARBA'EEN NAWAWIYYAH PAGE (الأربعون النووية) -->
     <div id="nawawiPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('nawawiPage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/book3.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Nawawi">
+        <!-- Ambient Light Glows -->
+        <div class="nawawi-ambient-orb nawawi-orb-1"></div>
+        <div class="nawawi-ambient-orb nawawi-orb-2"></div>
+
+        <!-- Sticky Contoured Prime Navbar -->
+        <div class="nawawi-navbar">
+            <button class="nav-btn" onclick="closeLibPage('nawawiPage')" title="رجوع">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div class="nawawi-nav-center">
+                <img src="images/icons/book3.png" class="nawawi-nav-crest" alt="Nawawi">
                 <h2 class="navbar-title">الأربعون النووية</h2>
             </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/book3.png" alt="Nawawi">
-                </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-book-quran"></i> قواعد وجوامع الإسلام</span>
-                <h3 class="placeholder-page-title">الأربعون النووية وشروحها الميسرة</h3>
-                <p class="placeholder-page-desc">موسوعة أحاديث الإمام النووي الـ ٤٢ كاملة بالتشكيل، مع الشرح الميسر، والفوائد التربوية والعملية، والتلاوة الصوتية لكل حديث للمساعدة على الحفظ والترديد.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('nawawiPage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+            <div class="nawawi-nav-actions">
+                <button class="top-custom-icon-btn" onclick="window.wzkerNawawi.pickRandomHadith()" title="حديث اليوم للتأمل">
+                    <i class="fa-solid fa-dice" style="color: var(--accent-gold); font-size: 15px;"></i>
+                </button>
+                <button class="top-custom-icon-btn" onclick="window.wzkerNawawi.setCategory('favs')" title="المفضلة">
+                    <i class="fa-solid fa-heart" style="color: var(--primary); font-size: 15px;"></i>
                 </button>
             </div>
         </div>
+
+        <div class="sub-page-body nawawi-page-wrapper">
+            <!-- 1. HERO SHOWCASE & PROGRESS CARD -->
+            <div class="nawawi-hero-card">
+                <div class="nawawi-hero-top">
+                    <div class="nawawi-hero-emblem">
+                        <img src="images/icons/book3.png" alt="Nawawi Emblem">
+                    </div>
+                    <div class="nawawi-hero-titles">
+                        <h2>الأربعون النووية</h2>
+                        <p>جوامع الكلم وقواعد الدين الحنيف • الإمام النووي</p>
+                    </div>
+                </div>
+                <p class="nawawi-hero-desc">
+                    موسوعة الأحاديث النبوية الـ ٤٢ التي بنى عليها أئمة الإسلام قواعد الدين؛ مضبوطة بالتشكيل التام مع الشرح الميسر، وغريب المفردات، والفوائد التربوية والعملية، ونظام تتبع الحفظ والقراءة.
+                </p>
+
+                <!-- Reading & Memorization Progress Box -->
+                <div class="nawawi-progress-box">
+                    <div class="nawawi-progress-meta">
+                        <span class="nawawi-progress-label">
+                            <i class="fa-solid fa-award" style="color: var(--accent-gold);"></i>
+                            <span>إنجاز القراءة والحفظ</span>
+                        </span>
+                        <span class="nawawi-progress-val" id="nawawiProgressVal">0 من 42 (0%)</span>
+                    </div>
+                    <div class="nawawi-progress-track">
+                        <div class="nawawi-progress-fill" id="nawawiProgressFill" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <!-- Quick Tools Row -->
+                <div class="nawawi-hero-tools">
+                    <button type="button" class="nawawi-tool-btn" onclick="window.wzkerNawawi.continueReading()">
+                        <i class="fa-solid fa-play" style="color: var(--primary);"></i>
+                        <span>متابعة القراءة التالية</span>
+                    </button>
+                    <button type="button" class="nawawi-tool-btn" onclick="window.wzkerNawawi.pickRandomHadith()">
+                        <img src="images/icons/bulb-ideas1.png" alt="Random">
+                        <span>حديث اليوم العشوائي</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. CATEGORY FILTER PILLS -->
+            <div class="nawawi-categories-strip" id="nawawiCategoriesStrip">
+                <!-- Injected dynamically -->
+            </div>
+
+            <!-- 3. SEARCH BAR -->
+            <div class="nawawi-search-wrap">
+                <img src="images/icons/search.png" class="nawawi-search-icon-left" alt="Search">
+                <input type="text" id="nawawiSearchInput" class="nawawi-search-input" placeholder="ابحث في نصوص الأحاديث، الرواة، المعاني، أو الفوائد...">
+                <button type="button" id="nawawiSearchClear" class="nawawi-search-clear-btn" title="مسح">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- 4. HADITH CARDS CONTAINER -->
+            <div class="nawawi-hadith-list" id="nawawiHadithList">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+
     </div>
 
-    <!-- 15. QURAN STORIES PAGE (قصص القرآن) -->
+    <!-- 15. QURAN STORIES PAGE (قصص القرآن الكريم) -->
     <div id="quranStoriesPage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('quranStoriesPage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/story1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Stories">
-                <h2 class="navbar-title">قصص القرآن</h2>
-            </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/story1.png" alt="Stories">
+        <!-- Ambient Light Orbs -->
+        <div class="stories-ambient-orb stories-orb-1"></div>
+        <div class="stories-ambient-orb stories-orb-2"></div>
+
+        <!-- ════ VIEW 1: CATALOG VIEW ════ -->
+        <div id="storiesCatalogView" class="stories-catalog-view">
+            <!-- Sticky Glass Prime Navbar -->
+            <div class="stories-navbar">
+                <button class="nav-btn" onclick="closeLibPage('quranStoriesPage')" title="رجوع">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="stories-nav-center">
+                    <img src="images/icons/story1.png" class="stories-nav-crest" alt="Stories">
+                    <h2 class="navbar-title">قصص القرآن الكريم</h2>
                 </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-feather-pointed"></i> عبر وتأملات قرآنية</span>
-                <h3 class="placeholder-page-title">موسوعة قصص القرآن الكريم</h3>
-                <p class="placeholder-page-desc">موسوعة تفاعلية كبرى تضم ٤ سلاسل رئيسية: قصص الأنبياء، قصص الإنسان والأمم، قصص النساء، وقصص الحيوان والطير في القرآن، مع الربط المباشر بآيات المصحف الشريف.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('quranStoriesPage')">
+                <div class="stories-nav-actions">
+                    <button class="top-custom-icon-btn" onclick="window.wzkerStories.resumeLastStory()" title="استئناف آخر قصة">
+                        <i class="fa-solid fa-bookmark" style="color: var(--accent-gold); font-size: 15px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="sub-page-body stories-page-wrapper">
+                <!-- 1. HERO SHOWCASE & STATS -->
+                <div class="stories-hero-card">
+                    <div class="stories-hero-top">
+                        <div class="stories-hero-emblem">
+                            <img src="images/icons/story1.png" alt="Stories Emblem">
+                        </div>
+                        <div class="stories-hero-titles">
+                            <h2>موسوعة قصص القرآن الكريم</h2>
+                            <p>عبر وتأملات وسير خالدة • سينما مرئية • بودكاست صوتي • قراءة ملكية</p>
+                        </div>
+                    </div>
+                    <p class="stories-hero-desc">
+                        منصة استوديو تفاعلية متكاملة لقصص القرآن؛ استمتع بمشاهدة مقاطع وثائقية وسينمائية في مسرح 16:9، أو الاستماع للسرد الصوتي في استوديو البودكاست، أو القراءة المتأنية مع الآيات والدروس المستفادة.
+                    </p>
+
+                    <!-- Smart Resume Box -->
+                    <div class="stories-resume-box" id="storiesResumeBox">
+                        <!-- Dynamic Resume Content -->
+                    </div>
+                </div>
+
+                <!-- 2. FOUR MAJOR EPICS (CATEGORIES) -->
+                <div class="stories-categories-grid" id="storiesCategoriesGrid">
+                    <!-- Injected dynamically -->
+                </div>
+
+                <!-- 3. MEDIA TYPE FILTER PILLS -->
+                <div class="stories-media-tabs" id="storiesMediaTabs">
+                    <button type="button" class="stories-tab-pill active" onclick="window.wzkerStories.setMediaType('all')">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>كافة القصص</span>
+                    </button>
+                    <button type="button" class="stories-tab-pill" onclick="window.wzkerStories.setMediaType('video')">
+                        <i class="fa-brands fa-youtube"></i>
+                        <span>وثائقي مرئي (YouTube)</span>
+                    </button>
+                    <button type="button" class="stories-tab-pill" onclick="window.wzkerStories.setMediaType('audio')">
+                        <i class="fa-solid fa-podcast"></i>
+                        <span>بودكاست صوتي (MP3)</span>
+                    </button>
+                    <button type="button" class="stories-tab-pill" onclick="window.wzkerStories.setMediaType('reading')">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>قراءة وتأمل</span>
+                    </button>
+                </div>
+
+                <!-- 4. SEARCH BAR -->
+                <div class="stories-search-wrap">
+                    <img src="images/icons/search.png" class="stories-search-icon-left" alt="Search">
+                    <input type="text" id="storiesSearchInput" class="stories-search-input" placeholder="ابحث في أسماء الأنبياء، القصص، السور، أو العبر المستفادة...">
+                    <button type="button" id="storiesSearchClear" class="stories-search-clear-btn" title="مسح">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- 5. STORIES CATALOG CARDS GRID -->
+                <div class="stories-cards-grid" id="storiesCardsGrid">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ════ VIEW 2: FULL IMMERSIVE STORY EXPERIENCE PLAYER ════ -->
+        <div id="storiesImmersivePlayer" class="stories-immersive-player">
+            <!-- Sticky Cinema Header -->
+            <div class="stories-player-topbar">
+                <button class="nav-btn" onclick="window.wzkerStories.closeStoryPlayer()" title="إغلاق والعودة للقائمة">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+                <div class="stories-player-top-titles">
+                    <span class="stories-player-top-badge" id="playerSeriesBadge">سلسلة الأنبياء</span>
+                    <h3 class="stories-player-top-title" id="playerTopTitle">قصة نبي الله</h3>
+                </div>
+                <div class="stories-player-top-actions">
+                    <button class="top-custom-icon-btn" id="playerFavBtn" onclick="window.wzkerStories.toggleCurrentFav()" title="المفضلة">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <button class="top-custom-icon-btn" onclick="window.wzkerStories.shareCurrentStory()" title="مشاركة">
+                        <img src="images/icons/share.png" style="width: 16px; height: 16px;" alt="Share">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cinema Theater Video Container (Responsive 16:9) -->
+            <div class="stories-cinema-theater">
+                <div class="stories-video-aspect-wrap" id="storiesVideoAspectWrap">
+                    <iframe id="storiesYouTubeFrame" class="stories-youtube-iframe"
+                        src="" 
+                        title="YouTube Story Video"
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                    <!-- Fallback Cover if no video -->
+                    <div id="storiesVideoFallbackCover" class="stories-fallback-cover" style="display: none;">
+                        <img id="storiesFallbackImg" src="" alt="Story Cover">
+                        <div class="stories-fallback-overlay">
+                            <i class="fa-solid fa-headphones"></i>
+                            <span>جلسة استماع وتأمل صوتي</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Podcast Mini Island inside Player -->
+            <div class="stories-player-audio-island">
+                <div class="stories-island-avatar">
+                    <img id="islandAvatarImg" src="images/icons/story1.png" alt="Narrator">
+                </div>
+                <div class="stories-island-text">
+                    <span class="stories-island-sub" id="islandNarrator">الراوي: وثائقي قصص القرآن</span>
+                    <h4 class="stories-island-title" id="islandStoryTitle">القصة الصوتية</h4>
+                </div>
+                <button type="button" class="stories-island-play-btn" id="islandPlayBtn" onclick="window.wzkerStories.toggleIslandAudio()">
+                    <i class="fa-solid fa-play" id="islandPlayIcon"></i>
+                </button>
+            </div>
+
+            <!-- Immersive Tabs Bar -->
+            <div class="stories-player-nav-tabs">
+                <button type="button" class="stories-p-tab active" onclick="window.wzkerStories.switchPlayerTab('summary')">
+                    <i class="fa-solid fa-feather"></i>
+                    <span>نص القصة الكامل</span>
+                </button>
+                <button type="button" class="stories-p-tab" onclick="window.wzkerStories.switchPlayerTab('ayahs')">
+                    <i class="fa-solid fa-quran"></i>
+                    <span>الشواهد القرآنية</span>
+                </button>
+                <button type="button" class="stories-p-tab" onclick="window.wzkerStories.switchPlayerTab('lessons')">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>الدروس والعِبر</span>
+                </button>
+            </div>
+
+            <!-- Immersive Tab Contents -->
+            <div class="stories-player-tab-body">
+                <!-- Tab 1: Full Written Narrative -->
+                <div id="pTabSummary" class="stories-p-pane active">
+                    <div class="stories-manuscript-card">
+                        <div class="stories-manuscript-header">
+                            <span class="stories-manuscript-tag" id="manuscriptLocation">الموقع التاريخي: مكة المكرمة</span>
+                            <span class="stories-manuscript-tag" id="manuscriptEra">الزمن: فجر البشرية</span>
+                        </div>
+                        <div class="stories-manuscript-body" id="manuscriptTextBody">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Quranic Ayahs -->
+                <div id="pTabAyahs" class="stories-p-pane">
+                    <div class="stories-ayahs-deck" id="storiesAyahsDeck">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Tab 3: Lessons & Takeaways -->
+                <div id="pTabLessons" class="stories-p-pane">
+                    <div class="stories-lessons-grid" id="storiesLessonsGrid">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation Bar (Prev / Next Story) -->
+            <div class="stories-player-bottom-deck">
+                <button type="button" class="stories-nav-story-btn" id="prevStoryBtn" onclick="window.wzkerStories.navigateStory(-1)">
                     <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+                    <span>القصة السابقة</span>
+                </button>
+                <button type="button" class="stories-nav-story-btn" id="nextStoryBtn" onclick="window.wzkerStories.navigateStory(1)">
+                    <span>القصة التالية</span>
+                    <i class="fa-solid fa-arrow-left"></i>
                 </button>
             </div>
         </div>
+
     </div>
 
     <!-- 16. ISLAMIC ETIQUETTE PAGE (الآداب والسنن الإسلامية) -->
     <div id="etiquettePage" class="sub-lib-page">
-        <div class="prime-navbar">
-            <button class="nav-btn" onclick="closeLibPage('etiquettePage')"><i class="fa-solid fa-chevron-right"></i></button>
-            <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="images/icons/Etiquette1.png" style="width: 22px; height: 22px; object-fit: contain;" alt="Etiquette">
-                <h2 class="navbar-title">الآداب والسنن الإسلامية</h2>
+        <!-- Ambient Atmospheric Light Orbs -->
+        <div class="etq-ambient-orb etq-orb-1"></div>
+        <div class="etq-ambient-orb etq-orb-2"></div>
+        <div class="etq-ambient-orb etq-orb-3"></div>
+
+        <!-- Sticky Glass Prime Navbar -->
+        <div class="etq-navbar">
+            <button class="nav-btn" onclick="closeLibPage('etiquettePage')" title="رجوع">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div class="etq-nav-center">
+                <img src="images/icons/Etiquette1.png" class="etq-nav-crest" alt="Etiquette">
+                <h2 class="navbar-title">روضة الآداب والسنن النبوية</h2>
             </div>
-            <div style="width: 38px;"></div>
-        </div>
-        <div class="sub-page-body">
-            <div class="placeholder-page-hero">
-                <div class="placeholder-artwork-wrap">
-                    <img src="images/icons/Etiquette1.png" alt="Etiquette">
-                </div>
-                <span class="placeholder-page-badge"><i class="fa-solid fa-hand-holding-heart"></i> هدي وسنن الحبيب ﷺ</span>
-                <h3 class="placeholder-page-title">آداب وسنن المسلم اليومية</h3>
-                <p class="placeholder-page-desc">دليل عملي وتفاعلي لآداب وسنن المسلم على مدار ٢٤ ساعة في كافة شؤون الحياة، مع بطاقة يومية متجددة لإحياء السنن المهجورة بالأحاديث الصحيحة.</p>
-                <button class="placeholder-back-btn" onclick="closeLibPage('etiquettePage')">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    <span>العودة للرئيسية</span>
+            <div class="etq-nav-actions">
+                <button class="top-custom-icon-btn" onclick="window.wzkerEtiquette.setCategory('favs')" title="السنن المحفوظة">
+                    <img src="images/icons/fav-active.png" style="width: 20px; height: 20px;" alt="Favorites">
+                </button>
+                <button class="top-custom-icon-btn" onclick="window.wzkerEtiquette.setCategory('today')" title="سنن اليوم المنجزة">
+                    <img src="images/icons/task-done1.png" style="width: 20px; height: 20px;" alt="Done Today">
                 </button>
             </div>
         </div>
+
+        <div class="sub-page-body etq-page-wrapper">
+            <!-- 1. THE ROYAL ISLAMIC MIHRAB DOME -->
+            <div class="etq-mihrab-dome">
+                <div class="etq-mihrab-arch-top">
+                    <div class="etq-mihrab-branding">
+                        <div class="etq-mihrab-emblem">
+                            <img src="images/icons/Etiquette1.png" alt="السنن النبوية">
+                        </div>
+                        <div class="etq-mihrab-titles">
+                            <h2>روضة السنن والآداب النبوية الشريفة</h2>
+                            <p>«مَنْ أَحْيَا سُنَّتِي فَقَدْ أَحَبَّنِي، وَمَنْ أَحَبَّنِي كَانَ مَعِي فِي الجَنَّةِ»</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-Time Sunnah Radar Strip (Dynamic Hour Detection) -->
+                <div class="etq-radar-strip" id="etqRadarStrip">
+                    <!-- Populated dynamically by window.wzkerEtiquette.renderRadarStrip() -->
+                </div>
+            </div>
+
+            <!-- 2. THE 24-HOUR PROPHETIC TIMELINE COMPASS -->
+            <div class="etq-timeline-section">
+                <div class="etq-section-header">
+                    <div class="etq-section-title">
+                        <img src="images/icons/stopwatch.png" alt="Timeline">
+                        <span>بوصلة السنن على مدار اليوم والليلة</span>
+                    </div>
+                    <span style="font-size: 0.8rem; color: var(--etq-gold); font-weight: 800;">٨ محطات نبوية</span>
+                </div>
+                <div class="etq-timeline-compass" id="etqTimelineCompass">
+                    <!-- Populated dynamically by window.wzkerEtiquette.renderTimelineCompass() -->
+                </div>
+            </div>
+
+            <!-- 3. GAMIFIED SUNNAH RANK & HABIT TRACKER -->
+            <div class="etq-honor-rank-card" id="etqSunnahRankCard">
+                <!-- Populated dynamically by window.wzkerEtiquette.renderSunnahRank() -->
+            </div>
+
+            <!-- 4. THE GOLDEN SUNNAH SHOWCASE VAULT -->
+            <div class="etq-golden-sunnah-vault" id="etqGoldenSunnahVault">
+                <!-- Populated dynamically by window.wzkerEtiquette.renderGoldenSunnah() -->
+            </div>
+
+            <!-- 5. FILTER PILLS BAR -->
+            <div class="etq-filter-pills-wrap" id="etqFilterPillsRow">
+                <!-- Populated dynamically by window.wzkerEtiquette.renderFilterPills() -->
+            </div>
+
+            <!-- 6. SMART SEARCH BAR -->
+            <div class="etq-search-wrap">
+                <img src="images/icons/search.png" class="etq-search-icon-left" alt="Search">
+                <input type="text" id="etqSearchInput" class="etq-search-input" placeholder="ابحث في السنن، الأحاديث، الأدعية، أو خطوات التطبيق...">
+                <button type="button" id="etqSearchClear" class="etq-search-clear-btn" title="مسح">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- 7. PROPHETIC CARDS GRID -->
+            <div class="etq-cards-grid" id="etqCardsGrid">
+                <!-- Populated dynamically by window.wzkerEtiquette.renderCards() -->
+            </div>
+        </div>
+
     </div>
 
     <!-- FLOATING MINI PLAYER (LUXURY GLASS ISLAND WITH LIVE AUDIO VISUALIZER) -->
@@ -6578,6 +7233,18 @@
     <script src="js/feedback.js"></script>
     <script src="js/about.js"></script>
     <script src="js/privacy.js"></script>
+    <script src="js/nawawi-data.js"></script>
+    <script src="js/nawawi.js"></script>
+    <script src="js/quran-stories-data.js"></script>
+    <script src="js/quran-stories.js"></script>
+    <script src="js/etiquette-data.js"></script>
+    <script src="js/etiquette.js"></script>
+    <script src="js/ruqyah-data.js"></script>
+    <script src="js/ruqyah.js"></script>
+    <script src="js/allah-names-data.js"></script>
+    <script src="js/allah-names.js"></script>
+    <script src="js/hadith-data.js"></script>
+    <script src="js/hadith.js"></script>
 
     <script src="js/app.js"></script>
 

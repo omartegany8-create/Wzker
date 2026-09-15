@@ -290,6 +290,24 @@ window.openLibPage = (id) => {
   if (id === 'privacyPolicyPage' && window.wzkerPrivacy) {
     window.wzkerPrivacy.onOpen();
   }
+  if (id === 'nawawiPage' && window.wzkerNawawi) {
+    window.wzkerNawawi.onOpen();
+  }
+  if (id === 'quranStoriesPage' && window.wzkerStories) {
+    window.wzkerStories.onOpen();
+  }
+  if (id === 'etiquettePage' && window.wzkerEtiquette) {
+    window.wzkerEtiquette.onOpen();
+  }
+  if (id === 'ruqyahPage' && window.wzkerRuqyah) {
+    window.wzkerRuqyah.onOpen();
+  }
+  if (id === 'allahNamesPage' && window.wzkerAllahNames) {
+    window.wzkerAllahNames.onOpen();
+  }
+  if (id === 'hadithPage' && window.wzkerHadith) {
+    window.wzkerHadith.onOpen();
+  }
   if ((id === 'loginPage' || id === 'authLoginPage' || id === 'authRegisterPage') && window.wzkerCloud && typeof window.wzkerCloud.renderAllGoogleButtons === 'function') {
     setTimeout(() => window.wzkerCloud.renderAllGoogleButtons(), 60);
   }
@@ -303,6 +321,16 @@ window.closeLibPage = (id) => {
   }
   if (id === 'prayerTimesPage' && window.wzkerPrayer) {
     window.wzkerPrayer.stopAdhanAudio();
+  }
+  if (id === 'quranStoriesPage' && window.wzkerStories) {
+    window.wzkerStories.closeStoryPlayer();
+  }
+  if (id === 'hadithPage' && window.wzkerHadith) {
+    window.wzkerHadith.stopBillboardAutoFlip();
+    if (window.wzkerHadith.speechSynth) {
+      window.wzkerHadith.speechSynth.cancel();
+      window.wzkerHadith.currentSpeakingId = null;
+    }
   }
   if (!document.querySelector('.sub-lib-page.active')) {
     document.body.classList.remove('subpage-active');

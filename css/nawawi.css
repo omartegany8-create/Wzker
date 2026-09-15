@@ -1,0 +1,735 @@
+/* ================================================================
+   WZKER (وذكر) - AL-ARBA'UN AL-NAWAWIYYAH STYLESHEET (css/nawawi.css)
+   Aesthetic: Native Wzker Palette, Amiri Hadith Typography,
+   Live Memorization Tracker, Instant Search & Accordion Details
+   ================================================================ */
+
+/* ── 0. Base Container & Scrolling Canvas ── */
+#nawawiPage {
+  --border-color: var(--card-border, rgba(156, 61, 50, 0.15));
+  background: var(--bg-color);
+  color: var(--text-main);
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-overflow-scrolling: touch;
+}
+
+#nawawiPage.active {
+  transform: translateX(0);
+}
+
+.nawawi-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.16;
+  z-index: 1;
+}
+
+.nawawi-orb-1 {
+  top: 30px;
+  right: -40px;
+  width: 250px;
+  height: 250px;
+  background: var(--accent-gold);
+}
+
+.nawawi-orb-2 {
+  top: 400px;
+  left: -50px;
+  width: 260px;
+  height: 260px;
+  background: var(--primary);
+}
+
+.nawawi-page-wrapper {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 14px 16px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── 1. Sticky Glass Prime Navbar ── */
+.nawawi-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--glass-bg, var(--card-bg));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nawawi-nav-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nawawi-nav-crest {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.nawawi-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── 2. Hero Showcase & Progress Tracker ── */
+.nawawi-hero-card {
+  position: relative;
+  background: linear-gradient(150deg, var(--card-bg) 0%, var(--surface-trans) 100%);
+  border: 1px solid var(--accent-gold);
+  border-radius: 22px;
+  padding: 22px 18px 18px;
+  box-shadow: 0 8px 24px rgba(42, 22, 18, 0.05);
+  overflow: hidden;
+}
+
+.nawawi-hero-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.nawawi-hero-emblem {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(42, 22, 18, 0.08);
+}
+
+.nawawi-hero-emblem img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.nawawi-hero-titles h2 {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0 0 3px;
+}
+
+.nawawi-hero-titles p {
+  font-size: 0.82rem;
+  color: var(--primary);
+  font-weight: 700;
+  margin: 0;
+}
+
+.nawawi-hero-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+/* Progress Bar */
+.nawawi-progress-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nawawi-progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.nawawi-progress-label {
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nawawi-progress-val {
+  color: var(--primary);
+  font-family: inherit;
+}
+
+.nawawi-progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--surface-trans);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.nawawi-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-gold), var(--primary));
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nawawi-hero-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.nawawi-tool-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.80rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.nawawi-tool-btn:hover {
+  border-color: var(--accent-gold);
+  color: var(--primary);
+}
+
+.nawawi-tool-btn img {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+/* ── 3. Search & Filter Bar ── */
+.nawawi-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nawawi-search-input {
+  width: 100%;
+  padding: 12px 42px 12px 40px;
+  border-radius: 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.90rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nawawi-search-input:focus {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(210, 149, 113, 0.15);
+}
+
+.nawawi-search-icon-left {
+  position: absolute;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.nawawi-search-clear-btn {
+  position: absolute;
+  left: 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: none;
+  font-size: 14px;
+}
+
+.nawawi-search-clear-btn.visible {
+  display: block;
+}
+
+/* Category Filter Chips */
+.nawawi-filter-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.nawawi-filter-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.nawawi-chip {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.nawawi-chip img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.nawawi-chip:hover {
+  border-color: var(--accent-gold);
+  color: var(--text-main);
+}
+
+.nawawi-chip.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.nawawi-chip.active img {
+  filter: brightness(0) invert(1);
+}
+
+/* ── 4. Hadith Cards List ── */
+.nawawi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nawawi-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 18px 16px 16px;
+  box-shadow: 0 4px 16px rgba(42, 22, 18, 0.04);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nawawi-card:hover {
+  border-color: var(--accent-gold);
+  box-shadow: 0 8px 24px rgba(42, 22, 18, 0.07);
+}
+
+.nawawi-card.memorized {
+  border-color: rgba(40, 167, 69, 0.4);
+}
+
+.nawawi-card.memorized::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: #198754;
+}
+
+/* Card Header */
+.nawawi-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.nawawi-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nawawi-num-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  color: var(--primary);
+  font-weight: 900;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nawawi-theme-tag {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+  background: rgba(210, 149, 113, 0.1);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.nawawi-card-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nawawi-action-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nawawi-action-icon-btn:hover {
+  background: var(--surface-trans);
+  border-color: var(--border-color);
+  color: var(--primary);
+}
+
+.nawawi-action-icon-btn.fav-active {
+  color: #dc3545;
+}
+
+.nawawi-action-icon-btn img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Hadith Titles & Narrator */
+.nawawi-card-title {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0 0 4px;
+}
+
+.nawawi-narrator {
+  font-size: 0.82rem;
+  color: var(--primary);
+  font-weight: 700;
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Hadith Matn (Text) */
+.nawawi-matn-box {
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 16px 14px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.nawawi-matn-text {
+  font-family: 'Amiri', serif;
+  font-size: 1.15rem;
+  line-height: 2.15;
+  color: var(--text-main);
+  text-align: justify;
+  margin: 0;
+  letter-spacing: 0.1px;
+}
+
+.nawawi-source-tag {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  display: block;
+  font-style: italic;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 6px;
+}
+
+/* Card Footer Actions */
+.nawawi-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 6px;
+}
+
+.nawawi-btn-memorized {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.80rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.nawawi-btn-memorized:hover {
+  border-color: #198754;
+  color: #198754;
+}
+
+.nawawi-card.memorized .nawawi-btn-memorized {
+  background: rgba(40, 167, 69, 0.1);
+  color: #198754;
+  border-color: rgba(40, 167, 69, 0.3);
+}
+
+.nawawi-btn-toggle-explain {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid var(--accent-gold);
+  color: var(--primary);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.nawawi-btn-toggle-explain:hover {
+  background: var(--accent-gold);
+  color: #ffffff;
+}
+
+.nawawi-btn-toggle-explain i {
+  transition: transform 0.25s ease;
+}
+
+.nawawi-card.open-explain .nawawi-btn-toggle-explain i {
+  transform: rotate(180deg);
+}
+
+/* Audio Player Trigger */
+.nawawi-audio-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nawawi-audio-btn:hover {
+  background: var(--accent-gold);
+  color: #ffffff;
+  border-color: var(--accent-gold);
+}
+
+.nawawi-audio-btn.playing {
+  background: var(--primary);
+  color: #ffffff;
+  animation: audioPulse 1.2s infinite;
+}
+
+@keyframes audioPulse {
+  0% { box-shadow: 0 0 0 0 rgba(156, 61, 50, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(156, 61, 50, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(156, 61, 50, 0); }
+}
+
+/* ── 5. Expandable Details Accordion ── */
+.nawawi-explain-drawer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.nawawi-card.open-explain .nawawi-explain-drawer {
+  max-height: 1200px;
+  opacity: 1;
+  margin-top: 14px;
+}
+
+.nawawi-drawer-inner {
+  border-top: 1px solid var(--border-color);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Vocabulary Box */
+.nawawi-vocab-section h5,
+.nawawi-sharh-section h5,
+.nawawi-benefits-section h5 {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nawawi-vocab-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nawawi-vocab-item {
+  background: var(--surface-trans);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.nawawi-vocab-item b {
+  color: var(--text-main);
+  margin-left: 6px;
+}
+
+.nawawi-sharh-text {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.nawawi-benefits-list {
+  padding-right: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nawawi-benefits-list li {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ── 6. Empty States & No Results ── */
+.nawawi-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.nawawi-empty-state img {
+  width: 50px;
+  height: 50px;
+  opacity: 0.6;
+}
+
+.nawawi-empty-state h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.nawawi-empty-state p {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── 7. Responsive Breakpoints ── */
+@media (max-width: 600px) {
+  .nawawi-hero-top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nawawi-hero-emblem {
+    margin: 0 auto;
+  }
+
+  .nawawi-hero-tools {
+    flex-direction: column;
+  }
+
+  .nawawi-tool-btn {
+    width: 100%;
+  }
+
+  .nawawi-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nawawi-btn-memorized,
+  .nawawi-btn-toggle-explain {
+    justify-content: center;
+    width: 100%;
+  }
+}

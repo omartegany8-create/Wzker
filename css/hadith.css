@@ -1,0 +1,834 @@
+/* ================================================================
+   WZKER (وذكر) - HADITH ENCYCLOPEDIA STYLESHEET (css/hadith.css)
+   Aesthetic: Diwan of the Prophetic Tradition, Color-Coded Narrator
+   Collections, Auto-Flipping Rotating Billboard & Sacred Calligraphy
+   ================================================================ */
+
+/* ── 0. Canvas & Narrator Color Palette ── */
+#hadithPage {
+  --hd-gold: #d4af37;
+  --hd-gold-glow: rgba(212, 175, 55, 0.28);
+  --border-color: var(--card-border, rgba(212, 175, 55, 0.18));
+  
+  /* Color-coded Narrators */
+  --bukhari-color: #10b981;
+  --bukhari-bg: rgba(16, 185, 129, 0.12);
+  --muslim-color: #2563eb;
+  --muslim-bg: rgba(37, 99, 235, 0.12);
+  --tirmidhi-color: #8b5cf6;
+  --tirmidhi-bg: rgba(139, 92, 246, 0.12);
+  --abudawood-color: #f59e0b;
+  --abudawood-bg: rgba(245, 158, 11, 0.12);
+  --nasai-color: #ef4444;
+  --nasai-bg: rgba(239, 68, 68, 0.12);
+  --ibnmajah-color: #b45309;
+  --ibnmajah-bg: rgba(180, 83, 9, 0.12);
+  --malik-color: #ca8a04;
+  --malik-bg: rgba(202, 138, 4, 0.12);
+  --ahmad-color: #06b6d4;
+  --ahmad-bg: rgba(6, 182, 212, 0.12);
+
+  background: var(--bg-color);
+  color: var(--text-main);
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-overflow-scrolling: touch;
+}
+
+#hadithPage.active {
+  transform: translateX(0);
+}
+
+/* Atmospheric Ambient Orbs */
+.hd-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(95px);
+  opacity: 0.18;
+  z-index: 1;
+}
+
+.hd-orb-1 {
+  top: -40px;
+  right: -50px;
+  width: 360px;
+  height: 360px;
+  background: var(--hd-gold);
+}
+
+.hd-orb-2 {
+  top: 550px;
+  left: -50px;
+  width: 330px;
+  height: 330px;
+  background: #10b981;
+}
+
+.hd-orb-3 {
+  bottom: 80px;
+  right: -40px;
+  width: 320px;
+  height: 320px;
+  background: #2563eb;
+}
+
+.hd-page-wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px 18px 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── 1. Sticky Glass Prime Navbar ── */
+.hd-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(var(--bg-rgb, 250, 248, 243), 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.hd-nav-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hd-nav-crest {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.4));
+}
+
+.hd-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── 2. The Grand Diwan Canopy ── */
+.hd-diwan-canopy {
+  position: relative;
+  background: linear-gradient(145deg, var(--card-bg) 0%, var(--surface-trans) 100%);
+  border: 2px solid var(--hd-gold);
+  border-radius: 30px;
+  padding: 24px 22px 20px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06), 0 0 35px var(--hd-gold-glow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hd-diwan-canopy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #10b981, #2563eb, #8b5cf6, #f59e0b, #ef4444);
+}
+
+.hd-canopy-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.hd-canopy-branding {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hd-canopy-emblem {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: var(--surface-trans);
+  border: 2px solid var(--hd-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+  animation: hdEmblemGlow 3.5s ease-in-out infinite;
+}
+
+.hd-canopy-emblem img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+@keyframes hdEmblemGlow {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.03); }
+}
+
+.hd-canopy-titles h2 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0 0 4px;
+  font-family: inherit;
+}
+
+.hd-canopy-titles p {
+  font-size: 0.86rem;
+  color: var(--hd-gold);
+  margin: 0;
+  font-weight: 800;
+}
+
+.hd-canopy-hadith-ribbon {
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid var(--hd-gold);
+  border-radius: 14px;
+  padding: 8px 14px;
+  font-size: 0.84rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.hd-canopy-hadith-ribbon i {
+  color: var(--hd-gold);
+}
+
+/* ── 3. Auto-Flipping Rotating Hadith Billboard ── */
+.hd-billboard-wrap {
+  position: relative;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, var(--card-bg) 100%);
+  border: 2px solid var(--hd-gold);
+  border-radius: 26px;
+  padding: 22px 22px 18px;
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.hd-billboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hd-billboard-live-tag {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.76rem;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hd-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: hdLivePulse 1.4s infinite;
+}
+
+@keyframes hdLivePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.hd-billboard-ctrls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hd-ctrl-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.hd-ctrl-btn:hover {
+  border-color: var(--hd-gold);
+  color: var(--hd-gold);
+  transform: translateY(-1px);
+}
+
+.hd-billboard-card {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hd-billboard-card.flip-transition {
+  opacity: 0;
+  transform: translateY(8px) scale(0.99);
+}
+
+.hd-billboard-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hd-narrator-pill {
+  font-size: 0.78rem;
+  font-weight: 900;
+  padding: 4px 14px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid;
+}
+
+.hd-sanad-text {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin: 0;
+}
+
+.hd-billboard-hadith-box {
+  background: rgba(var(--primary-rgb, 15, 118, 110), 0.05);
+  border-right: 4px solid var(--hd-gold);
+  padding: 14px 18px;
+  border-radius: 0 16px 16px 0;
+}
+
+.hd-billboard-text {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 1.25rem;
+  line-height: 2.2;
+  color: var(--text-main);
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+
+.hd-billboard-takhrij {
+  font-size: 0.78rem;
+  color: var(--hd-gold);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hd-billboard-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Billboard Rotating Progress Bar */
+.hd-billboard-progress-track {
+  height: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 4px;
+}
+
+.hd-billboard-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--hd-gold), #ffd700);
+  border-radius: 4px;
+  transition: width 0.1s linear;
+}
+
+/* ── 4. Narrator Collections Spectrum Bar ── */
+.hd-spectrum-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hd-spectrum-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.hd-spectrum-title {
+  font-size: 1.02rem;
+  font-weight: 900;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hd-spectrum-title img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.hd-spectrum-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.hd-spectrum-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 18px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hd-spectrum-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.hd-spectrum-card.active {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.hd-spectrum-badge-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid;
+  transition: transform 0.2s ease;
+}
+
+.hd-spectrum-card:hover .hd-spectrum-badge-icon {
+  transform: scale(1.1);
+}
+
+.hd-spectrum-badge-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.hd-spectrum-name {
+  font-size: 0.84rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.hd-spectrum-count {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+/* ── 5. Thematic Subject Tabs ── */
+.hd-topic-tabs-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.hd-topic-tabs-row::-webkit-scrollbar {
+  display: none;
+}
+
+.hd-topic-pill {
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 22px;
+  padding: 8px 16px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.hd-topic-pill img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.hd-topic-pill:hover {
+  border-color: var(--hd-gold);
+  color: var(--text-main);
+}
+
+.hd-topic-pill.active {
+  background: var(--hd-gold);
+  color: #070d1e;
+  border-color: var(--hd-gold);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.3);
+}
+
+/* ── 6. Live Search Bar ── */
+.hd-search-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.hd-search-icon-left {
+  position: absolute;
+  right: 16px;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.hd-search-input {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 16px;
+  padding: 13px 46px 13px 44px;
+  font-size: 0.92rem;
+  color: var(--text-main);
+  font-family: inherit;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.02);
+}
+
+.hd-search-input:focus {
+  border-color: var(--hd-gold);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.18);
+}
+
+.hd-search-clear-btn {
+  position: absolute;
+  left: 14px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 4px;
+  display: none;
+}
+
+.hd-search-clear-btn.active {
+  display: block;
+}
+
+/* ── 7. Hadith Cards Grid ── */
+.hd-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+.hd-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 24px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.hd-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+}
+
+.hd-card-top-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hd-card-book-pill {
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 3px 12px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid;
+}
+
+.hd-card-book-pill img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.hd-card-actions-quick {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hd-quick-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hd-quick-btn:hover {
+  border-color: var(--hd-gold);
+  color: var(--text-main);
+  transform: scale(1.05);
+}
+
+.hd-quick-btn.fav-active {
+  color: #e53935;
+  border-color: rgba(229, 57, 53, 0.35);
+  background: rgba(229, 57, 53, 0.1);
+}
+
+.hd-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hd-card-icon-frame {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.hd-card-icon-frame img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.hd-card-title {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0 0 3px;
+  font-family: inherit;
+}
+
+.hd-card-sanad {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Sacred Hadith Text Box */
+.hd-text-box {
+  background: rgba(var(--primary-rgb, 15, 118, 110), 0.04);
+  border-right: 4px solid;
+  padding: 16px 18px;
+  border-radius: 0 16px 16px 0;
+}
+
+.hd-sacred-text {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 1.25rem;
+  line-height: 2.25;
+  color: var(--text-main);
+  margin: 0 0 6px;
+  font-weight: 700;
+}
+
+.hd-card-takhrij {
+  font-size: 0.76rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hd-wisdom-box {
+  background: var(--surface-trans);
+  border: 1px dashed var(--border-color);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.6;
+}
+
+.hd-wisdom-box i {
+  color: var(--hd-gold);
+  font-size: 0.9rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Card Bottom Action Deck */
+.hd-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.hd-speech-btn {
+  background: linear-gradient(135deg, var(--hd-gold), #ffd700);
+  color: #070d1e;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: 0.84rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.hd-speech-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.hd-card-tool-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hd-card-tool-btn:hover {
+  border-color: var(--hd-gold);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .hd-page-wrapper {
+    padding: 12px 14px 80px;
+    gap: 16px;
+  }
+  .hd-diwan-canopy {
+    padding: 20px 16px;
+    border-radius: 22px;
+  }
+  .hd-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .hd-spectrum-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .hd-spectrum-card {
+    padding: 10px 6px;
+  }
+  .hd-spectrum-badge-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .hd-spectrum-name {
+    font-size: 0.72rem;
+  }
+}

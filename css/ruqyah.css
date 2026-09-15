@@ -1,0 +1,932 @@
+/* ================================================================
+   WZKER (وذكر) - RUQYAH SHARIAH STYLESHEET (css/ruqyah.css)
+   Aesthetic: Spiritual Healing Sanctuary, Emerald & Turquoise Divine Shield,
+   Tactile Repetition Counter, Audio Reciters Dock & Sacred Quranic Typography
+   ================================================================ */
+
+/* ── 0. Main Container & Ambient Radiance ── */
+#ruqyahPage {
+  --ruq-primary: #0f766e;
+  --ruq-primary-dark: #0a4d48;
+  --ruq-accent: #2ec4b6;
+  --ruq-gold: #d4af37;
+  --ruq-gold-glow: rgba(212, 175, 55, 0.25);
+  --ruq-emerald-glow: rgba(46, 196, 182, 0.22);
+  --border-color: var(--card-border, rgba(15, 118, 110, 0.16));
+  background: var(--bg-color);
+  color: var(--text-main);
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 120px;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-overflow-scrolling: touch;
+}
+
+#ruqyahPage.active {
+  transform: translateX(0);
+}
+
+/* Atmospheric Healing Light Orbs */
+.ruq-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(90px);
+  opacity: 0.16;
+  z-index: 1;
+}
+
+.ruq-orb-1 {
+  top: -60px;
+  right: -60px;
+  width: 360px;
+  height: 360px;
+  background: var(--ruq-accent);
+}
+
+.ruq-orb-2 {
+  top: 550px;
+  left: -50px;
+  width: 320px;
+  height: 320px;
+  background: var(--ruq-gold);
+}
+
+.ruq-orb-3 {
+  bottom: 100px;
+  right: -40px;
+  width: 340px;
+  height: 340px;
+  background: var(--ruq-primary);
+}
+
+.ruq-page-wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 16px 18px 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── 1. Sticky Glass Prime Navbar ── */
+.ruq-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(var(--bg-rgb, 250, 248, 243), 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.ruq-nav-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ruq-nav-crest {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(46, 196, 182, 0.4));
+}
+
+.ruq-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── 2. The Healing Canopy & Shield of Light ── */
+.ruq-shield-canopy {
+  position: relative;
+  background: linear-gradient(145deg, var(--card-bg) 0%, var(--surface-trans) 100%);
+  border: 2px solid var(--ruq-accent);
+  border-radius: 30px;
+  padding: 26px 24px 22px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.06), 0 0 35px var(--ruq-emerald-glow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ruq-shield-canopy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--ruq-primary), var(--ruq-accent), var(--ruq-gold));
+}
+
+.ruq-canopy-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ruq-canopy-branding {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ruq-shield-emblem {
+  width: 66px;
+  height: 66px;
+  border-radius: 22px;
+  background: var(--surface-trans);
+  border: 2px solid var(--ruq-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(46, 196, 182, 0.35);
+  animation: ruqEmblemBreathe 3.5s ease-in-out infinite;
+}
+
+.ruq-shield-emblem img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+@keyframes ruqEmblemBreathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.03); }
+}
+
+.ruq-canopy-titles h2 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0 0 4px;
+  font-family: inherit;
+}
+
+.ruq-canopy-titles p {
+  font-size: 0.88rem;
+  color: var(--ruq-primary);
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Interactive Session Intent Selector */
+.ruq-intent-strip {
+  background: rgba(var(--primary-rgb, 15, 118, 110), 0.07);
+  border: 1px solid var(--ruq-accent);
+  border-radius: 18px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ruq-intent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.ruq-intent-header span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ruq-intent-chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.ruq-intent-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.ruq-intent-chip {
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.ruq-intent-chip:hover {
+  border-color: var(--ruq-accent);
+  transform: translateY(-1px);
+}
+
+.ruq-intent-chip.active {
+  background: linear-gradient(135deg, var(--ruq-primary), var(--ruq-accent));
+  color: #ffffff;
+  border-color: var(--ruq-accent);
+  box-shadow: 0 4px 12px rgba(46, 196, 182, 0.3);
+}
+
+/* ── 3. Four Grand Health & Healing Metric Tiles ── */
+.ruq-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.ruq-metric-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 20px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+}
+
+.ruq-metric-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--ruq-accent);
+  box-shadow: 0 8px 20px rgba(46, 196, 182, 0.18);
+}
+
+.ruq-metric-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ruq-metric-icon-wrap img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.ruq-metric-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ruq-metric-val {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.ruq-metric-lbl {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+/* ── 4. Royal Audio Ruqyah Station Dock ── */
+.ruq-audio-dock {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.12) 0%, var(--card-bg) 100%);
+  border: 2px solid var(--ruq-accent);
+  border-radius: 22px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 8px 25px rgba(46, 196, 182, 0.16);
+}
+
+.ruq-audio-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ruq-audio-crest {
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  background: var(--surface-trans);
+  border: 1.5px solid var(--ruq-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.ruq-audio-crest img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.ruq-audio-texts h4 {
+  font-size: 0.98rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0 0 3px;
+}
+
+.ruq-audio-texts p {
+  font-size: 0.78rem;
+  color: var(--ruq-primary);
+  margin: 0;
+  font-weight: 700;
+}
+
+.ruq-audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ruq-reciter-select {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-main);
+  outline: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ruq-reciter-select:focus {
+  border-color: var(--ruq-accent);
+}
+
+.ruq-play-dock-btn {
+  background: linear-gradient(135deg, var(--ruq-primary), var(--ruq-accent));
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  padding: 9px 20px;
+  font-size: 0.86rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(46, 196, 182, 0.35);
+  transition: all 0.2s ease;
+}
+
+.ruq-play-dock-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(46, 196, 182, 0.45);
+}
+
+/* ── 5. Category Shield Tabs ── */
+.ruq-category-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.ruq-category-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.ruq-cat-tab {
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 20px;
+  padding: 10px 18px;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+}
+
+.ruq-cat-tab img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.ruq-cat-tab:hover {
+  border-color: var(--ruq-accent);
+  color: var(--text-main);
+  transform: translateY(-2px);
+}
+
+.ruq-cat-tab.active {
+  background: var(--ruq-primary);
+  color: #ffffff;
+  border-color: var(--ruq-primary);
+  box-shadow: 0 4px 16px rgba(15, 118, 110, 0.28);
+}
+
+.ruq-cat-tab.active img {
+  transform: scale(1.15);
+}
+
+.ruq-cat-count {
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.08);
+  font-weight: 900;
+}
+
+.ruq-cat-tab.active .ruq-cat-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* ── 6. Live Search Bar ── */
+.ruq-search-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ruq-search-icon-left {
+  position: absolute;
+  right: 16px;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.ruq-search-input {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 16px;
+  padding: 13px 46px 13px 44px;
+  font-size: 0.92rem;
+  color: var(--text-main);
+  font-family: inherit;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.02);
+}
+
+.ruq-search-input:focus {
+  border-color: var(--ruq-accent);
+  box-shadow: 0 6px 20px rgba(46, 196, 182, 0.2);
+}
+
+.ruq-search-clear-btn {
+  position: absolute;
+  left: 14px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 4px;
+  display: none;
+}
+
+.ruq-search-clear-btn.active {
+  display: block;
+}
+
+/* ── 7. Sacred Healing Cards Grid ── */
+.ruq-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+.ruq-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: 24px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ruq-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--ruq-accent);
+  box-shadow: 0 14px 34px rgba(46, 196, 182, 0.2);
+}
+
+.ruq-card.is-completed-card {
+  border-color: #2e7d32;
+  background: linear-gradient(145deg, var(--card-bg) 0%, rgba(46, 125, 50, 0.05) 100%);
+}
+
+.ruq-card.is-completed-card::after {
+  content: 'اكتمل التكرار ✓';
+  position: absolute;
+  top: 15px;
+  left: -28px;
+  background: #2e7d32;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 4px 32px;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.ruq-card-top-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ruq-card-domain-badge {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--ruq-primary);
+  background: rgba(var(--primary-rgb, 15, 118, 110), 0.1);
+  border-radius: 14px;
+  padding: 3px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ruq-card-domain-badge img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.ruq-card-actions-quick {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ruq-quick-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ruq-quick-btn:hover {
+  border-color: var(--ruq-accent);
+  color: var(--text-main);
+  transform: scale(1.05);
+}
+
+.ruq-quick-btn.fav-active {
+  color: #e53935;
+  border-color: rgba(229, 57, 53, 0.35);
+  background: rgba(229, 57, 53, 0.1);
+}
+
+.ruq-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ruq-card-icon-frame {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ruq-card-icon-frame img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.ruq-card-title {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0 0 3px;
+  font-family: inherit;
+}
+
+.ruq-card-source {
+  font-size: 0.76rem;
+  color: var(--ruq-primary);
+  margin: 0;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Sacred Quran/Hadith Text Box */
+.ruq-text-box {
+  background: rgba(var(--primary-rgb, 15, 118, 110), 0.05);
+  border-right: 4px solid var(--ruq-accent);
+  padding: 16px 18px;
+  border-radius: 0 16px 16px 0;
+  position: relative;
+}
+
+.ruq-sacred-text {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  font-size: 1.26rem;
+  line-height: 2.25;
+  color: var(--text-main);
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* Guidance & Spiritual Action */
+.ruq-guidance-box {
+  background: var(--surface-trans);
+  border: 1px dashed var(--border-color);
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.6;
+}
+
+.ruq-guidance-box i {
+  color: var(--ruq-accent);
+  font-size: 0.9rem;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Card Bottom Action Deck with Repetition Counter */
+.ruq-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.ruq-counter-interactive {
+  background: linear-gradient(135deg, var(--ruq-primary), var(--ruq-accent));
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  padding: 9px 18px;
+  font-size: 0.88rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.28);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ruq-counter-interactive:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(15, 118, 110, 0.38);
+}
+
+.ruq-counter-interactive:active {
+  transform: scale(0.96);
+}
+
+.ruq-counter-interactive.is-done {
+  background: #2e7d32;
+  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+}
+
+.ruq-card-tool-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ruq-card-tool-btn:hover {
+  border-color: var(--ruq-accent);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+/* ── 8. Ruqyah Adab & Guidance Modal ── */
+.ruq-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.ruq-modal-overlay.active {
+  display: flex;
+}
+
+.ruq-modal-card {
+  background: var(--card-bg);
+  border: 2px solid var(--ruq-accent);
+  border-radius: 28px;
+  max-width: 580px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 26px 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ruq-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ruq-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.18rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.ruq-modal-title img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.ruq-modal-close-btn {
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.ruq-modal-close-btn:hover {
+  color: var(--text-main);
+  border-color: var(--ruq-accent);
+}
+
+.ruq-adab-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ruq-adab-item {
+  background: var(--surface-trans);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.ruq-adab-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ruq-primary);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.84rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ruq-adab-texts h5 {
+  font-size: 0.94rem;
+  font-weight: 900;
+  color: var(--text-main);
+  margin: 0 0 4px;
+}
+
+.ruq-adab-texts p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .ruq-page-wrapper {
+    padding: 12px 14px 80px;
+    gap: 16px;
+  }
+  .ruq-shield-canopy {
+    padding: 20px 16px;
+    border-radius: 22px;
+  }
+  .ruq-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .ruq-sacred-text {
+    font-size: 1.15rem;
+    line-height: 2.1;
+  }
+  .ruq-audio-dock {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ruq-audio-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
